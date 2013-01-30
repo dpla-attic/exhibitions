@@ -1,0 +1,69 @@
+/* Print Styles */
+@media print {
+  /* line 3, ../sass/print.scss */
+  body {
+    font: 12px Georgia, "Palatino Linotype", "Book Antiqua", "Times New Roman", Times, serif;
+  }
+
+  /* line 6, ../sass/print.scss */
+  #content {
+    width: 100%;
+    margin: 0;
+    float: none;
+  }
+
+  /* line 12, ../sass/print.scss */
+  h1,
+  #site-title {
+    font-size: 16pt;
+    font-weight: bold;
+  }
+
+  /* line 16, ../sass/print.scss */
+  h2 {
+    font-size: 14pt;
+    font-style: italic;
+  }
+
+  /* line 20, ../sass/print.scss */
+  h3 {
+    font-size: 14pt;
+  }
+
+  /* line 23, ../sass/print.scss */
+  h4 {
+    font-weight: bold;
+  }
+
+  /* line 26, ../sass/print.scss */
+  h5 {
+    font-weight: bold;
+    font-style: italic;
+    text-transform: uppercase;
+  }
+
+  /* line 31, ../sass/print.scss */
+  a:link:after {
+    content: " (" attr(href) ") ";
+    font-size: 80%;
+  }
+
+  /* line 42, ../sass/print.scss */
+  #search-container,
+  #primary-nav,
+  #header-image,
+  .navigation,
+  .pagination,
+  #exhibit-page-navigation,
+  .exhibit-section-nav,
+  .exhibit-page-nav {
+    display: none;
+  }
+
+  /* line 45, ../sass/print.scss */
+  blockquote {
+    margin: 10pt 0 0 0;
+    font-style: italic;
+  }
+}
+/*end @media print*/

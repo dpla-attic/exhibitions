@@ -1,0 +1,34 @@
+.exhibit-item-caption {
+    text-align: center;
+    font-size: 0.8em;
+}
+
+#exhibit-pages ul {
+    margin-left: 1em;
+}
+
+#exhibit-page-navigation {
+    clear: both;
+    width: 100%;
+    margin: 1em 0;
+    line-height: 1.2;
+}
+
+#exhibit-page-navigation div {
+    width: 33%;
+}
+
+#exhibit-nav-prev {
+    float: left;
+    text-align: left;
+}
+
+#exhibit-nav-next {
+    float: right;
+    text-align: right;
+}
+
+#exhibit-nav-up {
+    margin: 0 auto;
+    text-align: center;
+}
