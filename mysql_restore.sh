@@ -18,8 +18,7 @@ numversions=4
 # Full path for MySQL hotcopy command
 # Please put credentials into /root/.my.cnf
 #hotcopycmd=/usr/bin/mysqlhotcopy
-hotcopycmd="/usr/bin/mysqldump -u $username -p$password --lock-tables --databases"
-echo $hotcopycmd
+restorecmd="/usr/bin/mysql -u $username -p$password "
 
 # Create directory if needed
 mkdir -p "$backupdir"
@@ -28,17 +27,15 @@ if [ ! -d "$backupdir" ]; then
    exit 1
 fi
 
-# Hotcopy begins here
-echo "Dumping MySQL Databases..."
+echo "Restoring MySQL Databases..."
 RC=0
 for database in $dblist; do
    echo
-   echo "Dumping $database ..."
-#   mv "$backupdir/$database.gz" "$backupdir/$database.0.gz" 2> /dev/null
+   echo "Restoring $database ..."
 
-#   filename="logfile.`date '+%m%d%Y'`.log"
-   echo `date '+%m%d%Y'`
-   $hotcopycmd $database | gzip > "$backupdir/$database.`date '+%Y-%m-%d-%H%M%S'`.gz"
+echo $restorecmd $database
+    
+/bin/gunzip -c $1 | $restorecmd
 
    RC=$?
    if [ $RC -gt 0 ]; then
@@ -55,11 +52,11 @@ for database in $dblist; do
 done
 
 if [ $RC -gt 0 ]; then
-   echo "MySQL Dump failed!"
+   echo "MySQL Restore failed!"
    exit $RC
 else
    # Hotcopy is complete. List the backup versions!
-   ls -l "$backupdir"
-   echo "MySQL Dump is complete!"
+#   ls -l "$backupdir"
+   echo "MySQL Restore is complete!"
 fi
 exit 0
