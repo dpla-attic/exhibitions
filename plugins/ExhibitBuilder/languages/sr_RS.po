@@ -1,0 +1,381 @@
+# Translation for the Exhibit Builder plugin for Omeka.
+# Copyright (C) 2013 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Bogdan Trifunovic <>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2013-01-23 21:49-0500\n"
+"PO-Revision-Date: 2013-01-24 04:39+0000\n"
+"Last-Translator: John Flatness <john@zerocrates.org>\n"
+"Language-Team: Serbian (Serbia) (http://www.transifex.com/projects/p/omeka/language/sr_RS/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sr_RS\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "Gallery Full Left"
+msgstr "Галерија скроз улево"
+
+msgid ""
+"Displays a gallery of 8 thumbnails, with a wider left column for 1 full-size"
+" image and text block."
+msgstr "Приказује галерију од 8 сличица, са широм левом колоном за 1 слику у пуној величини и текстуални блок."
+
+msgid "Gallery Full Right"
+msgstr "Галерија скроз удесно"
+
+msgid ""
+"Displays a gallery of 8 thumbnails, with a wider right column for 1 full-"
+"size image and text block."
+msgstr "Приказује галерију од 8 сличица, са широм десном колоном за 1 слику у пуној величини и текстуални блок."
+
+msgid "Gallery Thumbnails Text Bottom"
+msgstr "Текст сличица галерије на дну"
+
+msgid "Displays a block of text below a gallery of up to 12 items."
+msgstr "Приказује блок текста испод галерије за највише 12 објеката."
+
+msgid "Gallery Thumbnails Text Top"
+msgstr "Текст сличица галерије на врху"
+
+msgid "Displays a block of text above a gallery of up to 12 items."
+msgstr "Приказује блок текста изнад галерије за највише 12 објеката."
+
+msgid "Gallery Thumbnails"
+msgstr "Сличице галерије"
+
+msgid "Displays a gallery of up to 16 items."
+msgstr "Приказује галерију од највише 16 објеката."
+
+msgid "Image List Left Thumbs"
+msgstr "Листа слика са сличицама лево"
+
+msgid ""
+"Displays up to 8 thumbnails on the left with up to 8 text blocks on the "
+"right."
+msgstr "Приказује највише 8 сличица лево са највише 8 блокова текста десно."
+
+msgid "Image List Left"
+msgstr "Листа слика лево"
+
+msgid ""
+"Displays up to 8 full-size images on the left with up to 8 text blocks on "
+"the right."
+msgstr "Приказује највише 8 слика у пуној величини лево са највише 8 блокова текста десно."
+
+msgid "Image List Right Thumbs"
+msgstr "Листа слика са сличицама десно"
+
+msgid ""
+"Displays up to 8 thumbnails on the right with up to 8 text blocks on the "
+"left."
+msgstr "Приказује највише 8 сличица десно са највише 8 блокова текста лево."
+
+msgid "Image List Right"
+msgstr "Листа слика десно"
+
+msgid ""
+"Displays up to 8 full-size images on the right with up to 8 text blocks on "
+"the left."
+msgstr "Приказује највише 8 слика у пуној величини десно са највише 8 блокова текста лево."
+
+msgid "Text Image Left"
+msgstr "Текст слика лево"
+
+msgid "Displays a full page of text, with a full-size image floated left."
+msgstr "Приказује целу страницу текста, са сликом у пуној величини лево."
+
+msgid "Text Image Right"
+msgstr "Текст слика десно"
+
+msgid "Displays a full page of text, with a full-size image floated right."
+msgstr "Приказује целу страницу текста, са сликом у пуној величини десно."
+
+msgid "Text"
+msgstr "Текст"
+
+msgid "Displays a full page of text without items."
+msgstr "Приказује целу страницу текста без објеката."
+
+#: config_form.php:3
+msgid "Sorting Exhibits"
+msgstr "Сортирање изложби"
+
+#: config_form.php:7
+msgid ""
+"The default method by which you wish to sort the listing of exhibits on the "
+"exhibits/browse page. Default is 'Date Added'."
+msgstr "Подразумевани метод по којем желиш да сортираш листу изложби на изложба/преглед страници. Подразумевани је \"Датум уноса\"."
+
+#: controllers/ExhibitsController.php:75
+msgid "This item is not used within this exhibit."
+msgstr "Овај објекат се не користи у оквиру ове изложбе."
+
+#: controllers/ExhibitsController.php:201
+msgid "You must specifically select a theme in order to configure it."
+msgstr "Мораш тачно означити тему да би могао да је подесиш."
+
+#: functions.php:282
+msgid "exhibits"
+msgstr ""
+
+#: functions.php:296 views/admin/exhibits/browse.php:2
+#: views/public/exhibits/browse.php:2
+msgid "Browse Exhibits"
+msgstr "Прегледај изложбе"
+
+#: functions.php:312 views/admin/exhibits/add.php:6
+#: views/admin/exhibits/edit.php:8
+#: views/admin/exhibits/page-content-form.php:9
+#: views/admin/exhibits/page-metadata-form.php:8
+msgid "Exhibits"
+msgstr "Изложбе"
+
+#: functions.php:469
+msgid "Search by Exhibit"
+msgstr "Претражи изложбу"
+
+#: functions.php:478
+msgid "Exhibit"
+msgstr ""
+
+#: functions.php:479
+msgid "Exhibit Page"
+msgstr ""
+
+#: helpers/ExhibitFunctions.php:242
+msgid "There is no item attached."
+msgstr "Нема прикаченог објекта."
+
+#: helpers/ExhibitFunctions.php:244
+#: views/admin/exhibits/page-content-form.php:95
+msgid "Attach an Item"
+msgstr "Прикачи објекат"
+
+#: helpers/ExhibitFunctions.php:267
+msgid "Caption"
+msgstr "Натпис"
+
+#: helpers/ExhibitFunctions.php:290
+msgid "Select a File"
+msgstr ""
+
+#: helpers/ExhibitFunctions.php:463
+msgid "Featured Exhibit"
+msgstr "Истакнута изложба"
+
+#: helpers/ExhibitFunctions.php:468
+msgid "You have no featured exhibits."
+msgstr "Немаш истакнуту изложбу."
+
+#: models/Exhibit.php:37
+msgid "Exhibits must be given a valid slug."
+msgstr "Изложбе морају имати исправну сталну везу."
+
+#: models/Exhibit.php:38 models/ExhibitPage.php:31
+msgid "A slug must be 30 characters or less."
+msgstr "Стална веза мора имати 30 карактера или мање."
+
+#: models/Exhibit.php:39
+msgid ""
+"Your URL slug is already in use by another exhibit.  Please choose another."
+msgstr "URL сталне везе је већ искоришћен за другу изложбу. Молимо изабери други."
+
+#: models/Exhibit.php:48
+msgid "An exhibit must be given a title."
+msgstr "Изложба мора имати наслов. "
+
+#: models/Exhibit.php:52
+msgid "The title for an exhibit must be 255 characters or less."
+msgstr "Наслов изложбе мора имати 255 карактера или мање."
+
+#: models/Exhibit.php:56
+msgid "The name of your theme must be 30 characters or less."
+msgstr "Назив ваше теме мора бити 30 карактера или мање."
+
+#: models/ExhibitPage.php:30
+msgid "A slug must be given for each page of an exhibit."
+msgstr "Стална веза мора постојати за сваку страницу једне изложбе."
+
+#: models/ExhibitPage.php:32
+msgid ""
+"This page slug has already been used.  Please modify the slug so that it is "
+"unique."
+msgstr ""
+
+#: models/ExhibitPage.php:47
+msgid "A layout must be provided for each exhibit page."
+msgstr "Шема мора бити дата за сваку страницу изложбе."
+
+#: models/ExhibitPage.php:51
+msgid "Exhibit pages must be given a title."
+msgstr "Странице изложбе морају имати наслове."
+
+#: models/Mixin/Order.php:101
+msgid "Cannot add a child to a record that does not exist yet!"
+msgstr ""
+
+#: models/Mixin/Order.php:105
+#, php-format
+msgid "Child must be an instance of \"%s\""
+msgstr ""
+
+#: views/admin/exhibits/add.php:2
+msgid "Add Exhibit"
+msgstr "Додај изложбу"
+
+#: views/admin/exhibits/browse.php:8
+msgid "There are no exhibits yet."
+msgstr "Још увек нема изложби."
+
+#: views/admin/exhibits/browse.php:11 views/admin/exhibits/browse.php:19
+msgid "Add an Exhibit"
+msgstr ""
+
+#: views/admin/exhibits/browse.php:31
+#: views/admin/exhibits/exhibit-metadata-form.php:49
+msgid "Theme"
+msgstr "Тема"
+
+#: views/admin/exhibits/browse.php:59
+#: views/admin/exhibits/exhibit-metadata-form.php:52
+msgid "Current Public Theme"
+msgstr "Тренутна објављена тема"
+
+#: views/admin/exhibits/edit.php:3
+#, php-format
+msgid "Edit Exhibit \"%s\""
+msgstr ""
+
+#: views/admin/exhibits/exhibit-metadata-form.php:4
+msgid "Exhibit Metadata"
+msgstr "Изложи метаподатке"
+
+#: views/admin/exhibits/exhibit-metadata-form.php:15
+#: views/admin/exhibits/page-metadata-form.php:25
+msgid "Slug"
+msgstr "Стална веза"
+
+#: views/admin/exhibits/exhibit-metadata-form.php:18
+#: views/admin/exhibits/page-metadata-form.php:28
+msgid "No spaces or special characters allowed"
+msgstr ""
+
+#: views/admin/exhibits/exhibit-metadata-form.php:24
+#: views/public/exhibits/summary.php:14
+msgid "Credits"
+msgstr "Заслуге"
+
+#: views/admin/exhibits/exhibit-metadata-form.php:61
+msgid "Pages"
+msgstr ""
+
+#: views/admin/exhibits/exhibit-metadata-form.php:64
+msgid "There are no pages."
+msgstr ""
+
+#: views/admin/exhibits/exhibit-metadata-form.php:66
+msgid ""
+"To reorder pages, click and drag the page up or down to the preferred "
+"location."
+msgstr ""
+
+#: views/admin/exhibits/exhibit-metadata-form.php:71
+#: views/admin/exhibits/page-metadata-form.php:2
+msgid "Add Page"
+msgstr "Додај страницу"
+
+#: views/admin/exhibits/page-content-form.php:2
+#, php-format
+msgid "Edit Page Content: \"%s\""
+msgstr "Уреди садржај странице: \"%s\""
+
+#: views/admin/exhibits/page-content-form.php:16
+msgid "Page Layout"
+msgstr "Шема странице"
+
+#: views/admin/exhibits/page-content-form.php:27
+msgid "Edit Page"
+msgstr "Уреди страницу"
+
+#: views/admin/exhibits/page-content-form.php:30
+msgid "Page Content"
+msgstr "Садржај странице"
+
+#: views/admin/exhibits/page-content-form.php:42
+msgid "Save and Add Another Page"
+msgstr "Сачувај и додај нову страницу "
+
+#: views/admin/exhibits/page-content-form.php:63
+msgid "Remove This Item"
+msgstr "Уклони овај објекат"
+
+#: views/admin/exhibits/page-content-form.php:98
+msgid "Attach Selected Item"
+msgstr "Прикачи одабрани објекат"
+
+#: views/admin/exhibits/page-metadata-form.php:2
+#, php-format
+msgid "Edit Page \"%s\""
+msgstr ""
+
+#: views/admin/exhibits/page-metadata-form.php:14
+msgid "Page Metadata"
+msgstr "Страница метаподатака"
+
+#: views/admin/exhibits/page-metadata-form.php:35
+msgid "Layouts"
+msgstr "Шеме"
+
+#: views/admin/exhibits/page-metadata-form.php:50
+msgid "Layout"
+msgstr ""
+
+#: views/admin/exhibits/page-metadata-form.php:55
+msgid "Choose a layout by selecting a thumbnail on the right."
+msgstr "Изабери шему одабиром сличице на десној страни."
+
+#: views/admin/exhibits/tags.php:2 views/public/exhibits/tags.php:2
+msgid "Browse Exhibits by Tag"
+msgstr "Прегледај изложбе према ознаци"
+
+#: views/admin/exhibits/tags.php:12
+msgid "There are no tags to display. You must first tag some exhibits."
+msgstr "Нема ознака за приказ. Прво мораш означити неке изложбе."
+
+#: views/admin/exhibits/theme-config.php:16
+#, php-format
+msgid "Configure the &#8220;%s&#8221; Theme"
+msgstr ""
+
+#: views/admin/items/browse.php:2
+msgid "Show Search Form"
+msgstr "Прикажи форму за претрагу"
+
+#: views/admin/items/browse.php:17
+msgid "add some items"
+msgstr "додај неке објекте"
+
+#: views/admin/items/browse.php:17
+#, php-format
+msgid "There are no items to choose from.  Please refine your search or %s."
+msgstr "Нема објеката за избор. Молимо промени своју претрагу или %s."
+
+#: views/public/exhibits/browse.php:40
+msgid "There are no exhibits available yet."
+msgstr "Још увек нема изложби."
+
+#: views/shared/exhibit_layouts/gallery-full-left/form.php:4
+#: views/shared/exhibit_layouts/gallery-full-right/form.php:4
+msgid "Primary"
+msgstr "Примарни"
+
+#: views/shared/exhibit_layouts/gallery-full-left/form.php:11
+#: views/shared/exhibit_layouts/gallery-full-right/form.php:11
+msgid "Secondary"
+msgstr "Секундарни"
