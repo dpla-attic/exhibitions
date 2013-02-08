@@ -11,7 +11,7 @@
 # Note: This should only be enabled for development or debugging. Keep this
 # line commented for production sites.
 # 
-# SetEnv APPLICATION_ENV development
+SetEnv APPLICATION_ENV development
 
 # ------------- #
 # Rewrite Rules #

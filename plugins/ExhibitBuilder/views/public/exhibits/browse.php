@@ -23,9 +23,44 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
 <?php $exhibitCount = 0; ?>
 <?php foreach (loop('exhibit') as $exhibit): ?>
     <?php $exhibitCount++; ?>
+    
+<?php        	
+//include_once 'utils.php';
+//$exhibitPage = get_current_record('exhibit_page');
+
+$currentExhibit = get_current_record('exhibit', false);
+$topPages = $currentExhibit -> getTopPages();
+$topPage = $topPages[0];
+$attachment = exhibit_builder_page_attachment(1,0,$topPage);
+$html = ""; // TODO what value?
+$html .= "\n" . '<div class="exhibit-item">';
+if ($attachment['file']) {
+    $thumbnailType = "square_thumbnail";
+    $props = null;
+    $thumbnail = file_image($thumbnailType, $props, $attachment['file']);
+    $html .= exhibit_builder_link_to_exhibit_item($thumbnail, array(), $attachment['item']);
+}
+$html .= exhibit_builder_attachment_caption($attachment);
+$html .= '</div>' . "\n";
+echo $html;
+
+echo exhibit_builder_page_text(1, $topPage);
+?>    
+    
+    
     <div class="exhibit <?php if ($exhibitCount%2==1) echo ' even'; else echo ' odd'; ?>">
         <h2><?php echo link_to_exhibit(); ?></h2>
         <?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
+
+
+
+// $attachment = exhibit_builder_page_attachment(2,0,$topPage);
+
+//echo exhibit_builder_thumbnail_gallery(1, 1, null, "original");
+
+//$url0 = $topPage -> getRecordUrl();        	
+?>        	
+        	
         <div class="description"><?php echo $exhibitDescription; ?></div>
         <?php endif; ?>
         <?php if ($exhibitTags = tag_string('exhibit', 'exhibits')): ?>
