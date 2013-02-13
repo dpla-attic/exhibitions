@@ -1,1 +1,4 @@
 db.ini
+# IntelijIDEA files
+.idea
+*.iml
