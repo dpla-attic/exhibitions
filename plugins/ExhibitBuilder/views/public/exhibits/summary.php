@@ -1,12 +1,3 @@
-<?php
-$exhibit = get_current_record('exhibit');
-$introPage = $exhibit->TopPages[0];
-$url = exhibit_builder_exhibit_uri(null, $introPage);
-$r = Zend_Controller_Action_HelperBroker::getStaticHelper('redirector');
-$r->gotoUrl($url)->redirectAndExit();
-return;
-?>
-
 <?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyid'=>'exhibit', 'bodyclass'=>'summary')); ?>
 
 <h1><?php echo metadata('exhibit', 'title'); ?></h1>
