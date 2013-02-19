@@ -98,6 +98,8 @@
                      ?>
                 </div>
             </section>
-
+            <nav id="primary-nav">
+                <?php echo public_nav_main(); ?>
+            </nav>
             <div id="content">
                 <?php fire_plugin_hook('public_content_top'); ?>
