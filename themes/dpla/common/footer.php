@@ -39,9 +39,10 @@
     </div>
         <!-- JavaScripts -->
     <?php queue_js_file('vendor/jquery.mobile-1.2.0.min'); ?>
+    <?php queue_js_file('jquery.jcarousel.min'); ?>
+    <?php queue_js_file('vendor/jquery.galleriffic'); ?>
     <?php queue_js_file('vendor/jquery.opacityrollover'); ?>
     <?php queue_js_file('vendor/jquery.colorbox-min'); ?>
-    <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
     <?php queue_js_file('vendor/selectivizr', 'javascripts', array('conditional' => '(gte IE 6)&(lte IE 8)')); ?>
     <?php queue_js_file('vendor/respond'); ?>
     <?php queue_js_file('plugins'); ?>

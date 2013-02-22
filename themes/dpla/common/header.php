@@ -2,6 +2,8 @@
 <html lang="<?php echo get_html_lang(); ?>">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="width=device-width" name="viewport">
     <?php if ( $description = option('description')): ?>
     <meta name="description" content="<?php echo $description; ?>" />
     <?php endif; ?>
@@ -26,6 +28,8 @@
     queue_css_file('main');
     echo head_css();
     ?>
+    <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
+    <?php echo head_js(); ?>
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <?php fire_plugin_hook('public_body', array('view'=>$this)); ?>
@@ -33,7 +37,8 @@
 
             <header>
                 <?php fire_plugin_hook('public_header'); ?>
-                <div id="site-title" class="logo"><?php echo link_to_home_page('<img src="' . img('logo.png') . '" />'); ?></div>
+                <div id="site-title" class="logo"><?php echo link_to_home_page('<img src="' . img('logo.png') . '" alt="DPLA: Digital Public Library of America" />'); ?></div>
+                <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span></span></a>
                 <nav class="topNav">
                     <ul>
                         <li class="aboutMenu"><a href="">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
