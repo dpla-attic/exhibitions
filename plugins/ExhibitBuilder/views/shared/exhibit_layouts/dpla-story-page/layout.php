@@ -1,11 +1,29 @@
-<div class="text-image-right">
-    <h1>Desc</h1>
-    <?php echo exhibit_builder_page_text(1); ?>
-    
-    <div class="primary">
-    	<h1>Assets</h1>
-        <?php echo exhibit_builder_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
+<div class="slide-Container">
+    <div class="slidegallery">
+        <div id="slideshow" class="slides">
+            <?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
+            <section>
+                    <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
+            </section>
+            <?php endif; ?>
+        </div>
+        <div class="thumbs">
+            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
+        </div>
     </div>
+</div>
+
+<div class="slide_bottom">
+	<?php echo exhibit_builder_page_text(2); ?>
+
+	<ul class="prevNext">
+		<?php // TODO: Define first and last pages ?>
+		<li class="btn"><?php echo exhibit_builder_link_to_previous_page('« Prev'); ?></li>
+		<li class="btn"><?php echo exhibit_builder_link_to_next_page('Next »'); ?></li>
+		<li>2 of 6</li>
+	</ul>
+
+
 </div>
 
 <?php
@@ -278,3 +296,53 @@ echo files_for_item();
 
 </script>
 
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				// We only want these styles applied when javascript is enabled
+				$('div.navigation').css({'width' : '300px', 'float' : 'left'});
+				$('div.content').css('display', 'block');
+
+				// Initially set opacity on thumbs and add
+				// additional styling for hover effect on thumbs
+				var onMouseOutOpacity = 0.67;
+				console.log($('ul.thumbs li'));
+				$('ul.thumbs li').opacityrollover({
+					mouseOutOpacity:   onMouseOutOpacity,
+					mouseOverOpacity:  1.0,
+					fadeSpeed:         'fast',
+					exemptionSelector: '.selected'
+				});
+				
+				// Initialize Advanced Galleriffic Gallery
+				var gallery = $('#thumbs').galleriffic({
+					delay:                     2500,
+					numThumbs:                 15,
+					preloadAhead:              10,
+					enableTopPager:            true,
+					enableBottomPager:         true,
+					maxPagesToShow:            7,
+					imageContainerSel:         '#slideshow',
+					controlsContainerSel:      '#controls',
+					captionContainerSel:       '#caption',
+					loadingContainerSel:       '#loading',
+					renderSSControls:          true,
+					renderNavControls:         true,
+					enableHistory:             false,
+					autoStart:                 false,
+					syncTransitions:           true,
+					defaultTransitionDuration: 900,
+					onSlideChange:             function(prevIndex, nextIndex) {
+						// 'this' refers to the gallery, which is an extension of $('#thumbs')
+						this.find('ul.thumbs').children()
+							.eq(prevIndex).fadeTo('fast', onMouseOutOpacity).end()
+							.eq(nextIndex).fadeTo('fast', 1.0);
+					},
+					onPageTransitionOut:       function(callback) {
+						this.fadeTo('fast', 0.0, callback);
+					},
+					onPageTransitionIn:        function() {
+						this.fadeTo('fast', 1.0);
+					}
+				});
+			});
+		</script>

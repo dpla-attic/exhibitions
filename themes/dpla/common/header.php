@@ -24,7 +24,6 @@
     <!-- Stylesheets -->
     <?php
     queue_css_file('normalize');
-    queue_css_file('style');
     queue_css_file('main');
     echo head_css();
     ?>
@@ -32,7 +31,7 @@
     <?php echo head_js(); ?>
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
-    <?php fire_plugin_hook('public_body', array('view'=>$this)); ?>
+    <?php # fire_plugin_hook('public_body', array('view'=>$this)); ?>
         <div class="container">
 
             <header>
@@ -85,13 +84,16 @@
                     </ul>
                 </nav>
             </header>
+        
+        <?php 
+            $layout = (isset($layout)) ? $layout : 'layout fullWidth';
+        ?>
 
-        <div id="wrap" class="layoutTwo"> 
+        <div id="wrap" class="<?php echo $layout ?>"> 
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
                     <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
-                    
                     <?php echo search_form(
                             array(
                                 'show_advanced' => false,
@@ -103,8 +105,3 @@
                      ?>
                 </div>
             </section>
-            <nav id="primary-nav">
-                <?php echo public_nav_main(); ?>
-            </nav>
-            <div id="content">
-                <?php fire_plugin_hook('public_content_top'); ?>

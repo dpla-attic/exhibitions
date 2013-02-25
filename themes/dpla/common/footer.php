@@ -1,5 +1,3 @@
-        </div><!-- end content -->
-
     </div><!-- end wrap -->
 
     <footer>

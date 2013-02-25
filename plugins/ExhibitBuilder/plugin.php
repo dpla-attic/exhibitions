@@ -37,5 +37,6 @@ add_filter('search_record_types', 'exhibit_builder_search_record_types');
 // Helper functions for exhibits and exhibit pages
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitFunctions.php';
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitPageFunctions.php';
+require_once EXHIBIT_PLUGIN_DIR . '/helpers/DPLAFunctions.php';
 
 require_once EXHIBIT_PLUGIN_DIR . '/functions.php';
