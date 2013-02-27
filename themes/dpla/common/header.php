@@ -36,50 +36,52 @@
 
             <header>
                 <?php fire_plugin_hook('public_header'); ?>
+                <?php
+                    $config = Zend_Registry::get('bootstrap')->getResource('Config');
+                    $baseUrl = $config->dpla->frontentdUrl; 
+                ?>
                 <div id="site-title" class="logo"><?php echo link_to_home_page('<img src="' . img('logo.png') . '" alt="DPLA: Digital Public Library of America" />'); ?></div>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span></span></a>
                 <nav class="topNav">
                     <ul>
-                        <li class="aboutMenu"><a href="">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                        <li class="aboutMenu"><a href="<?= $baseUrl . '/about' ?>">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                           <ul>
-                            <li><a href="">Overview</a></li>
-                            <li><a href="">Leadership</a></li>
-                            <li><a href="">Workstreams</a></li>
-                            <li><a href="">For Developers</a></li>
-                            <li><a href="">Get Involved</a></li>
+                            <li><a href="<?= $baseUrl . '/about/overview' ?>">Overview</a></li>
+                            <li><a href="<?= $baseUrl . '/about/leadership' ?>">Leadership</a></li>
+                            <li><a href="<?= $baseUrl . '/about/workstreams' ?>">Workstreams</a></li>
+                            <li><a href="<?= $baseUrl . '/about/for-developers' ?>">For Developers</a></li>
+                            <li><a href="<?= $baseUrl . '/about/get-involved' ?>">Get Involved</a></li>
                           </ul>
                         </li>
-                        <li><a href="">News</a></li>
-                        <li><a href="">Contact</a></li>
-                        <li class="bg"><a href="">Login</a></li>    
-                        <li class="bg last"><a href="">Sign Up</a></li> 
+                        <li><a href="<?= $baseUrl . '/news' ?>">News</a></li>
+                        <li><a href="<?= $baseUrl . '/contact' ?>">Contact</a></li>
                     </ul>   
                 </nav>
                 <nav class="MainNav">
                     <ul class="navigation">
                         <li>
-                            <a href="http://54.245.27.141">Home</a>
+                            <a href="<?= $baseUrl ?>">Home</a>
                         </li>
                         <li>
-                            <a href="/subjects">Subjects</a>
+                            <a href="<?= $baseUrl . '/subjects' ?>">Subjects</a>
                         </li>
                         <li>
-                            <a href="/collections">Collections</a>
+                            <a href="<?= $baseUrl . '/collections' ?>">Collections</a>
                         </li>
                         <li class="active">
                             <a href="/">Exhibitions</a>
                         </li>
                         <li>
-                            <a href="/map">Map</a>
+                            <a href="<?= $baseUrl . '/map' ?>">Map</a>
                         </li>
                         <li>
-                            <a href="/timeline">Timeline</a>
+                            <a href="<?= $baseUrl . '/timeline' ?>">Timeline</a>
                         </li>
                         <li>
-                            <a href="/apps">App Library</a>
+                            <a href="<?= $baseUrl . '/apps' ?>">App Library</a>
                         </li>
                         <li>
-                            <a href="/help">Help</a>
+                            <a href="<?= $baseUrl . '/help' ?>">Help</a>
                         </li>
                     </ul>
                 </nav>
@@ -93,15 +95,9 @@
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
-                    <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
-                    <?php echo search_form(
-                            array(
-                                'show_advanced' => false,
-                                'form_attributes' => array(
-                                    'class' => 'search-form '
-                                )
-                            )
-                          );
-                     ?>
+                    <form class="search-form" action="<?= $baseUrl . '/search' ?>">
+                        <input type="text" name="q" placeholder="Search the Library">
+                        <input type="submit" name="searchBtn" class="searchBtn" value="Search">
+                    </form>
                 </div>
             </section>
