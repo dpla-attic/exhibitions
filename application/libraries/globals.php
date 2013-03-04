@@ -3312,3 +3312,30 @@ function is_allowed($resource, $privilege)
     // User implements Zend_Acl_Role_Interface, so it can be checked directly by the ACL.
     return $acl->isAllowed($user, $resource, $privilege);
 }
+
+/**
+ * Output var_dump wrapped by <pre> tags and only in debug mode
+ *
+ * @param  mixed $var,... Variables to output
+ */
+function vd()
+{
+    echo '<pre>';
+    foreach (func_get_args() as $var) {
+        var_dump($var).PHP_EOL;
+    }
+    echo '</pre>';
+}
+
+/**
+ * Print_r convenience function, which prints out <PRE> tags around
+ * the output of given array. Similar to debug().
+ *
+ * @param array $var Variable to print out
+ */
+function pr($var)
+{
+    echo '<pre>';
+    print_r($var);
+    echo '</pre>';
+}
