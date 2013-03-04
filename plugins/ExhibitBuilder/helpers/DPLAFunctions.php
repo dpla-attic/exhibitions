@@ -12,7 +12,7 @@
  **/
 function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType = 'square_thumbnail')
 {
-    $html = '<ul class="thumbs">';
+    $html = '';
     for ($i = (int)$start; $i <= (int)$end; $i++) {
         if ($attachment = exhibit_builder_page_attachment($i)) {
 
@@ -26,8 +26,10 @@ function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType =
             $html .= '</li>' . "\n";
         }
     }
-    $html .= '</ul>';
-    
+    if ($html) {
+        $html = '<ul class="thumbs">' . $html . '</ul>';
+    }
+
     return apply_filters('exhibit_builder_thumbnail_gallery', $html,
         array('start' => $start, 'end' => $end, 'props' => $props, 'thumbnail_type' => $thumbnailType));
 }
@@ -117,15 +119,16 @@ function dpla_theme_nav($exhibitPage = null)
         $linkText = $page->title;
         $pageExhibit = $page->getExhibit();
         $pageParent = $page->getParent();
-        $pageSiblings =  $pageExhibit->getTopPages(); 
+        $pageSiblings =  $pageExhibit->getTopPages();
         $html = '<ul>' . "\n";
 
         foreach ($pageSiblings as $pageSibling) {
-            $html .= '<li' . ($pageSibling->id == $page->id ? ' class="current"' : '') . '>';
+            $current = in_array($pageSibling->id, array ($page->id, $exhibitPage->parent_id));
+            $html .= '<li' . ($current ? ' class="current"' : '') . '>';
             $html .= '<a class="exhibit-page-title" href="' . html_escape(exhibit_builder_exhibit_uri($exhibit, $pageSibling)) . '">';
             $html .= html_escape($pageSibling->title) . "</a></li>\n";
         }
-    $html .= '</ul>' . "\n";
+        $html .= '</ul>' . "\n";
     }
     $html = apply_filters('exhibit_builder_page_nav', $html);
     return $html;
