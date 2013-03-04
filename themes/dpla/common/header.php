@@ -97,7 +97,7 @@
                 <div class="searchRowRight">
                     <form class="search-form" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
-                        <input type="submit" name="searchBtn" class="searchBtn" value="Search">
+                        <input type="submit" class="searchBtn" value="Search">
                     </form>
                 </div>
             </section>
