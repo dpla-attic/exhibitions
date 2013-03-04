@@ -1,4 +1,7 @@
+# Database config
 db.ini
+# Uploaded files
+files/*
 # IntelijIDEA files
 .idea
 *.iml
