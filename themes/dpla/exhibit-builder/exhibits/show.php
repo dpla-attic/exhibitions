@@ -8,14 +8,18 @@ echo head(array(
 <article>
     <?php fire_plugin_hook('public_content_top'); ?>
 
+    <? $exhibitPage = get_current_record('exhibit_page'); ?>
     <div class="breadCrumbs">
         <ul>
             <li><a href="/">Exhibitions</a></li>
             <li><?php echo link_to_exhibit(); ?></li>
-            <?php if(get_current_record('exhibit_page')->parent_id): ?>
-            <li><?php echo dpla_link_to_parent_page(); ?></li>
+            <?php if($exhibitPage->parent_id): ?>
+                <li><?php echo dpla_link_to_parent_page(); ?></li>
+                <li><?= $exhibitPage->title ?></li>
+            <? else: ?>
+                <li><?php echo dpla_link_to_current_page(); ?></li>
+                <li>Introduction</li>
             <?php endif; ?>
-            <li><?php echo metadata('exhibit_page', 'title'); ?></li>
         </ul>
     </div>
 

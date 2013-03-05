@@ -1,26 +1,30 @@
-<div class="slide-Container">
-    <div class="slidegallery">
-        <div id="slideshow" class="slides">
-            <?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
-            <section>
-                    <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
-            </section>
-            <?php endif; ?>
-        </div>
-        <div class="thumbs">
-            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
-        </div>
-    </div>
-</div>
+<?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
+	<div class="slide-Container">
+	    <div class="slidegallery">
+	        <div id="slideshow" class="slides">
+	            <section>
+	                    <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
+	            </section> 
+	        </div>
+	        <div class="thumbs">
+	            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
+	        </div>
+	    </div>
+	</div>
+<?php endif; ?>
 
 <div class="slide_bottom">
 	<?php echo exhibit_builder_page_text(2); ?>
 
 	<ul class="prevNext">
 		<?php // TODO: Define first and last pages ?>
-		<li class="btn"><?php echo exhibit_builder_link_to_previous_page('« Prev'); ?></li>
-		<li class="btn"><?php echo exhibit_builder_link_to_next_page('Next »'); ?></li>
-		<li>2 of 6</li>
+        <? if ($prevLink = dpla_link_to_previous_page('« Prev')): ?>
+		    <li class="btn"><?= $prevLink ?></li>
+        <? endif; ?>
+        <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
+		    <li class="btn"><?= $nextLink ?></li>
+        <? endif; ?>
+		<li><?= dpla_page_position(); ?></li>
 	</ul>
 
 

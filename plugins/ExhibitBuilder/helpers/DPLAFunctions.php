@@ -21,7 +21,14 @@ function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType =
             $html .= "\n" . '<li class="' . $active . '">';
             if ($attachment['file']) {
                 $thumbnail = file_image($thumbnailType, $props, $attachment['file']);
-                $html .= exhibit_builder_link_to_exhibit_item($thumbnail, array('class' => 'thumb'), $attachment['item']);
+                $html .= exhibit_builder_link_to_exhibit_item(
+                    $thumbnail,
+                    array(
+                        'class' => 'thumb',
+                        'data-title' => strip_tags($attachment['caption']),
+                    ),
+                    $attachment['item']
+                );
             }
             $html .= '</li>' . "\n";
         }
@@ -82,11 +89,9 @@ function dpla_attachment_markup($attachment, $fileOptions, $linkProperties)
  */
 function dpla_attachment_caption($attachment)
 {
-    if (!is_string($attachment['caption']) || $attachment['caption'] == '') {
-        return '';
-    }
 
-    $caption = strip_tags($attachment['caption']) . ' »';
+    $caption = strip_tags($attachment['caption']);
+    $caption = $caption ? $caption  . ' »' : ' ';
     $item = $attachment['item'];
 
     $html = '<div class="caption">'
@@ -175,4 +180,42 @@ function dpla_link_to_parent_page($text = null, $props = array(), $exhibitPage =
     }
 
     return null;
+}
+
+function dpla_link_to_current_page() {
+    $exhibitPage = get_current_record('exhibit_page');
+    echo exhibit_builder_link_to_exhibit(null, $exhibitPage->title, array(), $exhibitPage);
+}
+
+function dpla_link_to_previous_page($title = null) {
+    $current_page = get_current_record('exhibit_page');
+    $previousPage = $current_page->previousOrParent();
+    return exhibit_builder_link_to_exhibit(null, $title, array(), $previousPage);
+}
+
+function dpla_link_to_next_page($title = null) {
+    $current_page = get_current_record('exhibit_page');
+    if ($current_page->parent_id) {
+        $nextPage = $current_page->next();
+    }
+    else {
+        $nextPage = $current_page->getFirstChildPage();
+    }
+    if ($nextPage) {
+        return exhibit_builder_link_to_exhibit(null, $title, array(), $nextPage);
+    }
+}
+
+function dpla_page_position() {
+    $current_page = get_current_record('exhibit_page');
+    $theme_page = $current_page->parent_id ? $current_page->getParent() : $current_page;
+    $pages = array_merge(array($theme_page), $theme_page->getChildPages());
+    if (1 < count($pages)) {
+        $current = 1;
+        foreach ($pages as $page) {
+            if ($current_page->id == $page->id) break;
+            $current++;
+        }
+        return implode(' ', array ($current, 'of', count($pages)));
+    }
 }
