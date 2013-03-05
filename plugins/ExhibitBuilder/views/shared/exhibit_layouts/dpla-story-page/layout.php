@@ -2,8 +2,8 @@
 	<div class="slide-Container">
 	    <div class="slidegallery">
 	        <div id="slideshow" class="slides">
-	            <section>
-	                    <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
+	            <section id="slideshow">
+	                <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
 	            </section> 
 	        </div>
 	        <div class="thumbs">

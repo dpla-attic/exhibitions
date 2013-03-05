@@ -20,12 +20,14 @@ function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType =
 
             $html .= "\n" . '<li class="' . $active . '">';
             if ($attachment['file']) {
+                $caption = strip_tags($attachment['caption']);
+                $caption = $caption ? $caption  . ' »' : ' ';
                 $thumbnail = file_image($thumbnailType, $props, $attachment['file']);
                 $html .= exhibit_builder_link_to_exhibit_item(
                     $thumbnail,
                     array(
                         'class' => 'thumb',
-                        'data-title' => strip_tags($attachment['caption']),
+                        'data-title' => $caption,
                     ),
                     $attachment['item']
                 );
