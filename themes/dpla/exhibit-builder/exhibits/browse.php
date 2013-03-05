@@ -22,7 +22,6 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
 	    
 
 	    <section class="module blue <?php if ($exhibitCount%2==1) echo ' even'; else echo ' odd'; ?>">
-			<img src="<?php echo img('img.jpg'); ?>" alt="img">
 	        <h5><?php echo link_to_exhibit(); ?></h5>
 	        <?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
 	        	<p><?php echo strip_tags($exhibitDescription); ?></p>
