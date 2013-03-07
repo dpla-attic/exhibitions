@@ -151,6 +151,7 @@ function dpla_page_summary($exhibitPage = null)
     }
 
     $html = '<li>'
+          . '<img src="/themes/dpla/images/thumbImg.jpg" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
           . metadata($exhibitPage, 'title') .'</a>';
 
