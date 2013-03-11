@@ -26,6 +26,7 @@
     queue_css_file('normalize');
     queue_css_file('main');
     queue_css_file('dpla-colors');
+    queue_css_file('galleriffic');
     echo head_css();
     ?>
     <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>

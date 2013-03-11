@@ -19,11 +19,12 @@ function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType =
             $active = ($i == (int)$start) ? 'active' : '';
 
             $html .= "\n" . '<li class="' . $active . '">';
+            $html .= '<span class="icon-arrow-up" aria-hidden="true"></span>';
             if ($attachment['file']) {
                 $caption = strip_tags($attachment['caption']);
                 $caption = $caption ? $caption  . ' »' : ' ';
                 $thumbnail = file_image($thumbnailType, $props, $attachment['file']);
-                $html .= exhibit_builder_link_to_exhibit_item(
+                $html .= dpla_builder_link_to_exhibit_image(
                     $thumbnail,
                     array(
                         'class' => 'thumb',
@@ -32,6 +33,8 @@ function dpla_thumbnail_gallery($start, $end, $props = array(), $thumbnailType =
                     $attachment['item']
                 );
             }
+
+            $html .= '<span class="caption">'. dpla_attachment_caption($attachment) .'</span>';
             $html .= '</li>' . "\n";
         }
     }
@@ -96,9 +99,9 @@ function dpla_attachment_caption($attachment)
     $caption = $caption ? $caption  . ' »' : ' ';
     $item = $attachment['item'];
 
-    $html = '<div class="caption">'
+    $html = '<span class="caption">'
           . exhibit_builder_link_to_exhibit_item($caption,array(), $item)
-          . '</div>';
+          . '</span>';
 
     return apply_filters('exhibit_builder_caption', $html, array(
         'attachment' => $attachment
@@ -221,4 +224,31 @@ function dpla_page_position() {
         }
         return implode(' ', array ($current, 'of', count($pages)));
     }
+}
+
+/**
+ * Return a link to an item within an exhibit.
+ *
+ * @param string $text Link text (by default, the item title is used)
+ * @param array $props Link attributes
+ * @param Item $item If null, will use the current item.
+ * @return string
+ */
+function dpla_builder_link_to_exhibit_image($text = null, $props = array(), $item = null)
+{
+    if (!$item) {
+        $item = get_current_record('item');
+    }
+
+    if (!isset($props['class'])) {
+        $props['class'] = 'exhibit-item-link';
+    }
+
+    $file = get_db()->getTable('File')->findWithImages($item->id);
+    $uri = html_escape($file[0]->getWebPath());
+
+    $text = (!empty($text) ? $text : strip_formatting(metadata('item', array('Dublin Core', 'Title'))));
+    $html = '<a href="' . html_escape($uri) . '" '. tag_attributes($props) . '>' . $text . '</a>';
+    $html = apply_filters('exhibit_builder_link_to_exhibit_item', $html, array('text' => $text, 'props' => $props, 'item' => $item));
+    return $html;
 }

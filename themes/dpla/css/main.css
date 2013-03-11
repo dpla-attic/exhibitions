@@ -159,7 +159,7 @@ label { font: 1em/1.200em 'source_sans_proregular', arial, sans-serif; display: 
     .ie8 .search-within input[type='checkbox'] {vertical-align: text-bottom;}
 
 input[type="submit"] {
-    background: url("../img/mag-glass.png") no-repeat scroll center right transparent;
+    background: url("../images/mag-glass.png") no-repeat scroll center right transparent;
     border: medium none;
     display: inline-block;
     height: 41px;
@@ -188,7 +188,7 @@ input[type="submit"] {
 }
 
 .search-module input[type="submit"] {
-    background: url("../img/small-submit.png") no-repeat scroll center center #fff;
+    background: url("../images/small-submit.png") no-repeat scroll center center #fff;
     float: none;
     height: 29px;
     position: absolute;
@@ -203,7 +203,7 @@ input[type="submit"] {
        (-webkit-min-device-pixel-ratio: 1.25),
        (min-resolution: 120dpi) {
     input[type="submit"], .search-module input[type="submit"] {
-    	background: url("../img/mag-glass-2x.png") no-repeat center center transparent;
+    	background: url("../images/mag-glass-2x.png") no-repeat center center transparent;
 		background-size: 67% 67%;
 	}
 
@@ -306,7 +306,7 @@ a:hover { text-decoration: underline; color: #2b2b2b; }
    LAYOUT
    ========================================================================== */
 body {
-    background: url('../img/background.jpg') repeat-x left top #fff;
+    background: url('../images/background.jpg') repeat-x left top #fff;
     font: 0.938em/1.4em 'source_sans_proregular', arial, sans-serif;
 }
 
@@ -730,7 +730,7 @@ aside .module {
 }
 
 aside .module.line {
-    background: url("../img/line.jpg") repeat-x scroll center center #EDEDED;
+    background: url("../images/line.jpg") repeat-x scroll center center #EDEDED;
 }
 
 aside h1 {
@@ -1196,7 +1196,7 @@ aside .moduleSection p { margin: 0 0 10px; }
     float: left;
     list-style: none;
     font-size: 1.400em;
-    background: url("../img/yearBar.jpg") no-repeat scroll center bottom #8b8b8b;
+    background: url("../images/yearBar.jpg") no-repeat scroll center bottom #8b8b8b;
     padding: 0 0 10px;
 	margin: 0;
 	width: 0.978%;
@@ -1259,7 +1259,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 	width: 9.27%;
     float: left;
 	text-align: center;
-    background: url(../img/timlineLine.jpg) no-repeat center bottom;
+    background: url(../images/timlineLine.jpg) no-repeat center bottom;
 }
 .ie8 .centuries li {
     width: 9.189%;
@@ -1294,7 +1294,7 @@ aside .moduleSection p { margin: 0 0 10px; }
     border: 2px solid #808080;
     border-top: 8px solid #808080;
     height: 100%;
-    background: url(../img/slideBG.png) repeat;
+    background: url(../images/slideBG.png) repeat;
     display: block;
 }
 .scrubber .icon-arrow-down {
@@ -1341,7 +1341,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .graph li { background: #ccc; width: 0.049019%; margin: 0 0.049019% 0 0; position: relative; overflow: visible; }
 .graph li:hover { background: #fff; cursor: pointer; }
 .infoOuter {
-    background: url(../img/popup-arrow.png) no-repeat center top;
+    background: url(../images/popup-arrow.png) no-repeat center top;
     position: absolute; 
     left: -999em;  
 }
@@ -1368,7 +1368,7 @@ aside .moduleSection p { margin: 0 0 10px; }
     margin: 2% 0 3%;
     padding: 0;
     overflow: hidden;
-    background: url(../img/profileBorder.jpg) repeat-x 0 bottom;
+    background: url(../images/profileBorder.jpg) repeat-x 0 bottom;
 }
 .tabs li {
     display: inline;
@@ -1950,7 +1950,7 @@ aside h5 { margin: 5px 0 1em; }
 }
 
 .mapArrow {
-    background: url("../img/map-arrow.png") no-repeat scroll 0 0 transparent;
+    background: url("../images/map-arrow.png") no-repeat scroll 0 0 transparent;
     bottom: -28px;
     height: 31px;
     left: 42%;
@@ -2057,7 +2057,7 @@ aside h5 { margin: 5px 0 1em; }
 	margin-bottom: 4px;
 }
 .year h3 {
-    background: url("../img/yearBar.jpg") no-repeat scroll center bottom #8b8b8b;
+    background: url("../images/yearBar.jpg") no-repeat scroll center bottom #8b8b8b;
     color: #FFFFFF;
     font: 1.86em/0.79em 'source_sans_pro_semiboldRg', arial, sans-serif;
     padding: 0 0 10px;
@@ -2141,11 +2141,11 @@ aside h5 { margin: 5px 0 1em; }
 	cursor: pointer;
 	position: absolute;
     top: 23px;
-	background: url("../img/arrows.png") no-repeat scroll left 0 transparent;
+	background: url("../images/arrows.png") no-repeat scroll left 0 transparent;
 }
 
 .next {
-    background: url("../img/arrows.png") no-repeat scroll right 0 transparent;
+    background: url("../images/arrows.png") no-repeat scroll right 0 transparent;
     right: 0;
 }
 
@@ -2338,7 +2338,7 @@ aside h5 { margin: 5px 0 1em; }
     position: relative;
 }
 .moreInfo {
-    background: url("../img/slide/moreInfo.png") no-repeat center center #000;
+    background: url("../images/slide/moreInfo.png") no-repeat center center #000;
     border: 1px solid #95928F;
     bottom: 17px;
     display: block;
@@ -2635,7 +2635,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     padding: 0;
 }
 .pop-columns .pop-open {
-    background: url("../img/popPlus.jpg") no-repeat scroll 0 0 transparent;
+    background: url("../images/popPlus.jpg") no-repeat scroll 0 0 transparent;
     display: inline-block;
     float: left;
     height: 11px;
@@ -2968,7 +2968,7 @@ div.timeline-year {
     /*background: #ededed;*/
     height: 68px;
     width: 100%;
-    background: url(../img/timeline.jpg) no-repeat;
+    background: url(../images/timeline.jpg) no-repeat;
 }
 #timeline-navigation li.year-active {
     color: #2b2b2b;
@@ -3019,14 +3019,14 @@ div.timeline-year {
 */
 #cboxOverlay{background: #000; opacity: 0.8!important; }
 #colorbox{}
-    #cboxTopLeft{width:21px; height:21px; background:url(images/controls.png) no-repeat -101px 0;}
-    #cboxTopRight{width:21px; height:21px; background:url(images/controls.png) no-repeat -130px 0;}
-    #cboxBottomLeft{width:21px; height:21px; background:url(images/controls.png) no-repeat -101px -29px;}
-    #cboxBottomRight{width:21px; height:21px; background:url(images/controls.png) no-repeat -130px -29px;}
-    #cboxMiddleLeft{width:21px; background:url(images/controls.png) left top repeat-y;}
-    #cboxMiddleRight{width:21px; background:url(images/controls.png) right top repeat-y;}
-    #cboxTopCenter{height:21px; background:url(images/border.png) 0 0 repeat-x;}
-    #cboxBottomCenter{height:21px; background:url(images/border.png) 0 -29px repeat-x;}
+    #cboxTopLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px 0;}
+    #cboxTopRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px 0;}
+    #cboxBottomLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px -29px;}
+    #cboxBottomRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px -29px;}
+    #cboxMiddleLeft{width:21px; background:url(../images/controls.png) left top repeat-y;}
+    #cboxMiddleRight{width:21px; background:url(../images/controls.png) right top repeat-y;}
+    #cboxTopCenter{height:21px; background:url(../images/border.png) 0 0 repeat-x;}
+    #cboxBottomCenter{height:21px; background:url(../images/border.png) 0 -29px repeat-x;}
     #cboxContent{ 
         background:#fff; 
         overflow:hidden;
@@ -3037,12 +3037,12 @@ div.timeline-year {
         #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
         #cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
-        #cboxPrevious{position:absolute; bottom:0; left:0; background:url(images/controls.png) no-repeat -75px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious{position:absolute; bottom:0; left:0; background:url(../images/controls.png) no-repeat -75px 0; width:25px; height:25px; text-indent:-9999px;}
         #cboxPrevious:hover{background-position:-75px -25px;}
-        #cboxNext{position:absolute; bottom:0; left:27px; background:url(images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; background:url(../images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
         #cboxNext:hover{background-position:-50px -25px;}
-        #cboxLoadingOverlay{background:url(images/loading_background.png) no-repeat center center;}
-        #cboxLoadingGraphic{background:url(images/loading.gif) no-repeat center center;}
+        #cboxLoadingOverlay{background:url(../images/loading_background.png) no-repeat center center;}
+        #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
         #cboxClose:hover{background-position:-25px -25px;}
 
 /*
@@ -3065,14 +3065,14 @@ div.timeline-year {
   The following provides PNG transparency support for IE6
   Feel free to remove this and the /ie6/ directory if you have dropped IE6 support.
 */
-.cboxIE6 #cboxTopLeft{background:url(images/ie6/borderTopLeft.png);}
-.cboxIE6 #cboxTopCenter{background:url(images/ie6/borderTopCenter.png);}
-.cboxIE6 #cboxTopRight{background:url(images/ie6/borderTopRight.png);}
-.cboxIE6 #cboxBottomLeft{background:url(images/ie6/borderBottomLeft.png);}
-.cboxIE6 #cboxBottomCenter{background:url(images/ie6/borderBottomCenter.png);}
-.cboxIE6 #cboxBottomRight{background:url(images/ie6/borderBottomRight.png);}
-.cboxIE6 #cboxMiddleLeft{background:url(images/ie6/borderMiddleLeft.png);}
-.cboxIE6 #cboxMiddleRight{background:url(images/ie6/borderMiddleRight.png);}
+.cboxIE6 #cboxTopLeft{background:url(../images/ie6/borderTopLeft.png);}
+.cboxIE6 #cboxTopCenter{background:url(../images/ie6/borderTopCenter.png);}
+.cboxIE6 #cboxTopRight{background:url(../images/ie6/borderTopRight.png);}
+.cboxIE6 #cboxBottomLeft{background:url(../images/ie6/borderBottomLeft.png);}
+.cboxIE6 #cboxBottomCenter{background:url(../images/ie6/borderBottomCenter.png);}
+.cboxIE6 #cboxBottomRight{background:url(../images/ie6/borderBottomRight.png);}
+.cboxIE6 #cboxMiddleLeft{background:url(../images/ie6/borderMiddleLeft.png);}
+.cboxIE6 #cboxMiddleRight{background:url(../images/ie6/borderMiddleRight.png);}
 
 .cboxIE6 #cboxTopLeft,
 .cboxIE6 #cboxTopCenter,

@@ -1,0 +1,113 @@
+.slideshow-container,
+.loader,
+.slideshow a.advance-link {
+	width: 100%; /* This should be set to be at least the width of the largest image in the slideshow with padding */
+}
+
+.loader,
+.slideshow a.advance-link,
+.caption-container {
+	height: 502px; /* This should be set to be at least the height of the largest image in the slideshow with padding */	
+}
+
+.slideshow-container {
+	position: relative;
+	clear: both;
+	float: left;
+}
+
+.slideshow {
+	position: relative;
+	height: 570px;
+}
+
+.loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-image: url('images/loader.gif');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.slideshow .image-wrapper {
+	display: block;
+	position: absolute;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.slideshow .image-wrapper img {
+	width: auto;
+	max-width: 100%;
+}
+
+.slideshow a.advance-link {
+	display: block;
+	line-height: 502px; /* This should be set to be at least the height of the largest image in the slideshow with padding */
+	text-align: center;
+}
+
+.slideshow a.advance-link:hover,
+.slideshow a.advance-link:active,
+.slideshow a.advance-link:visited {
+	text-decoration: none;
+}
+.slideshow a.advance-link:focus {
+	outline: none;
+}
+
+.caption-container {
+	float: right;
+	position: relative;
+	margin-top: 30px;
+}
+
+.slide-Container .caption {
+	clear: both;
+}
+
+.image-title {
+	font-weight: bold;
+	font-size: 1.4em;
+}
+.image-desc {
+	line-height: 1.3em;
+	padding-top: 12px;
+}
+.download {
+	margin-top: 8px;
+}
+.photo-index {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 0 12px;
+}
+
+
+.gallery-gutter {
+	clear: both;
+	padding-bottom: 20px;
+}
+
+.thumbs .icon-arrow-up {
+	display: none;
+}
+.thumbs .active .icon-arrow-up {
+	display: block;
+}
+
+.image-caption.current a {
+	pointer-events: all;
+	color: #DD4E00;
+}
+
+.image-caption.previous {
+	display: none !important;
+}
+
+.caption .caption {
+	padding: 0;
+}

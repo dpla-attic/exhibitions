@@ -7,7 +7,7 @@
             </section>
             </div>
             <? if ($gallery = dpla_thumbnail_gallery(2, 7, array('class'=>'permalink'))): ?>
-                <div class="thumbs"><?= $gallery ?></div>
+                <div id="thumbs"><?= $gallery ?></div>
             <? endif; ?>
         </div>
     </div>
