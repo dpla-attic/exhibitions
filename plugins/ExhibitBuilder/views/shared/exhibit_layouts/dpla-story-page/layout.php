@@ -13,6 +13,8 @@
 	</div>
 <?php endif; ?>
 
+<?php echo exhibit_builder_page_text(1); ?>
+
 <div class="slide_bottom">
 	<?php echo exhibit_builder_page_text(2); ?>
 
@@ -293,11 +295,9 @@ echo files_for_item();
 
 <script type="text/javascript">
 		jQuery(document).ready(function(){
-		var zoomitEnabled = <?php echo ve_exhibit_builder_zoomit_enabled() ?>;
-		story.initStory("<?php echo file_display_uri(get_current_item() -> Files[0]); ?>
-			", zoomitEnabled);
-			});
-
+            var zoomitEnabled = <?php echo ve_exhibit_builder_zoomit_enabled() ?>;
+            story.initStory("<?php echo file_display_uri(get_current_item() -> Files[0]); ?>", zoomitEnabled);
+        });
 </script>
 
 <script type="text/javascript">
