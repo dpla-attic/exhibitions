@@ -107,35 +107,25 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_AbstractActionC
         //then render the last one
         //pass all the pages into the view so the breadcrumb can be built there
         unset($params['slug']); // don't need the exhibit slug
-        $parentPages = array();
+
         $pageTable = $this->_helper->db->getTable('ExhibitPage');
-        
-        foreach($params as $level=>$slug) {
+
+        $parentPage = null;
+        foreach($params as $slug) {
             if(!empty($slug)) {
-                $page = $pageTable->findBySlug($slug);
-                if($page) {
-                    $parentPages[] = $page;
+                $exhibitPage = $pageTable->findBySlug($slug, $exhibit, $parentPage);
+                if($exhibitPage) {
+                    $parentPage = $exhibitPage;
                 } else {
                     throw new Omeka_Controller_Exception_404;
                 }
-            }
-        }
-        $exhibitPage = array_pop($parentPages);
-
-        //make sure each page really does have the next child page
-        for($i=0 ; $i < count($parentPages) - 2; $i++) {
-            $currPage = $parentPages[$i];
-            $nextPage = $parentPages[$i + 1];
-            if($nextPage->parent_id != $currPage->id) {
-                throw new Omeka_Controller_Exception_404;
             }
         }
 
         fire_plugin_hook('show_exhibit', array('exhibit' => $exhibit, 'exhibitPage' => $exhibitPage));
 
         $this->renderExhibit(array(
-            'exhibit' => $exhibit, 
-            'parentPages' => $parentPages, 
+            'exhibit' => $exhibit,
             'exhibit_page' => $exhibitPage));
     }
 
@@ -144,12 +134,6 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_AbstractActionC
         $exhibit = $this->_findByExhibitSlug();
         if (!$exhibit) {
             throw new Omeka_Controller_Exception_404;
-        }
-        
-        // Redirect to the public theme if accessing the exhibit via admin theme.
-        if (is_admin_theme()) {
-            $url = WEB_ROOT . "/exhibits/show/{$exhibit->slug}";
-            $this->_helper->redirector->goToUrl($url);
         }
 
         fire_plugin_hook('show_exhibit', array('exhibit' => $exhibit));
@@ -284,7 +268,8 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_AbstractActionC
         $success = $this->processPageForm($exhibitPage, 'Add', $exhibit);
         if ($success) {
             $this->_helper->flashMessenger("Changes to the exhibit's page were successfully saved!", 'success');
-            return $this->_helper->redirector('edit-page-content', null, null, array('id'=>$exhibitPage->id));
+            $this->_helper->redirector->gotoRoute(array('action' => 'edit-page-content', 'id' => $exhibitPage->id), 'exhibitStandard');
+            return;
         }
 
         $this->render('page-metadata-form');
@@ -309,10 +294,12 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_AbstractActionC
         $success = $this->processPageForm($exhibitPage, 'Edit', $exhibit);
 
         if ($success and array_key_exists('page_metadata_form', $_POST)) {
-           return $this->_helper->redirector('edit-page-metadata', null, null, array('id'=>$exhibitPage->id));
+            $this->_helper->redirector->gotoRoute(array('action' => 'edit-page-metadata', 'id' => $exhibitPage->id), 'exhibitStandard');
+            return;
         } else if (array_key_exists('page_form',$_POST)) {
             //Forward to the addPage action (id is the exhibit)
-            return $this->_helper->redirector('add-page', null, null, array('id' => $exhibitPage->exhibit_id, 'previous' => $exhibitPage->id));
+            $this->_helper->redirector->gotoRoute(array('action' => 'add-page', 'id' => $exhibitPage->exhibit_id, 'previous' => $exhibitPage->id), 'exhibitStandard');
+            return;
         }
 
         $this->view->layoutName = $layoutName;
@@ -334,7 +321,8 @@ class ExhibitBuilder_ExhibitsController extends Omeka_Controller_AbstractActionC
         $success = $this->processPageForm($exhibitPage, 'Edit', $exhibit);
 
         if ($success) {
-            return $this->_helper->redirector('edit-page-content', null, null, array('id'=>$exhibitPage->id));
+            $this->_helper->redirector->gotoRoute(array('action' => 'edit-page-content', 'id' => $exhibitPage->id), 'exhibitStandard');
+            return;
         }
 
         $this->render('page-metadata-form');

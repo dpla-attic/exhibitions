@@ -58,7 +58,8 @@ function exhibit_builder_install()
       `layout` varchar(255) collate utf8_unicode_ci default NULL,
       `order` tinyint(3) unsigned NOT NULL,
       PRIMARY KEY  (`id`),
-      KEY `exhibit_id_order` (`exhibit_id`, `order`)
+      KEY `exhibit_id_order` (`exhibit_id`, `order`),
+      UNIQUE KEY `exhibit_id_parent_id_slug` (`exhibit_id`, `parent_id`, `slug`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 }
 
@@ -108,61 +109,74 @@ function exhibit_builder_upgrade($args)
     }
 
     if(version_compare($oldVersion, '2.0-dev', '<')) {
-        $sql = "RENAME TABLE `{$db->prefix}items_section_pages` TO `{$db->prefix}exhibit_page_entries` ";
-        $db->query($sql);
+        // Automatically skip these steps if the final one is already done
+        // (would happen on retry of an earlier failed upgrade)
+        $renamesDone = (bool) $db->fetchOne("SHOW TABLES LIKE '{$db->prefix}exhibit_pages'");
+        if (!$renamesDone) {
+            $sql = "RENAME TABLE `{$db->prefix}items_section_pages` TO `{$db->prefix}exhibit_page_entries`";
+            $db->query($sql);
 
-        //alter the section_pages table into revised exhibit_pages table
-        $sql = "ALTER TABLE `{$db->prefix}section_pages` ADD COLUMN `parent_id` INT UNSIGNED NULL AFTER `id` ";
-        $db->query($sql);
+            //alter the section_pages table into revised exhibit_pages table
+            $sql = "ALTER TABLE `{$db->prefix}section_pages` ADD COLUMN `parent_id` INT UNSIGNED NULL AFTER `id`";
+            $db->query($sql);
 
-        $sql = "ALTER TABLE `{$db->prefix}section_pages` ADD COLUMN `exhibit_id` INT UNSIGNED NOT NULL AFTER `parent_id` ";
-        $db->query($sql);
+            $sql = "ALTER TABLE `{$db->prefix}section_pages` ADD COLUMN `exhibit_id` INT UNSIGNED NOT NULL AFTER `parent_id`";
+            $db->query($sql);
 
-        $sql = "RENAME TABLE `{$db->prefix}section_pages` TO `{$db->prefix}exhibit_pages` ";
-        $db->query($sql);
+            $sql = "RENAME TABLE `{$db->prefix}section_pages` TO `{$db->prefix}exhibit_pages`";
+            $db->query($sql);
+        }
 
-        //dig up all the data about sections so I can turn them into ExhibitPages
+        // Remove any broken pages or artifacts from a failed upgrade
+        $sql = "DELETE FROM `{$db->prefix}exhibit_pages` WHERE section_id = 0";
+        $db->query($sql);
+        
+        // Get all the data about sections to turn them into ExhibitPages
         $sql = "SELECT * FROM `{$db->prefix}sections` ";
         $result = $db->query($sql);
         $sectionData = $result->fetchAll();
 
         $sectionIdMap = array();
         foreach($sectionData as $section) {
-            $sectionToPage = new ExhibitPage();
-            $sectionToPage->title = $section['title'];
-            $sectionToPage->parent_id = null;
-            $sectionToPage->exhibit_id = $section['exhibit_id'];
-            $sectionToPage->layout = 'text';
-            $sectionToPage->slug = $section['slug'];
-            $sectionToPage->order = $section['order'];
-            $sectionToPage->save();
-            $sectionIdMap[$section['id']] = array('pageId' =>$sectionToPage->id, 'exhibitId'=>$section['exhibit_id']);
+            // Create a page for each section
+            $newPageData = array(
+                'title' => $section['title'],
+                'parent_id' => null,
+                'exhibit_id' => $section['exhibit_id'],
+                'section_id' => 0,
+                'layout' => 'text',
+                'slug' => $section['slug'],
+                'order' => $section['order']
+            );
+            $db->getAdapter()->insert($db->ExhibitPage, $newPageData);
+            $pageId = (int) $db->lastInsertId();
+            
+            $sectionIdMap[$section['id']] = array('pageId' => $pageId, 'exhibitId' => $section['exhibit_id']);
 
             //slap the section's description into a text entry for the page
-            $entry = new ExhibitPageEntry();
-            $entry->page_id = $sectionToPage->id;
-            $entry->order = 1;
-            $entry->text = $section['description'];
-            $entry->save();
+            $newEntryData = array(
+                'page_id' => $pageId,
+                'order' => 1,
+                'text' => $section['description']
+            );
+            $db->getAdapter()->insert($db->ExhibitPageEntry, $newEntryData);
         }
 
-
         //map the old section ids to the new page ids, and slap in the correct exhibit id.
-        foreach($sectionIdMap as $sectionId=>$data) {
-            $pageId = $data['pageId'];
-            $exhibitId = $data['exhibitId'];
-            //probably a more sophisticated way to do the updates, but my SQL skills aren't up to it
-            $sql = "UPDATE `{$db->prefix}exhibit_pages` SET parent_id = $pageId, exhibit_id = $exhibitId WHERE section_id = $sectionId ";
-            $db->query($sql);
+        foreach($sectionIdMap as $sectionId => $data) {
+            $updateData = array(
+                'parent_id' => $data['pageId'],
+                'exhibit_id' => $data['exhibitId']
+            );
+            $db->update($db->ExhibitPage, $updateData,
+                array('section_id = ?' => $sectionId));
         }
 
         $sql = "ALTER TABLE `{$db->prefix}exhibit_pages` DROP `section_id` ";
-
         $db->query($sql);
 
         //finally kill the sections for good.
         $sql = "DROP TABLE `{$db->prefix}sections`";
-
         $db->query($sql);
     }
 
@@ -177,6 +191,11 @@ function exhibit_builder_upgrade($args)
         $db->query($sql);
         
         delete_option('exhibit_builder_use_browse_exhibits_for_homepage');
+    }
+
+    if (version_compare($oldVersion, '2.0', '<=')) {
+        $sql = "ALTER TABLE `{$db->prefix}exhibit_pages` ADD UNIQUE INDEX `exhibit_id_parent_id_slug` (`exhibit_id`, `parent_id`, `slug`)";
+        $db->query($sql);
     }
 }
 

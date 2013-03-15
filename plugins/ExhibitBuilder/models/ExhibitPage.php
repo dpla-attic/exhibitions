@@ -26,7 +26,7 @@ class ExhibitPage extends Omeka_Record_AbstractRecord
     {
         $this->_mixins[] = new Mixin_Order($this, 'ExhibitPageEntry', 'page_id', 'ExhibitPageEntry');
         $this->_mixins[] = new Mixin_Slug($this, array(
-            'parentIdFieldName' => 'parent_id',
+            'parentFields' => array('exhibit_id', 'parent_id'),
             'slugEmptyErrorMessage' => __('A slug must be given for each page of an exhibit.'),
             'slugLengthErrorMessage' => __('A slug must be 30 characters or less.'),
             'slugUniqueErrorMessage' => __('This page slug has already been used.  Please modify the slug so that it is unique.')));
@@ -51,22 +51,6 @@ class ExhibitPage extends Omeka_Record_AbstractRecord
             $this->addError('title', __('Exhibit pages must be given a title.'));
         }
 
-    }
-
-    /**
-     * Check if we're trying to save a page on top of a page with the same order and parent.
-     * If so, bump later siblings up in order
-     */
-    protected function beforeSave($args)
-    {
-        $table = $this->getTable();
-        if($table->count(array('order'=>$this->order, 'parent'=>$this->parent_id)) != 0) {
-            $laterSiblings = $table->findSiblingsAfter($this->parent_id, $this->order - 1 );
-            foreach($laterSiblings as $sibling) {
-                $sibling->order = $sibling->order + 1;
-                $sibling->save();
-            }
-        }
     }
     
     protected function afterSave($args)
@@ -233,9 +217,7 @@ class ExhibitPage extends Omeka_Record_AbstractRecord
     public function getRecordUrl($action = 'show')
     {
         if ('show' == $action) {
-            $urlHelper = new Omeka_View_Helper_Url;
-            $route = array('slug' => $this->getExhibit()->slug, 'page_slug_1' => $this->slug);
-            return public_url($route, 'exhibitShow');
+            return exhibit_builder_exhibit_uri($this->getExhibit(), $this);
         }
         return array('module' => 'exhibit-builder', 'controller' => 'exhibits', 
                      'action' => $action, 'id' => $this->id);
