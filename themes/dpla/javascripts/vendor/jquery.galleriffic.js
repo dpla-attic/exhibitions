@@ -627,8 +627,9 @@
 
 				// Construct new hidden span for the image
 				var newSlide = this.$imageContainer
-					.append('<span class="image-wrapper current"><a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'" title="'+imageData.title+'">&nbsp;</a></span>')
-					.find('span.current').css('opacity', '0');
+					.append('<span class="image-wrapper current"><a class="advance-link" rel="history" href="#'+this.data[nextIndex].hash+'" title="'+imageData.title+'"></a></span>')
+					.find('span.current')
+					.css('opacity', '0');
 				
 				newSlide.find('a')
 					.append(imageData.image)
@@ -641,7 +642,8 @@
 					// Construct new hidden caption for the image
 					newCaption = this.$captionContainer
 						.append('<span class="image-caption current"></span>')
-						.find('span.current').css('opacity', '0')
+						.find('span.current')
+						//.css('opacity', '0')
 						.append(imageData.caption);
 				}
 
@@ -656,7 +658,9 @@
 				} else {
 					newSlide.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
 					if (newCaption)
-						newCaption.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+						newCaption
+							//.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+							.show();
 				}
 				
 				if (this.isSlideshowRunning) {
@@ -683,8 +687,8 @@
 
 				// Remove existing selected class and add selected class to new thumb
 				var $thumbs = this.find('ul.thumbs').children();
-				$thumbs.filter('.selected').removeClass('selected');
-				$thumbs.eq(this.currentImage.index).addClass('selected');
+				$thumbs.filter('.active').removeClass('active');
+				$thumbs.eq(this.currentImage.index).addClass('active');
 
 				return this;
 			},

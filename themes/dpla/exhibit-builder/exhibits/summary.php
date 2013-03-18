@@ -1,4 +1,4 @@
-<?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyid'=>'exhibit', 'bodyclass'=>'summary', 'layout' => 'layoutTwo')); ?>
+<?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyid'=>'exhibit', 'bodyclass'=>'summary', 'layout' => 'layout fullWidth')); ?>
 
 <div class="breadCrumbs">
     <ul>
@@ -16,31 +16,47 @@
 
 <?php echo exhibit_builder_page_nav(); ?>
 
-<?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
-<article>
-	<div class="exhibit-description">
-	    <?php echo $exhibitDescription; ?>
-	</div>
-	<?php endif; ?>
-	
-	<?php if (($exhibitCredits = metadata('exhibit', 'credits'))): ?>
-	<div class="exhibit-credits">
-	    <h3><?php echo __('Credits'); ?></h3>
-	    <p><?php echo $exhibitCredits; ?></p>
+<article id="content" role="main">
+	<div class="exhibition-overview">
+
+		<div class="leftSide">
+			
+			<section>
+				<img src="/themes/dpla/images/detail-img.jpg" alt="slide">
+				<div class="caption">
+					<a href="">Excluded Men and Women, Paupers, Convicts, Etc., Regulation of Immigration at the Port of Entry," United States Immigrant Station, New York City »</a>
+				</div>
+			</section>
+
+			<?php if (($exhibitCredits = metadata('exhibit', 'credits'))): ?>
+				<div class="exhibit-credits">
+				    <h5><?php echo __('Credits'); ?></h5>
+				    <p><?php echo $exhibitCredits; ?></p>
+				</div>
+			<?php endif; ?>
+		</div>
+
+		<div class="rightSide">
+
+			<?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
+				<div class="exhibit-description">
+				    <?php echo $exhibitDescription; ?>
+				</div>
+			<?php endif; ?>
+
+			<div class="module overview">
+				<h2>Choose a theme</h2>
+				<ul class="thumbs-list">
+			        <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
+			        <?php foreach (loop('exhibit_page') as $exhibitPage): ?>
+			        <?php echo dpla_page_summary($exhibitPage); ?>
+			        <?php endforeach; ?>
+			    </ul>
+			</div>
+
+		</div>
+
 	</div>
 </article>
-<?php endif; ?>
-
-<aside>
-	<div class="module">
-	<h6>Themes</h6>
-	    <ul>
-	        <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
-	        <?php foreach (loop('exhibit_page') as $exhibitPage): ?>
-	        <?php echo dpla_page_summary($exhibitPage); ?>
-	        <?php endforeach; ?>
-	    </ul>
-	</div>
-</aside>
 
 <?php echo foot(); ?>

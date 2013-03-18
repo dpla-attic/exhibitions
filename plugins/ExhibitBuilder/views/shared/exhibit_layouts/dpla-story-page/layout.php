@@ -1,12 +1,11 @@
 <?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
 	<div class="slide-Container">
-	    <div class="slidegallery">
-	        <div id="slideshow" class="slides">
-	            <section id="slideshow">
-	                <?php echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
-	            </section> 
+	    <div class="slidegallery slideshow-container">
+	    	<div id="loading"></div>
+	        <div id="slideshow" class="slides slideshow">
 	        </div>
-	        <div class="thumbs">
+        	<div id="caption" class="caption"></div>
+	        <div id="thumbs">
 	            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
 	        </div>
 	    </div>

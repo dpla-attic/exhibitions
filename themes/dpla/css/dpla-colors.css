@@ -1,0 +1,163 @@
+/* YELLOW STYLES b1b1b1 */
+.searchRowLeft, .slideOverlay { background: #E6A425; }
+
+aside .module.yellow, 
+.slidegallery, 
+.yellow .box, 
+.boxInner, 
+#cboxContent, 
+.module.yellow, 
+.no-js .overlay { 
+	border-color: #E6A425; 
+}
+
+.yellow a, 
+footer a:hover, 
+.row.yellow h2, 
+.row.yellow a, 
+.row.yellow a:hover, 
+.tab-content .resultsBar ul li:first-child:hover ul li a:hover, 
+.shareSave .btn:first-child:hover ul li a:hover, 
+.buttons .btn:first-child:hover ul li a:hover, 
+.yellow .box h6  { 
+	color: #C98400; 
+}
+
+h6.open span {
+	color: #E6A425;
+}
+
+
+
+/* RED STYLES 808080 */
+.btn, 
+.module.yellow .btn.orange, 
+#toggle, 
+#inline_content .tabs .active a, 
+.collections .tabs .active a, 
+.dot, 
+.shareSave .btn a, 
+.buttons .btn a, 
+.menu-btn, 
+#colorbox input[type="submit"], 
+.no-js .overlay input[type="submit"] { 
+	background: #DD4E00; 
+}
+
+.module, 
+.upper-section .sideNav, 
+.box, 
+aside .module, 
+.account, 
+.thumbs li.active img, 
+.thumbs li:hover img, 
+.search section:first-child, 
+header .active a, 
+.graph li .info, 
+.social li.RSS span:hover, 
+.thumbs-list a:hover img, 
+.scrubber .arrow { 
+	border-color: #DD4E00; 
+}
+
+.row h2, 
+header .active a, 
+.MainNav a:hover, 
+.topNav ul li a:hover, 
+.topNav ul li a:hover span.icon-arrow-thin-down, 
+.sideNav .head, 
+.sideNav a, 
+.content.bottom .left h1, 
+.account span, 
+#cboxClose, 
+a.remove, .saved-rows ul:first-child a, 
+.refineResult a, 
+a, 
+.social li.RSS span:hover, 
+li.row-4 a, 
+.thumbs li .icon-arrow-up:before, 
+.scrubber .icon-arrow-down, 
+#colorbox form label span, 
+.topNav ul li.aboutMenu:hover a:hover, 
+.box h6 { 
+	color: #DD4E00; 
+}
+
+
+/* BLUE STYLES 8b8b8b */
+.searchRowRight, 
+.itemList li.active, 
+.itemList li.active, 
+.tab-content .itemList li.active, 
+.DecadesDates, 
+.year, 
+.DecadesDates li, 
+.year h3, 
+.flex-direction-nav a:hover { 
+	background-color: #6592A6; 
+}
+
+.module.blue, 
+.blue .box { 
+	border-color: #6592A6; 
+}
+
+
+
+
+/* 2795b6 */
+
+.blue h5, 
+.blue h5 a, 
+.module.blue a, 
+.searchResults a, 
+.pagination a, 
+.matches a,  
+.savedList h4, 
+.savedList h4 a, 
+.search h4 a, 
+.timelineContent h4 a, 
+.box-row h4, 
+.box-row h4 a, 
+.row.blue h2, 
+.row.blue a, 
+.row.blue a:hover, 
+.search h4, 
+.news a, 
+.pop-columns li a, 
+#inline_content .tabs a:hover, 
+.collections .tabs a:hover, 
+.subjectListing li a, 
+.blue .box h6, 
+.news a { color: #4691b9; }
+
+
+
+/* OTHER STYLES */
+h1 { color: #4691b9; }
+header li { font-size: 1.200em; }
+
+
+.graph li { background: #c4d7e0; }
+.DecadesDates li { color: #bed7e2; }
+.social li:hover span { color: #E6A425; border-color: #E6A425;  }
+.social li.twitter span:hover { color: #6E98AE; border-color: #6E98AE; }
+.topNav ul li.aboutMenu:hover a:hover { color: #c98400; }
+.topNav ul li.bg a { color: #fff; }
+
+.searchForm h2 { color: #FFBE42; }
+
+.shareSave .btn a, 
+.buttons .btn a { border-left: 1px solid #eea780; }
+
+.graph { background: #9cbdcb; }
+.timelineContent { background: #c0d9e4; }
+.searchViews li span { color: #bcd0d9; }
+
+footer nav li { font-size: 0.98em; }
+
+@media only screen and (min-width: 0px) and (max-width: 500px) {
+.centuries li, .graph li .info {
+	font-size: 0.8em;
+}
+
