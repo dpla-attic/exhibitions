@@ -3,8 +3,8 @@
 <div class="primary">
 	<h3>Thumbnail</h3>
 	<?php echo exhibit_builder_layout_form_item(1);?>
-    <h3>Short description</h3>
-    <?php echo exhibit_builder_layout_form_text(1);?>
+<!--    <h3>Short description</h3>-->
+<!--    --><?php //echo exhibit_builder_layout_form_text(1);?>
     <h3>Long description</h3>
     <?php echo exhibit_builder_layout_form_text(2);?>
 </div>
