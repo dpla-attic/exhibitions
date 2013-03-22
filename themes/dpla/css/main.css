@@ -2337,7 +2337,8 @@ aside h5 { margin: 5px 0 1em; }
 .slide-container {
     position: relative;
 }
-.moreInfo {
+.moreInfo,
+.show-item-details {
     background: url("../images/slide/moreInfo.png") no-repeat center center #000;
     border: 1px solid #95928F;
     bottom: 17px;
@@ -2351,7 +2352,8 @@ aside h5 { margin: 5px 0 1em; }
     z-index: 1;
     cursor: pointer;
 }
-.moreInfo.hover {
+.moreInfo.hover,
+.show-item-details:hover {
     border-color: #fff;
     background-color: transparent;
 }
@@ -2682,7 +2684,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .overlay { display: none; }
 .pop-columns section:first-child { margin: 0; }
 .pop-columns span { float: right; }
-#inline_content, #loginBox , #signupBox { 
+#inline_content, #loginBox , #signupBox, #itemDetailsBox { 
     padding: 20px 24px; 
     overflow: hidden;
     background: none repeat scroll 0 0 #FFFFFF;
@@ -2887,6 +2889,11 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     color: #fff;
 }
 
+.show-item-details {
+    top: 25px;
+    right: 17px;
+    bottom: auto;
+}
 
 .upper-section {
     overflow: hidden;

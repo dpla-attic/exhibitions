@@ -9,6 +9,41 @@
 	            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
 	        </div>
 	    </div>
+	    <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
+	</div>
+
+	<div class="overlay">
+		<div id="itemDetailsBox">
+			<div id="cboxClose" class="pclose">&times;</div>
+			<h1>Ojibwa beaded velvet loincloths</h1>
+			<article>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultricies libero nec velit sollicitudin eget ornare (description)</p>
+
+		        <div class="table">
+		            <ul>
+		                <li><h6>Creator</h6></li>
+		                <li>Text</li>
+		            </ul>
+		            <ul>
+		                <li><h6>Created Date</h6></li>
+		                <li>Text</li>
+		            </ul>
+		            <ul>
+		                <li><h6>Owning Institution</h6></li>
+		                <li>Text</li>
+		            </ul>
+		            <ul>
+		                <li><h6>Provider</h6></li>
+		                <li>Text</li>
+		            </ul>
+		            <ul>
+		                <li><h6>Publisher</h6></li>
+		                <li>Text</li>
+		            </ul>
+		        </div>
+
+			</article>
+		</div>
 	</div>
 <?php endif; ?>
 

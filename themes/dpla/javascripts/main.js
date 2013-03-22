@@ -207,6 +207,8 @@
 
   $(".signUp").colorbox({inline:true, width:"100%", maxWidth: "600px", transition: "none"});
 
+  $(".show-item-details").colorbox({inline:true, width:"100%", maxWidth: "600px", transition: "none"});
+
   $('.pop-open').click(function() {
     $('.pop-columns.country').fadeOut(function() {
       $('.pop-columns.states').fadeIn();
@@ -429,25 +431,20 @@
    enableHistory:             true,
    autoStart:                 false,
    syncTransitions:           true,
-   defaultTransitionDuration: 900
+   defaultTransitionDuration: 900,
+   onTransitionIn: function(slide, caption, isSync){
+      //var link = caption.find('.exhibit-item-link').attr('href');
+      //$('.show-item-details').attr('href', link);
+
+      // Fix default fade in behavior
+      // https://code.google.com/p/galleriffic/issues/detail?id=245
+      slide.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+      if (caption) {
+        caption.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+      }
+   }
  });
 
-/*    jQuery('ul.thumbs a.thumb').on('click', function(e) {
-        var link = $(this);
-        var thumb_src = link.find('img').attr('src');
-        var thumb_title = link.data('title');
-
-        $('ul.thumbs li').removeClass('active');
-        link.parents('li').addClass('active');
-
-        $('#slideshow img').attr('src', thumb_src.replace('square_thumbnails', 'fullsize'));
-        $('#slideshow a.download-file').attr('href', link.attr('href'));
-
-        $('#slideshow .caption a').html(thumb_title);
-        $('#slideshow .caption a').attr('href', link.attr('href'));
-
-        e.preventDefault();
-    });*/
 
 
 })(jQuery);
