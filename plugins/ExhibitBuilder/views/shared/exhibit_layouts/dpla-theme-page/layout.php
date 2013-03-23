@@ -1,14 +1,13 @@
 <? if ($attachment = exhibit_builder_page_attachment(2)): ?>
     <div class="slide-Container">
-        <div class="slidegallery">
-            <div class="slides">
-            <section id="slideshow">
-                <? echo dpla_attachment_markup($attachment, array('imageSize' => 'fullsize'), array('class' => 'permalink')); ?>
-            </section>
+        <div class="slidegallery slideshow-container">
+            <div id="loading"></div>
+            <div id="slideshow" class="slides slideshow">
             </div>
-            <? if ($gallery = dpla_thumbnail_gallery(2, 7, array('class'=>'permalink'))): ?>
-                <div id="thumbs"><?= $gallery ?></div>
-            <? endif; ?>
+            <div id="caption" class="caption"></div>
+            <div id="thumbs">
+                <?php echo dpla_thumbnail_gallery(2, 7, array('class'=>'permalink')); ?>
+            </div>
         </div>
         <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
     </div>
