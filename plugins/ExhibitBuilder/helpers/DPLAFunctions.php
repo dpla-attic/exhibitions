@@ -245,7 +245,12 @@ function dpla_builder_link_to_exhibit_image($text = null, $props = array(), $ite
     }
 
     $file = get_db()->getTable('File')->findWithImages($item->id);
-    $uri = html_escape($file[0]->getWebPath());
+    if ($file) {
+        $uri = html_escape($file[0]->getWebPath());
+    } else {
+        // show default image if no image exist, to prevent PHP error
+        $uri = img('fallback-file.png');
+    }
 
     $text = (!empty($text) ? $text : strip_formatting(metadata('item', array('Dublin Core', 'Title'))));
     $html = '<a href="' . html_escape($uri) . '" '. tag_attributes($props) . '>' . $text . '</a>';
