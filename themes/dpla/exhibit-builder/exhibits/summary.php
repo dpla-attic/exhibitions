@@ -34,7 +34,7 @@
                     if ($homepage = dpla_get_exhibit_homepage()) {
                         if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
                             $thumbUri = $att['file_uri'];
-                            $thumbCaption = $att['caption'] ? $att['caption'] : metadata('exhibit', 'title');
+                            $thumbCaption = isset($att['caption']) ? $att['caption'] : metadata('exhibit', 'title');
                             $thumbItemUri = $att['item_uri'];
                         }
                     }
