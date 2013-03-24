@@ -70,7 +70,9 @@
 				<ul class="thumbs-list">
 			        <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
 			        <?php foreach (loop('exhibit_page') as $exhibitPage): ?>
-			        <?php echo dpla_page_summary($exhibitPage); ?>
+                        <?php if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()): ?>
+			                <?php echo dpla_page_summary($exhibitPage); ?>
+                        <?php endif; ?>
 			        <?php endforeach; ?>
 			    </ul>
 			</div>
