@@ -55,12 +55,16 @@
 
 		<div class="rightSide">
 
-			<?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
-				<div class="exhibit-description">
-				    <?php echo $exhibitDescription; ?>
-				</div>
-			<?php endif; ?>
-
+<!--			--><?php //if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
+<!--				<div class="exhibit-description">-->
+<!--				    --><?php //echo $exhibitDescription; ?>
+<!--				</div>-->
+<!--			--><?php //endif; ?>
+            <div class="exhibit-description"
+                <?php if ($homepage)
+                    echo exhibit_builder_page_text(1, $homepage); // exhibit description should be taken from exhibit Homepage
+                ?>
+            </div>
 			<div class="module overview">
 				<h2>Choose a theme</h2>
 				<ul class="thumbs-list">
