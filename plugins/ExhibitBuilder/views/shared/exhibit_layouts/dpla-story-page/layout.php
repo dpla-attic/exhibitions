@@ -70,6 +70,8 @@
 return;
 $view = get_view();
 
+// REVU: WTF??? code below is mess!!
+
 echo exhibit_builder_thumbnail_gallery(1, 4, null, "original");
 
 //include_once 'utils.php';

@@ -257,3 +257,36 @@ function dpla_builder_link_to_exhibit_image($text = null, $props = array(), $ite
     $html = apply_filters('exhibit_builder_link_to_exhibit_item', $html, array('text' => $text, 'props' => $props, 'item' => $item));
     return $html;
 }
+
+/**
+ * Return exhibit Homepage. This page should have "DPLA Exhibit Home Page" layout.
+ * If exhibit contains more then one homepages, then first homepage will be returned.
+ * If exhibit doesn't contains homepages, then NULL will be returned.
+ *
+ * @param null $exhibit You may specify exhibit object. Otherwise, current exhibit object will be used.
+ * @return first ExhibitPage object with layout "dpla-exhibit-home-page" OR NULL.
+ */
+function dpla_get_exhibit_homepage($exhibit = null) {
+    if (!$exhibit) {
+        $exhibit = get_current_record('exhibit');
+    }
+    $homepages = $exhibit->getTable('ExhibitPage')->findBy(array('exhibit'=>$exhibit->id, 'layout'=>dpla_exhibit_homepage_layout_name()));
+    return $homepages && count($homepages) > 0 ? $homepages[0] : null;
+}
+
+/**
+ * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption')
+ *
+ * Usage examples include, but not limited to following:
+ * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file']->getWebPath('square_thumbnail')
+ * thumbnail caption: dpla_exhibit_page_thumbnail_att($page)['caption']
+ * thumbnail item URI: dpla_exhibit_page_thumbnail_att($page)['item']
+ */
+function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
+    return exhibit_builder_page_attachment(1, 0, $exhibitPage);
+}
+
+// TODO: I'm sure PHP has better way to define global variables
+function dpla_exhibit_homepage_layout_name() {
+    return "dpla-exhibit-home-page";
+}
