@@ -152,9 +152,9 @@ function dpla_page_summary($exhibitPage = null)
     if (!$exhibitPage) {
         $exhibitPage = get_current_record('exhibit_page');
     }
-
+    $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
     $html = '<li>'
-          . '<img src="/themes/dpla/images/thumbImg.jpg" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
+          . '<img src="'.$thum['file_uri'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
           . metadata($exhibitPage, 'title') .'</a>';
 
@@ -275,15 +275,20 @@ function dpla_get_exhibit_homepage($exhibit = null) {
 }
 
 /**
- * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption')
+ * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption', 'file_uri')
  *
  * Usage examples include, but not limited to following:
- * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file']->getWebPath('square_thumbnail')
+ * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file_uri']
  * thumbnail caption: dpla_exhibit_page_thumbnail_att($page)['caption']
- * thumbnail item URI: dpla_exhibit_page_thumbnail_att($page)['item']
+ * thumbnail item URI: dpla_exhibit_page_thumbnail_att($page)['item_uri']
+ *
+ * Also 'item' and 'file' available
  */
 function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
-    return exhibit_builder_page_attachment(1, 0, $exhibitPage);
+    $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
+    $result['file_uri'] = $result['file'] ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['item_uri'] = $result['item'] ? exhibit_builder_exhibit_item_uri($result['item']) : "";
+    return $result;
 }
 
 // TODO: I'm sure PHP has better way to define global variables

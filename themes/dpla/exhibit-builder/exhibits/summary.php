@@ -33,12 +33,11 @@
                     // get current exhibition thumbnail URI and caption, or display default image and caption
                     if ($homepage = dpla_get_exhibit_homepage()) {
                         if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
-                            $thumbUri = $att['file'] ? $att['file']->getWebPath('square_thumbnail') : "";
-                            $thumbCaption = $att['caption'] ? $att['caption'] : "";
-                            $thumbItemUri = $att['item'] ? exhibit_builder_exhibit_item_uri($att['item']) : "";
+                            $thumbUri = $att['file_uri'];
+                            $thumbCaption = $att['caption'] ? $att['caption'] : metadata('exhibit', 'title');
+                            $thumbItemUri = $att['item_uri'];
                         }
                     }
-                    if (!$thumbUri) $thumbUri = img("fallback-file.png");
                 ?>
                 <img src="<?=$thumbUri?>" alt="slide">
                 <div class="caption">
