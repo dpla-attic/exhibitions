@@ -60,9 +60,15 @@
 <!--				    --><?php //echo $exhibitDescription; ?>
 <!--				</div>-->
 <!--			--><?php //endif; ?>
-            <div class="exhibit-description">
-                <?php if ($homepage)
-                    echo exhibit_builder_page_text(1, $homepage); // exhibit description should be taken from exhibit Homepage
+            <div class="exhibit-description"
+                <?php
+                if ($homepage) { // exhibit description should be taken from exhibit Homepage
+                    if ($text = exhibit_builder_page_text(2, $homepage)) { // prefer Long description to Short (to support legacy data)
+                        echo $text;
+                    } else if ($text = exhibit_builder_page_text(1, $homepage)) {
+                        echo $text;
+                    }
+                }
                 ?>
             </div>
 			<div class="module overview">
