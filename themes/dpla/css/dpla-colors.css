@@ -56,7 +56,8 @@ header .active a,
 .graph li .info, 
 .social li.RSS span:hover, 
 .thumbs-list a:hover img, 
-.scrubber .arrow { 
+.scrubber .arrow,
+.flex-control-thumbs .flex-active { 
 	border-color: #DD4E00; 
 }
 

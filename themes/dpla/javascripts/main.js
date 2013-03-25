@@ -431,35 +431,35 @@
   }
 
   // Initialize Advanced Galleriffic Gallery
- var gallery = $('#thumbs').galleriffic({
-   delay:                     2500,
-   numThumbs:                 15,
-   preloadAhead:              10,
-   enableTopPager:            false,
-   enableBottomPager:         false,
-   maxPagesToShow:            7,
-   imageContainerSel:         '#slideshow',
-   controlsContainerSel:      '#controls',
-   captionContainerSel:       '#caption',
-   loadingContainerSel:       '#loading',
-   renderSSControls:          true,
-   renderNavControls:         false,
-   enableHistory:             true,
-   autoStart:                 false,
-   syncTransitions:           true,
-   defaultTransitionDuration: 900,
-   onTransitionIn: function(slide, caption, isSync){
-      //var link = caption.find('.exhibit-item-link').attr('href');
-      //$('.show-item-details').attr('href', link);
+ // var gallery = $('#thumbs').galleriffic({
+ //   delay:                     2500,
+ //   numThumbs:                 15,
+ //   preloadAhead:              10,
+ //   enableTopPager:            false,
+ //   enableBottomPager:         false,
+ //   maxPagesToShow:            7,
+ //   imageContainerSel:         '#slideshow',
+ //   controlsContainerSel:      '#controls',
+ //   captionContainerSel:       '#caption',
+ //   loadingContainerSel:       '#loading',
+ //   renderSSControls:          true,
+ //   renderNavControls:         false,
+ //   enableHistory:             true,
+ //   autoStart:                 false,
+ //   syncTransitions:           true,
+ //   defaultTransitionDuration: 900,
+ //   onTransitionIn: function(slide, caption, isSync){
+ //      //var link = caption.find('.exhibit-item-link').attr('href');
+ //      //$('.show-item-details').attr('href', link);
 
-      // Fix default fade in behavior
-      // https://code.google.com/p/galleriffic/issues/detail?id=245
-      slide.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
-      if (caption) {
-        caption.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
-      }
-   }
- });
+ //      // Fix default fade in behavior
+ //      // https://code.google.com/p/galleriffic/issues/detail?id=245
+ //      slide.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+ //      if (caption) {
+ //        caption.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
+ //      }
+ //   }
+ // });
 
 
 

@@ -1,13 +1,22 @@
 <?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
 	<div class="slide-Container">
-	    <div class="slidegallery slideshow-container">
-	    	<div id="loading"></div>
-	        <div id="slideshow" class="slides slideshow">
-	        </div>
-        	<div id="caption" class="caption"></div>
-	        <div id="thumbs">
-	            <?php echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
-	        </div>
+	    <div class="slidegallery flexslider">
+	        <ul class="slides">
+				<li data-thumb="http://dpla-omeka.tt/files/square_thumbnails/64d20d0a66370f578342128e23c7e019.jpg">
+					<img src="http://dpla-omeka.tt/files/original/64d20d0a66370f578342128e23c7e019.jpg" alt="" />
+					<div class="caption">
+						<a href="#">WSB-TV newsfilm clip of John F. Kennedy speaking at a press conference about civil rights demonstrations and the federal government's support and protection in Birmingham, Alabama, 1963 May 12 »</a>
+					</div>
+				</li>
+				<li data-thumb="http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png">
+					<video src="http://54.245.164.12:3000/dlg/items/mp4/ugabma_wsbn_35335.mp4"></video>
+					<div class="caption">
+						<a href="#">WSB-TV newsfilm clip of John F. Kennedy speaking at a press conference about civil rights demonstrations and the federal government's support and protection in Birmingham, Alabama, 1963 May 12 »</a>
+					</div>
+				</li>
+
+	            <?php // echo dpla_thumbnail_gallery(1, 5, array('class'=>'permalink')); ?>
+	        </ul>
 	    </div>
 	    <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
 	</div>

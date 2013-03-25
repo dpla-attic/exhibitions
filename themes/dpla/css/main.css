@@ -2830,19 +2830,31 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     float: left;
     width: 32%;
 }
+
+.slides video {
+    width: 100%;
+    height: auto;
+}
 .caption {
     padding: 1% 2%;
 }
 .slides img { width: 100%; }
 
-.thumbs {
+.slidegallery .flex-direction-nav {
+    display: none;
+}
+
+.thumbs,
+.slidegallery .flex-control-thumbs {
+    display: block;
     margin: 0;
     padding: 0 2% 2% 2%;
     width: 96%;
     clear: both;
     overflow: hidden;
 }
-.thumbs li .icon-arrow-up:before {
+.thumbs li .icon-arrow-up:before,
+.flex-control-thumbs .flex-active:before {
     color: #808080;
     display: block;
     font-size: 0.9em;
@@ -2857,9 +2869,11 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     margin: 0;
     padding: 0;
 }
-.thumbs li {
+.thumbs li,
+.flex-control-thumbs li {
     cursor: pointer;
     float: left;
+    position: relative;
     list-style-type: none;
     margin: 9px 1.5% 0 0;
     padding: 0;
@@ -2867,12 +2881,16 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     line-height: 1px;
 	position: relative;
 }
-.thumbs li img {
+.thumbs li img,
+.flex-control-thumbs li img {
     border: 2px solid transparent;
 }
-.thumbs li.active img, .thumbs li:hover img {
+.thumbs li.active img,
+.thumbs li:hover img,
+.flex-control-thumbs .flex-active {
     border-color: #808080;
 }
+
 .prevNext {
     margin: 0;
     padding: 0;
