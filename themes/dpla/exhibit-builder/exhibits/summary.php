@@ -60,7 +60,7 @@
 <!--				    --><?php //echo $exhibitDescription; ?>
 <!--				</div>-->
 <!--			--><?php //endif; ?>
-            <div class="exhibit-description"
+            <div class="exhibit-description">
                 <?php if ($homepage)
                     echo exhibit_builder_page_text(1, $homepage); // exhibit description should be taken from exhibit Homepage
                 ?>
