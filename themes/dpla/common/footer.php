@@ -60,7 +60,10 @@
                 animationLoop: false,
                 before: function(){
                     jQuery.each(players, function(){
-                        jQuery(this)[0].stop();
+                        if (players.length) {
+                            jQuery(this)[0].pause();
+                        }
+
                     });                  
                 }
             })
