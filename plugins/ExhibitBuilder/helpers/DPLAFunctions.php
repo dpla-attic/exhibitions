@@ -320,7 +320,7 @@ function get_attachment_thumbnail($attachment, $type = "square_thumbnail") {
             $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
         }
     }
-    if (!$uri) {
+    if (!isset($uri) || !$uri) {
         $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
     }
     return $uri;
