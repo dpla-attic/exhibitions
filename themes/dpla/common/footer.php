@@ -50,12 +50,19 @@
     jQuery(document).ready(function () {
         Omeka.showAdvancedForm();
 
+        var players = jQuery('[id^="html5-media"]');
+
         jQuery('.flexslider')
             .fitVids()
             .flexslider({
                 animation: 'fade',
                 controlNav: "thumbnails",
-                animationLoop: false
+                animationLoop: false,
+                before: function(){
+                    jQuery.each(players, function(){
+                        jQuery(this)[0].stop();
+                    });                  
+                }
             })
             .flexslider('pause');
     });

@@ -2476,7 +2476,9 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
 
 
-
+.mejs-mediaelement {
+    position: relative;
+}
 
 
 
