@@ -1,3 +1,4 @@
+@import url('fonts.css');
 /*
  * CHANGES FOR REVIEW BY FRONT-END DEVELOPER
  */
@@ -18,7 +19,6 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-@import url('fonts.css');
 html,
 button,
 input,
