@@ -64,7 +64,9 @@
                             jQuery(this)[0].pause();
                         }
 
-                    });                  
+                    });
+                    // FIXME: currently only first image will be clicked. TODO: click currently selected (or click all of them at once).
+                    jQuery('.zoomit_images').first().trigger('click');
                 }
             })
             .flexslider('pause');
