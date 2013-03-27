@@ -46,32 +46,6 @@
     <?php queue_js_file('main'); ?>
     <?php queue_js_file('globals'); ?>
     <?php echo head_js(); ?>
-    <script type="text/javascript">
-    jQuery(document).ready(function () {
-        Omeka.showAdvancedForm();
-
-        var players = jQuery('[id^="html5-media"]');
-
-        jQuery('.flexslider')
-            .fitVids()
-            .flexslider({
-                animation: 'fade',
-                controlNav: "thumbnails",
-                animationLoop: false,
-                before: function(){
-                    jQuery.each(players, function(){
-                        if (players.length) {
-                            jQuery(this)[0].pause();
-                        }
-
-                    });
-                    // FIXME: currently only first image will be clicked. TODO: click currently selected (or click all of them at once).
-                    jQuery('.zoomit_images').first().trigger('click');
-                }
-            })
-            .flexslider('pause');
-    });
-    </script>
 
 </body>
 </html>

@@ -24,6 +24,27 @@
       nextText: '<span class="icon-arrow-right" aria-hidden="true"></span>' 
 	});
 
+  var players = jQuery('[id^="html5-media"]');
+
+  $('.flexslider')
+      .fitVids()
+      .flexslider({
+          controlNav: 'thumbnails',
+          animationLoop: false,
+          slideshow: false,
+          video: true,
+          before: function(){
+              jQuery.each(players, function(){
+                  if (players.length) {
+                      jQuery(this)[0].player.pause();
+                  }
+
+                  jQuery('.zoomit_images').first().trigger('click');
+
+              });                  
+          }
+      });
+
 	$('.moreInfo').mouseover(function () {
       $(this).addClass('hover');
       $('.flex-direction-nav a').addClass('hover');
