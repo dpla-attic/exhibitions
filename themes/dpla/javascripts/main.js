@@ -41,12 +41,15 @@
               });
           },
           after: function(slider){
-              console.log("before click zoomit_images from slider 'after' function");
+              console.log("Slider: before click zoomit_images from slider 'after' function");
               jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
           },
           start: function(slider){
-              console.log("before click zoomit_images from slider 'start' function");
-              jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
+              var image = jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              if (image.length != 0) {
+                  console.log("Slider: before click zoomit_images from slider 'start' function");
+                  image.trigger('click');
+              }
           }
       });
 
