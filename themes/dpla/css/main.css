@@ -83,6 +83,12 @@ img {
     max-width: 100%;
 }
 
+video,
+embed {
+    width: 100%;
+    height: auto;
+}
+
 /*
  * Remove default fieldset styles.
  */
@@ -2842,10 +2848,6 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     width: 32%;
 }
 
-.slides video {
-    width: 100%;
-    height: auto;
-}
 .caption {
     padding: 1% 2%;
 }

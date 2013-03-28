@@ -24,33 +24,50 @@
       nextText: '<span class="icon-arrow-right" aria-hidden="true"></span>' 
 	});
 
-  var players = jQuery('[id^="html5-media"]');
-
   $('.flexslider')
-      .fitVids()
       .flexslider({
           controlNav: 'thumbnails',
           animationLoop: false,
           slideshow: false,
           video: true,
-          before: function(){
-              jQuery.each(players, function(){
-                  if (players.length) {
-                      jQuery(this)[0].player.pause();
-                  }
-              });
+          before: function(slider){
+              var currentPlayer = $(slider.slides[slider.currentSlide]).find('audio,video'),
+                  nextPlayer = $(slider.slides[slider.animatingTo]).find('audio,video');
+
+              if (currentPlayer.length) {
+                currentPlayer[0].player.pause();
+              }
+
+              if (!nextPlayer[0].player|0) {
+                nextPlayer
+                .mediaelementplayer({
+                  audioWidth: '100%',
+                  videoWidth: '100%',
+                  enableAutosize: true
+                });
+              }
           },
           after: function(slider){
-              console.log("Slider: before click zoomit_images from slider 'after' function");
-              jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
+              //console.log("Slider: before click zoomit_images from slider 'after' function");
+              $(slider.slides[slider.currentSlide])
+                .find('.zoomit_images')
+                  .first().trigger('click');
           },
           start: function(slider){
-              var image = jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              var image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
               if (image.length != 0) {
-                  console.log("Slider: before click zoomit_images from slider 'start' function");
+                  //console.log("Slider: before click zoomit_images from slider 'start' function");
                   image.trigger('click');
               }
           }
+      });
+
+  $('.item-file')
+    .find('audio, video')
+      .mediaelementplayer({
+        audioWidth: '100%',
+        videoWidth: '100%',
+        enableAutosize: true
       });
 
 	$('.moreInfo').mouseover(function () {

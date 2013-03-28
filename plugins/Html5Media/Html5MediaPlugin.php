@@ -197,8 +197,8 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
             $tracks .= '<track kind="' . $kind . '" src="' . $trackSrc . '" srclang="' . $language . '"' . $labelPart . '>';
         }
 
-        return <<<HTML
-<$type id="html5-media-$i" src="$filename"$mediaOptions>
+/*        return <<<HTML
+<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
 $tracks
 </$type>
 <script type="text/javascript">
@@ -206,6 +206,12 @@ jQuery('#html5-media-$i').mediaelementplayer({
     audioWidth: '100%'
 });
 </script>
+HTML;*/
+
+        return <<<HTML
+<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
+$tracks
+</$type>
 HTML;
     }
 
