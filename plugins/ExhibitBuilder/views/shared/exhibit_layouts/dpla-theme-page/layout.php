@@ -1,7 +1,26 @@
 <? if ($attachment = exhibit_builder_page_attachment(2)): ?>
     <div class="slide-Container">
-        <div class="slidegallery slideshow-container">
-            <?php echo dpla_thumbnail_gallery(2, 7, array('class'=>'permalink')); ?>
+        <div class="slidegallery flexslider">
+            <ul class="slides">
+
+                <?php foreach (dpla_get_exhibitpage_entries() as $item): ?>
+                    <li data-thumb="<?=$item['file_uri'] ?>">
+                        <div class="plugin-content">
+                            <?php
+                            if ($media = get_plugin_hook_output('public_items_show', array('view' => get_view(), 'item' => $item['item']))) {
+                                echo $media;
+                            } else {
+                                echo files_for_item(array(), array('class'=>'item-file'), $item['item']);
+                            }
+                            ?>
+                        </div>
+                        <div class="caption">
+                            <a href="<?=exhibit_builder_exhibit_item_uri($item['item'])?>"><?=$item['caption']?></a>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+
+            </ul>
         </div>
         <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
     </div>
