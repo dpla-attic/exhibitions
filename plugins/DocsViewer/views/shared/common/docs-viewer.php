@@ -1,24 +1,23 @@
+<?php
+$unique_id = "docsviewer_".hash("md4", $docs[0]->getWebPath('original'))
+?>
 <script type="text/javascript">
 jQuery(document).ready(function () {
 
-    var docsviewerParent = jQuery('.docsviewer');
-    docsviewerParent.each(function () {
+    var docsviewerParent = jQuery('#<?=$unique_id?>');
 
-        var docviewer = jQuery(this).find('.docsviewer_viewer');
+    var docviewer = docsviewerParent.find('.docsviewer_viewer');
 
-        // Set the default docviewer.
-        console.log("DocsViewer: display document");
-        docviewer.empty();
-        docviewer.append(
-            '<h2><?php echo __('Viewing'); ?>: ' + <?php echo js_escape($docs[0]->original_filename); ?> + '</h2>'
-                + '<iframe src="' + <?php echo js_escape(DocsViewerPlugin::API_URL . '?' . http_build_query(array('url' => $docs[0]->getWebPath('original'), 'embedded' => 'true'))); ?>
-                + '" width="100%" height="600" style="border: none;"></iframe>');
-
-    });
+    // Set the default docviewer.
+    console.log("DocsViewer: display document");
+    docviewer.empty();
+    docviewer.append(
+        '<iframe src="' + <?php echo js_escape(DocsViewerPlugin::API_URL . '?' . http_build_query(array('url' => $docs[0]->getWebPath('original'), 'embedded' => 'true'))); ?>
+            + '" width="100%" height="600" style="border: none;"></iframe>');
 
 });
 </script>
-<div class="docsviewer">
+<div id="<?=$unique_id?>">
     <?php if (1 < count($docs)): ?>
     <ul>
         <?php foreach($docs as $doc): ?>
