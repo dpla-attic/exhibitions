@@ -17,7 +17,7 @@ jQuery(document).ready(function () {
 
 });
 </script>
-<div id="<?=$unique_id?>">
+<div class="docsviewer" id="<?=$unique_id?>">
     <?php if (1 < count($docs)): ?>
     <ul>
         <?php foreach($docs as $doc): ?>
