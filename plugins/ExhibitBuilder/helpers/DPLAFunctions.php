@@ -126,6 +126,9 @@ function dpla_theme_nav($exhibitPage = null)
     $pagesTrail = $exhibitPage->getAncestors();
     $pagesTrail[] = $exhibitPage;
     foreach ($pagesTrail as $page) {
+        if ($page->layout == dpla_exhibit_homepage_layout_name()) {
+            continue;
+        }
         $linkText = $page->title;
         $pageExhibit = $page->getExhibit();
         $pageParent = $page->getParent();
@@ -133,6 +136,9 @@ function dpla_theme_nav($exhibitPage = null)
         $html = '<ul>' . "\n";
 
         foreach ($pageSiblings as $pageSibling) {
+            if ($pageSibling->layout == dpla_exhibit_homepage_layout_name()) {
+                continue;
+            }
             $current = in_array($pageSibling->id, array ($page->id, $exhibitPage->parent_id));
             $html .= '<li' . ($current ? ' class="current"' : '') . '>';
             $html .= '<a class="exhibit-page-title" href="' . html_escape(exhibit_builder_exhibit_uri($exhibit, $pageSibling)) . '">';
@@ -270,7 +276,11 @@ function dpla_get_exhibit_homepage($exhibit = null) {
     if (!$exhibit) {
         $exhibit = get_current_record('exhibit');
     }
-    $homepages = $exhibit->getTable('ExhibitPage')->findBy(array('exhibit'=>$exhibit->id, 'layout'=>dpla_exhibit_homepage_layout_name()));
+    $select = $exhibit->getTable('ExhibitPage')->
+        getSelect()->
+        where('exhibit_id = ?', $exhibit->id)->
+        where('layout = ?', dpla_exhibit_homepage_layout_name());
+    $homepages = $exhibit->getTable('ExhibitPage')->fetchObjects($select);
     return $homepages && count($homepages) > 0 ? $homepages[0] : null;
 }
 
