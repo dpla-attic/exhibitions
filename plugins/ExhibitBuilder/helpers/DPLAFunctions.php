@@ -154,7 +154,7 @@ function dpla_page_summary($exhibitPage = null)
     }
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
     $html = '<li>'
-          . '<img src="'.$thum['file_uri'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
+          . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
           . metadata($exhibitPage, 'title') .'</a>';
 
@@ -275,10 +275,10 @@ function dpla_get_exhibit_homepage($exhibit = null) {
 }
 
 /**
- * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption', 'file_uri')
+ * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption', 'file_uri_square', 'file_uri_notsquare'')
  *
  * Usage examples include, but not limited to following:
- * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file_uri']
+ * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file_uri_square']
  * thumbnail caption: dpla_exhibit_page_thumbnail_att($page)['caption']
  * thumbnail item URI: dpla_exhibit_page_thumbnail_att($page)['item_uri']
  *
@@ -287,7 +287,8 @@ function dpla_get_exhibit_homepage($exhibit = null) {
 function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
     $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
 
-    $result['file_uri'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['file_uri_square'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['file_uri_notsquare'] = isset($result['file']) ? $result['file']->getWebPath('fullsize') : img("fallback-file.png");
     $result['item_uri'] = isset($result['item']) ? exhibit_builder_exhibit_item_uri($result['item']) : "";
     return $result;
 }
@@ -297,7 +298,7 @@ function dpla_get_exhibitpage_entries() {
     $result = array();
     for ($i = 0; $i <= 7; $i++) {
         if ($attachment = exhibit_builder_page_attachment($i)) {
-            $attachment['file_uri'] = get_attachment_thumbnail($attachment);
+            $attachment['file_uri_square'] = get_attachment_thumbnail($attachment);
             $attachment['item_uri'] = isset($attachment['item']) ? exhibit_builder_exhibit_item_uri($attachment['item']) : "";
             array_push($result, $attachment);
         }

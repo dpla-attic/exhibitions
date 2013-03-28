@@ -5,11 +5,8 @@ $unique_id = "zoomit_".hash("md4", $images[0]->getWebPath('original'))
 jQuery(document).ready(function () {
 
     var zoomitParent = jQuery('#<?=$unique_id?>');
-
     var zoomit = zoomitParent.find('.zoomit_viewer').first();
-
-    var find = zoomitParent.find('.zoomit_images');
-    jQuery(find[0]).click(function(event) {
+    zoomitParent.find('.zoomit_images').click(function(event) {
         event.preventDefault();
         zoomit.empty();
         zoomit.append(

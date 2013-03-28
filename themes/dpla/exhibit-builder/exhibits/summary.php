@@ -33,7 +33,7 @@
                     // get current exhibition thumbnail URI and caption, or display default image and caption
                     if ($homepage = dpla_get_exhibit_homepage()) {
                         if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
-                            $thumbUri = $att['file_uri'];
+                            $thumbUri = $att['file_uri_notsquare'];
                             $thumbCaption = isset($att['caption']) ? $att['caption'] : metadata('exhibit', 'title');
                             $thumbItemUri = $att['item_uri'];
                         }
