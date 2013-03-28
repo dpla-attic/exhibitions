@@ -317,10 +317,12 @@ function get_attachment_thumbnail($attachment, $type = "square_thumbnail") {
     if (isset($attachment['file'])) {
         $uri = $attachment['file']->getWebPath($type);
         if (!file_exists("files/".$attachment['file']->getStoragePath($type))) {
+            // FIXME: clean up this
             $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
         }
     }
     if (!isset($uri) || !$uri) {
+        // FIXME: clean up this
         $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
     }
     return $uri;
