@@ -41,7 +41,11 @@
               });
           },
           after: function(slider){
-              console.log("before click zoomit_images");
+              console.log("before click zoomit_images from slider 'after' function");
+              jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
+          },
+          start: function(slider){
+              console.log("before click zoomit_images from slider 'start' function");
               jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
           }
       });
