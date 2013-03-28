@@ -304,9 +304,9 @@ function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
 }
 
 // FIXME: clean up this code
-function dpla_get_exhibitpage_entries() {
+function dpla_get_exhibitpage_entries($start = 0, $end = 7) {
     $result = array();
-    for ($i = 0; $i <= 7; $i++) {
+    for ($i = $start; $i <= $end; $i++) {
         if ($attachment = exhibit_builder_page_attachment($i)) {
             $attachment['file_uri_square'] = get_attachment_thumbnail($attachment);
             $attachment['item_uri'] = isset($attachment['item']) ? exhibit_builder_exhibit_item_uri($attachment['item']) : "";

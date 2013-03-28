@@ -38,7 +38,7 @@
                 currentPlayer[0].player.pause();
               }
 
-              if (!nextPlayer[0].player|0) {
+              if (currentPlayer.length && !nextPlayer[0].player|0) {
                 nextPlayer
                 .mediaelementplayer({
                   audioWidth: '100%',
@@ -54,9 +54,13 @@
                   .first().trigger('click');
           },
           start: function(slider){
-              var image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              // this doesn't work. Please fix
+              var image = slider.slides == undefined ?
+                      $('.flexslider').find('.zoomit_images') :
+                      $(slider.slides[slider.currentSlide]).find('.zoomit_images');
+
               if (image.length != 0) {
-                  //console.log("Slider: before click zoomit_images from slider 'start' function");
+                  console.log("Slider: before click zoomit_images from slider 'start' function");
                   image.trigger('click');
               }
           }
