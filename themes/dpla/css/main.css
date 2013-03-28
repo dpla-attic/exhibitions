@@ -3,7 +3,7 @@
  * CHANGES FOR REVIEW BY FRONT-END DEVELOPER
  */
 /* hide media plugins unnecessary elements (titles, captions, etc) on theme/story pages */
-#zoomit h2,#zoomit p,#zoomit ul,#zoomit_viewer h2,
+.zoomit h2,.zoomit p,.zoomit ul,.zoomit_viewer h2,
 #docsviewer_viewer h2, #docsviewer h2{
     display: none;
 }

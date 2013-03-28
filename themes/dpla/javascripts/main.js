@@ -38,10 +38,11 @@
                   if (players.length) {
                       jQuery(this)[0].player.pause();
                   }
-
-                  jQuery('.zoomit_images').first().trigger('click');
-
-              });                  
+              });
+          },
+          after: function(slider){
+              console.log("before click zoomit_images");
+              jQuery(slider.slides[slider.currentSlide]).find('.zoomit_images').first().trigger('click');
           }
       });
 
