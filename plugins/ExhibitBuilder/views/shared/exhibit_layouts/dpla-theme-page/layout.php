@@ -9,7 +9,7 @@
                 <?php echo dpla_thumbnail_gallery(2, 7, array('class'=>'permalink')); ?>
             </div>
         </div>
-        <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
+        <a href="#itemDetailsBox" class="show-item-details cboxElement"><span>i</span></a>
     </div>
 
     <div class="overlay">

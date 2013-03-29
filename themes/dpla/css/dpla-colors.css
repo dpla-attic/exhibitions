@@ -40,7 +40,8 @@ h6.open span {
 .buttons .btn a, 
 .menu-btn, 
 #colorbox input[type="submit"], 
-.no-js .overlay input[type="submit"] { 
+.no-js .overlay input[type="submit"],
+.show-item-details { 
 	background: #DD4E00; 
 }
 

@@ -2339,23 +2339,47 @@ aside h5 { margin: 5px 0 1em; }
 }
 .moreInfo,
 .show-item-details {
-    background: url("../images/slide/moreInfo.png") no-repeat center center #000;
+    background: #000;
     border: 1px solid #95928F;
     bottom: 17px;
     display: block;
     height: 31px;
     position: absolute;
     right: 92px;
-    text-indent: -999em;
     text-transform: uppercase;
     width: 31px;
     z-index: 1;
     cursor: pointer;
+    font: italic 1.1em 'Times New Roman', Times, serif;
+    -webkit-transition: 0.3s ease;
+    -moz-transition: 0.3s ease;
+    -o-transition: 0.3s ease;
+    -ms-transition: 0.3s ease;
+    transition: 0.3s ease;
 }
-.moreInfo.hover,
-.show-item-details:hover {
+.show-item-details {
+    top: 17px;
+    right: 17px;
+    bottom: auto;
+    border: 1px solid #fff;
+    font-size: 1.4em;
+}
+.moreInfo.hover {
     border-color: #fff;
     background-color: transparent;
+    text-decoration: none;
+}
+.show-item-details:hover {
+    text-decoration: none;
+    background: #000;
+}
+.moreInfo span,
+.show-item-details span {
+    color: #fff;
+    text-transform: none;
+    text-align: center;
+    padding: .15em .05em 0 0;
+    display: block;
 }
 .flex-direction-nav a {
     transition: .5s ease;
@@ -2821,6 +2845,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     background: none repeat scroll 0 0 #EDEDED;
     border-top: 8px solid #b1b1b1;
     overflow: hidden;
+    position: relative;
 }
 .slides {
     float: left;
@@ -2888,13 +2913,6 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .prevNext a {
     color: #fff;
 }
-
-.show-item-details {
-    top: 25px;
-    right: 17px;
-    bottom: auto;
-}
-
 .upper-section {
     overflow: hidden;
     margin: -1em 0 15px;
@@ -3299,6 +3317,7 @@ div.timeline-year {
 .no-js .next, 
 .no-js .prev, 
 .no-js .moreInfo, 
+.no-js .show-item-details,
 .no-js #cboxClose.pclose, 
 .no-js .prevNext { display: none; }
 
@@ -3938,7 +3957,8 @@ aside { height: 100%; }
 #toggle { display: inline-block; }
 
 /* HOME SLIDESHOW*/
-.moreInfo {
+.moreInfo,
+.show-item-details {
     background-position: center center;
     padding: 6px;
     right: 17px;
