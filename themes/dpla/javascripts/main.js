@@ -16,13 +16,42 @@
 
 (function($) {
 
-
 	$('.homeslide').flexslider({
 	    animation: "slide",
 	    pauseOnHover: true,
       prevText: '<span class="icon-arrow-left" aria-hidden="true"></span>',
       nextText: '<span class="icon-arrow-right" aria-hidden="true"></span>' 
 	});
+
+    $('.zoomit').on('click', '.zoomit_images', function(event) {
+        event.preventDefault();
+        zoomitInit($(event.delegateTarget), $(this).attr('href'));
+    });
+
+    function zoomitInit(container, link){
+
+        var zoomit = container.find('.zoomit_viewer');
+
+        zoomit.empty();
+        zoomit.append(
+            '<iframe class="zoomit_iframe" '
+                + 'src="about:blank" '
+                + 'style="border:none;"'
+                + 'width="100%" '
+                + 'height="420"></iframe>'
+        );
+
+        $.get(container.data('api-url') + '?url=' + encodeURIComponent(link), function(data) {
+            var iframe = zoomit.find('.zoomit_iframe')[0].contentWindow.document;
+
+            // this may be already loaded
+            if (iframe.innerHTML != '') {
+                iframe.open();
+                iframe.write(data.content.embedHtml);
+                iframe.close();
+            }
+        }, 'jsonp');
+    }
 
   $('.flexslider')
       .flexslider({
@@ -38,7 +67,7 @@
                 currentPlayer[0].player.pause();
               }
 
-              if (!nextPlayer[0].player|0) {
+              if (nextPlayer.length && !nextPlayer[0].player|0){
                 nextPlayer
                 .mediaelementplayer({
                   audioWidth: '100%',
@@ -46,21 +75,27 @@
                   enableAutosize: true
                 });
               }
-          },
-          after: function(slider){
-              //console.log("Slider: before click zoomit_images from slider 'after' function");
-              $(slider.slides[slider.currentSlide])
+
+              $(slider.slides[slider.animatingTo])
                 .find('.zoomit_images')
                   .first().trigger('click');
           },
           start: function(slider){
-              var image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
-              if (image.length != 0) {
-                  //console.log("Slider: before click zoomit_images from slider 'start' function");
+            var image;
+              
+              if (slider.slides) {
+                image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              } else {
+                image = slider.find('.zoomit_images');
+              }
+
+              if (image.length) {
                   image.trigger('click');
               }
           }
       });
+
+
 
   $('.item-file')
     .find('audio, video')
