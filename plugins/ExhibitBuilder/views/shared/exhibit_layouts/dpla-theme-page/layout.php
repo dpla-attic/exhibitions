@@ -3,7 +3,7 @@
         <div class="slidegallery flexslider">
             <ul class="slides">
 
-                <?php foreach (dpla_get_exhibitpage_entries() as $item): ?>
+                <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>">
                         <div class="plugin-content">
                             <?php
