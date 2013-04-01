@@ -22,7 +22,7 @@
 
             </ul>
         </div>
-        <a href="#itemDetailsBox" class="show-item-details cboxElement"></a>
+        <a href="#itemDetailsBox" class="show-item-details cboxElement"><span>i</span></a>
     </div>
 
     <div class="overlay">
