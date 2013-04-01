@@ -122,6 +122,7 @@ function dpla_theme_nav($exhibitPage = null)
         }
     }
 
+    $html = "";
     $exhibit = get_db()->getTable('Exhibit')->find($exhibitPage->exhibit_id);
     $pagesTrail = $exhibitPage->getAncestors();
     $pagesTrail[] = $exhibitPage;
@@ -129,9 +130,7 @@ function dpla_theme_nav($exhibitPage = null)
         if ($page->layout == dpla_exhibit_homepage_layout_name()) {
             continue;
         }
-        $linkText = $page->title;
         $pageExhibit = $page->getExhibit();
-        $pageParent = $page->getParent();
         $pageSiblings =  $pageExhibit->getTopPages();
         $html = '<ul>' . "\n";
 
