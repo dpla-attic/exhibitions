@@ -520,7 +520,7 @@ header .active a { border-bottom: 3px solid #2795b6; }
     .module.overview {
         margin: 0;
         padding: 0;
-        width: auto;
+        width: 100%;
     }
     .module.overview h2 {padding: 13px 20px 0;}
 
