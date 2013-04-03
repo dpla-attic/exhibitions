@@ -33,7 +33,7 @@
                     // get current exhibition thumbnail URI and caption, or display default image and caption
                     if ($homepage = dpla_get_exhibit_homepage()) {
                         if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
-                            $thumbUri = $att['file_uri'];
+                            $thumbUri = $att['file_uri_notsquare'];
                             $thumbCaption = isset($att['caption']) ? $att['caption'] : metadata('exhibit', 'title');
                             $thumbItemUri = $att['item_uri'];
                         }
@@ -55,15 +55,11 @@
 
 		<div class="rightSide">
 
-<!--			--><?php //if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
-<!--				<div class="exhibit-description">-->
-<!--				    --><?php //echo $exhibitDescription; ?>
-<!--				</div>-->
-<!--			--><?php //endif; ?>
-            <div class="exhibit-description"
+            <div class="exhibit-description">
                 <?php
-                if ($homepage) { // exhibit description should be taken from exhibit Homepage
-                    if ($text = exhibit_builder_page_text(2, $homepage)) { // prefer Long description to Short (to support legacy data)
+                // exhibit description should be taken from exhibit Homepage
+                if ($homepage) {
+                    if ($text = exhibit_builder_page_text(2, $homepage)) { // prefer Long description to Short
                         echo $text;
                     } else if ($text = exhibit_builder_page_text(1, $homepage)) {
                         echo $text;

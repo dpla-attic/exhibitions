@@ -78,7 +78,7 @@ function dpla_attachment_markup($attachment, $fileOptions, $linkProperties)
         $html = exhibit_builder_link_to_exhibit_item(null, $linkProperties, $item);
     }
 
-    $html .= dpla_attachment_caption($attachment);
+//    $html .= dpla_attachment_caption($attachment);
 
     return apply_filters('exhibit_builder_attachment_markup', $html,
         compact('attachment', 'fileOptions', 'linkProperties')
@@ -122,6 +122,7 @@ function dpla_theme_nav($exhibitPage = null)
         }
     }
 
+    $html = "";
     $exhibit = get_db()->getTable('Exhibit')->find($exhibitPage->exhibit_id);
     $pagesTrail = $exhibitPage->getAncestors();
     $pagesTrail[] = $exhibitPage;
@@ -129,9 +130,7 @@ function dpla_theme_nav($exhibitPage = null)
         if ($page->layout == dpla_exhibit_homepage_layout_name()) {
             continue;
         }
-        $linkText = $page->title;
         $pageExhibit = $page->getExhibit();
-        $pageParent = $page->getParent();
         $pageSiblings =  $pageExhibit->getTopPages();
         $html = '<ul>' . "\n";
 
@@ -160,7 +159,7 @@ function dpla_page_summary($exhibitPage = null)
     }
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
     $html = '<li>'
-          . '<img src="'.$thum['file_uri'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
+          . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
           . metadata($exhibitPage, 'title') .'</a>';
 
@@ -285,10 +284,10 @@ function dpla_get_exhibit_homepage($exhibit = null) {
 }
 
 /**
- * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption', 'file_uri')
+ * Return exhibit page thumbnail attachment as array of ('item', 'file', 'file_specified', 'caption', 'file_uri_square', 'file_uri_notsquare'')
  *
  * Usage examples include, but not limited to following:
- * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file_uri']
+ * thumbnail URI: dpla_exhibit_page_thumbnail_att($page)['file_uri_square']
  * thumbnail caption: dpla_exhibit_page_thumbnail_att($page)['caption']
  * thumbnail item URI: dpla_exhibit_page_thumbnail_att($page)['item_uri']
  *
@@ -297,12 +296,117 @@ function dpla_get_exhibit_homepage($exhibit = null) {
 function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
     $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
 
-    $result['file_uri'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['file_uri_square'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['file_uri_notsquare'] = isset($result['file']) ? $result['file']->getWebPath('fullsize') : img("fallback-file.png");
     $result['item_uri'] = isset($result['item']) ? exhibit_builder_exhibit_item_uri($result['item']) : "";
     return $result;
 }
 
-// TODO: I'm sure PHP has better way to define global variables
+// FIXME: clean up this code
+function dpla_get_exhibitpage_entries($start = 0, $end = 7) {
+    $result = array();
+    for ($i = $start; $i <= $end; $i++) {
+        if ($attachment = exhibit_builder_page_attachment($i)) {
+            $attachment['file_uri_square'] = get_attachment_thumbnail($attachment);
+            $attachment['item_uri'] = isset($attachment['item']) ? exhibit_builder_exhibit_item_uri($attachment['item']) : "";
+            array_push($result, $attachment);
+        }
+    }
+    return $result;
+}
+
+/**
+ * Return URI of attachment thumbnail ("squary" by default)
+ */
+function get_attachment_thumbnail($attachment, $type = "square_thumbnail") {
+    if (isset($attachment['file'])) {
+        $uri = $attachment['file']->getWebPath($type);
+        if (!file_exists("files/".$attachment['file']->getStoragePath($type))) {
+            // FIXME: clean up this
+            $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
+        }
+    }
+    if (!isset($uri) || !$uri) {
+        // FIXME: clean up this
+        $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
+    }
+    return $uri;
+}
+
+/**
+ * Exhibit page item field markup by name, if such field exist.
+ *
+ * @param $fieldLabel Field label.
+ * @param $values Field value.
+ * @return array|null
+ */
+function get_item_field_markup($fieldLabel, $values) {
+    if ($values) {
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+        return "<ul>".
+                 "<li><h6>".$fieldLabel."</h6></li>".
+                 "<li>".join($values, "<br/>")."</li>".
+               "</ul>";
+    }
+    return null;
+}
+
+/**
+ * Retrieve API object by id. API basic URL should be configured in 'config.ini'
+ * Object will be returned as
+ *
+ * @param $apiObjectId
+ * @return mixed|string
+ */
+function get_dpla_api_object($apiObjectId) {
+
+    // if API URL configured ...
+    $config = Zend_Registry::get('bootstrap')->getResource('Config');
+    $baseUrl = $config->dpla->apiUrl;
+    if ($baseUrl) {
+
+        // ... and API has such item
+        $request = $baseUrl."/items/".$apiObjectId;
+
+        $session = curl_init($request);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($session);
+        curl_close($session);
+
+        if ($obj = json_decode($response, true)) {
+            // ... then return JSON as array
+            return array_key_exists('docs', $obj) ? $obj['docs'][0] : "";
+        }
+    }
+
+    return "";
+}
+
+/**
+ * Parse JSON and return value by array-path.
+ * Usage: dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
+ */
+function dpla_get_field_value_by_arrayname($json, $arr) {
+    $name = array_shift($arr);
+    $value = in_array($name, $json) || array_key_exists($name, $json) ? $json[$name] : null;
+    if (is_array($value) && count($value) > 0) {
+        $value = dpla_get_field_value_by_arrayname($value, $arr);
+    }
+
+    return $value;
+}
+
+/**
+ * Return exhibit page item meta information by field name
+ */
+function dpla_get_field_value_by_name($item, $name) {
+    return metadata($item['item'], array('Dublin Core', $name));
+}
+
+
+// FIXME: I'm sure PHP has better way to define global variables
 function dpla_exhibit_homepage_layout_name() {
     return "dpla-exhibit-home-page";
 }

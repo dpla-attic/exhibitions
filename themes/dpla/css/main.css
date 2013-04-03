@@ -1,3 +1,13 @@
+@import url('fonts.css');
+/*
+ * CHANGES FOR REVIEW BY FRONT-END DEVELOPER
+ */
+/* hide media plugins unnecessary elements (titles, captions, etc) on theme/story pages */
+.zoomit h2,.zoomit p,.zoomit ul,.zoomit_viewer h2,
+.docsviewer_viewer h2, .docsviewer h2{
+    display: none;
+}
+
 /*
  * HTML5 Boilerplate
  *
@@ -9,7 +19,6 @@
 /* ==========================================================================
    Base styles: opinionated defaults
    ========================================================================== */
-@import url('fonts.css');
 html,
 button,
 input,
@@ -72,6 +81,12 @@ hr {
 img {
     vertical-align: middle;
     max-width: 100%;
+}
+
+video,
+embed {
+    width: 100%;
+    height: auto;
 }
 
 /*
@@ -505,7 +520,7 @@ header .active a { border-bottom: 3px solid #2795b6; }
     .module.overview {
         margin: 0;
         padding: 0;
-        width: auto;
+        width: 100%;
     }
     .module.overview h2 {padding: 13px 20px 0;}
 
@@ -2500,7 +2515,9 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
 
 
-
+.mejs-mediaelement {
+    position: relative;
+}
 
 
 
@@ -2688,13 +2705,13 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .collections .pop-columns section {
     width: 28.93%;
 }
-#cboxClose.pclose {
+.cboxClose.pclose {
     text-indent: 0;
     text-transform: none;
     height: auto;
     width: auto;
 }
-#cboxClose {
+.cboxClose {
     display: block;
     font-size: 1.3em;
     text-indent: -999em;
@@ -2708,7 +2725,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .overlay { display: none; }
 .pop-columns section:first-child { margin: 0; }
 .pop-columns span { float: right; }
-#inline_content, #loginBox , #signupBox, #itemDetailsBox { 
+#inline_content, #loginBox , #signupBox, .itemDetailsBox {
     padding: 20px 24px; 
     overflow: hidden;
     background: none repeat scroll 0 0 #FFFFFF;
@@ -2855,19 +2872,27 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     float: left;
     width: 32%;
 }
+
 .caption {
     padding: 1% 2%;
 }
 .slides img { width: 100%; }
 
-.thumbs {
+.slidegallery .flex-direction-nav {
+    display: none;
+}
+
+.thumbs,
+.slidegallery .flex-control-thumbs {
+    display: block;
     margin: 0;
     padding: 0 2% 2% 2%;
     width: 96%;
     clear: both;
     overflow: hidden;
 }
-.thumbs li .icon-arrow-up:before {
+.thumbs li .icon-arrow-up:before,
+.flex-control-thumbs .flex-active:before {
     color: #808080;
     display: block;
     font-size: 0.9em;
@@ -2882,9 +2907,11 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     margin: 0;
     padding: 0;
 }
-.thumbs li {
+.thumbs li,
+.flex-control-thumbs li {
     cursor: pointer;
     float: left;
+    position: relative;
     list-style-type: none;
     margin: 9px 1.5% 0 0;
     padding: 0;
@@ -2892,12 +2919,16 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     line-height: 1px;
 	position: relative;
 }
-.thumbs li img {
+.thumbs li img,
+.flex-control-thumbs li img {
     border: 2px solid transparent;
 }
-.thumbs li.active img, .thumbs li:hover img {
+.thumbs li.active img,
+.thumbs li:hover img,
+.flex-control-thumbs .flex-active {
     border-color: #808080;
 }
+
 .prevNext {
     margin: 0;
     padding: 0;
@@ -3032,7 +3063,7 @@ div.timeline-year {
 #cboxLoadedContent{overflow:auto;}
 #cboxTitle{margin:0;}
 #cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%; height:100%;}
-#cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+#cboxPrevious, #cboxNext, .cboxClose, #cboxSlideshow{cursor:pointer;}
 .cboxPhoto{float:left; margin:auto; border:0; display:block; max-width:none;}
 .cboxIframe{width:100%; height:100%; display:block; border:0;}
 #colorbox, #cboxContent, #cboxLoadedContent{box-sizing:content-box; -moz-box-sizing:content-box; -webkit-box-sizing:content-box;}
@@ -3068,7 +3099,7 @@ div.timeline-year {
         #cboxNext:hover{background-position:-50px -25px;}
         #cboxLoadingOverlay{background:url(../images/loading_background.png) no-repeat center center;}
         #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
-        #cboxClose:hover{background-position:-25px -25px;}
+        .cboxClose:hover{background-position:-25px -25px;}
 
 /*
   The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
@@ -3318,7 +3349,7 @@ div.timeline-year {
 .no-js .prev, 
 .no-js .moreInfo, 
 .no-js .show-item-details,
-.no-js #cboxClose.pclose, 
+.no-js .cboxClose.pclose,
 .no-js .prevNext { display: none; }
 
 .no-js .timeline article { overflow: auto; margin: 0; }

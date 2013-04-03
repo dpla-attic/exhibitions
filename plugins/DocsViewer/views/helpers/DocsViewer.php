@@ -16,7 +16,7 @@ class DocsViewer_View_Helper_DocsViewer extends Zend_View_Helper_Abstract
         'doc', 'docx', // Microsoft Word
         'ppt', 'pptx', // Microsoft PowerPoint
         'xls', 'xlsx', // Microsoft Excel
-        'tif', 'tiff', // Tagged Image File Format
+//        'tif', 'tiff', // Tagged Image File Format
         'eps', 'ps', // PostScript
         'pdf', // Adobe Portable Document Format
         'pages', // Apple Pages
@@ -61,7 +61,7 @@ class DocsViewer_View_Helper_DocsViewer extends Zend_View_Helper_Abstract
         if (!$docs) {
             return;
         }
-        
+
         return $this->view->partial('common/docs-viewer.php', array(
             'docs' => $docs, 'width' => $width, 'height' => $height, 
         ));

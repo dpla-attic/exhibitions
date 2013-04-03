@@ -158,9 +158,11 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
         $mediaOptions = '';
 
         if (isset($options['width']))
-            $mediaOptions .= ' width="' . $options['width'] . '"';
+            //$mediaOptions .= ' width="' . $options['width'] . '"';
+            $mediaOptions .= ' width="100%"';
         if (isset($options['height']))
-            $mediaOptions .= ' height="' . $options['height'] . '"';
+            //$mediaOptions .= ' height="' . $options['height'] . '"';
+            $mediaOptions .= ' height="100%"';
         if ($options['autoplay'])
             $mediaOptions .= ' autoplay';
         if ($options['controls'])
@@ -195,13 +197,21 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
             $tracks .= '<track kind="' . $kind . '" src="' . $trackSrc . '" srclang="' . $language . '"' . $labelPart . '>';
         }
 
-        return <<<HTML
-<$type id="html5-media-$i" src="$filename"$mediaOptions>
+/*        return <<<HTML
+<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
 $tracks
 </$type>
 <script type="text/javascript">
-jQuery('#html5-media-$i').mediaelementplayer();
+jQuery('#html5-media-$i').mediaelementplayer({
+    audioWidth: '100%'
+});
 </script>
+HTML;*/
+
+        return <<<HTML
+<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
+$tracks
+</$type>
 HTML;
     }
 

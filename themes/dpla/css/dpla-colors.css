@@ -57,7 +57,8 @@ header .active a,
 .graph li .info, 
 .social li.RSS span:hover, 
 .thumbs-list a:hover img, 
-.scrubber .arrow { 
+.scrubber .arrow,
+.flex-control-thumbs .flex-active { 
 	border-color: #DD4E00; 
 }
 
@@ -70,7 +71,7 @@ header .active a,
 .sideNav a, 
 .content.bottom .left h1, 
 .account span, 
-#cboxClose, 
+.cboxClose,
 a.remove, .saved-rows ul:first-child a, 
 .refineResult a, 
 a, 

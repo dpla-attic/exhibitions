@@ -38,7 +38,7 @@ echo head(array(
     <div class="upper-section">
         <div class="upper-left">
             <h1><?php echo metadata('exhibit', 'title'); ?></h1>
-            <h3><span class="exhibit-page"><?php echo metadata('exhibit_page', 'title'); ?></h3>
+            <h2><?php echo metadata('exhibit_page', 'title'); ?></h2>
         </div>
         <div class="sideNav">
             <span class="head">Themes</span>

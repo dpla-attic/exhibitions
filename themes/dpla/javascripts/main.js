@@ -16,13 +16,94 @@
 
 (function($) {
 
-
 	$('.homeslide').flexslider({
 	    animation: "slide",
 	    pauseOnHover: true,
       prevText: '<span class="icon-arrow-left" aria-hidden="true"></span>',
       nextText: '<span class="icon-arrow-right" aria-hidden="true"></span>' 
 	});
+
+    $('.zoomit').on('click', '.zoomit_images', function(event) {
+        event.preventDefault();
+        zoomitInit($(event.delegateTarget), $(this).attr('href'));
+    });
+
+    function zoomitInit(container, link){
+
+        var zoomit = container.find('.zoomit_viewer');
+
+        zoomit.empty();
+        zoomit.append(
+            '<iframe class="zoomit_iframe" '
+                + 'src="about:blank" '
+                + 'style="border:none;"'
+                + 'width="100%" '
+                + 'height="420"></iframe>'
+        );
+
+        $.get(container.data('api-url') + '?url=' + encodeURIComponent(link), function(data) {
+            var iframe = zoomit.find('.zoomit_iframe')[0].contentWindow.document;
+
+            // this may be already loaded
+            if (iframe.innerHTML != '') {
+                iframe.open();
+                iframe.write(data.content.embedHtml);
+                iframe.close();
+            }
+        }, 'jsonp');
+    }
+
+  $('.flexslider')
+      .flexslider({
+          controlNav: 'thumbnails',
+          animationLoop: false,
+          slideshow: false,
+          video: true,
+          before: function(slider){
+              var currentPlayer = $(slider.slides[slider.currentSlide]).find('audio,video'),
+                  nextPlayer = $(slider.slides[slider.animatingTo]).find('audio,video');
+
+              if (currentPlayer.length) {
+                currentPlayer[0].player.pause();
+              }
+
+              if (nextPlayer.length && !nextPlayer[0].player|0){
+                nextPlayer
+                .mediaelementplayer({
+                  audioWidth: '100%',
+                  videoWidth: '100%',
+                  enableAutosize: true
+                });
+              }
+
+              $(slider.slides[slider.animatingTo])
+                .find('.zoomit_images')
+                  .first().trigger('click');
+          },
+          start: function(slider){
+            var image;
+              
+              if (slider.slides) {
+                image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              } else {
+                image = slider.find('.zoomit_images');
+              }
+
+              if (image.length) {
+                  image.trigger('click');
+              }
+          }
+      });
+
+
+
+  $('.item-file')
+    .find('audio, video')
+      .mediaelementplayer({
+        audioWidth: '100%',
+        videoWidth: '100%',
+        enableAutosize: true
+      });
 
 	$('.moreInfo').mouseover(function () {
       $(this).addClass('hover');
@@ -37,7 +118,7 @@
 		return false;
 	});
 	
-	$('#cboxOverlay, #cboxClose').click(function() {
+	$('#cboxOverlay, .cboxClose').click(function() {
 		$('.forgotSlide').slideUp();
 		$('#cboxLoadedContent, #cboxWrapper, #colorbox, #cboxContent').animate({height: '320px'});
 		return false;
@@ -429,38 +510,6 @@
       })
     });
   }
-
-  // Initialize Advanced Galleriffic Gallery
- var gallery = $('#thumbs').galleriffic({
-   delay:                     2500,
-   numThumbs:                 15,
-   preloadAhead:              10,
-   enableTopPager:            false,
-   enableBottomPager:         false,
-   maxPagesToShow:            7,
-   imageContainerSel:         '#slideshow',
-   controlsContainerSel:      '#controls',
-   captionContainerSel:       '#caption',
-   loadingContainerSel:       '#loading',
-   renderSSControls:          true,
-   renderNavControls:         false,
-   enableHistory:             true,
-   autoStart:                 false,
-   syncTransitions:           true,
-   defaultTransitionDuration: 900,
-   onTransitionIn: function(slide, caption, isSync){
-      //var link = caption.find('.exhibit-item-link').attr('href');
-      //$('.show-item-details').attr('href', link);
-
-      // Fix default fade in behavior
-      // https://code.google.com/p/galleriffic/issues/detail?id=245
-      slide.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
-      if (caption) {
-        caption.fadeTo(this.getDefaultTransitionDuration(isSync), 1.0);
-      }
-   }
- });
-
 
 
 })(jQuery);
