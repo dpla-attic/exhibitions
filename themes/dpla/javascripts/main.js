@@ -118,7 +118,7 @@
 		return false;
 	});
 	
-	$('#cboxOverlay, #cboxClose').click(function() {
+	$('#cboxOverlay, .cboxClose').click(function() {
 		$('.forgotSlide').slideUp();
 		$('#cboxLoadedContent, #cboxWrapper, #colorbox, #cboxContent').animate({height: '320px'});
 		return false;

@@ -315,11 +315,6 @@ function dpla_get_exhibitpage_entries($start = 0, $end = 7) {
     return $result;
 }
 
-// FIXME: I'm sure PHP has better way to define global variables
-function dpla_exhibit_homepage_layout_name() {
-    return "dpla-exhibit-home-page";
-}
-
 /**
  * Return URI of attachment thumbnail ("squary" by default)
  */
@@ -336,4 +331,82 @@ function get_attachment_thumbnail($attachment, $type = "square_thumbnail") {
         $uri = "http://openexhibits.org/wp-content/uploads/icon/large/video-viewer-icon-100x100.png";
     }
     return $uri;
+}
+
+/**
+ * Exhibit page item field markup by name, if such field exist.
+ *
+ * @param $fieldLabel Field label.
+ * @param $values Field value.
+ * @return array|null
+ */
+function get_item_field_markup($fieldLabel, $values) {
+    if ($values) {
+        if (!is_array($values)) {
+            $values = array($values);
+        }
+        return "<ul>".
+                 "<li><h6>".$fieldLabel."</h6></li>".
+                 "<li>".join($values, "<br/>")."</li>".
+               "</ul>";
+    }
+    return null;
+}
+
+/**
+ * Retrieve API object by id. API basic URL should be configured in 'config.ini'
+ * Object will be returned as
+ *
+ * @param $apiObjectId
+ * @return mixed|string
+ */
+function get_dpla_api_object($apiObjectId) {
+
+    // if API URL configured ...
+    $config = Zend_Registry::get('bootstrap')->getResource('Config');
+    $baseUrl = $config->dpla->apiUrl;
+    if ($baseUrl) {
+
+        // ... and API has such item
+        $request = $baseUrl."/items/".$apiObjectId;
+
+        $session = curl_init($request);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($session);
+        curl_close($session);
+
+        if ($obj = json_decode($response, true)) {
+            // ... then return JSON as array
+            return array_key_exists('docs', $obj) ? $obj['docs'][0] : "";
+        }
+    }
+
+    return "";
+}
+
+/**
+ * Parse JSON and return value by array-path.
+ * Usage: dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
+ */
+function dpla_get_field_value_by_arrayname($json, $arr) {
+    $name = array_shift($arr);
+    $value = in_array($name, $json) || array_key_exists($name, $json) ? $json[$name] : null;
+    if (is_array($value) && count($value) > 0) {
+        $value = dpla_get_field_value_by_arrayname($value, $arr);
+    }
+
+    return $value;
+}
+
+/**
+ * Return exhibit page item meta information by field name
+ */
+function dpla_get_field_value_by_name($item, $name) {
+    return metadata($item['item'], array('Dublin Core', $name));
+}
+
+
+// FIXME: I'm sure PHP has better way to define global variables
+function dpla_exhibit_homepage_layout_name() {
+    return "dpla-exhibit-home-page";
 }
