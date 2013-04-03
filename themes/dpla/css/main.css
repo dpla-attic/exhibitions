@@ -402,7 +402,7 @@ header { position: relative; }
 }
 footer .logo { margin: 0; }
 
-header li { float: left; font-size: 1.139em; line-height: 0.900em;  }
+header li { float: left; font-size: 1.200em; line-height: 0.900em;  }
 
 header a { color: #2b2b2b; text-decoration: none; }
 header .active a, .MainNav a:hover { color: #2795b6; text-decoration: none; }
