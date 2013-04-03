@@ -2947,11 +2947,11 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 }
 .upper-section {
     overflow: hidden;
-    margin: -1em 0 15px;
+    margin: 0 0 15px;
     clear: both;
 }
 .upper-left {
-    padding-right: 32%;
+    padding-right: 34%;
 }
 .upper-left {
     float: left;
@@ -3548,15 +3548,18 @@ article,
 .layout aside, 
 aside, footer, 
 .content.bottom, 
-.upper-section, 
-.slide_bottom, 
-.slide-Container, 
+.upper-section,  
 .searchResults, 
 .map article, 
 .layoutTwo aside, 
 .slidePopOut, 
 article.overview .description {
     padding: 0 2.6455%; width: 94.709%; 
+}
+.slide_bottom, 
+.slide-Container {
+    padding: 0;
+    width: auto;
 }
 .rightSide {
     width: 100%;
