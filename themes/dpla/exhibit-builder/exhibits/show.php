@@ -5,7 +5,6 @@ echo head(array(
     'bodyclass' => 'show'));
 ?>
 
-<article>
     <?php fire_plugin_hook('public_content_top'); ?>
 
     <? $exhibitPage = get_current_record('exhibit_page'); ?>
@@ -45,6 +44,8 @@ echo head(array(
             <?php echo dpla_theme_nav(); ?>
         </div>  
     </div>
+    
+<article id="content" role="main">
 
 <?php exhibit_builder_render_exhibit_page(); ?>
 
