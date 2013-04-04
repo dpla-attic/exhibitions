@@ -4011,6 +4011,11 @@ aside { height: 100%; }
 
 
 /* MOBILE MAP */
+
+.map article.widthS, .timeContainer.widthS {
+    width: 100%;
+}
+
 .map .shareSave { display: none; }
 .map iframe { height: 200px; }
 .mapContainer { position: relative; }
