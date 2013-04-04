@@ -81,6 +81,7 @@ hr {
 img {
     vertical-align: middle;
     max-width: 100%;
+    max-height: 100%;
 }
 
 video,
@@ -654,6 +655,8 @@ aside .module span { color: #000; }
     float: left;
     margin: 0 20px 20px 0;
     width: 25%;
+    max-width: 150px;
+    max-height: 150px;
 }
 .contentBox img {
     margin: 0 0 1em;
@@ -1728,6 +1731,10 @@ input[type="checkbox"] {
     margin: 0.5% 6% 0 0;
     width: 24.1158%;
     min-height: 1px;
+    max-height: 150px;
+}
+.searchMiddle img {
+    float: right;
 }
 
 .searchLeft h4 {
@@ -2010,6 +2017,8 @@ aside h5 { margin: 5px 0 1em; }
 .box-right {
     float: right;
     width: 45%;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .box-right img {
@@ -2130,6 +2139,8 @@ aside h5 { margin: 5px 0 1em; }
     float: right;
     margin: 1em 0 0.5em 5%;
     width: 22%;
+    max-width: 150px;
+    max-height: 150px;
 }
 
 .sectionRight img {
@@ -2308,6 +2319,8 @@ aside h5 { margin: 5px 0 1em; }
     float: right;
     margin: 1em 0 0.5em 5%;
     width: 22%;
+    max-width: 150px;
+    max-height: 150px;
 }
 .searchRight img {
     width: 100%;
