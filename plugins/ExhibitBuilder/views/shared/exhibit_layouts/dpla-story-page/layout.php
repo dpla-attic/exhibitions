@@ -99,9 +99,9 @@
 
 <?php endif; ?>
 
-<?php echo exhibit_builder_page_text(1); ?>
 
 <div class="slide_bottom">
+    <?php echo exhibit_builder_page_text(1); ?>
 	<?php echo exhibit_builder_page_text(2); ?>
 
 	<ul class="prevNext">

@@ -306,7 +306,7 @@ h4 span { font-family: 'source_sans_pro_semiboldRg', arial, sans-serif; }
 
 .ui-loader-default { display: none; }
 
-a:hover { text-decoration: underline; color: #2b2b2b; }
+a:hover {color: #2b2b2b; }
 
 /* Alert and spinner */
 .alert {
