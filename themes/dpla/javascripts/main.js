@@ -331,6 +331,19 @@
     return false;
   });
 
+  //ITEM DETAIL: toggle description length
+  $('.desc-short .desc-toggle').click(function() {
+    $('.desc-short').hide();
+    $('.desc-long').slideDown();
+    return false;
+  });
+  $('.desc-long .desc-toggle').click(function() {
+    $('.desc-long').slideUp(function() {
+      $('.desc-short').fadeIn('fast');
+    });
+    return false;
+  });
+
 
 /////TIMELINE SETUP
 

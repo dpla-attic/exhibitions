@@ -1106,6 +1106,11 @@ h6.open span {
 .detail-bottom { clear: both; margin: 30px 0 30px 0; }
 .detail-bottom h6 { margin-bottom: 0; }
 
+.desc-short, .desc-long { overflow: hidden; }
+.desc-long { display: none; }
+.desc-toggle:hover { cursor: pointer; }
+.desc-toggle span { font-size: .5em; }
+
 .sideNav { border-top: 8px solid #E5A426; background: #ededed; padding-bottom: 5%; }
 .sideNav ul { margin: 0; padding: 2% 0 0; }
 .sideNav li {
@@ -3349,7 +3354,11 @@ div.timeline-year {
 .no-js .moreInfo, 
 .no-js .show-item-details,
 .no-js .cboxClose.pclose,
-.no-js .prevNext { display: none; }
+.no-js .prevNext,
+.no-js .desc-toggle,
+.no-js .desc-short { display: none; }
+
+.no-js .desc-long { display: block; }
 
 .no-js .timeline article { overflow: auto; margin: 0; }
 .no-js .upper-section .sideNav { position: static; float: left; }
