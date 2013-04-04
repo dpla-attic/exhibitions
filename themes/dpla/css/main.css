@@ -219,22 +219,6 @@ input[type="submit"] {
     z-index: 1;
 }
 
-@media print,
-       (-o-min-device-pixel-ratio: 5/4),
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 120dpi) {
-    input[type="submit"], .search-module input[type="submit"] {
-    	background: url("../images/mag-glass-2x.png") no-repeat center center transparent;
-		background-size: 67% 67%;
-	}
-
-}
-
-
-
-
-
-
 input[type="text"] {
     border: medium none;
     color: #222;
@@ -323,6 +307,68 @@ h4 span { font-family: 'source_sans_pro_semiboldRg', arial, sans-serif; }
 .ui-loader-default { display: none; }
 
 a:hover { text-decoration: underline; color: #2b2b2b; }
+
+/* Alert and spinner */
+.alert {
+    background: #000;
+    color: #fff;
+    padding: 15px;
+    width: 100px;
+    left: -999em;
+    position: absolute;
+    margin: 6em 0 1em -65px;
+    z-index: 1000;
+}
+.alert.on {
+    left: 50%;
+}
+.alert .spinner {
+    background: url('../images/spinner.png') center center no-repeat;
+    width: 39px;
+    height: 39px;
+    float: left;
+    margin: -9px 5px -9px -9px; 
+}
+.alert .spinner {
+    -webkit-animation: spinner-rotate 1.5s infinite linear;
+    -moz-animation: spinner-rotate 1.5s infinite linear;
+    -o-animation: spinner-rotate 1.5s infinite linear;
+    animation: spinner-rotate 1.5s infinite linear;
+}
+@-webkit-keyframes spinner-rotate {
+    0%   { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(-360deg); }
+}
+@-moz-keyframes spinner-rotate {
+    0%   { -moz-transform: rotate(0deg); }
+    100% { -moz-transform: rotate(-360deg); }
+}
+@-o-keyframes spinner-rotate {
+    0%   { -o-transform: rotate(0deg); }
+    100% { -o-transform: rotate(-360deg); }
+}
+@keyframes spinner-rotate {
+    0%   { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+}
+
+/* Hi-DPI displays */
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+
+    input[type="submit"], .search-module input[type="submit"] {
+        background: url('../images/mag-glass-2x.png') no-repeat center center transparent;
+        background-size: 67% 67%;
+    }
+    .alert .spinner {
+        background: url('../images/spinner-2x.png') center center no-repeat;
+        background-size: 67% 67%;
+    }    
+
+}
+
 /* ==========================================================================
    LAYOUT
    ========================================================================== */
