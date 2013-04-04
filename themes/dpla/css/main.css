@@ -1065,6 +1065,7 @@ h6.open span {
 .matches {
     overflow: hidden;
     margin: 15.5px 0; /*2.3% 0 2.9%*/
+    min-height: 53px;
 }
 
 
@@ -3626,6 +3627,8 @@ article.home {
 .search-page #toggle.mobile { display: inline-block; }
 .search-page #toggle.mobile.Maside { display: none; float: left; }
 .search-page .Maside { float: none; }
+
+.matches { min-height: inherit; }
 
 .right .social { top: 2.5%; }
 
