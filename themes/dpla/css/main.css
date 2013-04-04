@@ -4041,6 +4041,7 @@ aside { height: 100%; }
     width: 100%;
 }
 
+.mapBox { width: 280px; }
 .map .shareSave { display: none; }
 .map iframe { height: 200px; }
 .mapContainer { position: relative; }
