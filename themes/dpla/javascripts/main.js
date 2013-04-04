@@ -314,6 +314,24 @@
   });
 
 
+  //PROFILE: Saved Searches Column Sort
+  $('.sort').click(function() {
+    if ($(this).hasClass('active')) {
+      if ($(this).find('span').hasClass('icon-arrow-up')) {
+        $(this).find('span').removeClass('icon-arrow-up').addClass('icon-arrow-down');
+      } else {
+        $(this).find('span').removeClass('icon-arrow-down').addClass('icon-arrow-up');
+      }
+    } else {
+      $('.sort').removeClass('active');
+      $('.sort').find('span').removeClass('icon-arrow-up icon-arrow-down');
+      $(this).addClass('active');
+      $(this).find('span').addClass('icon-arrow-down');
+    }
+    return false;
+  });
+
+
 /////TIMELINE SETUP
 
   var slideDistance;
