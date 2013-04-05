@@ -25,7 +25,7 @@
                 <li class="twitter"><a href=""><span aria-hidden="true" class="icon-twitter"></span></a></li>
                 <li class="RSS"><a href=""><span aria-hidden="true" class="icon-rss"></span></a></li>
             </ul>
-            <img src="<?php echo img('footer-logo.png'); ?>" class="logo" />
+            <a href="/"><img src="<?php echo img('footer-logo.png'); ?>" class="logo" /></a>
         </div>
         <?php if ((get_theme_option('Display Footer Copyright') == 1) && $copyright = option('copyright')): ?>
             <p><?php echo $copyright; ?></p>

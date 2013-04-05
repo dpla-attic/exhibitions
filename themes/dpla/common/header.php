@@ -42,7 +42,9 @@
                     $config = Zend_Registry::get('bootstrap')->getResource('Config');
                     $baseUrl = $config->dpla->frontentdUrl; 
                 ?>
-                <div id="site-title" class="logo"><?php echo link_to_home_page('<img src="' . img('logo.png') . '" alt="DPLA: Digital Public Library of America" />'); ?></div>
+                <div id="site-title" class="logo">
+                    <a href="/"><img src="<?php echo img('logo.png'); ?>" class="logo" alt="DPLA: Digital Public Library of America" /></a>
+                </div>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span></span></a>
                 <nav class="topNav">
                     <ul>
