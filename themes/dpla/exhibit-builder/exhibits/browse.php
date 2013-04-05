@@ -38,7 +38,9 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
             }
             ?>
             <div class="exibition-image">
-            	<img alt="img" src="<?=$thumbUri?>"></img>
+                <a href="<?=exhibit_builder_exhibit_uri()?>">
+            	    <img alt="img" src="<?=$thumbUri?>"></img>
+                </a>
             </div>
 	        <h5><?php echo link_to_exhibit(); ?></h5>
             <?php
