@@ -2777,21 +2777,23 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     height: auto;
     width: auto;
 }
-.cboxClose {
+.cboxClose,
+#cboxClose {
     display: block;
     font-size: 1.3em;
-    text-indent: -999em;
     text-transform: uppercase;
     position: absolute;
     right: 22px;
     top: 22px;
     height: 20px;
-    width: 20px;
+    width: auto;
+    border: none;
+    background: transparent;
 }
 .overlay { display: none; }
 .pop-columns section:first-child { margin: 0; }
 .pop-columns span { float: right; }
-#inline_content, #loginBox , #signupBox, .itemDetailsBox {
+.inline_content, #inline_content, #loginBox , #signupBox, .itemDetailsBox {
     padding: 20px 24px; 
     overflow: hidden;
     background: none repeat scroll 0 0 #FFFFFF;
@@ -2901,6 +2903,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     float: right;
 }
 
+#colorbox h1 p { margin: 0; }
 #colorbox p { margin: 1em 0; }
 
 
@@ -3119,7 +3122,7 @@ div.timeline-year {
 
 
 
-#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+#colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;outline: none;}
 #cboxOverlay{position:fixed; width:100%; height:100%;}
 #cboxMiddleLeft, #cboxBottomLeft{clear:left;}
 #cboxContent{position:relative; }
@@ -4176,6 +4179,18 @@ aside { height: 100%; }
 }
 
 .year h3 { margin-top: 3px; }
+
+#colorbox #cboxClose,
+#cboxClose,
+.closePopUp {
+    font-size: 2.5em;
+    height: 34px;
+    top: 16px;
+    right: 5px;
+}
+.closePopUp {
+    top: 12px;
+}
 
 }
 

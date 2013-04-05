@@ -299,13 +299,41 @@
 
 
   //LIGHT BOX
-  $('.inline').colorbox({inline:true, width:'100%', maxWidth: '1000px', transition: 'none', reposition: false});
+  $('.inline').colorbox({
+    inline:true,
+    width:'100%',
+    maxWidth: '1000px',
+    transition: 'none',
+    reposition: false,
+    close: '&times;'
+  });
 
-  $('.login').colorbox({inline:true, width:'100%', maxWidth: '600px', transition: 'none', reposition: false});
+  $('.login').colorbox({
+    inline:true,
+    width:'100%',
+    maxWidth: '600px',
+    transition: 'none',
+    reposition: false,
+    close: '&times;'
+  });
 
-  $('.signUp').colorbox({inline:true, width:'100%', maxWidth: '600px', transition: 'none', reposition: false});
+  $('.signUp').colorbox({
+    inline:true,
+    width:'100%',
+    maxWidth: '600px',
+    transition: 'none',
+    reposition: false,
+    close: '&times;'
+  });
 
-  $('.show-item-details').colorbox({inline:true, width:'100%', maxWidth: '600px', transition: 'none', reposition: false});
+  $('.show-item-details').colorbox({
+    inline:true,
+    width:'100%',
+    maxWidth: '600px',
+    transition: 'none',
+    reposition: false,
+    close: '&times;'
+  });
 
   $('.pop-open').click(function() {
     $('.pop-columns.country').fadeOut(function() {

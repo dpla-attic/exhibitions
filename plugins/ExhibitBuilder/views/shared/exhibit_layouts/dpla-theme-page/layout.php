@@ -23,72 +23,73 @@
                         <a href="#<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></a>
                         <div class="overlay">
                             <div id="<?=$unique_id?>">
-                                <div class="cboxClose" class="pclose">&times;</div>
 
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
-                                <h1><?=$item['caption']?></h1>
-                                <article>
-                                    <p>
-                                        <?php
-                                        $desc = metadata($item['item'], array('Dublin Core', 'Description'));
-                                        echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
-                                        // TODO: maybe we will have to display expandable version of full description
-                                        ?>
-                                    </p>
-
-                                    <div class="table">
-                                        <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
-
-                                        <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator'))
-                                            : dpla_get_field_value_by_name($item, "Creator")): ?>
-                                            <ul>
-                                                <li><h6>Creator</h6></li>
-                                                <li><?=$value?></li>
-                                            </ul>
-                                        <?php endif; ?>
-
-                                        <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
-                                            : dpla_get_field_value_by_name($item, "Date")): ?>
-                                            <ul>
-                                                <li><h6>Created Date</h6></li>
-                                                <li><?=$value?></li>
-                                            </ul>
-                                        <?php endif; ?>
-
-                                        <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('originalRecord', 'rights'))
-                                            : dpla_get_field_value_by_name($item, "Rights")): ?>
-                                            <ul>
-                                                <li><h6>Rights</h6></li>
-                                                <li><?=$value?></li>
-                                            </ul>
-                                        <?php endif; ?>
-
-                                        <?php if ($provider = $json ? dpla_get_field_value_by_arrayname($json, array('provider', 'name'))
-                                            : dpla_get_field_value_by_name($item, "Source")): ?>
-                                            <ul>
-                                                <li><h6>Provider</h6></li>
-                                                <li><?=$provider?></li>
-                                            </ul>
-                                        <?php endif; ?>
-
-                                        <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null) : ?>
-                                            <?php if ($provider != $value): ?>
+                                <div class="inline_content">
+                                    <h1><?=$item['caption']?></h1>
+                                    <article>
+                                        <p>
+                                            <?php
+                                            $desc = metadata($item['item'], array('Dublin Core', 'Description'));
+                                            echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
+                                            // TODO: maybe we will have to display expandable version of full description
+                                            ?>
+                                        </p>
+                                    
+                                        <div class="table">
+                                            <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
+                                    
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator'))
+                                                : dpla_get_field_value_by_name($item, "Creator")): ?>
                                                 <ul>
-                                                    <li><h6>Data Provider</h6></li>
+                                                    <li><h6>Creator</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>
-                                        <?php endif; ?>
-
-                                        <?php if ($value = dpla_get_field_value_by_name($item, "References")): ?>
-                                            <ul>
-                                                <li><h6>References</h6></li>
-                                                <li><?=$value?></li>
-                                            </ul>
-                                        <?php endif; ?>
-                                    </div>
-
-                                </article>
+                                    
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
+                                                : dpla_get_field_value_by_name($item, "Date")): ?>
+                                                <ul>
+                                                    <li><h6>Created Date</h6></li>
+                                                    <li><?=$value?></li>
+                                                </ul>
+                                            <?php endif; ?>
+                                    
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('originalRecord', 'rights'))
+                                                : dpla_get_field_value_by_name($item, "Rights")): ?>
+                                                <ul>
+                                                    <li><h6>Rights</h6></li>
+                                                    <li><?=$value?></li>
+                                                </ul>
+                                            <?php endif; ?>
+                                    
+                                            <?php if ($provider = $json ? dpla_get_field_value_by_arrayname($json, array('provider', 'name'))
+                                                : dpla_get_field_value_by_name($item, "Source")): ?>
+                                                <ul>
+                                                    <li><h6>Provider</h6></li>
+                                                    <li><?=$provider?></li>
+                                                </ul>
+                                            <?php endif; ?>
+                                    
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null) : ?>
+                                                <?php if ($provider != $value): ?>
+                                                    <ul>
+                                                        <li><h6>Data Provider</h6></li>
+                                                        <li><?=$value?></li>
+                                                    </ul>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                    
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "References")): ?>
+                                                <ul>
+                                                    <li><h6>References</h6></li>
+                                                    <li><?=$value?></li>
+                                                </ul>
+                                            <?php endif; ?>
+                                        </div>
+                                    
+                                    </article>
+                                </div>
                             </div>
                         </div>
                     </li>
