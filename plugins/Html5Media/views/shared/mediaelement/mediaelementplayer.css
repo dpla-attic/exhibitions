@@ -127,12 +127,12 @@
 	background: linear-gradient(rgba(50,50,50,0.7), rgba(0,0,0,0.7)); 	
 	height: 30px;
 	width: 100%;
+	white-space: nowrap;
 }
 .mejs-container .mejs-controls  div {
 	list-style-type: none;
 	background-image: none;
-	display: block;
-	float: left;
+	display: inline-block;
 	margin: 0;
 	padding: 0;
 	width: 26px;
@@ -142,6 +142,7 @@
 	background: 0;
 	font-family: Helvetica, Arial;
 	border: 0;
+	vertical-align: top;
 }
 
 .mejs-controls .mejs-button button {
@@ -173,7 +174,7 @@
 /* Start: Time (current / duration) */
 .mejs-container .mejs-controls .mejs-time {
 	color: #fff;
-	display: block;
+	display: inline-block;
 	height: 17px;
 	width: auto;
 	padding: 8px 3px 0 3px ;
@@ -441,7 +442,7 @@
 
 .mejs-controls div.mejs-horizontal-volume-slider {
 	height: 26px;
-	width: 60px;
+	width: 55px;
 	position: relative;
 }
 
