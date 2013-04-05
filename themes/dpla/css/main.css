@@ -81,7 +81,7 @@ hr {
 img {
     vertical-align: middle;
     max-width: 100%;
-    max-height: 100%;
+    /* max-height: 100%; */
 }
 
 video,
@@ -792,7 +792,10 @@ aside .module span { color: #000; }
     margin-top: -1px;
 }
 
-
+.exibition-image {
+    height: 236px;
+    overflow: hidden;
+}
 
 aside .module {
     border-color: #808080;

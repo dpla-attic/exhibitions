@@ -37,7 +37,9 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
                 }
             }
             ?>
-            <img alt="img" src="<?=$thumbUri?>"></img>
+            <div class="exibition-image">
+            	<img alt="img" src="<?=$thumbUri?>"></img>
+            </div>
 	        <h5><?php echo link_to_exhibit(); ?></h5>
             <?php
             // exhibit description should be taken from exhibit Homepage
