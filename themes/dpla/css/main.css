@@ -2593,7 +2593,9 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-prev {right: 48px;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
 
-
+.me-plugin {
+    width: 100%;
+}
 .mejs-mediaelement {
     position: relative;
 }
