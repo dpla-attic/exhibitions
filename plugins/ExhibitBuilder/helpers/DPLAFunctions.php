@@ -297,6 +297,7 @@ function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
     $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
 
     $result['file_uri_square'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
+    $result['file_uri_thumbnail'] = isset($result['file']) ? $result['file']->getWebPath('thumbnail') : img("fallback-file.png");
     $result['file_uri_notsquare'] = isset($result['file']) ? $result['file']->getWebPath('fullsize') : img("fallback-file.png");
     $result['item_uri'] = isset($result['item']) ? exhibit_builder_exhibit_item_uri($result['item']) : "";
     return $result;
