@@ -71,6 +71,7 @@
                 nextPlayer
                 .mediaelementplayer({
                   audioWidth: '100%',
+                  audioHeight: 420,
                   videoWidth: '100%',
                   enableAutosize: true
                 });
@@ -101,6 +102,7 @@
     .find('audio, video')
       .mediaelementplayer({
         audioWidth: '100%',
+        audioHeight: 420,
         videoWidth: '100%',
         enableAutosize: true
       });

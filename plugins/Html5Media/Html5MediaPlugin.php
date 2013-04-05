@@ -162,7 +162,7 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
             $mediaOptions .= ' width="100%"';
         if (isset($options['height']))
             //$mediaOptions .= ' height="' . $options['height'] . '"';
-            $mediaOptions .= ' height="100%"';
+            $mediaOptions .= ' height="420"';
         if ($options['autoplay'])
             $mediaOptions .= ' autoplay';
         if ($options['controls'])

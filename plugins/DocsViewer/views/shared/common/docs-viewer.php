@@ -13,7 +13,7 @@ jQuery(document).ready(function () {
     docviewer.empty();
     docviewer.append(
         '<iframe src="' + <?php echo js_escape(DocsViewerPlugin::API_URL . '?' . http_build_query(array('url' => $docs[0]->getWebPath('original'), 'embedded' => 'true'))); ?>
-            + '" width="100%" height="600" style="border: none;"></iframe>');
+            + '" width="100%" height="420" style="border: none;"></iframe>');
 
 });
 </script>

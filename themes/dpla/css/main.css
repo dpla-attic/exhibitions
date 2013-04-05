@@ -87,7 +87,6 @@ img {
 video,
 embed {
     width: 100%;
-    height: auto;
 }
 
 /*
@@ -106,6 +105,10 @@ fieldset {
 
 textarea {
     resize: vertical;
+}
+
+iframe {
+    display: block;
 }
 
 /* ==========================================================================
