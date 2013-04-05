@@ -159,8 +159,8 @@ function dpla_page_summary($exhibitPage = null)
     }
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
     $html = '<li>'
-          . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
+          . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . metadata($exhibitPage, 'title') .'</a>';
 
     $html .= '</li>';
