@@ -16,7 +16,7 @@
                             ?>
                         </div>
                         <div class="caption">
-                            <a href="<?=exhibit_builder_exhibit_item_uri($item['item'])?>"><?=$item['caption']?></a>
+                            <?=$item['caption']?>
                         </div>
 
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>

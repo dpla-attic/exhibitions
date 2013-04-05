@@ -41,7 +41,7 @@
                 ?>
                 <img src="<?=$thumbUri?>" alt="slide">
                 <div class="caption">
-                    <a href="<?=$thumbItemUri ?>"><?=$thumbCaption ?></a>
+                    <?=$thumbCaption ?>
                 </div>
 			</section>
 
