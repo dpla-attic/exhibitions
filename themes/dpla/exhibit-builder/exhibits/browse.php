@@ -30,14 +30,27 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
 	    
 
 	    <section class="module blue <?php if ($exhibitCount%2==1) echo ' even'; else echo ' odd'; ?>">
+            <?php
+            if ($homepage = dpla_get_exhibit_homepage($exhibit)) {
+                if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
+                    $thumbUri = $att['file_uri_square'];
+                }
+            }
+            ?>
+            <img alt="img" src="<?=$thumbUri?>"></img>
 	        <h5><?php echo link_to_exhibit(); ?></h5>
-	        <?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
-	        	<p><?php echo strip_tags($exhibitDescription); ?></p>
-	        <?php endif; ?>
+            <?php
+            // exhibit description should be taken from exhibit Homepage
+            if ($homepage) {
+                if ($text = exhibit_builder_page_text(2, $homepage)) {
+                    if(strlen($text) > 120) $text = substr($text, 0, 120).'...';
+                } else if ($text = exhibit_builder_page_text(1, $homepage)) { // prefer Long description to Short
+                    if(strlen($text) > 120) $text = substr($text, 0, 120).'...';
+                }
+                echo $text ? "<p>".$text."</p>" : "";
+            }
+            ?>
 	        <?php echo link_to_exhibit('View Exhibit »'); ?>
-	        <?php if ($exhibitTags = tag_string('exhibit', 'exhibits')): ?>
-	        	<p class="tags"><?php echo $exhibitTags; ?></p>
-	        <?php endif; ?>
 	    </section>
 
 		<?php // TODO: Find a better way to make rows of 3 items ?>
