@@ -59,9 +59,9 @@
                 <?php
                 // exhibit description should be taken from exhibit Homepage
                 if ($homepage) {
-                    if ($text = exhibit_builder_page_text(2, $homepage)) { // prefer Long description to Short
+                    if ($text = exhibit_builder_page_text(1, $homepage)) { // prefer Long description to Short
                         echo $text;
-                    } else if ($text = exhibit_builder_page_text(1, $homepage)) {
+                    } else if ($text = exhibit_builder_page_text(2, $homepage)) {
                         echo $text;
                     }
                 }
