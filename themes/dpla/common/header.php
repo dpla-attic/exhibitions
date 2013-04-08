@@ -99,6 +99,7 @@
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
+                    <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
                     <form class="search-form" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
                         <input type="submit" class="searchBtn" value="Search">
