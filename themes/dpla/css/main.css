@@ -572,6 +572,14 @@ header .active a { border-bottom: 3px solid #2795b6; }
     padding: 1.9% 2.4%;
     width: 43%;
 }
+.moduleContainer.threeCol .module {
+    margin-bottom: -100%;
+    padding-bottom: 101.54%;
+}
+.home .moduleContainer .module {
+    margin-bottom: -100%;
+    padding-bottom: 101.9%;
+}
     .module.overview {
         margin: 0;
         padding: 0;
@@ -587,6 +595,7 @@ header .active a { border-bottom: 3px solid #2795b6; }
         }
             .thumbs-list li {
                 display: inline-block;
+                float: left;
                 margin: 0 20px 20px 0;
                 width: 128px;
                 vertical-align: top;
@@ -605,6 +614,13 @@ header .active a { border-bottom: 3px solid #2795b6; }
                 font-size: 100%;
                 margin: 1.5em 0 .5em 0;
             }
+
+            /* Maintain even theme rows */
+            .overview.six .thumbs-list li.four, .overview.eight .thumbs-list li.five {
+                clear: left;
+            }
+
+
 .ie8 input[type="text"] {
     padding-top: 10px;
     height: 24px;
@@ -974,20 +990,24 @@ article .shareSave { margin: 0 0 3% 74.286%; }
 
 .no-results h4 {
     float: none;
-    margin: 1em 0;
 }
-.no-results p {
+.no-results > p {
     float: none;
     margin: 0;
+    clear: both;
 }
-.no-results ul {
+.no-results .refine {
+    margin-bottom: 1em;
+    overflow: hidden;
+}
+.no-results > ul {
     float: none;
     list-style: disc;
     margin: 0 0 0 1em;
     padding: 0 0 0 1em;
     width: auto;
 }
-    .no-results li {
+    .no-results > ul li {
         background-color: transparent;
         border: 0;
         float: none;
@@ -3502,6 +3522,13 @@ div.timeline-year {
 
 
 
+@media only screen and (max-width: 1000px) {
+    /* Maintain even theme rows */
+    .overview.four .thumbs-list li.three, .overview.eight .thumbs-list li.three, .overview.eight .thumbs-list li.seven {
+        clear: left;
+    }
+}
+
 @media only screen and (min-width: 681px) and (max-width: 980px) {
     body .container .home h2, body .container .home h1.border { font-size: 1.4em; }
 	.left h4 { font-size: 1em; }
@@ -3579,6 +3606,15 @@ div.timeline-year {
 
 }
 
+@media only screen and (max-width: 760px) {
+    /* Maintain even theme rows */
+    .overview.six .thumbs-list li.three, .overview.six .thumbs-list li.five {
+        clear: left;
+    }
+    .overview.six .thumbs-list li.four {
+        clear: none;
+    }
+}
 
 @media only screen and (max-width: 730px) {
     .popBar .pagination {
@@ -3784,6 +3820,14 @@ body .container .upper-left h2 { font-size: 1.4em; }
     }
     .threeCol .module:first-child {
         margin: 0;
+    }
+    .moduleContainer.threeCol .module {
+        margin-bottom: 0;
+        padding-bottom: 4%;
+    }
+    .home .moduleContainer .module {
+        margin-bottom: 0;
+        padding-bottom: 3%;
     }
 	aside .module {
 		float: none;
