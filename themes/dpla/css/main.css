@@ -2461,6 +2461,9 @@ aside h5 { margin: 5px 0 1em; }
     border: 1px solid #fff;
     font-size: 1.4em;
 }
+.show-doc-details {
+    top: 53px;
+}
 .moreInfo.hover {
     border-color: #fff;
     background-color: transparent;

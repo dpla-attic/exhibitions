@@ -9,12 +9,16 @@ jQuery(document).ready(function () {
     var docviewer = docsviewerParent.find('.docsviewer_viewer');
 
     // Set the default docviewer.
-    console.log("DocsViewer: display document");
+    //console.log("DocsViewer: display document");
     docviewer.empty();
     docviewer.append(
         '<iframe src="' + <?php echo js_escape(DocsViewerPlugin::API_URL . '?' . http_build_query(array('url' => $docs[0]->getWebPath('original'), 'embedded' => 'true'))); ?>
             + '" width="100%" height="420" style="border: none;"></iframe>');
 
+    docviewer
+        .parents('.flexslider-slide')
+        .find('.show-item-details')
+        .addClass('show-doc-details');
 });
 </script>
 <div class="docsviewer" id="<?=$unique_id?>">

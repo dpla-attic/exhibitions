@@ -5,7 +5,7 @@
             <ul class="slides">
 
                 <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
-                    <li data-thumb="<?=$item['file_uri_square'] ?>">
+                    <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
                             <?php
                             if ($media = get_plugin_hook_output('public_items_show', array('view' => get_view(), 'item' => $item['item']))) {
