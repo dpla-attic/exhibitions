@@ -990,20 +990,24 @@ article .shareSave { margin: 0 0 3% 74.286%; }
 
 .no-results h4 {
     float: none;
-    margin: 1em 0;
 }
-.no-results p {
+.no-results > p {
     float: none;
     margin: 0;
+    clear: both;
 }
-.no-results ul {
+.no-results .refine {
+    margin-bottom: 1em;
+    overflow: hidden;
+}
+.no-results > ul {
     float: none;
     list-style: disc;
     margin: 0 0 0 1em;
     padding: 0 0 0 1em;
     width: auto;
 }
-    .no-results li {
+    .no-results > ul li {
         background-color: transparent;
         border: 0;
         float: none;
