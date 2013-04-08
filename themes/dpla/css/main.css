@@ -572,6 +572,14 @@ header .active a { border-bottom: 3px solid #2795b6; }
     padding: 1.9% 2.4%;
     width: 43%;
 }
+.moduleContainer.threeCol .module {
+    margin-bottom: -100%;
+    padding-bottom: 101.54%;
+}
+.home .moduleContainer .module {
+    margin-bottom: -100%;
+    padding-bottom: 101.9%;
+}
     .module.overview {
         margin: 0;
         padding: 0;
@@ -3808,6 +3816,14 @@ body .container .upper-left h2 { font-size: 1.4em; }
     }
     .threeCol .module:first-child {
         margin: 0;
+    }
+    .moduleContainer.threeCol .module {
+        margin-bottom: 0;
+        padding-bottom: 4%;
+    }
+    .home .moduleContainer .module {
+        margin-bottom: 0;
+        padding-bottom: 3%;
     }
 	aside .module {
 		float: none;
