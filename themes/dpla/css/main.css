@@ -311,6 +311,12 @@ h4 span { font-family: 'source_sans_pro_semiboldRg', arial, sans-serif; }
 
 a:hover {color: #2b2b2b; }
 
+.message {
+    display: inline-block;
+    border: 1px solid #bebebe;
+    padding: .3em .5em;
+    margin: .3em 1em 1em 0 !important;
+}
 /* Alert and spinner */
 .alert {
     background: #000;
@@ -986,7 +992,7 @@ article .shareSave { margin: 0 0 3% 74.286%; }
 .searchResults a { color: #2795b6; margin-left: 8px; }
 .searchResults ul li a:hover { text-decoration: none; }
 
-.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; }
+.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; margin-right: 1em;}
 
 .no-results h4 {
     float: none;
