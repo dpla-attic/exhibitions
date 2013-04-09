@@ -276,7 +276,7 @@
     }
   );
 
-  $('#inline_content .tabs a').click(function() {
+  $('#inline_content .tabs a, .shareSave .btn, .resultsBar .btn').click(function() {
     return false;
   });
 
