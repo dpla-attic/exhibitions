@@ -10,7 +10,7 @@ echo head(array(
     <? $exhibitPage = get_current_record('exhibit_page'); ?>
     <div class="breadCrumbs">
         <ul>
-            <li><a href="/">Exhibitions</a></li>
+            <li><a href="<?=Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibitionsUrl?>">Exhibitions</a></li>
             <li><?php echo link_to_exhibit(); ?></li>
             <?php if($exhibitPage->parent_id): ?>
                 <li><?php echo dpla_link_to_parent_page(); ?></li>
