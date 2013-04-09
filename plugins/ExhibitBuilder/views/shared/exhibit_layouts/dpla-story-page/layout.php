@@ -26,7 +26,7 @@
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
                                     <h1><?=$item['caption']?></h1>
-                                    <article>
+                                    <article id="content" role="main">
                                         <p>
                                             <?php
                                             $desc = metadata($item['item'], array('Dublin Core', 'Description'));

@@ -24,7 +24,7 @@
 
 <h1><?php echo metadata('item', array('Dublin Core', 'Title')); ?></h1>
 
-<article>
+<article id="content" role="main">
 
     <div class="FeatureContent">
         <div class="contentBox">

@@ -34,6 +34,14 @@
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <?php # fire_plugin_hook('public_body', array('view'=>$this)); ?>
+
+        <ul class="jump-links">
+            <li><a href="#top-nav" accesskey="1">Go to top navigation</a></li>
+            <li><a href="#main-nav" accesskey="2">Go to main navigation</a></li>
+            <li><a href="#searchBox" accesskey="3">Go to search form</a></li>
+            <li><a href="#content" accesskey="4">Go to main content</a></li>
+            <li><a href="#social" accesskey="5">Go to social media navigation</a></li>
+        </ul>
         <div class="container">
 
             <header>
@@ -44,7 +52,7 @@
                 ?>
                 <a href="/" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span></span></a>
-                <nav class="topNav">
+                <nav class="topNav" id="top-nav">
                     <ul>
                         <li class="aboutMenu"><a href="<?= $baseUrl . '/about' ?>">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                           <ul>
@@ -59,7 +67,7 @@
                         <li><a href="<?= $baseUrl . '/contact' ?>">Contact</a></li>
                     </ul>   
                 </nav>
-                <nav class="MainNav">
+                <nav class="MainNav" id="main-nav">
                     <ul class="navigation">
                         <li>
                             <a href="<?= $baseUrl ?>">Home</a>
@@ -98,7 +106,7 @@
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
                     <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
-                    <form class="search-form" action="<?= $baseUrl . '/search' ?>">
+                    <form class="search-form" id="searchBox" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
                         <input type="submit" class="searchBtn" value="Search">
                     </form>
