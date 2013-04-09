@@ -2,7 +2,7 @@
 
 <div class="breadCrumbs">
     <ul>
-        <li><a href="/">Exhibitions</a></li>
+        <li><a href="<?=Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibitionsUrl?>">Exhibitions</a></li>
         <li><?php echo metadata('exhibit', 'title'); ?></li>
     </ul>
 </div>
