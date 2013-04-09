@@ -51,7 +51,7 @@
                     $baseUrl = $config->dpla->frontentdUrl; 
                 ?>
                 <a href="/" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
-                <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span></span></a>
+                <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span><span class="visuallyhidden">Navigation</span></a>
                 <nav class="topNav" id="top-nav">
                     <ul>
                         <li class="aboutMenu"><a href="<?= $baseUrl . '/about' ?>">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
@@ -105,7 +105,7 @@
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
-                    <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
+                    <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span><span class="visuallyhidden">Search</span></a>
                     <form class="search-form" id="searchBox" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
                         <input type="submit" class="searchBtn" value="Search">
