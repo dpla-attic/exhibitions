@@ -101,12 +101,14 @@
 
 <? endif; ?>
 
-<?php echo exhibit_builder_page_text(2); ?>
 
-<ul class="prevNext">
-    <?php // TODO: Define first and last pages ?>
-    <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
-        <li class="btn"><?= $nextLink ?></li>
-    <? endif; ?>
-    <li><?= dpla_page_position(); ?></li>
-</ul>
+<div class="slide_bottom">
+    <?php echo exhibit_builder_page_text(2); ?>
+    <ul class="prevNext">
+        <?php // TODO: Define first and last pages ?>
+        <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
+            <li class="btn"><?= $nextLink ?></li>
+        <? endif; ?>
+        <li><?= dpla_page_position(); ?></li>
+    </ul>
+</div>
