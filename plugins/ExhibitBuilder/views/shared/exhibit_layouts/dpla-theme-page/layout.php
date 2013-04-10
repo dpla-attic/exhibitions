@@ -1,9 +1,8 @@
 <!-- TODO: make refactoring - reuse of code within "story" and "theme" layout -->
-
+<?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
             <ul class="slides">
-
                 <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
@@ -94,11 +93,11 @@
                         </div>
                     </li>
                 <?php endforeach; ?>
-
             </ul>
         </div>
     </div>
 
+<?php endif; ?>
 
 <?php echo exhibit_builder_page_text(2); ?>
 
