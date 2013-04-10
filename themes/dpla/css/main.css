@@ -869,7 +869,8 @@ aside h1 {
 	background: #000;
 	color: #fff;
 }
-.shareSave .btn:hover a, .buttons .btn:hover a {
+.shareSave .btn:hover a, .buttons .btn:hover a,
+.shareSave .btn.hover-ie a {
 	background: #000;
 }
 .shareSave .btn:hover ul li a:hover, .buttons .btn:first-child:hover ul li a:hover {
@@ -885,7 +886,8 @@ aside h1 {
 	padding: 5px 0;
 	margin-top: 2.2em;
 }
-.shareSave .btn:hover ul, .buttons .btn:first-child:hover ul {
+.shareSave .btn:hover ul, .buttons .btn:first-child:hover ul,
+.shareSave .btn.hover-ie ul {
 	right: 0;
 }
 .shareSave .btn ul li, .shareSave .btn ul li a {
@@ -4143,6 +4145,7 @@ aside { height: 100%; }
             .footer-navTwo li { margin: 1.8em 0 0; } 
             footer li:first-child { margin: 0; }
 
+video {display: none;}
 
 /* MOBILE MAP */
 
