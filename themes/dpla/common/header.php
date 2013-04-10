@@ -48,7 +48,7 @@
                 <?php fire_plugin_hook('public_header'); ?>
                 <?php
                     $config = Zend_Registry::get('bootstrap')->getResource('Config');
-                    $baseUrl = $config->dpla->frontentdUrl; 
+                    $baseUrl = $config->dpla->frontendUrl;
                 ?>
                 <a href="/" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span><span class="visuallyhidden">Navigation</span></a>

@@ -5,3 +5,5 @@ files/*
 # IntelijIDEA files
 .idea
 *.iml
+# eclipse
+.project

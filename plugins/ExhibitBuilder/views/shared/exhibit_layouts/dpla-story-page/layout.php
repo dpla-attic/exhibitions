@@ -1,4 +1,4 @@
-<?php if ($attachment = exhibit_builder_page_attachment(1)): ?>
+<?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
             <ul class="slides">

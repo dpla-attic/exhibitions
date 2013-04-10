@@ -1,9 +1,8 @@
 <!-- TODO: make refactoring - reuse of code within "story" and "theme" layout -->
-<? if ($attachment = exhibit_builder_page_attachment(2)): ?>
+<?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
             <ul class="slides">
-
                 <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
@@ -94,19 +93,20 @@
                         </div>
                     </li>
                 <?php endforeach; ?>
-
             </ul>
         </div>
     </div>
 
-<? endif; ?>
+<?php endif; ?>
 
-<?php echo exhibit_builder_page_text(2); ?>
 
-<ul class="prevNext">
-    <?php // TODO: Define first and last pages ?>
-    <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
-        <li class="btn"><?= $nextLink ?></li>
-    <? endif; ?>
-    <li><?= dpla_page_position(); ?></li>
-</ul>
+<div class="slide_bottom">
+    <?php echo exhibit_builder_page_text(2); ?>
+    <ul class="prevNext">
+        <?php // TODO: Define first and last pages ?>
+        <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
+            <li class="btn"><?= $nextLink ?></li>
+        <? endif; ?>
+        <li><?= dpla_page_position(); ?></li>
+    </ul>
+</div>
