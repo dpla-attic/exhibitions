@@ -1,5 +1,5 @@
 <!-- TODO: make refactoring - reuse of code within "story" and "theme" layout -->
-<? if ($attachment = exhibit_builder_page_attachment(2)): ?>
+
     <div class="slide-Container">
         <div class="slidegallery flexslider">
             <ul class="slides">
@@ -99,7 +99,6 @@
         </div>
     </div>
 
-<? endif; ?>
 
 <?php echo exhibit_builder_page_text(2); ?>
 
