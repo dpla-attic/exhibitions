@@ -463,7 +463,11 @@
     $('.scrubber').slider({
 		value: (selectedYear*100000)/1020,
 		min: 0,
-		max: endPoint*1000
+		max: endPoint*1000,
+    change: function( event, ui ) {
+      console.log($('.scrubber').slider('value') * 1020 / 100000 + 1000);
+      //Call new Year data here
+    }
 	  });
 	}
   }
