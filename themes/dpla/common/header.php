@@ -97,6 +97,14 @@
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
+                    <div class="searchViews">
+                        <span>View:</span>
+                        <ul>
+                            <li><a href="<?= $baseUrl . '/search' ?>"><span aria-hidden="true" class="icon-view-list"></span></a></li>
+                            <li><a href="<?= $baseUrl . '/map' ?>" class="viewTwo"><span aria-hidden="true" class="icon-view-map"></span></a></li>
+                            <li><a href="<?= $baseUrl . '/timeline' ?>" class="viewThree"><span aria-hidden="true" class="icon-view-time"></span></a></li>
+                        </ul>
+                    </div>
                     <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
                     <form class="search-form" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
