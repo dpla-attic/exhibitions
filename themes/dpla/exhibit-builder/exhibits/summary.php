@@ -67,16 +67,26 @@
                 }
                 ?>
             </div>
-			<div class="module overview">
+
+            <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
+            <?php
+                $pagesCount = 0; 
+                $thumbsList = '<ul class="thumbs-list">';
+                
+                foreach (loop('exhibit_page') as $exhibitPage) {
+                    if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
+                        $pagesCount++;
+                        $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
+                                  . dpla_page_summary($exhibitPage)
+                                  .'</li>';
+                    }
+                }
+                $thumbsList .= '</ul>';
+            ?>
+
+			<div class="module overview overview-<?php echo $pagesCount; ?>">
 				<h2>Choose a theme</h2>
-				<ul class="thumbs-list">
-			        <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
-			        <?php foreach (loop('exhibit_page') as $exhibitPage): ?>
-                        <?php if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()): ?>
-			                <?php echo dpla_page_summary($exhibitPage); ?>
-                        <?php endif; ?>
-			        <?php endforeach; ?>
-			    </ul>
+			    <?php echo $thumbsList; ?>
 			</div>
 
 		</div>
