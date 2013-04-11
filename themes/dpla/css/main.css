@@ -665,6 +665,10 @@ header .active a { border-bottom: 3px solid #2795b6; }
 
 .blue h5, .blue h5 a, .module.blue a { color: #2795b6; }
 
+.module.blue h5 { margin-top: 0; }
+.module.blue p { clear: none; }
+.module.blue img { margin: 0; max-height: none; }
+
 .text {
     float: left;
     width: 57.69%;
@@ -823,7 +827,11 @@ aside .module span { color: #000; }
 }
 
 .exibition-image {
-    height: 236px;
+    max-width: 200px;
+    max-height: 200px;
+    width: 40%;
+    float: left;
+    margin: 0.5% 4.3% 4% 0;
     overflow: hidden;
 }
 
@@ -3583,7 +3591,9 @@ div.timeline-year {
     .searchViews { width: 40%; }
     .formRow select { float: none; display: block; clear: both; margin: 5px 0 5px; width: auto; }
     aside .module.line { background-position: center 43%; }
-    
+    .exibition-image { width: 100%; margin: 0 0 4%; }
+    .module.blue h5 { clear: left; }
+        
 	.DecadesDates, .graph { 
 		right: 98.8%;
 	}
