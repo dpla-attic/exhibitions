@@ -26,7 +26,7 @@
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
                                     <h1><?=$item['caption']?></h1>
-                                    <article>
+                                    <article id="content" role="main">
                                         <p>
                                         	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                                         	<?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))

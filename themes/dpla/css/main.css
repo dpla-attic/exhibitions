@@ -318,6 +318,12 @@ h4 span { font-family: 'source_sans_pro_semiboldRg', arial, sans-serif; }
 
 a:hover {color: #2b2b2b; }
 
+.message {
+    display: inline-block;
+    border: 1px solid #bebebe;
+    padding: .3em .5em;
+    margin: .3em 1em 1em 0 !important;
+}
 /* Alert and spinner */
 .alert {
     background: #000;
@@ -659,6 +665,10 @@ header .active a { border-bottom: 3px solid #2795b6; }
 
 .blue h5, .blue h5 a, .module.blue a { color: #2795b6; }
 
+.module.blue h5 { margin-top: 0; }
+.module.blue p { clear: none; }
+.module.blue img { margin: 0; max-height: none; }
+
 .text {
     float: left;
     width: 57.69%;
@@ -817,7 +827,11 @@ aside .module span { color: #000; }
 }
 
 .exibition-image {
-    height: 236px;
+    max-width: 200px;
+    max-height: 200px;
+    width: 40%;
+    float: left;
+    margin: 0.5% 4.3% 4% 0;
     overflow: hidden;
 }
 
@@ -996,7 +1010,7 @@ article .shareSave { margin: 0 0 3% 74.286%; }
 .searchResults a { color: #2795b6; margin-left: 8px; }
 .searchResults ul li a:hover { text-decoration: none; }
 
-.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; }
+.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; margin-right: 1em;}
 
 .no-results h4 {
     float: none;
@@ -1296,9 +1310,6 @@ aside .moduleSection p { margin: 0 0 10px; }
 	top: 151px;
 	z-index: 1;
 }
-.Decades .next {
-	display: none;
-}
 .DecadesDates {
     background: none repeat scroll 0 0 #8b8b8b;
     border-bottom: 3px solid #FFFFFF;
@@ -1306,7 +1317,6 @@ aside .moduleSection p { margin: 0 0 10px; }
 	padding: 22px 0 0 0.391389%;
     position: relative;
 	height: 31px;
-	right: 91.659%;
 }
 .DecadesDates ul {
     margin: 0;
@@ -1353,7 +1363,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 
 
 .bars {
-    margin: 0 -22% 0 0.5%;
+    margin: 0 -19% 0 0.5%;
     padding: 0;
 }
 .yearsView .bars {
@@ -1367,7 +1377,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .centuries {
     border-bottom: 1px solid #2b2b2b;
     padding: 10px 0 0 0;
-    margin: 0 -16% 0 -4%;
+    margin: 0 -13.5% 0 -4%;
     overflow: hidden;
 }
 .yearsView .centuries {
@@ -1376,7 +1386,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .centuries li {
     list-style: none;
     margin: 0;
-	width: 9.27%;
+	width: 9.15%;
     float: left;
 	text-align: center;
     background: url(../images/timlineLine.jpg) no-repeat center bottom;
@@ -1398,7 +1408,7 @@ aside .moduleSection p { margin: 0 0 10px; }
     position: absolute;
     top: -3px;
     cursor: pointer;
-    width: 12.4%;
+    width: 10%;
 	outline: none;
 	cursor: move;
     text-align: center;
@@ -1451,7 +1461,6 @@ aside .moduleSection p { margin: 0 0 10px; }
     clear: both;
 	min-height: 500px;
     position: relative;
-	right: 91.659%;
 }
 .graph ul {
     margin: 0;
@@ -1463,7 +1472,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .infoOuter {
     background: url(../images/popup-arrow.png) no-repeat center top;
     position: absolute; 
-    left: -999em;  
+    left: -1999em;  
 }
 .info h3 { margin: 0; }
 .graph li .info {
@@ -2238,7 +2247,7 @@ aside h5 { margin: 5px 0 1em; }
 }
 
 .timelineModule {
-    margin: 0 13% 25px 3%;
+    margin: 0 11.5% 25px 3%;
 }
 
 .timelineContainer {
@@ -3195,14 +3204,14 @@ div.timeline-year {
 */
 #cboxOverlay{background: #000; opacity: 0.8!important; }
 #colorbox{}
-    #cboxTopLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px 0;}
-    #cboxTopRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px 0;}
-    #cboxBottomLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px -29px;}
-    #cboxBottomRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px -29px;}
-    #cboxMiddleLeft{width:21px; background:url(../images/controls.png) left top repeat-y;}
-    #cboxMiddleRight{width:21px; background:url(../images/controls.png) right top repeat-y;}
-    #cboxTopCenter{height:21px; background:url(../images/border.png) 0 0 repeat-x;}
-    #cboxBottomCenter{height:21px; background:url(../images/border.png) 0 -29px repeat-x;}
+    #cboxTopLeft{width:21px; height:21px;}
+    #cboxTopRight{width:21px; height:21px;}
+    #cboxBottomLeft{width:21px; height:21px;}
+    #cboxBottomRight{width:21px; height:21px;}
+    #cboxMiddleLeft{width:21px;}
+    #cboxMiddleRight{width:21px;}
+    #cboxTopCenter{height:21px;}
+    #cboxBottomCenter{height:21px;}
     #cboxContent{ 
         background:#fff; 
         overflow:hidden;
@@ -3213,13 +3222,13 @@ div.timeline-year {
         #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
         #cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
-        #cboxPrevious{position:absolute; bottom:0; left:0; background:url(../images/controls.png) no-repeat -75px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious{position:absolute; bottom:0; left:0; width:25px; height:25px; text-indent:-9999px;}
         #cboxPrevious:hover{background-position:-75px -25px;}
-        #cboxNext{position:absolute; bottom:0; left:27px; background:url(../images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; width:25px; height:25px; text-indent:-9999px;}
         #cboxNext:hover{background-position:-50px -25px;}
-        #cboxLoadingOverlay{background:url(../images/loading_background.png) no-repeat center center;}
-        #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
-        .cboxClose:hover{background-position:-25px -25px;}
+        #cboxLoadingOverlay{}
+        #cboxLoadingGraphic{}
+        #cboxClose:hover{background-position:-25px -25px;}
 
 /*
   The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
@@ -3582,7 +3591,9 @@ div.timeline-year {
     .searchViews { width: 40%; }
     .formRow select { float: none; display: block; clear: both; margin: 5px 0 5px; width: auto; }
     aside .module.line { background-position: center 43%; }
-    
+    .exibition-image { width: 100%; margin: 0 0 4%; }
+    .module.blue h5 { clear: left; }
+        
 	.DecadesDates, .graph { 
 		right: 98.8%;
 	}

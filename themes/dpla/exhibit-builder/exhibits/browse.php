@@ -2,7 +2,7 @@
 $title = __('Exhibitions');
 echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse'));
 ?>
-<article id="exhibits-container">
+<article id="content" role="main">
     <?php fire_plugin_hook('public_content_top'); ?>
 
     <ul class="shareSave">
