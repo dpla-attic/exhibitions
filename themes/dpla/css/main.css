@@ -8,6 +8,10 @@
     display: none;
 }
 
+.zoomit_images {
+    display: none;
+}
+
 /*
  * HTML5 Boilerplate
  *
@@ -85,8 +89,11 @@ img {
 }
 
 video,
-embed {
+embed,
+.plugin-content object {
     width: 100%;
+    height: 420px;
+    -webkit-transform-style: preserve-3d;
 }
 
 /*
@@ -2468,7 +2475,7 @@ aside h5 { margin: 5px 0 1em; }
     right: 92px;
     text-transform: uppercase;
     width: 31px;
-    z-index: 10;
+    z-index: 888;
     cursor: pointer;
     font: italic 1.1em 'Times New Roman', Times, serif;
     -webkit-transition: 0.3s ease;
@@ -2577,9 +2584,17 @@ aside h5 { margin: 5px 0 1em; }
 .flex-control-nav { display: none; }
 .slides, .flex-control-nav, .flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
 
-.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
 .flexslider .slides img {width: 100%; display: block;}
 .flex-pauseplay span {text-transform: capitalize;}
+
+.flexslider-slide .item-file {
+    display: none;
+}
+
+.flex-active-slide .item-file {
+    display: block;
+}
 
 .slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
 html[xmlns] .slides {display: block;} 
@@ -2621,6 +2636,11 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-next {background-position: right 0; right: 17px; }
 .flex-direction-nav .flex-prev {right: 48px;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+.plugin-content,
+.plugin-content .item-file {
+    height: 420px;
+}
 
 .me-plugin {
     width: 100%;
@@ -4144,8 +4164,6 @@ aside { height: 100%; }
             footer nav li { float: none; margin: 1.8em 0 0; }
             .footer-navTwo li { margin: 1.8em 0 0; } 
             footer li:first-child { margin: 0; }
-
-video {display: none;}
 
 /* MOBILE MAP */
 
