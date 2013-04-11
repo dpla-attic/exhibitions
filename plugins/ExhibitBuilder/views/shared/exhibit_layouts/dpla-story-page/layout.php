@@ -28,28 +28,42 @@
                                     <h1><?=$item['caption']?></h1>
                                     <article id="content" role="main">
                                         <p>
+                                        	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
+                                        	<?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
+                                                : dpla_get_field_value_by_name($item, "Title")): ?>
                                             <?php
-                                            $desc = metadata($item['item'], array('Dublin Core', 'Description'));
-                                            echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
+                                            //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
+                                            // echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
+                                            //echo strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;
+                                            echo $value; 
                                             // TODO: maybe we will have to display expandable version of full description
                                             ?>
+                                            <?php endif; ?>
                                         </p>
                                     
                                         <div class="table">
-                                            <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                                     
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
+                                                : dpla_get_field_value_by_name($item, "Date")): ?>
+                                                <ul>
+                                                    <li><h6>Date</h6></li>
+                                                    <li><?=$value?></li>
+                                                </ul>
+                                            <?php endif; ?>
+
                                             <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator'))
                                                 : dpla_get_field_value_by_name($item, "Creator")): ?>
                                                 <ul>
                                                     <li><h6>Creator</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
-                                            <?php endif; ?>
+                                            <?php endif; ?>                                            
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
-                                                : dpla_get_field_value_by_name($item, "Date")): ?>
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description'))
+                                                : dpla_get_field_value_by_name($item, "Description")): ?>
+                                            <?php $value = strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;?>
                                                 <ul>
-                                                    <li><h6>Created Date</h6></li>
+                                                    <li><h6>Description</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>
