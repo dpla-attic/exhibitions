@@ -93,7 +93,7 @@
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                     
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "References")): ?>
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "Is Part Of")): ?>
                                                 <ul>
                                                     <li><h6>References</h6></li>
                                                     <li><?=$value?></li>
