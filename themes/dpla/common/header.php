@@ -99,16 +99,16 @@
                             <a href="<?= $config->dpla->exhibitionsUrl ?>">Exhibitions</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/map' ?>">Map</a>
+                            <a href="<?= $baseUrl ?>/map">Map</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/timeline' ?>">Timeline</a>
+                            <a href="<?= $baseUrl ?>/timeline">Timeline</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/apps' ?>">Apps</a>
+                            <a href="<?= $baseUrl ?>/apps">Apps</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/help' ?>">Help</a>
+                            <a href="<?= $wpUrl ?>/help">Help</a>
                         </li>
                     </ul>
                 </nav>
