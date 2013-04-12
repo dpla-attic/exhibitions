@@ -401,7 +401,7 @@ function dpla_get_field_value_by_arrayname($json, $arr) {
  * Return exhibit page item meta information by field name
  */
 function dpla_get_field_value_by_name($item, $name) {
-    return metadata($item['item'], array('Dublin Core', $name));
+    return metadata($item['item'], array('Dublin Core', $name), array(Omeka_View_Helper_Metadata::DELIMITER=>', '));
 }
 
 
