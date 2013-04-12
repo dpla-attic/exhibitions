@@ -20,10 +20,10 @@
             </ul>   
         </nav>
         <div class="footerBottom">
-            <ul class="social icons">
-                <li class="facebook"><a href=""><span aria-hidden="true" class="icon-facebook"></span></a></li>
-                <li class="twitter"><a href=""><span aria-hidden="true" class="icon-twitter"></span></a></li>
-                <li class="RSS"><a href=""><span aria-hidden="true" class="icon-rss"></span></a></li>
+            <ul class="social icons" id="social">
+                <li class="facebook"><a href=""><span aria-hidden="true" class="icon-facebook"></span><span class="visuallyhidden">Facebook</span></a></li>
+                <li class="twitter"><a href=""><span aria-hidden="true" class="icon-twitter"></span><span class="visuallyhidden">Twitter</span></a></li>
+                <li class="RSS"><a href=""><span aria-hidden="true" class="icon-rss"></span><span class="visuallyhidden">RSS</span></a></li>
             </ul>
             <a href="/"><img src="<?php echo img('footer-logo.png'); ?>" class="logo" /></a>
         </div>
@@ -47,5 +47,12 @@
     <?php queue_js_file('globals'); ?>
     <?php echo head_js(); ?>
 
+    <ul class="jump-links">
+        <li><a href="#top-nav" accesskey="1">Return to top navigation</a></li>
+        <li><a href="#main-nav" accesskey="2">Return to main navigation</a></li>
+        <li><a href="#searchBox" accesskey="3">Return to search form</a></li>
+        <li><a href="#content" accesskey="4">Return to main content</a></li>
+        <li><a href="#social" accesskey="5">Return to social media navigation</a></li>
+    </ul>
 </body>
 </html>
