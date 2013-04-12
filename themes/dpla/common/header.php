@@ -51,7 +51,7 @@
                     $baseUrl = $config->dpla->frontendUrl;
                     $wpUrl = $config->dpla->wordpressURL;
                 ?>
-                <a href="/" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
+                <a href="<?= $baseUrl ?>" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span><span class="visuallyhidden">Navigation</span></a>
                 <nav class="topNav" id="top-nav">
                     <ul>
