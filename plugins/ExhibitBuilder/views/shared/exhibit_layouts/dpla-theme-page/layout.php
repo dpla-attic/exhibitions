@@ -19,7 +19,7 @@
                         </div>
 
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
-                        <a href="#<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></a>
+                        <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         <div class="overlay">
                             <div id="<?=$unique_id?>">
 
