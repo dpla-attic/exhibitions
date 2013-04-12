@@ -88,8 +88,6 @@
                             </ul>
                         </li>
                         <li><a href="<?= $wpUrl ?>/contact">Contact</a></li>
-                        <li class="bg"><a href="/#loginBox">Login</a></li>
-                        <li class="bg last"><a href="/#signupBox">Sign Up</a></li>
                     </ul>
                 </nav>
                 <nav class="MainNav" id="main-nav">
