@@ -49,37 +49,56 @@
                 <?php
                     $config = Zend_Registry::get('bootstrap')->getResource('Config');
                     $baseUrl = $config->dpla->frontendUrl;
+                    $wpUrl = $config->dpla->wordpressURL;
                 ?>
                 <a href="/" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span><span class="visuallyhidden">Navigation</span></a>
                 <nav class="topNav" id="top-nav">
                     <ul>
-                        <li class="aboutMenu"><a href="<?= $baseUrl . '/about' ?>">About <span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
-                          <ul>
-                            <li><a href="<?= $baseUrl . '/about/overview' ?>">Overview</a></li>
-                            <li><a href="<?= $baseUrl . '/about/leadership' ?>">Leadership</a></li>
-                            <li><a href="<?= $baseUrl . '/about/workstreams' ?>">Workstreams</a></li>
-                            <li><a href="<?= $baseUrl . '/about/for-developers' ?>">For Developers</a></li>
-                            <li><a href="<?= $baseUrl . '/about/get-involved' ?>">Get Involved</a></li>
-                          </ul>
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/about">About<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $wpUrl ?>/about/history">History</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/who">Who We Are</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/org">Organization</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/funding">Funding</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/faq">FAQ</a></li>
+                            </ul>
                         </li>
-                        <li><a href="<?= $baseUrl . '/news' ?>">News</a></li>
-                        <li><a href="<?= $baseUrl . '/contact' ?>">Contact</a></li>
-                    </ul>   
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships">Partnerships</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/events">Events</a></li>
+                                <li><a href="<?= $wpUrl ?>/forums">Forums</a></li>
+                            </ul>
+                        </li>
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/developers">For Developers<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $wpUrl ?>/developers/codex">API Codex</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="<?= $wpUrl ?>/help">Help</a></li>
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/news">Follow<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $wpUrl ?>/news/blog">Blog</a></li>
+                                <li><a href="<?= $wpUrl ?>/news/press">Press</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="<?= $wpUrl ?>/contact">Contact</a></li>
+                        <li class="bg"><a href="/#loginBox">Login</a></li>
+                        <li class="bg last"><a href="/#signupBox">Sign Up</a></li>
+                    </ul>
                 </nav>
                 <nav class="MainNav" id="main-nav">
                     <ul class="navigation">
                         <li>
                             <a href="<?= $baseUrl ?>">Home</a>
                         </li>
-                        <li>
-                            <a href="<?= $baseUrl . '/subjects' ?>">Subjects</a>
-                        </li>
-                        <li>
-                            <a href="<?= $baseUrl . '/collections' ?>">Collections</a>
-                        </li>
                         <li class="active">
-                            <a href="/">Exhibitions</a>
+                            <a href="<?= $config->dpla->exhibitionsUrl ?>">Exhibitions</a>
                         </li>
                         <li>
                             <a href="<?= $baseUrl . '/map' ?>">Map</a>
@@ -88,7 +107,7 @@
                             <a href="<?= $baseUrl . '/timeline' ?>">Timeline</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/apps' ?>">App Library</a>
+                            <a href="<?= $baseUrl . '/apps' ?>">Apps</a>
                         </li>
                         <li>
                             <a href="<?= $baseUrl . '/help' ?>">Help</a>

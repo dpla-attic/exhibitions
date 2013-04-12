@@ -520,7 +520,9 @@ header .active a { border-bottom: 3px solid #2795b6; }
 
             .topNav ul li.bg { margin-left: 15px; }
             .topNav ul li.bg.last { margin: 0; }
-			
+			.topNav .aboutMenu {
+                position: relative;
+            }
 			.topNav .aboutMenu:hover {
 				background: #000;
 				color: #fff;

@@ -1,22 +1,28 @@
+<?php 
+    $config = Zend_Registry::get('bootstrap')->getResource('Config');
+    $baseUrl = $config->dpla->frontendUrl;
+    $wpUrl = $config->dpla->wordpressURL;
+    $exhibitionsUrl = $config->dpla->exhibitionsUrl;
+?>
     </div><!-- end wrap -->
 
     <footer>
         <nav>
             <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">Subjects</a></li>
-                <li><a href="">Collections</a></li>
-                <li><a href="">Exhibitions</a></li> 
-                <li><a href="">Map</a></li> 
-                <li><a href="">Timeline</a></li>
-                <li><a href="">App Library</a></li>
+                <li><a href="<?= $baseUrl ?>">Home</a></li>
+                <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
+                <li><a href="<?= $baseUrl ?>/collections">Collections</a></li>
+                <li><a href="<?= $exhibitionsUrl ?>">Exhibitions</a></li> 
+                <li><a href="<?= $baseUrl ?>/map">Map</a></li> 
+                <li><a href="<?= $baseUrl ?>/timeline">Timeline</a></li>
+                <li><a href="<?= $baseUrl ?>/apps">Apps</a></li>
             </ul>
             <ul class="footer-navTwo">
-                <li><a href="">Help</a></li>
-                <li><a href="">About</a></li>   
-                <li class="news-clear"><a href="">News</a></li>
-                <li><a href="">Contact</a></li> 
-                <li><a href="">Accessibility</a></li>   
+                <li><a href="<?= $wpUrl ?>/help">Help</a></li>
+                <li><a href="<?= $wpUrl ?>/about">About</a></li>   
+                <li class="news-clear"><a href="<?= $wpUrl ?>/news/">Follow</a></li>
+                <li><a href="<?= $wpUrl ?>/contact">Contact</a></li> 
+                <li><a href="<?= $wpUrl ?>/terms">Terms & Privacy</a></li>   
             </ul>   
         </nav>
         <div class="footerBottom">
