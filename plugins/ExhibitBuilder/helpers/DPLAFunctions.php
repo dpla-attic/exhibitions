@@ -293,7 +293,17 @@ function dpla_get_exhibit_homepage($exhibit = null) {
  */
 function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
     $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
+    $result = buildResult($result);
+    return $result;
+}
 
+function dpla_exhibit_page_mini_thumbnail_att($exhibitPage = null) {
+    $result = exhibit_builder_page_attachment(2, 0, $exhibitPage);
+    $result = buildResult($result);
+    return $result;
+}
+
+function buildResult($result) {
     $result['file_uri_square'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
     $result['file_uri_thumbnail'] = isset($result['file']) ? $result['file']->getWebPath('thumbnail') : img("fallback-file.png");
     $result['file_uri_notsquare'] = isset($result['file']) ? $result['file']->getWebPath('fullsize') : img("fallback-file.png");
