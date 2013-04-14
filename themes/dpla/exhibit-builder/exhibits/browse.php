@@ -68,14 +68,10 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
                     ?>
                     <div class="exibition-image">
                         <a href="<?= exhibit_builder_exhibit_uri() ?>">
-                            <img alt="img" src="<?= $thumbUri ?>"></img>
+                            <img alt="" src="<?= $thumbUri ?>"></img>
                         </a>
                     </div>
                     <h5><?php echo link_to_exhibit(); ?></h5>
-                    <?php
-                    // exhibit description should be taken from exhibit Homepage
-                    ?>
-                    <?php echo link_to_exhibit('View Exhibit »'); ?>
                 </section>
 
                 <?php // TODO: Find a better way to make rows of 3 items ?>
