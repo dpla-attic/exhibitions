@@ -77,7 +77,7 @@
                             <a href="<?= $baseUrl . '/map' ?>">Map</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl . '/timeline' ?>">Timeline</a>
+                            <a href="<?= $baseUrl . '/timeline' ?>">Timeline</a> 
                         </li>
                         <li>
                             <a href="<?= $baseUrl . '/apps' ?>">App Library</a>
@@ -97,6 +97,29 @@
             <section class="searchRow">
                 <div class="searchRowLeft"></div>
                 <div class="searchRowRight">
+                <div class="searchViews">
+                    <span>View:</span>
+                        <ul>
+                            <li>
+                                <a href="<?= $baseUrl . '/search' ?>"> 
+                                    <span aria-hidden="true" class="icon-view-list"></span>
+                                    <span class="visuallyhidden">List</span> 
+                                </a>
+                            </li>
+                            <li>
+                                 <a href="<?= $baseUrl . '/map' ?>" class="viewTwo"> 
+                                     <span aria-hidden="true" class="icon-view-map"></span>
+                                     <span class="visuallyhidden">Map</span> 
+                                 </a>
+                            </li>
+                            <li class="active">
+                                 <a href="<?= $baseUrl . '/timeline' ?>" class="viewThree"> 
+                                     <span aria-hidden="true" class="icon-view-time"></span> 
+                                     <span class="visuallyhidden">Timeline</span> 
+                                 </a>
+                            </li>
+                        </ul>
+                </div>
                     <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span></a>
                     <form class="search-form" action="<?= $baseUrl . '/search' ?>">
                         <input type="text" name="q" placeholder="Search the Library">
