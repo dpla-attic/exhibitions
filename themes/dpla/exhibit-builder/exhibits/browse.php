@@ -61,7 +61,7 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
                 <section class="module blue <?php if ($exhibitCount % 2 == 1) echo ' even'; else echo ' odd'; ?>">
                     <?php
                     if ($homepage = dpla_get_exhibit_homepage($exhibit)) {
-                        if ($att = dpla_exhibit_page_thumbnail_att($homepage)) {
+                        if ($att = dpla_exhibit_page_mini_thumbnail_att($homepage)) {
                             $thumbUri = $att['file_uri_notsquare'];
                         }
                     }
