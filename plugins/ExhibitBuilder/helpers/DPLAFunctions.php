@@ -158,12 +158,10 @@ function dpla_page_summary($exhibitPage = null)
         $exhibitPage = get_current_record('exhibit_page');
     }
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
-    $html = '<li>'
-          . '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
+    $html = '<a href="' . exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage) . '">'
           . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
           . metadata($exhibitPage, 'title') .'</a>';
 
-    $html .= '</li>';
     return $html;
 }
 

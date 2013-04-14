@@ -8,6 +8,10 @@
     display: none;
 }
 
+.zoomit_images {
+    display: none;
+}
+
 /*
  * HTML5 Boilerplate
  *
@@ -85,8 +89,11 @@ img {
 }
 
 video,
-embed {
+embed,
+.plugin-content object {
     width: 100%;
+    height: 420px;
+    -webkit-transform-style: preserve-3d;
 }
 
 /*
@@ -311,6 +318,12 @@ h4 span { font-family: 'source_sans_pro_semiboldRg', arial, sans-serif; }
 
 a:hover {color: #2b2b2b; }
 
+.message {
+    display: inline-block;
+    border: 1px solid #bebebe;
+    padding: .3em .5em;
+    margin: .3em 1em 1em 0 !important;
+}
 /* Alert and spinner */
 .alert {
     background: #000;
@@ -507,7 +520,9 @@ header .active a { border-bottom: 3px solid #2795b6; }
 
             .topNav ul li.bg { margin-left: 15px; }
             .topNav ul li.bg.last { margin: 0; }
-			
+			.topNav .aboutMenu {
+                position: relative;
+            }
 			.topNav .aboutMenu:hover {
 				background: #000;
 				color: #fff;
@@ -616,7 +631,8 @@ header .active a { border-bottom: 3px solid #2795b6; }
             }
 
             /* Maintain even theme rows */
-            .overview.six .thumbs-list li.four, .overview.eight .thumbs-list li.five {
+            .overview-6 .thumbs-item-4,
+            .overview-8 .thumbs-item-5 {
                 clear: left;
             }
 
@@ -650,6 +666,10 @@ header .active a { border-bottom: 3px solid #2795b6; }
 }
 
 .blue h5, .blue h5 a, .module.blue a { color: #2795b6; }
+
+.module.blue h5 { margin-top: 0; }
+.module.blue p { clear: none; }
+.module.blue img { margin: 0; max-height: none; }
 
 .text {
     float: left;
@@ -809,7 +829,11 @@ aside .module span { color: #000; }
 }
 
 .exibition-image {
-    height: 236px;
+    max-width: 200px;
+    max-height: 200px;
+    width: 40%;
+    float: left;
+    margin: 0.5% 4.3% 4% 0;
     overflow: hidden;
 }
 
@@ -868,7 +892,8 @@ aside h1 {
 	background: #000;
 	color: #fff;
 }
-.shareSave .btn:hover a, .buttons .btn:hover a {
+.shareSave .btn:hover a, .buttons .btn:hover a,
+.shareSave .btn.hover-ie a {
 	background: #000;
 }
 .shareSave .btn:hover ul li a:hover, .buttons .btn:first-child:hover ul li a:hover {
@@ -884,7 +909,8 @@ aside h1 {
 	padding: 5px 0;
 	margin-top: 2.2em;
 }
-.shareSave .btn:hover ul, .buttons .btn:first-child:hover ul {
+.shareSave .btn:hover ul, .buttons .btn:first-child:hover ul,
+.shareSave .btn.hover-ie ul {
 	right: 0;
 }
 .shareSave .btn ul li, .shareSave .btn ul li a {
@@ -986,7 +1012,7 @@ article .shareSave { margin: 0 0 3% 74.286%; }
 .searchResults a { color: #2795b6; margin-left: 8px; }
 .searchResults ul li a:hover { text-decoration: none; }
 
-.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; }
+.searchResults h4 { float: left; font-size: 1.2em; color: #2b2b2b; margin-right: 1em;}
 
 .no-results h4 {
     float: none;
@@ -1286,9 +1312,6 @@ aside .moduleSection p { margin: 0 0 10px; }
 	top: 151px;
 	z-index: 1;
 }
-.Decades .next {
-	display: none;
-}
 .DecadesDates {
     background: none repeat scroll 0 0 #8b8b8b;
     border-bottom: 3px solid #FFFFFF;
@@ -1296,7 +1319,6 @@ aside .moduleSection p { margin: 0 0 10px; }
 	padding: 22px 0 0 0.391389%;
     position: relative;
 	height: 31px;
-	right: 91.659%;
 }
 .DecadesDates ul {
     margin: 0;
@@ -1343,7 +1365,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 
 
 .bars {
-    margin: 0 -22% 0 0.5%;
+    margin: 0 -19% 0 0.5%;
     padding: 0;
 }
 .yearsView .bars {
@@ -1357,7 +1379,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .centuries {
     border-bottom: 1px solid #2b2b2b;
     padding: 10px 0 0 0;
-    margin: 0 -16% 0 -4%;
+    margin: 0 -13.5% 0 -4%;
     overflow: hidden;
 }
 .yearsView .centuries {
@@ -1366,7 +1388,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .centuries li {
     list-style: none;
     margin: 0;
-	width: 9.27%;
+	width: 9.15%;
     float: left;
 	text-align: center;
     background: url(../images/timlineLine.jpg) no-repeat center bottom;
@@ -1388,7 +1410,7 @@ aside .moduleSection p { margin: 0 0 10px; }
     position: absolute;
     top: -3px;
     cursor: pointer;
-    width: 12.4%;
+    width: 10%;
 	outline: none;
 	cursor: move;
     text-align: center;
@@ -1441,7 +1463,6 @@ aside .moduleSection p { margin: 0 0 10px; }
     clear: both;
 	min-height: 500px;
     position: relative;
-	right: 91.659%;
 }
 .graph ul {
     margin: 0;
@@ -1453,7 +1474,7 @@ aside .moduleSection p { margin: 0 0 10px; }
 .infoOuter {
     background: url(../images/popup-arrow.png) no-repeat center top;
     position: absolute; 
-    left: -999em;  
+    left: -1999em;  
 }
 .info h3 { margin: 0; }
 .graph li .info {
@@ -2228,7 +2249,7 @@ aside h5 { margin: 5px 0 1em; }
 }
 
 .timelineModule {
-    margin: 0 13% 25px 3%;
+    margin: 0 11.5% 25px 3%;
 }
 
 .timelineContainer {
@@ -2465,7 +2486,7 @@ aside h5 { margin: 5px 0 1em; }
     right: 92px;
     text-transform: uppercase;
     width: 31px;
-    z-index: 1;
+    z-index: 888;
     cursor: pointer;
     font: italic 1.1em 'Times New Roman', Times, serif;
     -webkit-transition: 0.3s ease;
@@ -2574,9 +2595,17 @@ aside h5 { margin: 5px 0 1em; }
 .flex-control-nav { display: none; }
 .slides, .flex-control-nav, .flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
 
-.flexslider .slides > li {display: none; -webkit-backface-visibility: hidden;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
 .flexslider .slides img {width: 100%; display: block;}
 .flex-pauseplay span {text-transform: capitalize;}
+
+.flexslider-slide .item-file {
+    display: none;
+}
+
+.flex-active-slide .item-file {
+    display: block;
+}
 
 .slides:after {content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0;} 
 html[xmlns] .slides {display: block;} 
@@ -2618,6 +2647,11 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-next {background-position: right 0; right: 17px; }
 .flex-direction-nav .flex-prev {right: 48px;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+.plugin-content,
+.plugin-content .item-file {
+    height: 420px;
+}
 
 .me-plugin {
     width: 100%;
@@ -3172,14 +3206,14 @@ div.timeline-year {
 */
 #cboxOverlay{background: #000; opacity: 0.8!important; }
 #colorbox{}
-    #cboxTopLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px 0;}
-    #cboxTopRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px 0;}
-    #cboxBottomLeft{width:21px; height:21px; background:url(../images/controls.png) no-repeat -101px -29px;}
-    #cboxBottomRight{width:21px; height:21px; background:url(../images/controls.png) no-repeat -130px -29px;}
-    #cboxMiddleLeft{width:21px; background:url(../images/controls.png) left top repeat-y;}
-    #cboxMiddleRight{width:21px; background:url(../images/controls.png) right top repeat-y;}
-    #cboxTopCenter{height:21px; background:url(../images/border.png) 0 0 repeat-x;}
-    #cboxBottomCenter{height:21px; background:url(../images/border.png) 0 -29px repeat-x;}
+    #cboxTopLeft{width:21px; height:21px;}
+    #cboxTopRight{width:21px; height:21px;}
+    #cboxBottomLeft{width:21px; height:21px;}
+    #cboxBottomRight{width:21px; height:21px;}
+    #cboxMiddleLeft{width:21px;}
+    #cboxMiddleRight{width:21px;}
+    #cboxTopCenter{height:21px;}
+    #cboxBottomCenter{height:21px;}
     #cboxContent{ 
         background:#fff; 
         overflow:hidden;
@@ -3190,13 +3224,13 @@ div.timeline-year {
         #cboxTitle{position:absolute; bottom:4px; left:0; text-align:center; width:100%; color:#949494;}
         #cboxCurrent{position:absolute; bottom:4px; left:58px; color:#949494;}
         #cboxSlideshow{position:absolute; bottom:4px; right:30px; color:#0092ef;}
-        #cboxPrevious{position:absolute; bottom:0; left:0; background:url(../images/controls.png) no-repeat -75px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxPrevious{position:absolute; bottom:0; left:0; width:25px; height:25px; text-indent:-9999px;}
         #cboxPrevious:hover{background-position:-75px -25px;}
-        #cboxNext{position:absolute; bottom:0; left:27px; background:url(../images/controls.png) no-repeat -50px 0; width:25px; height:25px; text-indent:-9999px;}
+        #cboxNext{position:absolute; bottom:0; left:27px; width:25px; height:25px; text-indent:-9999px;}
         #cboxNext:hover{background-position:-50px -25px;}
-        #cboxLoadingOverlay{background:url(../images/loading_background.png) no-repeat center center;}
-        #cboxLoadingGraphic{background:url(../images/loading.gif) no-repeat center center;}
-        .cboxClose:hover{background-position:-25px -25px;}
+        #cboxLoadingOverlay{}
+        #cboxLoadingGraphic{}
+        #cboxClose:hover{background-position:-25px -25px;}
 
 /*
   The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
@@ -3524,7 +3558,9 @@ div.timeline-year {
 
 @media only screen and (max-width: 1000px) {
     /* Maintain even theme rows */
-    .overview.four .thumbs-list li.three, .overview.eight .thumbs-list li.three, .overview.eight .thumbs-list li.seven {
+    .overview-4 .thumbs-item-3,
+    .overview-8 .thumbs-item-3,
+    .overview-8 .thumbs-item-7 {
         clear: left;
     }
 }
@@ -3557,7 +3593,9 @@ div.timeline-year {
     .searchViews { width: 40%; }
     .formRow select { float: none; display: block; clear: both; margin: 5px 0 5px; width: auto; }
     aside .module.line { background-position: center 43%; }
-    
+    .exibition-image { width: 100%; margin: 0 0 4%; }
+    .module.blue h5 { clear: left; }
+        
 	.DecadesDates, .graph { 
 		right: 98.8%;
 	}
@@ -3608,10 +3646,11 @@ div.timeline-year {
 
 @media only screen and (max-width: 760px) {
     /* Maintain even theme rows */
-    .overview.six .thumbs-list li.three, .overview.six .thumbs-list li.five {
+    .overview-6 .thumbs-item-3,
+    .overview-6 .thumbs-item-5 {
         clear: left;
     }
-    .overview.six .thumbs-list li.four {
+    .overview-6 .thumbs-item-4 {
         clear: none;
     }
 }
@@ -3671,6 +3710,7 @@ article.overview .description {
 }
 .slide_bottom, 
 .slide-Container {
+    float: none;
     padding: 0;
     width: auto;
 }
@@ -4137,7 +4177,6 @@ aside { height: 100%; }
             footer nav li { float: none; margin: 1.8em 0 0; }
             .footer-navTwo li { margin: 1.8em 0 0; } 
             footer li:first-child { margin: 0; }
-
 
 /* MOBILE MAP */
 

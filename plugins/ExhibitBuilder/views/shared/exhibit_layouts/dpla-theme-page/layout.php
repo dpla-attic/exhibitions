@@ -19,14 +19,14 @@
                         </div>
 
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
-                        <a href="#<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></a>
+                        <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         <div class="overlay">
                             <div id="<?=$unique_id?>">
 
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
                                     <h1><?=$item['caption']?></h1>
-                                    <article>
+                                    <article id="content" role="main">
                                         <p>
                                         	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                                         	<?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
@@ -114,12 +114,14 @@
 
 <?php endif; ?>
 
-<?php echo exhibit_builder_page_text(2); ?>
 
-<ul class="prevNext">
-    <?php // TODO: Define first and last pages ?>
-    <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
-        <li class="btn"><?= $nextLink ?></li>
-    <? endif; ?>
-    <li><?= dpla_page_position(); ?></li>
-</ul>
+<div class="slide_bottom">
+    <?php echo exhibit_builder_page_text(2); ?>
+    <ul class="prevNext">
+        <?php // TODO: Define first and last pages ?>
+        <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
+            <li class="btn"><?= $nextLink ?></li>
+        <? endif; ?>
+        <li><?= dpla_page_position(); ?></li>
+    </ul>
+</div>
