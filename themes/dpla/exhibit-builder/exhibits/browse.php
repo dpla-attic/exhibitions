@@ -42,6 +42,7 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
     <?php if (count($exhibits) > 0): ?>
 
         <?php $page_size = (int) Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibit_page_size;
+              $line_size = (int) Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibit_line_size;
         if (total_records('exhibit') > $page_size) :?>
             <div class="pagination">
                 <span data-page="1" class="current">1</span>
@@ -74,8 +75,8 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
                     <h5><?php echo link_to_exhibit(); ?></h5>
                 </section>
 
-                <?php // TODO: Find a better way to make rows of 3 items ?>
-                <?php if (($exhibitCount % 3 == 0) && $exhibitCount < count($exhibits)): ?>
+                <?php // TODO: Find a better way to make rows of items ?>
+                <?php if (($exhibitCount % $line_size == 0) && $exhibitCount < count($exhibits)): ?>
             </div>
 
                 <?php if (($exhibitCount % $page_size == 0) && $exhibitCount < count($exhibits)): ?>
