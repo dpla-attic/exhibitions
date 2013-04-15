@@ -10,15 +10,14 @@
         <nav>
             <ul>
                 <li><a href="<?= $baseUrl ?>">Home</a></li>
-                <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
-                <li><a href="<?= $baseUrl ?>/collections">Collections</a></li>
                 <li><a href="<?= $exhibitionsUrl ?>">Exhibitions</a></li> 
                 <li><a href="<?= $baseUrl ?>/map">Map</a></li> 
                 <li><a href="<?= $baseUrl ?>/timeline">Timeline</a></li>
+                <li><a href="<?= $wpUrl ?>/partners">Partners</a></li>
+                <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
                 <li><a href="<?= $baseUrl ?>/apps">Apps</a></li>
             </ul>
             <ul class="footer-navTwo">
-                <li><a href="<?= $wpUrl ?>/help">Help</a></li>
                 <li><a href="<?= $wpUrl ?>/about">About</a></li>   
                 <li class="news-clear"><a href="<?= $wpUrl ?>/news/">Follow</a></li>
                 <li><a href="<?= $wpUrl ?>/contact">Contact</a></li> 
@@ -27,9 +26,9 @@
         </nav>
         <div class="footerBottom">
             <ul class="social icons" id="social">
-                <li class="facebook"><a href=""><span aria-hidden="true" class="icon-facebook"></span><span class="visuallyhidden">Facebook</span></a></li>
-                <li class="twitter"><a href=""><span aria-hidden="true" class="icon-twitter"></span><span class="visuallyhidden">Twitter</span></a></li>
-                <li class="RSS"><a href=""><span aria-hidden="true" class="icon-rss"></span><span class="visuallyhidden">RSS</span></a></li>
+                <li class="facebook"><a href="https://www.facebook.com/theDPLA"><span aria-hidden="true" class="icon-facebook"></span><span class="visuallyhidden">Facebook</span></a></li>
+                <li class="twitter"><a href="https://twitter.com/dpla"><span aria-hidden="true" class="icon-twitter"></span><span class="visuallyhidden">Twitter</span></a></li>
+                <li class="RSS"><a href="http://dp.la/info/feed"><span aria-hidden="true" class="icon-rss"></span><span class="visuallyhidden">RSS</span></a></li>
             </ul>
             <a href="<?= $baseUrl ?>"><img src="<?php echo img('footer-logo.png'); ?>" class="logo" /></a>
         </div>

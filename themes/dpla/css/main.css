@@ -663,6 +663,7 @@ header .active a { border-bottom: 3px solid #2795b6; }
 .module.blue {
     border-top: 8px solid #8b8b8b;
     background: #ededed;
+    width: 21.02%;
 }
 
 .blue h5, .blue h5 a, .module.blue a { color: #2795b6; }
@@ -829,11 +830,7 @@ aside .module span { color: #000; }
 }
 
 .exibition-image {
-    max-width: 200px;
-    max-height: 200px;
-    width: 40%;
-    float: left;
-    margin: 0.5% 4.3% 4% 0;
+    margin: 0 0 4%;
     overflow: hidden;
 }
 
@@ -3593,8 +3590,6 @@ div.timeline-year {
     .searchViews { width: 40%; }
     .formRow select { float: none; display: block; clear: both; margin: 5px 0 5px; width: auto; }
     aside .module.line { background-position: center 43%; }
-    .exibition-image { width: 100%; margin: 0 0 4%; }
-    .module.blue h5 { clear: left; }
         
 	.DecadesDates, .graph { 
 		right: 98.8%;
@@ -4145,6 +4140,11 @@ input[type="text"] { width: 80%; }
     .box h6 { right: 5%; top: 1.4em; }
 .row img { width: 100%; }
 
+.exibition-image {
+    margin: 0 4.3% 0 0;
+    float: left;
+}
+
 .news, .twiiter { padding: 0; }
 
 /* REFINE POPOUT */
@@ -4296,6 +4296,11 @@ aside { height: 100%; }
 .yearsView .scrubber .icon-arrow-down {
     font-size: 0.3em;
 	margin-left: -3px;
+}
+
+.exibition-image {
+    margin: 0 0 4% 0;
+    float: none;
 }
 
 }

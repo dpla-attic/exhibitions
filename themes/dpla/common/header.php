@@ -107,9 +107,6 @@
                         <li>
                             <a href="<?= $baseUrl ?>/apps">Apps</a>
                         </li>
-                        <li>
-                            <a href="<?= $wpUrl ?>/help">Help</a>
-                        </li>
                     </ul>
                 </nav>
             </header>
