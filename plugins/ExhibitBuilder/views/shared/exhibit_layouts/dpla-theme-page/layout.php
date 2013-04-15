@@ -1,9 +1,10 @@
-<!-- TODO: make refactoring - reuse of code within "story" and "theme" layout -->
 <?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
-            <ul class="slides">
-                <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
+            <?php $items = dpla_get_exhibitpage_entries(2); ?>
+            <ul class="slides <?= count($items) == 1 ? "single-slide" : ""?>">
+
+                <?php foreach ($items as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
                             <?php
@@ -14,6 +15,10 @@
                             }
                             ?>
                         </div>
+                        
+                         <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
+                         <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
+                             : dpla_get_field_value_by_name($item, "Title"); ?>                        
                         <div class="caption">
                             <?=$item['caption']?>
                         </div>
@@ -25,17 +30,14 @@
 
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
-                                    <h1><?=$item['caption']?></h1>
                                     <article id="content" role="main">
                                         <p>
-                                        	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
-                                        	<?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
-                                                : dpla_get_field_value_by_name($item, "Title")): ?>
+                                        	<?php if ($imageTitle): ?>
                                             <?php
                                             //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
                                             // echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
                                             //echo strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;
-                                            echo $value; 
+                                            echo $imageTitle; 
                                             // TODO: maybe we will have to display expandable version of full description
                                             ?>
                                             <?php endif; ?>
@@ -95,7 +97,7 @@
                                     
                                             <?php if ($value = dpla_get_field_value_by_name($item, "Is Part Of")): ?>
                                                 <ul>
-                                                    <li><h6>References</h6></li>
+                                                    <li><h6>Is Part Of</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>
@@ -125,3 +127,30 @@
         <li><?= dpla_page_position(); ?></li>
     </ul>
 </div>
+
+<!--[if IE 8]>
+
+<style type="text/css">
+    #exhibit-item-thumbnails .exhibit-item {
+        float:none !important;
+    }
+    #exhibit-item-thumbnails{
+        white-space:nowrap;
+    }
+</style>
+
+<![endif]-->
+
+<!--[if lte IE 7]>
+<style type="text/css">
+    body{
+        /* disable responsive behaviour (limit size to stop layout breaking) */
+        min-width:	768px;
+    }
+
+    #story{
+        max-width:47%;
+    }
+
+</style>
+<![endif]-->

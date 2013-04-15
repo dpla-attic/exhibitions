@@ -648,9 +648,9 @@ if ($('.shareSave').length) {
   }
 
     $(function () {
-        $('#exhibits-container').on('click', '.pagination a', function () {
+        $('#content').on('click', '.pagination a', function () {
             var container, current, current_page, page, parent;
-            parent = $(this).parents('#exhibits-container');
+            parent = $(this).parents('#content');
             current = parent.find('.pagination .current');
             if (current.text() !== $(this).text()) {
                 current_page = current.data('page');

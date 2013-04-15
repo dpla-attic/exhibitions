@@ -293,7 +293,17 @@ function dpla_get_exhibit_homepage($exhibit = null) {
  */
 function dpla_exhibit_page_thumbnail_att($exhibitPage = null) {
     $result = exhibit_builder_page_attachment(1, 0, $exhibitPage);
+    $result = buildResult($result);
+    return $result;
+}
 
+function dpla_exhibit_page_mini_thumbnail_att($exhibitPage = null) {
+    $result = exhibit_builder_page_attachment(2, 0, $exhibitPage);
+    $result = buildResult($result);
+    return $result;
+}
+
+function buildResult($result) {
     $result['file_uri_square'] = isset($result['file']) ? $result['file']->getWebPath('square_thumbnail') : img("fallback-file.png");
     $result['file_uri_thumbnail'] = isset($result['file']) ? $result['file']->getWebPath('thumbnail') : img("fallback-file.png");
     $result['file_uri_notsquare'] = isset($result['file']) ? $result['file']->getWebPath('fullsize') : img("fallback-file.png");
@@ -401,7 +411,7 @@ function dpla_get_field_value_by_arrayname($json, $arr) {
  * Return exhibit page item meta information by field name
  */
 function dpla_get_field_value_by_name($item, $name) {
-    return metadata($item['item'], array('Dublin Core', $name), array(Omeka_View_Helper_Metadata::DELIMITER=>', '));
+    return metadata($item['item'], array('Dublin Core', $name), array(Omeka_View_Helper_Metadata::DELIMITER=>'; '));
 }
 
 
