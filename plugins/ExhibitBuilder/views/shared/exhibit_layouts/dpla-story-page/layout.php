@@ -20,7 +20,7 @@
                          <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
 						     : dpla_get_field_value_by_name($item, "Title"); ?>                        
                         <div class="caption">
-                            <?=$imageTitle?>
+                            <?=$item['caption']?>
                         </div>
 
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
