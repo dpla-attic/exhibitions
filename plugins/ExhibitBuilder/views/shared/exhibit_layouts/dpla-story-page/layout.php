@@ -1,9 +1,10 @@
 <?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
-            <ul class="slides">
+            <?php $items = dpla_get_exhibitpage_entries(); ?>
+            <ul class="slides <?= count($items) == 1 ? "single-slide" : ""?>">
 
-                <?php foreach (dpla_get_exhibitpage_entries() as $item): ?>
+                <?php foreach ($items as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
                             <?php
@@ -14,6 +15,7 @@
                             }
                             ?>
                         </div>
+
                          <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                          <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
 						     : dpla_get_field_value_by_name($item, "Title"); ?>                        
@@ -30,7 +32,6 @@
                                 <div class="inline_content">
                                     <article id="content" role="main">
                                         <p>
-                                        	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                                         	<?php if ($imageTitle): ?>
                                             <?php
                                             //$desc = metadata($item['item'], array('Dublin Core', 'Description'));

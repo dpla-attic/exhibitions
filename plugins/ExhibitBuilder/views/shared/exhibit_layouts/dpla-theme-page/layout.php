@@ -1,9 +1,10 @@
-<!-- TODO: make refactoring - reuse of code within "story" and "theme" layout -->
 <?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
-            <ul class="slides">
-                <?php foreach (dpla_get_exhibitpage_entries(2) as $item): ?>
+            <?php $items = dpla_get_exhibitpage_entries(2); ?>
+            <ul class="slides <?= count($items) == 1 ? "single-slide" : ""?>">
+
+                <?php foreach ($items as $item): ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
                             <?php
@@ -126,3 +127,30 @@
         <li><?= dpla_page_position(); ?></li>
     </ul>
 </div>
+
+<!--[if IE 8]>
+
+<style type="text/css">
+    #exhibit-item-thumbnails .exhibit-item {
+        float:none !important;
+    }
+    #exhibit-item-thumbnails{
+        white-space:nowrap;
+    }
+</style>
+
+<![endif]-->
+
+<!--[if lte IE 7]>
+<style type="text/css">
+    body{
+        /* disable responsive behaviour (limit size to stop layout breaking) */
+        min-width:	768px;
+    }
+
+    #story{
+        max-width:47%;
+    }
+
+</style>
+<![endif]-->

@@ -2600,7 +2600,7 @@ aside h5 { margin: 5px 0 1em; }
     display: none;
 }
 
-.flex-active-slide .item-file {
+.flex-active-slide .item-file, .single-slide .item-file {
     display: block;
 }
 
