@@ -10,15 +10,14 @@
         <nav>
             <ul>
                 <li><a href="<?= $baseUrl ?>">Home</a></li>
-                <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
-                <li><a href="<?= $baseUrl ?>/collections">Collections</a></li>
                 <li><a href="<?= $exhibitionsUrl ?>">Exhibitions</a></li> 
                 <li><a href="<?= $baseUrl ?>/map">Map</a></li> 
                 <li><a href="<?= $baseUrl ?>/timeline">Timeline</a></li>
+                <li><a href="<?= $wpUrl ?>/partners">Timeline</a></li>
+                <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
                 <li><a href="<?= $baseUrl ?>/apps">Apps</a></li>
             </ul>
             <ul class="footer-navTwo">
-                <li><a href="<?= $wpUrl ?>/help">Help</a></li>
                 <li><a href="<?= $wpUrl ?>/about">About</a></li>   
                 <li class="news-clear"><a href="<?= $wpUrl ?>/news/">Follow</a></li>
                 <li><a href="<?= $wpUrl ?>/contact">Contact</a></li> 
