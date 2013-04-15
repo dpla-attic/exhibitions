@@ -14,8 +14,11 @@
                             }
                             ?>
                         </div>
+                         <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
+                         <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
+						     : dpla_get_field_value_by_name($item, "Title"); ?>                        
                         <div class="caption">
-                            <?=$item['caption']?>
+                            <?=$imageTitle?>
                         </div>
 
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
@@ -25,17 +28,15 @@
 
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
-                                    <h1><?=$item['caption']?></h1>
                                     <article id="content" role="main">
                                         <p>
                                         	<?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
-                                        	<?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
-                                                : dpla_get_field_value_by_name($item, "Title")): ?>
+                                        	<?php if ($imageTitle): ?>
                                             <?php
                                             //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
                                             // echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
                                             //echo strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;
-                                            echo $value; 
+                                            echo $imageTitle; 
                                             // TODO: maybe we will have to display expandable version of full description
                                             ?>
                                             <?php endif; ?>
