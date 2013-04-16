@@ -2865,7 +2865,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     right: 22px;
     top: 22px;
     height: 20px;
-    width: auto;
+    width: 20px;
     border: none;
     background: transparent;
 }
@@ -2986,7 +2986,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 #colorbox p { margin: 1em 0; }
 
 #colorbox .itemDetails p { margin-top: 0; }
-#colorbox .itemDetails h5 { margin-top: 0; }
+#colorbox .itemDetails h5 { margin-top: 0; margin-right: 32px; }
 
 #colorbox form h6 {
     font-family: 'source_sans_proitalic';
@@ -4297,18 +4297,6 @@ aside { height: 100%; }
 }
 
 .year h3 { margin-top: 3px; }
-
-#colorbox #cboxClose,
-#cboxClose,
-.closePopUp {
-    font-size: 2.5em;
-    height: 34px;
-    top: 16px;
-    right: 5px;
-}
-.closePopUp {
-    top: 12px;
-}
 
 }
 
