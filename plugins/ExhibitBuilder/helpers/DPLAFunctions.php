@@ -139,7 +139,7 @@ function dpla_theme_nav($exhibitPage = null)
                 continue;
             }
             $current = in_array($pageSibling->id, array ($page->id, $exhibitPage->parent_id));
-            $html .= '<li' . ($current ? ' class="current"' : '') . '>';
+            $html .= '<li' . ($current ? ' class="selected"' : '') . '>';
             $html .= '<a class="exhibit-page-title" href="' . html_escape(exhibit_builder_exhibit_uri($exhibit, $pageSibling)) . '">';
             $html .= html_escape($pageSibling->title) . "</a></li>\n";
         }
