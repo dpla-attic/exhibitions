@@ -31,7 +31,7 @@
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
                                     <article>
-                                        <p>
+                                        <h5>
                                         	<?php if ($imageTitle): ?>
                                             <?php
                                             //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
@@ -41,7 +41,7 @@
                                             // TODO: maybe we will have to display expandable version of full description
                                             ?>
                                             <?php endif; ?>
-                                        </p>
+                                        </h5>
                                     
                                         <div class="table">
                                     
