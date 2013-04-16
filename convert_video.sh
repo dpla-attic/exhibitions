@@ -1,8 +1,12 @@
 #!/bin/sh
-SCAN_DIR=/media/sf_prj
 FILES_MASK=*
 #FORBIDDEN_CODECS="mpeg4 h264"
 FORBIDDEN_CODECS="mpeg4"
+
+die () {
+    echo >&2 "$@"
+    exit 1
+}
 
 isConvertRequired () {
     file=$1
@@ -22,6 +26,7 @@ convert () {
     ext=${fileIn##*.}
     fileOut="$fileIn.tmp.$ext"
     rm $fileOut -f
+    trap 'rm $fileOut -f; exit 0' INT
     ffmpeg -loglevel panic -i $fileIn -vcodec libx264 $fileOut 2>/dev/null
     if [ -f "$fileOut" ]
         then 
@@ -31,6 +36,10 @@ convert () {
             echo "failed."
     fi
 }
+
+me=`basename $0`
+[ "$#" -eq 1 ] || die "usage: $me <path to directory>"
+SCAN_DIR=$1
 
 echo "Processing directiry '$SCAN_DIR':"
 for f in $SCAN_DIR/$FILES_MASK
