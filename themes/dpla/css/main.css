@@ -2985,6 +2985,8 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 #colorbox h1 p { margin: 0; }
 #colorbox p { margin: 1em 0; }
 
+#colorbox .itemDetails p { margin-top: 0; }
+#colorbox .itemDetails h5 { margin-top: 0; }
 
 #colorbox form h6 {
     font-family: 'source_sans_proitalic';
@@ -3826,6 +3828,10 @@ body .container .upper-left h2 { font-size: 1.4em; }
 .searchRight input[type="text"] {
     width:6%;
 }
+
+#colorbox .itemDetails article { padding: 0; width: 100%;}
+#colorbox .itemDetails .table li { clear: left; width: 100%; }
+
 /* MOBILE HEADER */
     header { margin: 0; }
 	header li { font-size: inherit; }
