@@ -2141,7 +2141,7 @@ aside h5 { margin: 5px 0 1em; }
     color: #818285;
     margin: 0 0 0.5em;
 }
-.boxInner h5 { font-size: 1em; }
+.boxInner h5 { font-size: 1em; margin-right: 25px; }
 .closePopUp {
 	position: absolute;
 	right: 12px;
