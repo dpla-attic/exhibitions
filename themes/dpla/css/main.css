@@ -2646,8 +2646,22 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
 
 .plugin-content,
-.plugin-content .item-file {
+.plugin-content .item-file,
+.plugin-content .zoomit {
     height: 420px;
+}
+
+.zoomit_viewer {
+    width: 100%;
+    height: 420px;
+    background: #000;
+}
+
+.zoomit_viewer .tmp-img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
 }
 
 .me-plugin {
