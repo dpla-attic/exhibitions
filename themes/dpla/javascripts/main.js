@@ -256,60 +256,58 @@ if ($('.shareSave').length) {
   $('.head').toggle(function() {
       $(this).next().slideDown();
       $(this).addClass('close');
-    }, 
+      $(this).children('span').addClass('icon-arrow-up');
+      $(this).children('span').removeClass('icon-arrow-down');
+    },
     function() {
       $(this).next().slideUp();
       $(this).removeClass('close');
+      $(this).children('span').addClass('icon-arrow-down');
+      $(this).children('span').removeClass('icon-arrow-up');
     }
   );
 
   ///// REFINE SIDEBAR TOGGLE: DESKTOP AND TABLET
   $('.timeline #toggle, .map #toggle').toggle(function() {
-
       $('aside').addClass('moveOut');
       $('.slidePopOut').addClass('moveIn');
       $('.map article, .timeContainer').addClass('widthL');
-      $('#toggle').html('Refine <span aria-hidden="true" class="icon-arrow-thin-right"></span>');
+      $('#toggle').html('Show <span aria-hidden="true" class="icon-arrow-thin-right"></span>');
 
       $('aside').removeClass('moveIn');
       $('.slidePopOut').removeClass('moveOut');
       $('.map article, .timeContainer').removeClass('widthS');
-
     }, 
     function() {
-
       $('aside').addClass('moveIn');
       $('.slidePopOut').addClass('moveOut');
       $('.map article, .timeContainer').addClass('widthS');
-      $('#toggle').html('<span aria-hidden="true" class="icon-arrow-thin-left"></span> Refine');
+      $('#toggle').html('<span aria-hidden="true" class="icon-arrow-thin-left"></span> Hide');
 
       $('aside').removeClass('moveOut');
       $('.slidePopOut').removeClass('moveIn');
       $('.map article, .timeContainer').removeClass('widthL');
-
     }
   );
 
   ///// REFINE SIDEBAR TOGGLE: PHONE
-  $('#toggle.Marticle').click( function() {
+  $('#toggle.Marticle').toggle( function() {
       $('aside').addClass('moveIn');
       $('.map article, .timeContainer, .slidePopOut').addClass('moveOut');
-      $('#toggle.Marticle').hide();
-      $('#toggle.Maside').show();
+      $('#toggle.Marticle').html('<span aria-hidden="true" class="icon-arrow-thin-left"></span> Hide');
 
       $('aside').removeClass('moveOut');
       $('.map article, .timeContainer, .slidePopOut').removeClass('moveIn');
-  });
-
-  $('#toggle.Maside').click( function() {
+    },
+    function() {
       $('aside').addClass('moveOut');
       $('.map article, .timeContainer, .slidePopOut').addClass('moveIn');
-      $('#toggle.Marticle').show();
-      $('#toggle.Maside').hide();
+      $('#toggle.Marticle').html('Show <span aria-hidden="true" class="icon-arrow-thin-right"></span>');
 
       $('aside').removeClass('moveIn');
       $('.map article, .timeContainer, .slidePopOut').removeClass('moveOut');
-  });
+    }
+  );
 
   $('.mapContainer').click(function() {
     $('.mobile-hover').hide();
