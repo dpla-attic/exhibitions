@@ -256,10 +256,14 @@ if ($('.shareSave').length) {
   $('.head').toggle(function() {
       $(this).next().slideDown();
       $(this).addClass('close');
-    }, 
+      $(this).children('span').addClass('icon-arrow-up');
+      $(this).children('span').removeClass('icon-arrow-down');
+    },
     function() {
       $(this).next().slideUp();
       $(this).removeClass('close');
+      $(this).children('span').addClass('icon-arrow-down');
+      $(this).children('span').removeClass('icon-arrow-up');
     }
   );
 
