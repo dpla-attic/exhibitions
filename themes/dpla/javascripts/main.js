@@ -37,33 +37,70 @@ if ($('.shareSave').length) {
       });
   });
 
-  function zoomitInit(options){
-      options = options || {};
+  var ZoomIt = function(){
+    var ajaxURL,
+        apiURL,
+        viewer,
+        zoomitWindow;
 
-      var container = options.container || '',
-          link = options.link || '',
-          zoomit = container.find('.zoomit_viewer');
+    function onZoomitResponse(resp) {
+      if (resp.error) {
+          console.log(resp.error);
+          return;
+      }
+      
+      var content = resp.content;
+       
+      if (content.ready) {
+        zoomitWindow.data('inited', true);
 
-      zoomit.empty();
-      zoomit.append(
-          '<iframe class="zoomit_iframe" '
-              + 'src="about:blank" '
-              + 'style="border:none;"'
-              + 'width="100%" '
-              + 'height="420"></iframe>'
-      );
+        var showZoomitImage = function(){
+          Seadragon.Config.autoHideControls = false;
+          Seadragon.Config.imagePath = 'http://zoom.it/images/seajax/';
 
-      $.get(container.data('api-url') + '?url=' + encodeURIComponent(link), function(data) {
-          var iframe = zoomit.find('.zoomit_iframe')[0].contentWindow.document;
+          var viewer = new Seadragon.Viewer(zoomitWindow[0]);
+          
+          viewer.openDzi(content.dzi);
 
-          // this may be already loaded
-          if (iframe.innerHTML != '') {
-              iframe.open();
-              iframe.write(data.content.embedHtml);
-              iframe.close();
-          }
-      }, 'jsonp');
-  }
+          viewer.addEventListener("open",
+            function(){
+              viewer.viewport.goHome(); 
+            }
+          );
+
+        }  
+
+        showZoomitImage();
+
+      } else if (content.failed) {
+          console.log(content.url + " failed to convert.");
+      } else {
+          console.log(content.url + " is " +
+              Math.round(100 * content.progress) + "% done.");
+      }
+    }
+
+    function poll(){
+      $.ajax({
+        url: apiURL + encodeURIComponent(ajaxURL),
+        dataType: "jsonp",
+        success: onZoomitResponse
+      });
+    };
+
+    return {
+      init: function(options) {
+        var container = options.container || '';
+        
+        ajaxURL = options.link || '';
+        zoomitWindow = container.find('.zoomit_viewer');
+        apiURL = container.data('api-url') + '?url='
+
+        poll();
+      }
+    }
+  }();
+ 
 
   $('.flexslider')
       .flexslider({
@@ -77,7 +114,11 @@ if ($('.shareSave').length) {
                 nextPlayer = $(slider.slides[slider.animatingTo]).find('audio,video').prop("controls", false);
 
             if (currentPlayer.length) {
-              currentPlayer[0].pause();
+              if($.browser.msie) {
+                currentPlayer[0].player.pause();
+              } else {
+                currentPlayer[0].pause();
+              }
             }
 
             if (nextPlayer.length && !nextPlayer[0].player|0){
@@ -92,31 +133,38 @@ if ($('.shareSave').length) {
           },
           after: function(slider) {
             var image = $(slider.slides[slider.currentSlide])
-                          .find('.zoomit_images')
+                          .find('.zoomit-image')
                           .first();
 
             if (image.length) {
-              zoomitInit({
-                'container' : image.parents('.zoomit'),
-                'link' : image.attr('href')
-              });
-            }
+              var zoomitWindow = image.parents('.zoomit');
 
+              if (!zoomitWindow.data('inited')) {
+                ZoomIt.init({
+                  'container' : zoomitWindow,
+                  'link' : image.data('original')
+                });
+              }
+            }
           },
           start: function(slider){
             var image;
               
             if (slider.slides) {
-              image = $(slider.slides[slider.currentSlide]).find('.zoomit_images');
+              image = $(slider.slides[slider.currentSlide]).find('.zoomit-image');
             } else {
-              image = slider.find('.zoomit_images');
+              image = slider.find('.zoomit-image');
             }
 
             if (image.length) {
-              zoomitInit({
-                'container' : image.parents('.zoomit'),
-                'link' : image.attr('href')
-              });
+              var zoomitWindow = image.parents('.zoomit');
+
+              if (!zoomitWindow.data('inited')) {
+                ZoomIt.init({
+                  'container' : zoomitWindow,
+                  'link' : image.data('original')
+                });
+              }
             }
           }
   });
