@@ -30,8 +30,8 @@
 
                                 <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
-                                    <article id="content" role="main">
-                                        <p>
+                                    <article>
+                                        <h5>
                                         	<?php if ($imageTitle): ?>
                                             <?php
                                             //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
@@ -41,7 +41,7 @@
                                             // TODO: maybe we will have to display expandable version of full description
                                             ?>
                                             <?php endif; ?>
-                                        </p>
+                                        </h5>
                                     
                                         <div class="table">
                                     
@@ -63,10 +63,22 @@
                                     
                                             <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description'))
                                                 : dpla_get_field_value_by_name($item, "Description")): ?>
-                                            <?php $value = strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;?>
                                                 <ul>
                                                     <li><h6>Description</h6></li>
-                                                    <li><?=$value?></li>
+                                                    <li>
+                                                    <?php if (strlen($value) > 250) { ?>
+                                                        <div class="desc-short">
+                                                            <?php echo substr($value, 0, 250); ?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a>
+                                                        </div>
+                                                        <div class="desc-long">
+                                                            <?=$value?>&nbsp; <a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a>
+                                                        </div>
+                                                    <?php } else {  ?>
+                                                        <div class="desc-short">
+                                                            <?=$value?>
+                                                        </div>
+                                                    <?php } ?>
+                                                    </li>
                                                 </ul>
                                             <?php endif; ?>
                                     

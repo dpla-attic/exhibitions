@@ -1,5 +1,5 @@
 #!/bin/sh
-FILES_MASK=*
+#FILES_MASK=\*
 #FORBIDDEN_CODECS="mpeg4 h264"
 FORBIDDEN_CODECS="mpeg4"
 
@@ -42,7 +42,7 @@ me=`basename $0`
 SCAN_DIR=$1
 
 echo "Processing directiry '$SCAN_DIR':"
-for f in $SCAN_DIR/$FILES_MASK
+for f in $(find -L $SCAN_DIR)
 do
     #echo "checking file - $f"
     isConvertRequired $f
