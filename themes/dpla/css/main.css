@@ -2868,6 +2868,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     width: 20px;
     border: none;
     background: transparent;
+    cursor: pointer;
 }
 .overlay { display: none; }
 .pop-columns section:first-child { margin: 0; }
