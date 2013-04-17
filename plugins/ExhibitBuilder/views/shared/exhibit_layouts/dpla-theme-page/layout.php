@@ -68,14 +68,14 @@
                                                     <li>
                                                     <?php if (strlen($value) > 250) { ?>
                                                         <div class="desc-short">
-                                                            <p><?php echo substr($value, 0, 250); ?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a></p>
+                                                            <?php echo substr($value, 0, 250); ?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a>
                                                         </div>
                                                         <div class="desc-long">
                                                             <?=$value?>&nbsp; <a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a>
                                                         </div>
                                                     <?php } else {  ?>
                                                         <div class="desc-short">
-                                                            <p><?=$value?></p>
+                                                            <?=$value?>
                                                         </div>
                                                     <?php } ?>
                                                     </li>
