@@ -63,23 +63,21 @@
                                     
                                             <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description'))
                                                 : dpla_get_field_value_by_name($item, "Description")): ?>
-                                            <?php $value = strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;?>
                                                 <ul>
                                                     <li><h6>Description</h6></li>
                                                     <li>
-                                                     <div class="desc-short">
-                                                            <p><?=$value?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a></p>
+                                                    <?php if (strlen($value) > 250) { ?>
+                                                        <div class="desc-short">
+                                                            <p><?php echo substr($value, 0, 250); ?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a></p>
                                                         </div>
-
                                                         <div class="desc-long">
-                                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in ante ante. Aliquam ultrices laoreet est nec rhoncus. Donec consectetur sem ut nisi facilisis scelerisque. Sed laoreet, velit cursus ullamcorper pulvinar, justo tellus tempor enim, quis dapibus nisi nisi ac felis. Fusce lacus tellus, tempus et tincidunt a, volutpat vitae dolor. Vestibulum egestas pellentesque neque a laoreet. Curabitur leo velit, molestie ac porta nec, blandit a augue. Praesent vel scelerisque eros, purus dolor venenatis metus, vel aliquet purus nisi vitae elit. Donec commodo urna aliquam lorem dignissim vehicula. Aenean eleifend massa in ipsum auctor in tempus augue porta.</p>
-
-                                                            <p>Fusce quis purus eu nisi fringilla varius at a nibh. Aliquam erat volutpat. Morbi metus sapien, fringilla nec pretium sit amet, tempor vitae orci. Nullam molestie vehicula tincidunt. Nulla sit amet orci eu diam consectetur congue sit amet eget libero. Aenean eu sem et ligula semper sollicitudin at eu odio. Mauris sem nulla, scelerisque quis semper sit amet, consectetur nec mi. Nulla ligula mi, gravida nec viverra id, tempus suscipit sapien. Vivamus mi sem, luctus at mollis vel, sollicitudin eget nunc. Nulla suscipit magna a dui accumsan dapibus congue lectus elementum.</p>
-
-                                                            <p>Quisque porttitor hendrerit metus nec vulputate. Quisque dolor dolor, sagittis vel porttitor id, porta in massa. Donec eget mauris in nisi eleifend consectetur vitae eget nunc. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis vel est eu elit lobortis auctor sit amet at velit. Fusce ac ante ut tellus accumsan congue a a metus. Nulla facilisi. In blandit, massa eget hendrerit sodales, elit mi lobortis purus, vitae volutpat eros lectus sit amet nibh. Aliquam scelerisque vestibulum tincidunt. Cras sollicitudin viverra pretium. Ut dictum elit tempus leo eleifend fermentum. Sed dui sapien, scelerisque sit amet fringilla vitae, tincidunt eget lorem. In sapien mauris, imperdiet quis scelerisque at, tincidunt quis dolor.</p>
-
-                                                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam erat volutpat. Cras non nisl et dolor fringilla vulputate. Etiam malesuada ullamcorper tristique. Maecenas justo ligula, consectetur id ornare a, congue et augue. Nulla facilisi. Morbi in malesuada quam. Duis cursus volutpat odio, vitae commodo quam luctus hendrerit. Fusce convallis ultricies rutrum. Nullam commodo, dolor et tincidunt ultricies, enim leo iaculis ligula, eu consequat enim est id turpis. Aliquam pharetra adipiscing sapien, ut rutrum nibh vulputate ac. Phasellus sem augue, sodales sollicitudin vulputate id, aliquet vitae diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur feugiat, risus a venenatis placerat, elit neque facilisis tortor, sed laoreet quam quam ut risus.&nbsp; <a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a></p>
+                                                            <?=$value?>&nbsp; <a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a>
                                                         </div>
+                                                    <?php } else {  ?>
+                                                        <div class="desc-short">
+                                                            <p><?=$value?></p>
+                                                        </div>
+                                                    <?php } ?>
                                                     </li>
                                                 </ul>
                                             <?php endif; ?>

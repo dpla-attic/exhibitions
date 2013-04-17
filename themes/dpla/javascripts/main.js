@@ -445,12 +445,16 @@ if ($('.shareSave').length) {
   //ITEM DETAIL: toggle description length
   $('.desc-short .desc-toggle').click(function() {
     $('.desc-short').hide();
-    $('.desc-long').slideDown();
+    $('.desc-long').slideDown(function(){
+    $.colorbox.resize();
+    });
+
     return false;
   });
   $('.desc-long .desc-toggle').click(function() {
     $('.desc-long').slideUp(function() {
       $('.desc-short').fadeIn('fast');
+      $.colorbox.resize();
     });
     return false;
   });
