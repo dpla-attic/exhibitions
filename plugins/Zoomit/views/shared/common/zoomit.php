@@ -1,5 +1,5 @@
 <?php
-$unique_id = "zoomit_".hash("md4", $images[0]->getWebPath('original'))
+$unique_id = "zoomit_".hash("md4", $images[0]->getWebPath('original'));
 $cache_param = html_escape(Zend_Registry::get('bootstrap')->getResource('Config')->dpla->zoomit->update_cache_param);
 ?>
 
