@@ -2596,6 +2596,7 @@ aside h5 { margin: 5px 0 1em; }
 .slides, .flex-control-nav, .flex-direction-nav {margin: 0; padding: 0; list-style: none;} 
 
 .flexslider .slides > li {display: none;} /* Hide the slides before the JS is loaded. Avoids image jumping */
+.flexslider .slides > li:first-child {display: block;} /* But show the first slide to avoid empty box */
 .flexslider .slides img {width: 100%; display: block;}
 .flex-pauseplay span {text-transform: capitalize;}
 
@@ -2616,7 +2617,7 @@ html[xmlns] .slides {display: block;}
 
 /* FlexSlider Default Theme
 *********************************/
-.flexslider {margin: 0; background: #fff; position: relative; zoom: 1;}
+.flexslider {margin: 0; background: #fff; position: relative; zoom: 1; overflow: hidden;}
 .flex-viewport {max-height: 2000px; -webkit-transition: all 1s ease; -moz-transition: all 1s ease; transition: all 1s ease;}
 .loading .flex-viewport {max-height: 300px;}
 .flexslider .slides {zoom: 1;}
