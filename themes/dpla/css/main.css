@@ -1221,6 +1221,7 @@ h6.open span {
     display: block;
     padding: 2% 5%;
 }
+.sideNav a:hover { color: inherit; }
 
 .sideNav ul ul {
     padding: 0;
@@ -1231,6 +1232,8 @@ h6.open span {
 
 .sideNav .selected { border: none; }
 
+.sideNav .selected a { color: inherit; cursor: default; }
+.sideNav .selected a:hover { text-decoration: none; }
 
 
 
@@ -2138,7 +2141,7 @@ aside h5 { margin: 5px 0 1em; }
     color: #818285;
     margin: 0 0 0.5em;
 }
-.boxInner h5 { font-size: 1em; }
+.boxInner h5 { font-size: 1em; margin-right: 25px; }
 .closePopUp {
 	position: absolute;
 	right: 12px;
@@ -2862,7 +2865,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     right: 22px;
     top: 22px;
     height: 20px;
-    width: auto;
+    width: 20px;
     border: none;
     background: transparent;
 }
@@ -2982,6 +2985,8 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 #colorbox h1 p { margin: 0; }
 #colorbox p { margin: 1em 0; }
 
+#colorbox .itemDetails p { margin-top: 0; }
+#colorbox .itemDetails h5 { margin-top: 0; margin-right: 32px; }
 
 #colorbox form h6 {
     font-family: 'source_sans_proitalic';
@@ -3106,7 +3111,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     padding: 0 0 1%;
     position: absolute;
     right: 0;
-    z-index: 2;
+    z-index: 1000;
 }
 .sideNav {
     width: 31.640212%;
@@ -3123,6 +3128,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     margin: 4% 5% 0; 
     cursor: pointer;
 }
+.sideNav .head:hover { color: inherit; }
 .sideNav .head span {
     float: right;
     font-size: 0.6em;
@@ -3822,6 +3828,10 @@ body .container .upper-left h2 { font-size: 1.4em; }
 .searchRight input[type="text"] {
     width:6%;
 }
+
+#colorbox .itemDetails article { padding: 0; width: 100%;}
+#colorbox .itemDetails .table li { clear: left; width: 100%; }
+
 /* MOBILE HEADER */
     header { margin: 0; }
 	header li { font-size: inherit; }
@@ -4287,18 +4297,6 @@ aside { height: 100%; }
 }
 
 .year h3 { margin-top: 3px; }
-
-#colorbox #cboxClose,
-#cboxClose,
-.closePopUp {
-    font-size: 2.5em;
-    height: 34px;
-    top: 16px;
-    right: 5px;
-}
-.closePopUp {
-    top: 12px;
-}
 
 }
 
