@@ -3839,11 +3839,11 @@ body .container .upper-left h2 { font-size: 1.4em; }
         .logo { width: 238px; }
         .menu-btn { display: block; }
         .topNav, .MainNav { display: none; }
-        .MainNav { float: left; border: none; width: 52%; margin: 0 0 1.5em; border-right: 1px solid #CCCCCC; padding: 1px 0 0; } 
+        .MainNav { float: left; border: none; width: 51%; margin: 0 0 1.5em; padding: 1px 0 0; } 
             .MainNav li, .MainNav li:first-child { clear: both; margin: 0 0 1.8em; }
             .MainNav li:last-child { margin: 0; }
                 header .active a { border: none; color: #2b2b2b; }
-        .topNav { clear: both; float: right; width: 40.3545%; padding: 1px 2.6455% 0 4%; margin:0; position: static; }
+        .topNav { clear: both; float: right; width: 40.3545%; padding: 1px 2.6455% 0 5%; margin:0 0 1.5em; position: relative; border-left: 1px solid #ccc;}
             .topNav ul { width: 100%; }
                 .topNav ul li:last-child { margin: 0; }
                 header .topNav ul li, header .topNav ul li:first-child { clear: both; font-size: inherit; margin: 0 0 1.8em; width: 100%; }
