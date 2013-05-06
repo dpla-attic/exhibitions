@@ -3,6 +3,8 @@
     $baseUrl = $config->dpla->frontendUrl;
     $wpUrl = $config->dpla->wordpressURL;
     $exhibitionsUrl = $config->dpla->exhibitionsUrl;
+    $assetsDir = $config->dpla->assets_dir_name;
+    $assetsPath = BASE_DIR . $config->dpla->theme_path . $assetsDir;
 ?>
     </div><!-- end wrap -->
 
@@ -30,7 +32,14 @@
                 <li class="twitter"><a href="https://twitter.com/dpla"><span aria-hidden="true" class="icon-twitter"></span><span class="visuallyhidden">Twitter</span></a></li>
                 <li class="RSS"><a href="http://dp.la/info/feed"><span aria-hidden="true" class="icon-rss"></span><span class="visuallyhidden">RSS</span></a></li>
             </ul>
-            <a href="<?= $baseUrl ?>"><img src="<?php echo img('footer-logo.png'); ?>" class="logo" /></a>
+            <a href="<?= $baseUrl ?>" class="logo">
+                    <?php
+                        if (file_exists($assetsPath . '/images/logo.png')): ?>
+                            <img src="<?php echo img('logo.png', $assetsDir .'/images/'); ?>" alt="DPLA: Digital Public Library of America" />
+                        <?php else: ?>
+                            <img src="<?php echo img('logo.png'); ?>" alt="" />
+                    <?php endif; ?>
+            </a>
         </div>
         <?php if ((get_theme_option('Display Footer Copyright') == 1) && $copyright = option('copyright')): ?>
             <p><?php echo $copyright; ?></p>

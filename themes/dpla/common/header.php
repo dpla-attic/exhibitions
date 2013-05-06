@@ -21,11 +21,26 @@
 
     <?php fire_plugin_hook('public_head', array('view'=>$this)); ?>
 
+    <?php
+        $config = Zend_Registry::get('bootstrap')->getResource('Config');
+        $assetsDir = $config->dpla->assets_dir_name;
+        $assetsPath = BASE_DIR . $config->dpla->theme_path . $assetsDir;
+    ?>
+
     <!-- Stylesheets -->
     <?php
     queue_css_file('normalize');
     queue_css_file('main');
-    queue_css_file('dpla-colors');
+
+    if (is_dir($assetsPath)){
+        queue_css_file(
+            array('dpla-colors', 'fonts'),
+            'all',
+            false,
+            $assetsDir . '/css'
+        );
+    }
+
     queue_css_file('galleriffic');
     echo head_css();
     ?>
@@ -43,15 +58,20 @@
             <li><a href="#social" accesskey="5">Go to social media navigation</a></li>
         </ul>
         <div class="container">
-
             <header>
                 <?php fire_plugin_hook('public_header'); ?>
                 <?php
-                    $config = Zend_Registry::get('bootstrap')->getResource('Config');
                     $baseUrl = $config->dpla->frontendUrl;
                     $wpUrl = $config->dpla->wordpressURL;
                 ?>
-                <a href="<?= $baseUrl ?>" class="logo"><img src="<?php echo img('logo.png'); ?>" alt="DPLA: Digital Public Library of America" /></a>
+                <a href="<?= $baseUrl ?>" class="logo">
+                    <?php
+                        if (file_exists($assetsPath . '/images/logo.png')): ?>
+                            <img src="<?php echo img('logo.png', $assetsDir .'/images/'); ?>" alt="DPLA: Digital Public Library of America" />
+                        <?php else: ?>
+                            <img src="<?php echo img('logo.png'); ?>" alt="" />
+                    <?php endif; ?>
+                </a>
                 <a class="menu-btn" href=""><span aria-hidden="true" class="icon-arrow-thin-down"></span><span class="visuallyhidden">Navigation</span></a>
                 <nav class="topNav" id="top-nav">
                     <ul>
@@ -126,4 +146,3 @@
                     </form>
                 </div>
             </section>
-        </div>
