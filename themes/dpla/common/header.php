@@ -76,38 +76,38 @@
                 <nav class="topNav" id="top-nav">
                     <ul>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/about">About<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/">About<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/about/history">History</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/who">Who We Are</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/org">Organization</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/funding">Funding</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/faq">FAQ</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/history/">History</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/who/">Who We Are</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/policies/">Policies</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/funding/">Funding</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/faq/">FAQ</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/get-involved/">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships">Partnerships</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/events">Events</a></li>
-                                <li><a href="<?= $wpUrl ?>/forums">Forums</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships/">Partnerships</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
+                                <li><a href="<?= $wpUrl ?>/forums/">Forums</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/developers">For Developers<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/developers/">For Developers<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/developers/codex">API Codex</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/codex/">API Codex</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= $wpUrl ?>/help">Help</a></li>
+                        <li><a href="<?= $wpUrl ?>/help/">Help</a></li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/news">Follow<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/news/">Follow<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/news/blog">Blog</a></li>
-                                <li><a href="<?= $wpUrl ?>/news/press">Press</a></li>
+                                <li><a href="<?= $wpUrl ?>/news/blog/">Blog</a></li>
+                                <li><a href="<?= $wpUrl ?>/news/press/">Press</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= $wpUrl ?>/contact">Contact</a></li>
+                        <li><a href="<?= $wpUrl ?>/contact/">Contact</a></li>
                     </ul>
                 </nav>
                 <nav class="MainNav" id="main-nav">
