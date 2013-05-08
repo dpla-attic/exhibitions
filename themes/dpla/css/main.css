@@ -2496,14 +2496,11 @@ aside h5 { margin: 5px 0 1em; }
     transition: 0.3s ease;
 }
 .show-item-details {
-    top: 17px;
-    right: 17px;
-    bottom: auto;
+    position: static;
     border: 1px solid #fff;
     font-size: 1.4em;
-}
-.show-doc-details {
-    top: 53px;
+    margin: 1% 2%;
+    float: right;
 }
 .moreInfo.hover {
     border-color: #fff;
