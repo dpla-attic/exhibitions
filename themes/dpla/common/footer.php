@@ -20,10 +20,10 @@
                 <li><a href="<?= $baseUrl ?>/apps">Apps</a></li>
             </ul>
             <ul class="footer-navTwo">
-                <li><a href="<?= $wpUrl ?>/about">About</a></li>   
+                <li><a href="<?= $wpUrl ?>/">About</a></li>   
                 <li class="news-clear"><a href="<?= $wpUrl ?>/news/">Follow</a></li>
-                <li><a href="<?= $wpUrl ?>/contact">Contact</a></li> 
-                <li><a href="<?= $wpUrl ?>/terms">Terms & Privacy</a></li>   
+                <li><a href="<?= $wpUrl ?>/contact/">Contact</a></li> 
+                <li><a href="<?= $wpUrl ?>/terms/">Terms & Privacy</a></li>   
             </ul>   
         </nav>
         <div class="footerBottom">

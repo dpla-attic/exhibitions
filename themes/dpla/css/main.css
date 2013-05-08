@@ -899,7 +899,7 @@ aside h1 {
 .shareSave .btn ul, .buttons .btn:first-child ul {
 	position: absolute;
 	right: -999em;
-	z-index: 100;
+	z-index: 1100;
 	width: 200px;
 	background: #000;
 	color: #fff;
