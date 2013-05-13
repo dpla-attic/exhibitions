@@ -69,7 +69,7 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
                     ?>
                     <div class="exibition-image">
                         <a href="<?= exhibit_builder_exhibit_uri() ?>">
-                            <img alt="" src="<?= $thumbUri ?>"></img>
+                            <img alt="" src="<?= $thumbUri ?>">
                         </a>
                     </div>
                     <h5><?php echo link_to_exhibit(); ?></h5>
