@@ -44,11 +44,10 @@
     queue_css_file('galleriffic');
     echo head_css();
     ?>
-    <?php queue_js_file('vendor/fastbutton'); ?>
     <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
     <?php echo head_js(); ?>
 </head>
-<?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass . ' use-fastclick')); ?>
+<?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <?php # fire_plugin_hook('public_body', array('view'=>$this)); ?>
 
         <ul class="jump-links">
