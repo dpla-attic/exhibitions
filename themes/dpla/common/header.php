@@ -141,7 +141,8 @@
                 <div class="searchRowRight">
                     <a class="search-btn" href=""><span aria-hidden="true" class="icon-mag-glass"></span><span class="visuallyhidden">Search</span></a>
                     <form class="search-form" id="searchBox" action="<?= $baseUrl . '/search' ?>">
-                        <input type="text" name="q" placeholder="Search the Library">
+                        <label class="visuallyhidden" for="searchField">Search the Library</label>
+                        <input id="searchField" type="text" name="q" placeholder="Search the Library">
                         <input type="submit" class="searchBtn" value="Search">
                     </form>
                 </div>
