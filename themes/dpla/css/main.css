@@ -4314,6 +4314,20 @@ aside { height: 100%; }
     float: none;
 }
 
+.table ul:first-child {
+    padding-top: 5px; 
+}
+
+.table li {
+    float: none;
+    width: 100%
+}
+
+.table li:first-child {
+    width: 100%;
+    margin: 0 0 5px;
+}
+
 }
 
 
