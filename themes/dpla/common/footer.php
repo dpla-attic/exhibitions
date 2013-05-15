@@ -51,6 +51,7 @@
     </div>
         <!-- JavaScripts -->
     <?php queue_js_file('vendor/jquery.mobile-1.2.0.min'); ?>
+    <?php queue_js_file('vendor/fastclick'); ?>
     <?php queue_js_file('jquery.jcarousel.min'); ?>
     <?php queue_js_file('vendor/jquery.opacityrollover'); ?>
     <?php queue_js_file('vendor/jquery.colorbox-min'); ?>

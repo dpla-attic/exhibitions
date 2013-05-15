@@ -1,5 +1,7 @@
 (function($) {
 
+  FastClick.attach(document.body);
+
   ///// Social media buttons
 
 if ($('.shareSave').length) {
