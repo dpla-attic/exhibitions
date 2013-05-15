@@ -2860,6 +2860,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     font-size: 1.3em;
     text-transform: uppercase;
     position: absolute;
+    z-index: 100;
     right: 22px;
     top: 22px;
     height: 20px;
