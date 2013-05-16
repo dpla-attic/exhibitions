@@ -3571,7 +3571,9 @@ div.timeline-year {
 }
 .no-js .graph li .info h3 { font-size: 1em; padding-bottom: 0.3em; }
 
-
+.fb_reset iframe {
+    border: 0px none; width: 0px; height: 0px;
+}
 
 @media only screen and (max-width: 1000px) {
     /* Maintain even theme rows */
@@ -4297,6 +4299,11 @@ aside { height: 100%; }
 }
 
 .year h3 { margin-top: 3px; }
+
+.fb_edge_widget_with_comment {
+    height: 20px;
+    overflow: hidden;
+}
 
 }
 
