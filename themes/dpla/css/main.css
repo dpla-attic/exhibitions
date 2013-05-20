@@ -143,7 +143,14 @@ iframe {
 form {
     overflow: hidden;
 }
-.about-content .rightSide a { text-decoration: underline; }
+/* Underline links within blocks of text for accessibility */
+.rightSide a,
+.bottom .module p a,
+.threeCol .module p a,
+aside .module p a,
+.slide_bottom a,
+.detail-bottom a
+ { text-decoration: underline; }
 
 .search-form {
     position: relative;
@@ -918,7 +925,7 @@ aside h1 {
 .shareSave.black .btn {
     background: #000;
 }
-.shareSave .btn a, .buttons .btn a { color: #fff; display: block; }
+.shareSave .btn a, .buttons .btn a { color: #fff; display: block; text-decoration: none; }
 .shareSave .btn .sharebtn { padding: 10px; }
 .shareSave .btn .sharebtn span { margin-left: 0; }
 
@@ -1060,6 +1067,9 @@ article .shareSave { margin: 0 0 3% 74.286%; }
     color: #2795b6;
     display: inline-block;
     padding: 3px 6px;
+}
+.pagination a:hover {
+    text-decoration: underline;
 }
 
 
@@ -1206,6 +1216,7 @@ h6.open span {
 
 .desc-short, .desc-long { overflow: hidden; }
 .desc-long { display: none; }
+.desc-toggle { text-decoration: none !important; }
 .desc-toggle:hover { cursor: pointer; }
 .desc-toggle span { font-size: .5em; }
 
@@ -1643,7 +1654,7 @@ input[type="checkbox"] {
     margin: 0 3% 0 2.5%;
 }
 
-.resultsBar .btn { margin: 0; }
+.resultsBar .btn { margin: 0; text-decoration: none; }
 
 .tab-content .resultsBar {
 	overflow: visible;
@@ -1701,6 +1712,7 @@ input[type="checkbox"] {
 .tab-content .resultsBar ul li:first-child ul li, .tab-content .resultsBar ul li:first-child ul li a {
 	display: block;
 	float: none;
+    text-decoration: none;
 }
 
 .btn span {
@@ -1833,6 +1845,9 @@ input[type="checkbox"] {
 .searchLeft h4 {
     margin: 0 0 10px;
 }
+.searchLeft h4 a:hover {
+    text-decoration: underline;
+}
 .savedList .searchLeft {
     margin: 0 4% 0 0;
     width: 38.5852%;
@@ -1877,7 +1892,9 @@ input[type="checkbox"] {
     border: none;
     margin: 3% 0 0;
 }
-
+.savedList section a {
+    text-decoration: none;
+}
 .savedList h6 {
     color: #818285;
     font: 0.8em/1em 'source_sans_proregular',arial,sans-serif;
@@ -3090,6 +3107,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .prevNext li.btn { margin: 0; }
 .prevNext a {
     color: #fff;
+    text-decoration: none;
 }
 .upper-section {
     overflow: hidden;
