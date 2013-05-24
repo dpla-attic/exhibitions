@@ -97,7 +97,9 @@
             $external_uri = strip_tags($external_uri);
             ?>
 
-            <?php if ($external_uri): ?>
+            <?php if ($external_uri && strpos($external_uri, 'http') !== FALSE):
+                //    just to make sure it's actually a link
+            ?>
                 <ul class="prevNext">
                     <li class="btn"><a href="<?=$external_uri?>">View Exhibition</a></li>
                 </ul>
