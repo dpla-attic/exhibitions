@@ -2513,11 +2513,15 @@ aside h5 { margin: 5px 0 1em; }
     transition: 0.3s ease;
 }
 .show-item-details {
-    position: static;
-    border: 1px solid #fff;
     font-size: 1.4em;
-    margin: 1% 2%;
+    top: 15px;
+    left: 15px;
+}
+.video-mp4 + .show-item-details {
+    position: static;
+    border: none;
     float: right;
+    margin: 1.5%;
 }
 .moreInfo.hover {
     border-color: #fff;
@@ -2662,6 +2666,10 @@ html[xmlns] .slides {display: block;}
 .flex-direction-nav .flex-next {background-position: right 0; right: 17px; }
 .flex-direction-nav .flex-prev {right: 48px;}
 .flex-direction-nav .flex-disabled {opacity: .3!important; filter:alpha(opacity=30); cursor: default;}
+
+.plugin-content {
+    position: relative;
+}
 
 .plugin-content,
 .plugin-content .item-file,
@@ -3039,6 +3047,9 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 
 .caption {
     padding: 1% 2%;
+}
+.slide-Container .slides .caption {
+    clear: none;
 }
 .slides img { width: 100%; }
 
