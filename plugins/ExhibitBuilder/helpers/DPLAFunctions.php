@@ -414,6 +414,22 @@ function dpla_get_field_value_by_name($item, $name) {
     return metadata($item['item'], array('Dublin Core', $name), array(Omeka_View_Helper_Metadata::DELIMITER=>'; '));
 }
 
+/**
+ * Return layout of exhibit page entry
+ * @param $order index of entry in exhibit page
+ * @return mixed HTML
+ */
+function external_exhibit_uri_layout_input_text($order)
+{
+    $html = '<div class="inputs five columns omega">';
+    $html .= get_view()->formText("Text[$order]",
+        exhibit_builder_page_text($order));
+    $html .= '</div>';
+    $html = apply_filters('exhibit_builder_layout_form_text', $html,
+        array('order' => $order));
+    return $html;
+}
+
 
 // FIXME: I'm sure PHP has better way to define global variables
 function dpla_exhibit_homepage_layout_name() {

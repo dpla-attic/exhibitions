@@ -84,12 +84,28 @@
                 $thumbsList .= '</ul>';
             ?>
 
-			<div class="module overview overview-<?php echo $pagesCount; ?>">
-				<h2>Choose a theme</h2>
-			    <?php echo $thumbsList; ?>
-			</div>
+            <?php if ($pagesCount > 0): ?>
+                <div class="module overview overview-<?php echo $pagesCount; ?>">
+                    <h2>Choose a theme</h2>
+                    <?php echo $thumbsList; ?>
+                </div>
+            <?php endif; ?>
 
-		</div>
+            <?php
+            // we have to support legacy data model. Some exhibit pages in production contains 2 descriptions instead of 1
+            $external_uri = exhibit_builder_page_text(2, $homepage);
+            $external_uri = strip_tags($external_uri);
+            ?>
+
+            <?php if ($external_uri && strpos($external_uri, 'http') !== FALSE):
+                //    just to make sure it's actually a link
+            ?>
+                <ul class="prevNext">
+                    <li class="btn"><a href="<?=$external_uri?>">View Exhibition</a></li>
+                </ul>
+            <?php endif; ?>
+
+        </div>
 
 	</div>
 </article>
