@@ -14,13 +14,13 @@
                                 echo files_for_item(array(), array('class'=>'item-file'), $item['item']);
                             }
                             ?>
+                            <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         </div>
                         
                          <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                          <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
                              : dpla_get_field_value_by_name($item, "Title"); ?>                        
                         <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
-                        <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         <div class="caption">
                             <?=$item['caption']?>
                         </div>
