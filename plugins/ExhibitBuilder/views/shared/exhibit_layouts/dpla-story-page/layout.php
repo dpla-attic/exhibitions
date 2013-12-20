@@ -8,6 +8,7 @@
                     <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
                         <div class="plugin-content">
                             <?php
+                            $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item']));
                             if ($media = get_plugin_hook_output('public_items_show', array('view' => get_view(), 'item' => $item['item']))) {
                                 echo $media;
                             } else {
@@ -20,7 +21,6 @@
                          <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
                          <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
 						     : dpla_get_field_value_by_name($item, "Title"); ?>                        
-                        <?php $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item'])) ?>
                         <div class="caption">
                             <?=$item['caption']?>
                         </div>
