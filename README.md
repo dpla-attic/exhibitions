@@ -18,9 +18,9 @@ Copyright President and Fellows of Harvard College, 2013
 Branching
 ---------
 
-We consider of following branching rule:
+We use the  branching rule:
 * develop
 * testing
 * master
 
-We do development in the "develop" branch. When development is finished for each release, we merg the "develop" branch into "testing" branch. Production ready code is finally merged into the "master" branch.
+We do development in the "develop" branch. When development is finished for each release, we merge the "develop" branch into "testing" branch. Production ready code is finally merged into the "master" branch.
