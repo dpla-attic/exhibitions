@@ -283,6 +283,7 @@ if ($('.shareSave').length) {
 
 
 
+  // FIXME - this code doesn't work right on jQuery 1.10, which ships with Omeka 2.1.4
   $('.menu-btn').toggle(
     function(){
       $('.topNav, .MainNav').slideDown();
@@ -293,6 +294,7 @@ if ($('.shareSave').length) {
       $(this).html('<span aria-hidden="true" class="icon-arrow-thin-down"></span>');
     }
   );
+  // END FIXME
 
   $('#inline_content .tabs a, .shareSave .btn, .resultsBar .btn').click(function() {
     return false;

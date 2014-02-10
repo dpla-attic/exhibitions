@@ -45,7 +45,13 @@
     echo head_css();
     ?>
     <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
-    <?php echo head_js(); ?>
+
+    <!-- Omeka 2.1.4 ships with an later version of jQuery, which conflicts with
+         the toggle function for the menu-btn link (unused?)-->
+    <?php queue_js_file('vendor/jquery-1.8.3.min'); ?>
+    <?php queue_js_file('vendor/jquery-ui-1.9.2.custom.min'); ?>
+
+    <?php echo head_js(false); ?>
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <?php # fire_plugin_hook('public_body', array('view'=>$this)); ?>
