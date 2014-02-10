@@ -40,5 +40,6 @@ add_filter('item_search_filters', 'exhibit_builder_item_search_filters');
 // Helper functions for exhibits and exhibit pages
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitFunctions.php';
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitPageFunctions.php';
+require_once EXHIBIT_PLUGIN_DIR . '/helpers/DPLAFunctions.php';
 
 require_once EXHIBIT_PLUGIN_DIR . '/functions.php';

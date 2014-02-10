@@ -7,5 +7,7 @@ files/*
 *.iml
 # eclipse
 .project
-# DPLA non-opensourced assets
+# non-openly licensed theme assets
 themes/dpla/exhibitions-assets
+themes/dpla/exhibitions-assets/*
+
