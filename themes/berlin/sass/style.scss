@@ -1,0 +1,10 @@
+@import "normalize";
+@import "screen";
+
+@media screen and (max-width:960px) {
+    @import "960max";
+}
+
+@media screen and (max-width:768px) {
+    @import "768max";
+}

@@ -311,6 +311,13 @@ class Omeka_Db_Table
         if ($sortParams) {
             list($sortField, $sortDir) = $sortParams;
             $this->applySorting($select, $sortField, $sortDir);
+
+            if ($select->getPart(Zend_Db_Select::ORDER)
+                && $sortField != 'id'
+            ) {
+                $alias = $this->getTableAlias();
+                $select->order("$alias.id $sortDir");
+            }
         }
         
         $this->applySearchFilters($select, $params);
@@ -335,9 +342,10 @@ class Omeka_Db_Table
         
         $select = $this->getSelect();
         $select->where( $this->getTableAlias().'.id = ?', $recordId);
-        $select->limit(1);     
+        $select->limit(1);
+        $select->reset(Zend_Db_Select::ORDER);
         
-        return $select;   
+        return $select;
     }
     
     /**
@@ -426,6 +434,112 @@ class Omeka_Db_Table
     {
         $select = $this->getSelectForCount($params);
         return $this->getDb()->fetchOne($select);
+    }
+    
+    /**
+     * Check whether a row exists in the table.
+     * 
+     * @param int $id
+     * @return bool
+     */
+    public function exists($id)
+    {
+        $alias = $this->getTableAlias();
+        $select = $this->getSelect()
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns('id')
+            ->where("`$alias`.`id` = ?", (int) $id)
+            ->limit(1);
+        return (bool) $this->getDb()->fetchOne($select);
+    }
+    
+    /**
+     * Apply a public/not public filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param bool $isPublic
+     */
+    public function filterByPublic(Omeka_Db_Select $select, $isPublic)
+    {
+        $alias = $this->getTableAlias();
+        if ($isPublic) {
+            $select->where("`$alias`.`public` = 1");
+        } else {
+            $select->where("`$alias`.`public` = 0");
+        }
+    }
+    
+    /**
+     * Apply a featured/not featured filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param bool $isFeatured
+     */
+    public function filterByFeatured(Omeka_Db_Select $select, $isFeatured)
+    {
+        $alias = $this->getTableAlias();
+        if ($isFeatured) {
+            $select->where("`$alias`.`featured` = 1");
+        } else {
+            $select->where("`$alias`.`featured` = 0");
+        }
+    }
+    
+    /**
+     * Apply a date since filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param string $dateSince ISO 8601 formatted date
+     * @param string $dateField "added" or "modified"
+     */
+    public function filterBySince(Omeka_Db_Select $select, $dateSince, $dateField)
+    {
+        // Reject invalid date fields.
+        if (!in_array($dateField, array('added', 'modified'))) {
+            return;
+        }
+        
+        // Accept an ISO 8601 date, set the tiemzone to the server's default 
+        // timezone, and format the date to be MySQL timestamp compatible.
+        $date = new Zend_Date($dateSince, Zend_Date::ISO_8601);
+        $date->setTimezone(date_default_timezone_get());
+        $date = $date->get('yyyy-MM-dd HH:mm:ss');
+        
+        // Select all dates that are greater than the passed date.
+        $alias = $this->getTableAlias();
+        $select->where("`$alias`.`$dateField` > ?", $date);
+    }
+    
+    /**
+     * Apply a user filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param int $userId
+     */
+    public function filterByUser(Omeka_Db_Select $select, $userId, $userField)
+    {
+        // Reject invalid user ID fields.
+        if (!in_array($userField, array('owner_id', 'user_id'))) {
+            return;
+        }
+        $alias = $this->getTableAlias();
+        $select->where("`$alias`.`$userField` = ?", $userId);
     }
     
     /**

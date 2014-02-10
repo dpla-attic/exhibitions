@@ -69,11 +69,28 @@ if (!Omeka) {
             });
         }
     };
+    
+    Omeka.stickyNav = function() {
+        var $nav    = $("#content-nav"),
+            $window = $(window);
+        if ($window.height() - 50 < $nav.height()) {
+            $nav.addClass("unfix");
+        }
+        $window.resize( function() {
+            if ($window.height() - 50 < $nav.height()) {
+                $nav.addClass("unfix");
+            } else {
+                $nav.removeClass("unfix");
+            }
+        });
+    };
+    
 
     Omeka.showAdvancedForm = function () {
         var advancedForm = $('#advanced-form');
         if (advancedForm) {
             $('#search-form input[type=submit]').addClass("blue button with-advanced").after('<a href="#" id="advanced-search" class="blue button">Advanced Search</a>');
+            $('#query').css('width','65%');
             advancedForm.click(function (event) {
                 event.stopPropagation();
             });
@@ -108,6 +125,7 @@ if (!Omeka) {
     Omeka.readyCallbacks = [
         [Omeka.deleteConfirm, null],
         [Omeka.saveScroll, null],
+        [Omeka.stickyNav, null],
         [Omeka.showAdvancedForm, null]
     ];
 })(jQuery);

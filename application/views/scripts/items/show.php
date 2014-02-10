@@ -1,4 +1,4 @@
-<?php echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bodyid'=>'item','bodyclass' => 'show')); ?>
+<?php echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bodyclass' => 'items show')); ?>
 
 <h1><?php echo metadata('item', array('Dublin Core', 'Title')); ?></h1>
 
@@ -34,11 +34,18 @@
     <div class="element-text"><?php echo metadata('item', 'citation', array('no_escape' => true)); ?></div>
 </div>
 
+<div id="item-output-formats" class="element">
+    <h3><?php echo __('Output Formats'); ?></h3>
+    <div class="element-text"><?php echo output_format_list(); ?></div>
+</div>
+
 <?php fire_plugin_hook('public_items_show', array('view' => $this, 'item' => $item)); ?>
 
+<nav>
 <ul class="item-pagination navigation">
     <li id="previous-item" class="previous"><?php echo link_to_previous_item_show(); ?></li>
     <li id="next-item" class="next"><?php echo link_to_next_item_show(); ?></li>
 </ul>
+</nav>
 
 <?php echo foot(); ?>

@@ -1,6 +1,6 @@
 <?php
 $pageTitle = __('Browse Collections');
-echo head(array('title'=>$pageTitle,'bodyid'=>'collections','bodyclass' => 'browse'));
+echo head(array('title'=>$pageTitle,'bodyclass' => 'collections browse'));
 ?>
 
 <h1><?php echo $pageTitle; ?></h1>
@@ -18,10 +18,10 @@ echo head(array('title'=>$pageTitle,'bodyid'=>'collections','bodyclass' => 'brow
         <div class="element-text"><?php echo text_to_paragraphs(metadata('collection', array('Dublin Core', 'Description'), array('snippet'=>150))); ?></div>
     </div>
     <?php endif; ?>
-    
+
     <?php if ($collection->hasContributor()): ?>
     <div class="element">
-        <h3><?php echo __('Contributors(s)'); ?></h3>
+        <h3><?php echo __('Contributors'); ?></h3>
         <div class="element-text">
             <p><?php echo metadata('collection', array('Dublin Core', 'Contributor'), array('all'=>true, 'delimiter'=>', ')); ?></p>
         </div>

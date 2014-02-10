@@ -1,0 +1,48 @@
+@media print {
+    body{
+        font:12px Georgia, "Palatino Linotype", "Book Antiqua", "Times New Roman", Times, serif;
+    }
+    #content{
+        width:100%;
+        margin:0;
+        float:none;
+    }
+    h1,
+    #site-title{
+        font-size:16pt;
+        font-weight:bold;
+    }
+    h2{
+        font-size:14pt;
+        font-style:italic;
+    }
+    h3 {
+        font-size:14pt;
+    }
+    h4 {
+        font-weight:bold;
+    }
+    h5 {
+        font-weight:bold;
+        font-style:italic;
+        text-transform:uppercase;
+    }
+    a:link:after {
+        content: " (" attr(href) ") ";
+        font-size:80%;
+    }
+    #search-container,
+    #primary-nav,
+    #header-image,
+    .navigation,
+    .pagination,
+    #exhibit-page-navigation,
+    .exhibit-section-nav,
+    .exhibit-page-nav {
+        display:none;
+    }
+    blockquote {
+        margin:10pt 0 0 0;
+        font-style:italic;
+    }
+}

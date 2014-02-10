@@ -32,7 +32,24 @@ class Omeka_Application_Resource_Frontcontroller extends Zend_Application_Resour
             return $front;
         }
         
+        // REST API requests require a slightly different controller environment. 
+        // They must be made from the public side and the URL must match a 
+        // particular pattern.
+        $request = new Zend_Controller_Request_Http;
+        if (!$front->getParam('admin') 
+            && preg_match('#^/api/([a-z_]+)(.+)?$#', $request->getPathInfo())
+        ) {
+            // Flag this as an API request.
+            $front->setParam('api', true);
+            // Displaying errors will break client parsers, so hide them.
+            ini_set('display_errors', 0);
+            // Register API-specific controller logic.
+            $front->registerPlugin(new Omeka_Controller_Plugin_Api);
+        }
+        
+        // Admin requests require a sligntly different controller environment.
         if ($front->getParam('admin')) {
+            // Register admin-specific controller logic.
             $front->registerPlugin(new Omeka_Controller_Plugin_Admin);
         }
         
@@ -41,7 +58,7 @@ class Omeka_Application_Resource_Frontcontroller extends Zend_Application_Resour
         if ($bootstrap->hasPluginResource('PluginBroker')) {
             $bootstrap->bootstrap('PluginBroker');
         }
-                                                        
+        
         // Action helpers
         $this->getBootstrap()->bootstrap('Helpers');
         
@@ -52,6 +69,9 @@ class Omeka_Application_Resource_Frontcontroller extends Zend_Application_Resour
             $front->registerPlugin(
                 new Omeka_Controller_Plugin_Ssl((string)$sslConfig, $redirector, $auth));
         }
+
+        // Add a default content-type fallback.
+        $front->registerPlugin(new Omeka_Controller_Plugin_DefaultContentType);
         
         return $front;
     }

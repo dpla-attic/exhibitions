@@ -11,7 +11,7 @@
  *
  * @package SimplePages
  */
-class SimplePagesPage extends Omeka_Record_AbstractRecord
+class SimplePagesPage extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
 {
     public $modified_by_user_id;
     public $created_by_user_id;
@@ -191,5 +191,9 @@ class SimplePagesPage extends Omeka_Record_AbstractRecord
             default:
                 return parent::getProperty($property);
         }
+    }
+    public function getResourceId()
+    {
+	return 'SimplePages_Page';
     }
 }

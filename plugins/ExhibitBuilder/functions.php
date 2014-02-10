@@ -241,9 +241,9 @@ function exhibit_builder_define_acl($args)
 
     // Allow contributors everything but editAll and deleteAll.
     $acl->allow('contributor', 'ExhibitBuilder_Exhibits',
-        array('add', 'add-page', 'delete-page', 'edit-page-content',
+        array('add', 'add-page', 'delete-page', 'delete-confirm', 'edit-page-content',
             'edit-page-metadata', 'item-container', 'theme-config',
-            'editSelf', 'deleteSelf'));
+            'editSelf', 'deleteSelf', 'showSelfNotPublic'));
 
     $acl->allow(null, 'ExhibitBuilder_Exhibits', array('edit', 'delete'),
         new Omeka_Acl_Assert_Ownership);
@@ -496,4 +496,42 @@ function exhibit_builder_search_record_types($recordTypes)
     $recordTypes['Exhibit'] = __('Exhibit');
     $recordTypes['ExhibitPage'] = __('Exhibit Page');
     return $recordTypes;
+}
+
+/**
+ * Add exhibit title to item search filters.
+ */
+function exhibit_builder_item_search_filters($displayArray, $args)
+{
+    $request = $args['request_array'];
+
+    if (isset($request['exhibit'])
+        && ($exhibit = get_record_by_id('Exhibit', $request['exhibit']))
+    ) {
+        $displayArray['exhibit'] =
+            metadata($exhibit, 'title', array('no_escape' => true));
+    }
+    return $displayArray;
+}
+
+function exhibit_builder_api_resources($apiResources)
+{
+    $apiResources['exhibits'] = array(
+        'record_type' => 'Exhibit', 
+        'actions' => array('get', 'index'), 
+        'index_params' => array('tag', 'tags', 'sort', 'public', 'featured')
+    );
+    $apiResources['exhibit_pages'] = array(
+            'record_type' => 'ExhibitPage',
+            'actions' => array('get', 'index'),
+            'index_params' => array('parent', 'exhibit', 'order', 'topOnly')
+    );    
+    
+    $apiResources['exhibit_page_entries'] = array(
+            'record_type' => 'ExhibitPageEntry',
+            'actions' => array('get', 'index'),
+            'index_params' => array('page_id', 'item_id')
+    );    
+    
+    return $apiResources;    
 }

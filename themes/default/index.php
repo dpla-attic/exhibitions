@@ -48,6 +48,8 @@
         <?php endif; ?>
         <p class="view-items-link"><?php echo link_to_items_browse(__('View All Items')); ?></p>
     </div><!-- end recent-items -->
-    
+
+    <?php fire_plugin_hook('public_home', array('view' => $this)); ?>
+
 </div><!-- end secondary -->
 <?php echo foot(); ?>

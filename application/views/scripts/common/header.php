@@ -50,6 +50,6 @@
 
         </header>
         
-        <article id="content" role="main">
+        <article id="content">
         
             <?php fire_plugin_hook('public_content_top', array('view'=>$this)); ?>

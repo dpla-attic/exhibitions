@@ -1,0 +1,120 @@
+//* @group ----- Generic HTML elements ----- */
+
+input[type=text], input[type=password], textarea { 
+    width: 100%; 
+    display: block;
+}
+
+//* @end */
+
+//* @group ----- Global selectors ----- */
+
+#search-container {
+    clear: both;
+    width: 100%;
+    @include leader();
+    @include trailer(0);
+}
+
+//* @end */
+
+//* @group ----- Header ----- */
+#site-title {
+    width: 100%;
+}
+//* @end */
+
+//* @group ----- Navigation ----- */
+
+#primary-nav { display: none; }
+
+#mobile-nav { 
+    display:block;
+    clear:both;
+    @include container;
+    zoom:1;
+    
+    ul {
+        position:absolute;
+        z-index:199;
+        background:#fafafa;
+        border-bottom:1px solid #ccc;
+        width: 100%;
+        padding-left: 0;
+    }
+
+    li {
+        text-align:left;
+        display:block;
+        overflow:hidden;
+        width: 100%;
+    }
+
+    a {
+        text-decoration:none;
+        display:block;
+        padding: 10px;
+        border:1px solid #ccc;
+        border-width: 1px 1px 0 1px;
+    }
+
+    a:hover { background:#fff; }
+
+    & > a:first-child {
+        background:#fafafa;
+        cursor: pointer;
+    }
+
+    li.current a {
+        background:#fff;
+        color:#ff8000;
+    }
+    
+    li ul {
+        position: relative;
+    }
+
+    li ul a:before {
+        content: "-- ";
+    }
+
+    li ul ul a:before {
+        content: "---- ";
+    }
+}    
+
+//* @end */
+
+//* @group ----- Footer ----- */
+
+footer .navigation {
+    float: none;
+    width: 100%;
+    text-align: left;
+    @include trailer();
+}
+
+//* @end */
+
+//* @group ----- Home ----- */
+
+#home #primary, #home #secondary { padding: rhythm(1) 0 0 0; }
+
+#home #primary > div:last-of-type {
+    border-bottom: 1px solid #ccc;
+}
+
+//* @end */
+
+//* @group ----- Items/Browse ----- */
+
+.browse .item img {
+    max-width: 50%;
+    float: left;
+    @include trailer();
+    @include leader();
+}
+
+#sort-links { float: left; }
+
+//* @end */

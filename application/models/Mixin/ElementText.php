@@ -69,6 +69,14 @@ class Mixin_ElementText extends Omeka_Record_Mixin_AbstractMixin
     protected $_recordsAreLoaded = false;
     
     /**
+     * Flag to indicate whether elements added to this save will replace 
+     * existing element texts, not add them.
+     * 
+     * @var bool
+     */
+    protected $_replaceElementTexts = false;
+    
+    /**
      * Sets of Element records indexed by record type.
      * 
      * @var array 
@@ -603,6 +611,17 @@ class Mixin_ElementText extends Omeka_Record_Mixin_AbstractMixin
     }
     
     /**
+     * Set the flag to indicate whether elements added to this save will replace 
+     * existing element texts, not add them.
+     * 
+     * @param bool $replace
+     */
+    public function setReplaceElementTexts($replaceElementTexts = true)
+    {
+        $this->_replaceElementTexts = (bool) $replaceElementTexts;
+    }
+    
+    /**
      * Save all ElementText records that were associated with a record.
      *
      * Typically called in the afterSave() hook for a record.
@@ -612,20 +631,41 @@ class Mixin_ElementText extends Omeka_Record_Mixin_AbstractMixin
         if (!$this->_record->exists()) {
             throw new Omeka_Record_Exception(__('Cannot save element text for records that are not yet persistent!'));
         }
-        
-        // Delete all the elements that were displayed on the form before adding the new stuff.
-        $elementIdsFromForm = array_keys($this->_elementsOnForm);
-        if (count($elementIdsFromForm)) {
-            $this->deleteElementTextsByElementId($elementIdsFromForm);
+
+        if (!$this->_recordsAreLoaded) {
+            $this->loadElementsAndTexts();
         }
-                
+
+        $existingTexts = $this->_textsByElementId;
+        $elementIdsFromForm = array_keys($this->_elementsOnForm);
+
         foreach ($this->_textsToSave as $textRecord) {
+            if ($this->_replaceElementTexts || in_array($textRecord->element_id, $elementIdsFromForm)) {
+                $element_id = $textRecord->element_id;
+                if (isset($existingTexts[$element_id])
+                    && ($oldText = array_shift($existingTexts[$element_id]))
+                ){
+                    // Assign the old text's ID to the new one, will cause
+                    // an UPDATE instead of an insert.
+                    $textRecord->id = $oldText->id;
+                }
+            }
             $textRecord->record_id = $this->_record->id;
             $textRecord->save();
+        }
+
+        // Delete all the remaining, un-matched old texts
+        foreach ($existingTexts as $element_id => $texts) {
+            if ($this->_replaceElementTexts || in_array($element_id, $elementIdsFromForm)) {
+                foreach ($texts as $text) {
+                    $text->delete();
+                }
+            }
         }
         
         // Cause texts to be re-loaded if accessed after save.
         $this->_recordsAreLoaded = false;
+        $this->_replaceElementTexts = false;
     }
     
     /**

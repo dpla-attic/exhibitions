@@ -15,7 +15,8 @@ Modernizr.addTest("boxsizing", function() {
         if (advancedForm) {
             searchTextbox.css("width", "60%");
             advancedForm.css("display", "none");
-            searchSubmit.addClass("with-advanced").after('<a href="#" id="advanced-search" class="button">Advanced Search</a>');
+            searchSubmit.addClass("with-advanced");
+            $('#query').after('<a href="#" id="advanced-search" class="button">Advanced Search</a>');
             advancedForm.click(function (event) {
                 event.stopPropagation();
             });

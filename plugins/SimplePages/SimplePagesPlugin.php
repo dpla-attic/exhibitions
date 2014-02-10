@@ -25,7 +25,8 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
      */
     protected $_filters = array('admin_navigation_main',
         'public_navigation_main', 'search_record_types', 'page_caching_whitelist',
-        'page_caching_blacklist_for_record');
+        'page_caching_blacklist_for_record',
+	'api_resources');
 
     /**
      * @var array Options and their default values.
@@ -338,5 +339,13 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         }
             
         return $blacklist;
+    }
+    public function filterApiResources($apiResources)
+    {
+	$apiResources['simple_pages'] = array(
+		'record_type' => 'SimplePagesPage',
+		'actions'   => array('get','index'),
+	);	
+       return $apiResources;
     }
 }

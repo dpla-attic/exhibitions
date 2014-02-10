@@ -17,11 +17,11 @@ class addSessionsTable extends Omeka_Db_Migration_AbstractMigration
     {
         $this->db->queryBlock(<<<SQL
 CREATE TABLE IF NOT EXISTS `{$this->db->prefix}sessions` (
-`id` char(32),
-`modified` int,
-`lifetime` int,
-`data` text,
-PRIMARY KEY (`id`)
+    `id` char(32),
+    `modified` int,
+    `lifetime` int,
+    `data` text,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDb;
 SQL
         );
