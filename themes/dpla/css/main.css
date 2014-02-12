@@ -3,11 +3,13 @@
  * CHANGES FOR REVIEW BY FRONT-END DEVELOPER
  */
 /* hide media plugins unnecessary elements (titles, captions, etc) on theme/story pages */
+.openseadragon h2,.openseadragon p,.openseadragon ul,.openseadragon_viewer h2,
 .zoomit h2,.zoomit p,.zoomit ul,.zoomit_viewer h2,
 .docsviewer_viewer h2, .docsviewer h2{
     display: none;
 }
 
+.openseadragon_images,
 .zoomit_images {
     display: none;
 }
@@ -2673,16 +2675,20 @@ html[xmlns] .slides {display: block;}
 
 .plugin-content,
 .plugin-content .item-file,
+.plugin-content .openseadragon,
 .plugin-content .zoomit {
     height: 420px;
 }
 
+.openseadragon_viewer,
 .zoomit_viewer {
     width: 100%;
     height: 420px;
     background: #000;
 }
 
+.openseadragon_viewer .tmp-img,
+.flexslider .slides .openseadragon_viewer img.tmp-img,
 .zoomit_viewer .tmp-img {
     display: none;
     width: 100%;

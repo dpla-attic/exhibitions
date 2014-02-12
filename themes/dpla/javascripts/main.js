@@ -20,6 +20,7 @@ if ($('.shareSave').length) {
   })();
 }
 
+// Exhibit image "slider" and OpenSeadragon
 
 	$('.homeslide').flexslider({
 	    animation: "slide",
@@ -28,77 +29,22 @@ if ($('.shareSave').length) {
       nextText: '<span class="icon-arrow-right" aria-hidden="true"></span>' 
 	});
 
-  $('.zoomit_images').on('click', function(event) {
+  $('.openseadragon_images').on('click', function(event) {
       var $this = $(this);
-
       event.preventDefault();
-
-      zoomitInit({
-        'container' : $this.parents('.zoomit'),
+      OpenSeaDragonViewer.init({
+        'container' : $this.parents('.openseadragon'),
         'link' : $this.attr('href')
       });
   });
 
-  var ZoomIt = function(){
-    var ajaxURL,
-        apiURL,
-        viewer,
-        zoomitWindow;
-
-    function onZoomitResponse(resp) {
-      if (resp.error) {
-          console.log(resp.error);
-          return;
-      }
-      
-      var content = resp.content;
-       
-      if (content.ready) {
-        zoomitWindow.data('inited', true);
-
-        var showZoomitImage = function(){
-          Seadragon.Config.autoHideControls = false;
-          Seadragon.Config.imagePath = 'http://zoom.it/images/seajax/';
-
-          var viewer = new Seadragon.Viewer(zoomitWindow[0]);
-          
-          viewer.openDzi(content.dzi);
-
-          viewer.addEventListener("open",
-            function(){
-              viewer.viewport.goHome(); 
-            }
-          );
-
-        }  
-
-        showZoomitImage();
-
-      } else if (content.failed) {
-          console.log(content.url + " failed to convert.");
-      } else {
-          console.log(content.url + " is " +
-              Math.round(100 * content.progress) + "% done.");
-      }
-    }
-
-    function poll(){
-      $.ajax({
-        url: apiURL + encodeURIComponent(ajaxURL),
-        dataType: "jsonp",
-        success: onZoomitResponse
-      });
-    };
-
+  var OpenSeaDragonViewer = function(){
+    var openseadragonWindow;
     return {
       init: function(options) {
         var container = options.container || '';
-        
-        ajaxURL = options.link || '';
-        zoomitWindow = container.find('.zoomit_viewer');
-        apiURL = container.data('api-url') + '?url='
-
-        poll();
+        openseadragonWindow = container.find('.openseadragon_viewer');
+        openseadragonWindow.data('inited', true);
       }
     }
   }();
@@ -135,15 +81,15 @@ if ($('.shareSave').length) {
           },
           after: function(slider) {
             var image = $(slider.slides[slider.currentSlide])
-                          .find('.zoomit-image')
+                          .find('.openseadragon-image')
                           .first();
 
             if (image.length) {
-              var zoomitWindow = image.parents('.zoomit');
+              var openseadragonWindow = image.parents('.openseadragon');
 
-              if (!zoomitWindow.data('inited')) {
-                ZoomIt.init({
-                  'container' : zoomitWindow,
+              if (!openseadragonWindow.data('inited')) {
+                OpenSeaDragonViewer.init({
+                  'container' : openseadragonWindow,
                   'link' : image.data('original')
                 });
               }
@@ -153,17 +99,17 @@ if ($('.shareSave').length) {
             var image;
               
             if (slider.slides) {
-              image = $(slider.slides[slider.currentSlide]).find('.zoomit-image');
+              image = $(slider.slides[slider.currentSlide]).find('.openseadragon-image');
             } else {
-              image = slider.find('.zoomit-image');
+              image = slider.find('.openseadragon-image');
             }
 
             if (image.length) {
-              var zoomitWindow = image.parents('.zoomit');
+              var openseadragonWindow = image.parents('.openseadragon');
 
-              if (!zoomitWindow.data('inited')) {
-                ZoomIt.init({
-                  'container' : zoomitWindow,
+              if (!openseadragonWindow.data('inited')) {
+                OpenSeaDragonViewer.init({
+                  'container' : openseadragonWindow,
                   'link' : image.data('original')
                 });
               }
