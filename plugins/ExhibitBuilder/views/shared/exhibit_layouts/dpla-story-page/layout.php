@@ -82,7 +82,7 @@
                                                 </ul>
                                             <?php endif; ?>
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('originalRecord', 'rights'))
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'rights'))
                                                 : dpla_get_field_value_by_name($item, "Rights")): ?>
                                                 <ul>
                                                     <li><h6>Rights</h6></li>

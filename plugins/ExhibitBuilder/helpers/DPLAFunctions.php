@@ -369,15 +369,16 @@ function get_item_field_markup($fieldLabel, $values) {
  * @param $apiObjectId
  * @return mixed|string
  */
-function get_dpla_api_object($apiObjectId) {
+function get_dpla_api_object($itemId) {
 
     // if API URL configured ...
     $config = Zend_Registry::get('bootstrap')->getResource('Config');
     $baseUrl = $config->dpla->apiUrl;
-    if ($baseUrl) {
+    $params = (array('api_key' => $config->dpla->apiKey));
+    if ($baseUrl && !empty($itemId)) {
 
         // ... and API has such item
-        $request = $baseUrl."/items/".$apiObjectId;
+        $request = $baseUrl."/items/".$itemId."?".http_build_query($params);
 
         $session = curl_init($request);
         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
