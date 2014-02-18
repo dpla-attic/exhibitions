@@ -30,10 +30,14 @@ class GoogleAnalyticsPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $gaKey = get_option('google_analytics_key'); // google analytics key
         $analytics =<<< ANALYTICS
-var _gaq=[['_setAccount','$gaKey'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=true;g.src=('https:'==location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s);})(document,'script');
+<script type="text/javascript">var _gaq=[['_setAccount','$gaKey'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=true;g.src=('https:'==location.protocol?'https://ssl':'http://www')+'.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s);})(document,'script');</script>
 ANALYTICS;
 
-        queue_js_string($analytics);
+        // workaround until we fix the use of head_js() in BOTH header/footer.
+        // once that's working, uncomment the following and remove the
+        // wrapper <script/> tags above included in $analytics
+        // queue_js_string($analytics);
+        echo $analytics;
     }
 
     public function hookConfig()
