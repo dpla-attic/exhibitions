@@ -2,6 +2,7 @@ Exhibitions
 ===========
 
 DPLA Exhibitions by Omeka
+v13.2 (2014-02-28)
 
 Documentation
 -------------
@@ -23,10 +24,12 @@ Copyright Digital Public Library of America, 2014
 Branching
 ---------
 
-We use the following branching rule:
-* develop
-* testing
-* master
+Our workflow is a simplified version of the
+[git-flow](http://nvie.com/posts/a-successful-git-branching-model/) workflow.
 
-We do development in topic branches based on the "develop" branch. When development is finished for each release, we merge the "develop" branch into "testing" branch. Production ready code is finally merged into the "master" branch.
+We use `master`, `develop`, and topic branches.  `develop` is branched to a
+release branch, which is then merged into `master`.  Merges of topic branches
+into `develop`, are done with git's `--squash` option.
 
+If you have any questions about contributing, please contact
+dev [at the domain] dp.la.
