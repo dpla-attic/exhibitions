@@ -89,18 +89,27 @@
                         <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/get-involved/">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships/">Partnerships</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
-                                <li><a href="<?= $wpUrl ?>/forums/">Forums</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships">Become a Partner</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/reps">Community Reps</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/open-committee-calls">Open Committee Calls</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/events">Events</a></li>
+                                <li><a href="<?= $wpUrl ?>/forums">Forums</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/events/dplafest2013">DPLAfest 2013</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/developers/">For Developers<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/developers/codex/">API Codex</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/hacking-projects">Hacking Projects</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= $wpUrl ?>/help/">Help</a></li>
+                        <li>
+                            <a href="<?= $wpUrl ?>/help/">Help</a>
+                            <ul>
+                              <li><a href="<?= $wpUrl ?>/teaching-tools">Tutorials</a></li>
+                            </ul>
+                        </li>
                         <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/news/">Follow<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
