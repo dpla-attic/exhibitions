@@ -104,7 +104,7 @@
                                 <li><a href="<?= $wpUrl ?>/developers/hacking-projects">Hacking Projects</a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/help/">Help</a>
                             <ul>
                               <li><a href="<?= $wpUrl ?>/teaching-tools">Tutorials</a></li>
