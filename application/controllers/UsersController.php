@@ -363,7 +363,13 @@ class UsersController extends Omeka_Controller_AbstractActionController
             // soon as the browser is terminated.
             Zend_Session::forgetMe();
         }
-        
+
+        // We want to cache HTML pages with our proxy server that Omeka would normally
+        // not allow to be cached.  The problem is that private pages that are viewed by
+        // authenticated users can get stored in the cache.  As a workaround, set the following
+        // cookie so that our proxy can selectively ignore requests served to authenticated
+        // users.  Issue 7103.
+        setcookie('_dpla_no_cache', '1', 0, '/', '', false, true);  // params match Omeka session
         $session = new Zend_Session_Namespace;
         if ($session->redirect) {
             $this->_helper->redirector->gotoUrl($session->redirect);
@@ -410,6 +416,9 @@ class UsersController extends Omeka_Controller_AbstractActionController
         $auth->clearIdentity();
         $_SESSION = array();
         Zend_Session::destroy();
+        // Crumble the cookie that's set in loginAction.
+        // '0' for cookie value is just symbolic.
+        setcookie('_dpla_no_cache', '0', 1, '/', '', false, true);  // params match Omeka session
         $this->_helper->redirector->gotoUrl('');
     }
     

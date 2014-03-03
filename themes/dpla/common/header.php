@@ -81,6 +81,7 @@
                                 <li><a href="<?= $wpUrl ?>/about/history/">History</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/who/">Who We Are</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/policies/">Policies</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/projects/">Projects</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/funding/">Funding</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/faq/">FAQ</a></li>
                             </ul>
@@ -108,6 +109,7 @@
                             </ul>
                         </li>
                         <li><a href="<?= $wpUrl ?>/contact/">Contact</a></li>
+                        <li class="hilight"><a href="<?= $wpUrl ?>/donate">Donate</a></li>
                     </ul>
                 </nav>
                 <nav class="MainNav" id="main-nav">
