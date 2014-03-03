@@ -105,7 +105,7 @@
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/help/">Help</a>
+                            <a href="<?= $wpUrl ?>/help/">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                               <li><a href="<?= $wpUrl ?>/teaching-tools">Tutorials</a></li>
                             </ul>
