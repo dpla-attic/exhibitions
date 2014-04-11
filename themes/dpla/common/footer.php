@@ -31,6 +31,7 @@
                 <li class="facebook"><a href="https://www.facebook.com/digitalpubliclibraryofamerica"><span aria-hidden="true" class="icon-facebook"></span><span class="visuallyhidden">Facebook</span></a></li>
                 <li class="twitter"><a href="https://twitter.com/dpla"><span aria-hidden="true" class="icon-twitter"></span><span class="visuallyhidden">Twitter</span></a></li>
                 <li class="RSS"><a href="http://dp.la/info/feed"><span aria-hidden="true" class="icon-rss"></span><span class="visuallyhidden">RSS</span></a></li>
+                <li class="tumblr"><a href="http://digitalpubliclibraryofamerica.tumblr.com/"><span aria-hidden="true" class="icon-tumblr"></span><span class="visuallyhidden">RSS</span></a></li>
             </ul>
             <a href="<?= $baseUrl ?>" class="logo">
                     <?php
