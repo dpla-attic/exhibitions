@@ -78,46 +78,63 @@
                         <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/">About<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
+                                <li><a href="<?= $wpUrl ?>/about/staff/">Staff</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/board-committees/">Board &amp; Committees</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/funding/">Funding</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/history/">History</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/who/">Who We Are</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/policies/">Policies</a></li>
                                 <li><a href="<?= $wpUrl ?>/about/projects/">Projects</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/funding/">Funding</a></li>
-                                <li><a href="<?= $wpUrl ?>/about/faq/">FAQ</a></li>
+                                <li><a href="<?= $wpUrl ?>/about/awards/">Awards</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/get-involved/">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/hubs/">Hubs<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/get-involved/partnerships">Become a Partner</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/reps">Community Reps</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/open-committee-calls">Open Committee Calls</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/events">Events</a></li>
-                                <li><a href="<?= $wpUrl ?>/forums">Forums</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/events/dplafest2013">DPLAfest 2013</a></li>
+                                <li><a href="<?= $wpUrl ?>/hubs/become-a-hub/">Become a Hub</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/developers/">For Developers<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/developers/codex/">API Codex</a></li>
-                                <li><a href="<?= $wpUrl ?>/developers/hacking-projects">Hacking Projects</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/ideas-and-projects/">Ideas &amp; Projects</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/download/">Bulk Download</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/sample-code-and-libraries/">Sample Code &amp; Libraries</a></li>
+                                <li><a href="<?= $wpUrl ?>/developers/map/">Metadata Application Profile</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/help/">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                              <li><a href="<?= $wpUrl ?>/teaching-tools">Tutorials</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/open-calls/">Open Calls</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/follow/">Follow Us</a></li>
+                                <li><a href="<?= $wpUrl ?>/forums">Forums</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/shop/">Shop</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
-                            <a href="<?= $wpUrl ?>/news/">Follow<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                          <a href="<?= $wpUrl ?>/help">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                          <ul>
+                            <li><a href="<?= $wpUrl ?>/help/intro-videos/">Intro Videos</a></li>
+                            <li><a href="<?= $wpUrl ?>/help/faq/">FAQ</a></li>
+                            <li><a href="<?= $wpUrl ?>/help/accounts/">DPLA Accounts</a></li>
+                          </ul>
+                        </li>
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/news/">News<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
-                                <li><a href="<?= $wpUrl ?>/news/blog/">Blog</a></li>
                                 <li><a href="<?= $wpUrl ?>/news/press/">Press</a></li>
                             </ul>
                         </li>
-                        <li><a href="<?= $wpUrl ?>/contact/">Contact</a></li>
+                        <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/contact/">Contact<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $wpUrl ?>/contact/jobs/">Jobs</a></li>
+                            </ul>
+                        </li>
                         <li class="hilight"><a href="<?= $wpUrl ?>/donate">Donate</a></li>
                     </ul>
                 </nav>
