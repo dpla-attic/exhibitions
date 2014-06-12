@@ -8,7 +8,8 @@ Documentation
 -------------
 
 * Configuration:
-	* Review the "dpla" section of `application/config/config.ini`.
+	* Review the "dpla" section of `application/config/config.ini.dist`.
+	* Copy this file to `application/config/config.ini`.
 	* You will need to set the `dpla.apiKey` option to a valid DPLA API key.
 * Additional documentation:
 	* [DPLA Digital Exhibition Creation Guidelines](https://docs.google.com/document/d/1caBYKDdQCpFCildS5XquNML5YzaugSL7Jf3CdBIIqOA/edit)
