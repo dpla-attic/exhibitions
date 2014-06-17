@@ -117,16 +117,15 @@ if ($('.shareSave').length) {
           }
   });
 
-  $('.flexslider-slide')
-    .first()
-    .find('audio, video')
-      .mediaelementplayer({
-        audioWidth: '100%',
-        audioHeight: 420,
-        videoWidth: '100%',
-        enableAutosize: true
-      })
-
+  flexsliders = $('.flexslider-slide');
+  if (flexsliders.length) {
+    flexsliders.first().find('audio, video').mediaelementplayer({
+      audioWidth: '100%',
+      audioHeight: 420,
+      videoWidth: '100%',
+      enableAutosize: true
+    })
+  }
 
 	$('.moreInfo').mouseover(function () {
       $(this).addClass('hover');
