@@ -117,16 +117,15 @@ if ($('.shareSave').length) {
           }
   });
 
-  $('.flexslider-slide')
-    .first()
-    .find('audio, video')
-      .mediaelementplayer({
-        audioWidth: '100%',
-        audioHeight: 420,
-        videoWidth: '100%',
-        enableAutosize: true
-      })
-
+  flexsliders = $('.flexslider-slide');
+  if (flexsliders.length) {
+    flexsliders.first().find('audio, video').mediaelementplayer({
+      audioWidth: '100%',
+      audioHeight: 420,
+      videoWidth: '100%',
+      enableAutosize: true
+    })
+  }
 
 	$('.moreInfo').mouseover(function () {
       $(this).addClass('hover');
@@ -645,22 +644,18 @@ if ($('.shareSave').length) {
     });
   }
 
-    $(function () {
-        $('#content').on('click', '.pagination a', function () {
-            var container, current, current_page, page, parent;
-            parent = $(this).parents('#content');
-            current = parent.find('.pagination .current');
-            if (current.text() !== $(this).text()) {
-                current_page = current.data('page');
-                parent.find('.pop-columns[data-page=' + current_page + ']').hide();
-                page = $(this).data('page');
-                parent.find('.pop-columns[data-page=' + page + ']').show();
-                parent.find('.pagination span.current').replaceWith("<a data-page=" + current_page + " href=\"#\">" + current_page + "</a>");
-                parent.find(".pagination a[data-page=" + page + "]").replaceWith("<span data-page=" + page + " class=\"current\">" + page + "</span>");
-                return false;
-            }
-        });
-    });
+  $('#content').on('click', '.pagination a', function () {
+      var container, current, current_page, page, parent;
+      parent = $(this).parents('#content');
+      current = parent.find('.pagination .current');
+      current_page = current.data('page');
+      parent.find('.pop-columns[data-page=' + current_page + ']').hide();
+      page = $(this).data('page');
+      parent.find('.pop-columns[data-page=' + page + ']').show();
+      parent.find('.pagination span.current').replaceWith("<a data-page=" + current_page + " href=\"#\">" + current_page + "</a>");
+      parent.find(".pagination a[data-page=" + page + "]").replaceWith("<span data-page=" + page + " class=\"current\">" + page + "</span>");
+      return false;
+  });
 
 })(jQuery);
 
