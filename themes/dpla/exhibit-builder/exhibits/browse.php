@@ -46,7 +46,7 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
         if (total_records('exhibit') > $page_size) :?>
             <div class="pagination">
                 <span data-page="1" class="current">1</span>
-                <?php for ($i = 2; $i <= (total_records('exhibit') / $page_size) + 1; $i++) {
+                <?php for ($i = 2; $i <= (ceil(total_records('exhibit') / $page_size)); $i++) {
                     echo "<a data-page='" . $i . "' href='#' data-page='" . $i . "'>" . $i . "</a>";
                 }
                 ?>
@@ -87,14 +87,20 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
             <div class="moduleContainer threeCol">
                 <?php endif; ?>
 
-            <?php // TODO: Find a better way to make items pagination ?>
-
-
 
                 <?php endforeach; ?>
             </div>
         </div>
-        <?php echo pagination_links(); ?>
+
+        <?php if (total_records('exhibit') > $page_size) :?>
+            <div class="pagination">
+                <span data-page="1" class="current">1</span>
+                <?php for ($i = 2; $i <= (ceil(total_records('exhibit') / $page_size)); $i++) {
+                    echo "<a data-page='" . $i . "' href='#' data-page='" . $i . "'>" . $i . "</a>";
+                }
+                ?>
+            </div>
+        <?php endif; ?>
 
     <?php else: ?>
         <p><?php echo __('There are no exhibits available yet.'); ?></p>
