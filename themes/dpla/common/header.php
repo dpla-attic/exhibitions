@@ -118,7 +118,7 @@
                         <li class="aboutMenu">
                           <a href="<?= $wpUrl ?>/help">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                           <ul>
-                            <li><a href="<?= $wpUrl ?>/help/intro-videos/">Intro Videos</a></li>
+                            <li><a href="<?= $wpUrl ?>/help/tutorials/">Tutorials</a></li>
                             <li><a href="<?= $wpUrl ?>/help/faq/">FAQ</a></li>
                             <li><a href="<?= $wpUrl ?>/help/accounts/">DPLA Accounts</a></li>
                           </ul>
