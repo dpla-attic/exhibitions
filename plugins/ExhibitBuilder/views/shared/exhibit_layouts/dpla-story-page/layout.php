@@ -18,9 +18,10 @@
                             <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         </div>
 
-                         <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
-                         <?php $imageTitle = $value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title'))
-						     : dpla_get_field_value_by_name($item, "Title"); ?>                        
+                        <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
+                        <?php $imageTitle = dpla_get_field_value_by_name($item, "Title") ?: 
+                            ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title')) : null) ?>
+
                         <div class="caption">
                             <?=$item['caption']?>
                         </div>
@@ -45,24 +46,24 @@
                                     
                                         <div class="table">
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
-                                                : dpla_get_field_value_by_name($item, "Date")): ?>
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "Date") ?: 
+                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate')) : null)): ?>
                                                 <ul>
                                                     <li><h6>Date</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>
 
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator'))
-                                                : dpla_get_field_value_by_name($item, "Creator")): ?>
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "Creator") ?: 
+                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator')) : null)): ?>
                                                 <ul>
                                                     <li><h6>Creator</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>                                            
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description'))
-                                                : dpla_get_field_value_by_name($item, "Description")): ?>
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "Description") ?: 
+                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description')) : null)): ?>
                                                 <ul>
                                                     <li><h6>Description</h6></li>
                                                     <li>
@@ -82,23 +83,23 @@
                                                 </ul>
                                             <?php endif; ?>
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'rights'))
-                                                : dpla_get_field_value_by_name($item, "Rights")): ?>
+                                            <?php if ($value = dpla_get_field_value_by_name($item, "Rights") ?: 
+                                                    ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'rights')) : null)): ?>
                                                 <ul>
                                                     <li><h6>Rights</h6></li>
                                                     <li><?=$value?></li>
                                                 </ul>
                                             <?php endif; ?>
                                     
-                                            <?php if ($provider = $json ? dpla_get_field_value_by_arrayname($json, array('provider', 'name'))
-                                                : dpla_get_field_value_by_name($item, "Source")): ?>
+                                            <?php if ($provider = dpla_get_field_value_by_name($item, "Source") ?: 
+                                                ($json ? dpla_get_field_value_by_arrayname($json, array('provider', 'name')) : null)): ?>
                                                 <ul>
                                                     <li><h6>Provider</h6></li>
                                                     <li><?=$provider?></li>
                                                 </ul>
                                             <?php endif; ?>
                                     
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null) : ?>
+                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null): ?>
                                                 <?php if ($provider != $value): ?>
                                                     <ul>
                                                         <li><h6>Data Provider</h6></li>
