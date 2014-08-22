@@ -97,8 +97,13 @@
                                                     <li><?=$provider?></li>
                                                 </ul>
                                             <?php endif; ?>
-                                    
-                                            <?php if ($value = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null): ?>
+
+                                            <?php 
+                                                $dataProvider = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null; 
+                                                $intermediateProvider = $json ? dpla_get_field_value_by_arrayname($json, array('intermediateProvider')) : null;
+                                                $value = implode("<br/> ", array_filter(array($dataProvider, $intermediateProvider)));
+                                                if ($value):
+                                             ?> 
                                                 <?php if ($provider != $value): ?>
                                                     <ul>
                                                         <li><h6>Data Provider</h6></li>
