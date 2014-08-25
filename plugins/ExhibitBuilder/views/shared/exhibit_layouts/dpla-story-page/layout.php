@@ -1,3 +1,4 @@
+<!-- dpla-story-page/layout.php -->
 <?php if (count(dpla_get_exhibitpage_entries()) > 0): ?>
     <div class="slide-Container">
         <div class="slidegallery flexslider">
@@ -18,113 +19,20 @@
                             <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         </div>
 
-                        <?php $json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version')); ?>
-                        <?php $imageTitle = dpla_get_field_value_by_name($item, "Title") ?: 
-                            ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'title')) : null) ?>
-
                         <div class="caption">
                             <?=$item['caption']?>
                         </div>
 
                         <div class="overlay">
                             <div id="<?=$unique_id?>">
-
-                                <!-- #23169: Exhibition Item-level Metadata: call API or display Omeka meta data -->
                                 <div class="inline_content">
                                     <article>
-                                        <h5>
-                                        	<?php if ($imageTitle): ?>
-                                            <?php
-                                            //$desc = metadata($item['item'], array('Dublin Core', 'Description'));
-                                            // echo strlen($desc) >= 250 ? substr($desc, 0, 250)."..." : $desc;
-                                            //echo strlen($value) >= 250 ? substr($value, 0, 250)."..." : $value;
-                                            echo $imageTitle; 
-                                            // TODO: maybe we will have to display expandable version of full description
-                                            ?>
-                                            <?php endif; ?>
-                                        </h5>
-                                    
-                                        <div class="table">
-                                    
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "Date") ?: 
-                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate')) : null)): ?>
-                                                <ul>
-                                                    <li><h6>Date</h6></li>
-                                                    <li><?=$value?></li>
-                                                </ul>
-                                            <?php endif; ?>
-
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "Creator") ?: 
-                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'creator')) : null)): ?>
-                                                <ul>
-                                                    <li><h6>Creator</h6></li>
-                                                    <li><?=$value?></li>
-                                                </ul>
-                                            <?php endif; ?>                                            
-                                    
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "Description") ?: 
-                                                ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'description')) : null)): ?>
-                                                <ul>
-                                                    <li><h6>Description</h6></li>
-                                                    <li>
-                                                    <?php if (strlen($value) > 250) { ?>
-                                                        <div class="desc-short">
-                                                            <?php echo substr($value, 0, 250); ?>...&nbsp; <a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a>
-                                                        </div>
-                                                        <div class="desc-long">
-                                                            <?=$value?>&nbsp; <a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a>
-                                                        </div>
-                                                    <?php } else {  ?>
-                                                        <div class="desc-short">
-                                                            <?=$value?>
-                                                        </div>
-                                                    <?php } ?>
-                                                    </li>
-                                                </ul>
-                                            <?php endif; ?>
-                                    
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "Rights") ?: 
-                                                    ($json ? dpla_get_field_value_by_arrayname($json, array('sourceResource', 'rights')) : null)): ?>
-                                                <ul>
-                                                    <li><h6>Rights</h6></li>
-                                                    <li><?=$value?></li>
-                                                </ul>
-                                            <?php endif; ?>
-                                    
-                                            <?php if ($provider = dpla_get_field_value_by_name($item, "Source") ?: 
-                                                ($json ? dpla_get_field_value_by_arrayname($json, array('provider', 'name')) : null)): ?>
-                                                <ul>
-                                                    <li><h6>Provider</h6></li>
-                                                    <li><?=$provider?></li>
-                                                </ul>
-                                            <?php endif; ?>
-
-                                            <?php 
-                                                $dataProvider = $json ? dpla_get_field_value_by_arrayname($json, array('dataProvider')) : null; 
-                                                $intermediateProvider = $json ? dpla_get_field_value_by_arrayname($json, array('intermediateProvider')) : null;
-                                                $value = implode("<br/> ", array_filter(array($dataProvider, $intermediateProvider)));
-                                                if ($value):
-                                             ?> 
-                                                <?php if ($provider != $value): ?>
-                                                    <ul>
-                                                        <li><h6>Data Provider</h6></li>
-                                                        <li><?=$value?></li>
-                                                    </ul>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-                                    
-                                            <?php if ($value = dpla_get_field_value_by_name($item, "Is Part Of")): ?>
-                                                <ul>
-                                                    <li><h6>Is Part Of</h6></li>
-                                                    <li><?=$value?></li>
-                                                </ul>
-                                            <?php endif; ?>
-                                        </div>
-                                    
+                                        <?php echo metadata_table($item); ?>
                                     </article>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+
                     </li>
                 <?php endforeach; ?>
 

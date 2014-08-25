@@ -436,3 +436,182 @@ function external_exhibit_uri_layout_input_text($order)
 function dpla_exhibit_homepage_layout_name() {
     return "dpla-exhibit-home-page";
 }
+
+function metadata_table($item) {
+    $metadata_table = new MetadataTable($item);
+    return $metadata_table->table();
+}
+
+class MetadataTable {
+
+    private $item_metadata = null;
+
+    function __construct($item) {
+        $this->item_metadata = new ItemMetadata($item);
+    }
+
+    /**
+     * Return a table of metadata for a single item
+     * @return HTML
+     */
+    function table() {
+        $html = $this->header()
+              . $this->body();
+        return $html;
+    }
+
+    private function header() {
+        $html = '';
+        if ($title = $this->item_metadata->get_title()) {
+            $html = '<h5>' . $title . '</h5>';
+        }
+        return $html;
+    }
+
+    private function body() {
+
+        $html = '<div class="table">'
+              . $this->row('Date', $this->item_metadata->get_date())
+              . $this->row('Creator', $this->item_metadata->get_creator())
+              . $this->row('Description', $this->item_metadata->get_description())
+              . $this->row('Rights', $this->item_metadata->get_rights());
+
+        $provider_value = $this->item_metadata->get_provider();
+        $contributing_institution_value = $this->item_metadata->get_contributing_institution();
+
+        $html .= $this->row('Partner', $provider_value);
+
+        //Create 'Contributing Insititution' row if 'Contributing Instition' is different than 'Provider'
+        $contributors = count($contributing_institution_value);
+        if ($contributors > 1 || ($contributors == 1 && 
+            $contributing_institution_value[0] != $provider_value)) {
+            $html .= $this->row('Contributing Institution', $contributing_institution_value);
+        }
+
+        $html .= $this->row('Is Part Of', $this->item_metadata->get_is_part_of())
+              . '</div>';
+
+        return $html;
+    }
+
+    /**
+     * @param string $name 
+     * @param string|array $value 
+     */
+    private function row($name, $value) {
+        $html = '';
+
+        if ($value) {
+
+            if (is_array($value)) {
+                $value = implode('<br/>', $value);
+            }
+
+            $html = '<ul>'
+                  . '<li><h6>' . $name . '</h6></li>'
+                  . '<li>';
+
+            if (strlen($value) > 250) {
+                $html .= $this->long_row($value);
+            } else {
+                $html .= $value;
+            }
+                  
+            $html .= '</li>'
+                  . '</ul>';
+        }
+        return $html;
+    }
+
+    private function long_row($value) {
+        $html = '<div class="desc-short">'
+              . substr($value, 0, 250) . '... '
+              . '<a class="desc-toggle">more <span class="icon-arrow-down" aria-hidden="true"></span></a>'
+              . '</div>'
+
+              . '<div class="desc-long">'
+              . $value . ' '
+              . '<a class="desc-toggle">less <span class="icon-arrow-up" aria-hidden="true"></span></a>'
+              . '</div>';
+
+        return $html;
+    }
+}
+
+class ItemMetadata {
+    
+    private $item = null;
+    private $json = null;
+
+    function __construct($item) {
+        $this->item = $item;
+        $this->json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version'));
+    }
+
+    function get_title() {
+        $omeka_field_name = "Title";
+        $api_field_name = array('sourceResource', 'title');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_date() {
+        $omeka_field_name = "Date";
+        $api_field_name = array('sourceResource', 'date', 'displayDate');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_creator() {
+        $omeka_field_name = "Creator";
+        $api_field_name = array('sourceResource', 'creator');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_description() {
+        $omeka_field_name = "Description";
+        $api_field_name = array('sourceResource', 'description');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_rights() {
+        $omeka_field_name = "Rights";
+        $api_field_name = array('sourceResource', 'rights');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_provider() {
+        $omeka_field_name = "Source";
+        $api_field_name = array('provider', 'name');
+        return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_contributing_institution() {
+        $data_provider = $this->json ? 
+            dpla_get_field_value_by_arrayname($this->json, array('dataProvider')) : null; 
+        $intermediate_provider = $this->json ? 
+            dpla_get_field_value_by_arrayname($this->json, array('intermediateProvider')) : null;
+        $contributing_institution = array_filter(array($data_provider, $intermediate_provider));
+        return $contributing_institution;
+    }
+
+    function get_is_part_of() {
+        return dpla_get_field_value_by_name($this->item, "Is Part Of");
+    }
+
+    /**
+     * Return the Omeka feild value if it exists
+     * If the Omeka field value does not exists, return the API field value
+     * @return string|NULL
+     * @param string $omekaFieldName 
+     * @param array $apiFieldName 
+     */
+    private function get_field_value($omeka_field_name, $api_field_name) {
+
+        $omeka_field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
+        $api_field_value = $this->json ? 
+            dpla_get_field_value_by_arrayname($this->json, $api_field_name) : null;
+
+        $field_value = $omeka_field_value ?: $api_field_value;
+        
+        return $field_value;
+    }
+}
