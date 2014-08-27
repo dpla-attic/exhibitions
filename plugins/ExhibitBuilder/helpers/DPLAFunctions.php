@@ -397,12 +397,18 @@ function get_dpla_api_object($itemId) {
 /**
  * Parse JSON and return value by array-path.
  * Usage: dpla_get_field_value_by_arrayname($json, array('sourceResource', 'date', 'displayDate'))
+ * @return string
  */
 function dpla_get_field_value_by_arrayname($json, $arr) {
     $name = array_shift($arr);
-    $value = in_array($name, $json) || array_key_exists($name, $json) ? $json[$name] : null;
-    if (is_array($value) && count($value) > 0) {
-        $value = dpla_get_field_value_by_arrayname($value, $arr);
+    $value = array_key_exists($name, $json) ? $json[$name] : null;
+
+    if (is_array($value)) { 
+        if (count($arr) > 0) {
+            $value = dpla_get_field_value_by_arrayname($value, $arr);
+        } else {
+            $value = join_array_values($value);
+        }
     }
 
     return $value;
@@ -413,6 +419,19 @@ function dpla_get_field_value_by_arrayname($json, $arr) {
  */
 function dpla_get_field_value_by_name($item, $name) {
     return metadata($item['item'], array('Dublin Core', $name), array(Omeka_View_Helper_Metadata::DELIMITER=>'; '));
+}
+
+/**
+ * @param array 
+ * @return string
+ */
+function join_array_values($arr) {
+    foreach($arr as &$value) {
+        if (!preg_match("/[.,?!;:]$/", $value)) {
+            $value .= '.';
+        }
+    }
+    return implode(" ", $arr);
 }
 
 /**
