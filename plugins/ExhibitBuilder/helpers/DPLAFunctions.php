@@ -475,7 +475,9 @@ class MetadataTable {
      */
     function table() {
         $html = $this->header()
-              . $this->body();
+              . $this->body()
+              . '<br/>'
+              . $this->link();
         return $html;
     }
 
@@ -556,6 +558,18 @@ class MetadataTable {
 
         return $html;
     }
+
+    private function link() {
+        $html = '';
+        if ($id = $this->item_metadata->get_id()) {
+            $html = '<div>'
+                  . '<a href="http://dp.la/item/' . $id . '">'
+                  . 'View this item in the DPLA'
+                  . '</a>'
+                  . '</div>';
+        }
+        return $html;
+    }
 }
 
 class ItemMetadata {
@@ -621,6 +635,12 @@ class ItemMetadata {
 
     function get_is_part_of() {
         return dpla_get_field_value_by_name($this->item, "Is Part Of");
+    }
+
+    function get_id() {
+        $id = $this->json ? 
+            dpla_get_field_value_by_arrayname($this->json, array('id')) : null; 
+        return $id;
     }
 
     /**
