@@ -493,7 +493,8 @@ class MetadataTable {
               . $this->row('Date', $this->item_metadata->get_date())
               . $this->row('Creator', $this->item_metadata->get_creator())
               . $this->row('Description', $this->item_metadata->get_description())
-              . $this->row('Rights', $this->item_metadata->get_rights());
+              . $this->row('Rights', $this->item_metadata->get_rights())
+              . $this->row('Standardized Rights Statement', $this->item_metadata->get_edm_rights());
 
         $provider_value = $this->item_metadata->get_provider();
         $contributing_institution_value = $this->item_metadata->get_contributing_institution();
@@ -595,6 +596,12 @@ class ItemMetadata {
         $omeka_field_name = "Rights";
         $api_field_name = array('sourceResource', 'rights');
         return $this->get_field_value($omeka_field_name, $api_field_name);
+    }
+
+    function get_edm_rights() {
+        $edm_rights = $this->json ? 
+            dpla_get_field_value_by_arrayname($this->json, array('rights')) : null; 
+        return $edm_rights;  
     }
 
     function get_provider() {
