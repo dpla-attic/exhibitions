@@ -2,7 +2,7 @@ Exhibitions
 ===========
 
 DPLA Exhibitions by Omeka
-v18.0.0 (2014-08-29)
+v18.0.1 (2014-10-16)
 
 Documentation
 -------------
