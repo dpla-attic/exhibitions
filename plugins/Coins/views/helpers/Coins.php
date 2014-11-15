@@ -20,11 +20,13 @@ class Coins_View_Helper_Coins extends Zend_View_Helper_Abstract
     public function coins($items)
     {
         if (!is_array($items)) {
-            $items = array($items);
+            return $this->_getCoins($items);
         }
+
         $coins = '';
         foreach ($items as $item) {
             $coins .= $this->_getCoins($item);
+            release_object($item);
         }
         return $coins;
     }

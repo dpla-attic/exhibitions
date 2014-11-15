@@ -86,34 +86,35 @@ class Table_Item extends Omeka_Db_Table
     protected function _simpleSearch($select, $terms)
     {
         $db = $this->getDb();
-        $quotedTerms = $db->quote("%{$terms}%");
-        
-        // Build elements query.
-        $elementsQuery = "
-        SELECT etx.record_id AS item_id
-        FROM $db->ElementText etx
-        WHERE etx.record_type = 'Item' 
-        AND etx.text LIKE $quotedTerms";
         
         // Build tags query.
         $tagList = preg_split('/\s+/', $terms);
         // Make sure the tag list contains the whole search string, just in case 
         // that is found
-        $tagList[] = $terms;
-        $tagsSelect = new Omeka_Db_Select;
-        $tagsSelect->from(array('tg' => $db->RecordsTags), array('item_id' => 'tg.record_id'))
-                   ->joinInner(array('t' => $db->Tag), 't.id = tg.tag_id', array());
-        foreach ($tagList as $tag) {
-            $tagsSelect->orWhere('t.name LIKE ?', $tag);
+        if (count($tagList) > 1) {
+            $tagList[] = $terms;
         }
-        $tagsSelect->where("tg.record_type = 'Item'");
-        $tagsQuery = (string) $tagsSelect;
-        
-        // INNER JOIN to the main SQL query and then ORDER BY rank DESC
-        $query = "$elementsQuery UNION $tagsQuery";
-        $select->joinInner(array('s' => new Zend_Db_Expr("($query)")), 
-                           's.item_id = items.id', 
-                           array());
+
+        $select->joinLeft(
+            array('_simple_etx' => $db->ElementText),
+            "_simple_etx.record_id = items.id AND _simple_etx.record_type = 'Item'",
+            array()
+        );
+        $select->joinLeft(
+            array('_simple_records_tags' => $db->RecordsTags),
+            "_simple_records_tags.record_id = items.id AND _simple_records_tags.record_type = 'Item'",
+            array()
+        );
+        $select->joinLeft(
+            array('_simple_tags' => $db->Tag),
+            '_simple_tags.id = _simple_records_tags.tag_id',
+            array()
+        );
+
+        $whereCondition = $db->quoteInto('_simple_etx.text LIKE ?', $terms)
+                        . ' OR '
+                        . $db->quoteInto('_simple_tags.name IN (?)', $tagList);
+        $select->where($whereCondition);
     }
     
     /**
@@ -125,9 +126,9 @@ class Table_Item extends Omeka_Db_Table
     protected function _advancedSearch($select, $terms)
     {
         $db = $this->getDb();
-        
+
+        $advancedIndex = 0;
         foreach ($terms as $v) {
-            
             // Do not search on blank rows.
             if (empty($v['element_id']) || empty($v['type'])) {
                 continue;
@@ -135,15 +136,14 @@ class Table_Item extends Omeka_Db_Table
             
             $value = $v['terms'];
             $type = $v['type'];
-            // If this is set we join this subquery with NOT IN instead of IN. 
-            // Predicates that set $negate to true should also fall through to 
-            // their non-negated counterpart in the switch statement.
-            $negate = false;
-            
+            $elementId = (int) $v['element_id'];
+
+            $inner = true;
             // Determine what the WHERE clause should look like.
             switch ($type) {
                 case 'does not contain':
-                    $negate = true;
+                    $predicate = "LIKE " . $db->quote('%'.$value .'%');
+                    break;
                 case 'contains':
                     $predicate = "LIKE " . $db->quote('%'.$value .'%');
                     break;
@@ -151,30 +151,29 @@ class Table_Item extends Omeka_Db_Table
                     $predicate = ' = ' . $db->quote($value);
                     break;
                 case 'is empty':
-                    $negate = true;
+                    $inner = false;
+                    $predicate = "IS NULL";
+                    break;
                 case 'is not empty':
                     $predicate = "IS NOT NULL";
                     break;
                 default:
-                    throw new Omeka_Record_Exception( __('Invalid search type given!') );
+                    throw new Omeka_Record_Exception(__('Invalid search type given!'));
             }
             
-            $elementId = (int) $v['element_id'];
-            
-            // This does not use Omeka_Db_Select b/c there is no conditional SQL
-            // and it is easier to read without all the extra cruft.
-            $subQuery = "
-            SELECT etx.record_id FROM $db->ElementText etx
-            WHERE etx.text $predicate 
-            AND etx.record_type = 'Item' 
-            AND etx.element_id = " . $db->quote($elementId);
-            
-            // Each advanced search mini-form represents another subquery.
-            if ($negate) {
-                $select->where('items.id NOT IN ( ' . (string) $subQuery . ' )');
+            $alias = "_advanced_{$advancedIndex}";
+
+            // Note that $elementId was earlier forced to int, so manual quoting
+            // is unnecessary here
+            $joinCondition = "{$alias}.record_id = items.id AND {$alias}.record_type = 'Item' AND {$alias}.element_id = $elementId";
+            if ($inner) {
+                $select->joinInner(array($alias => $db->ElementText), $joinCondition, array());
             } else {
-                $select->where('items.id IN ( ' . (string) $subQuery . ' )');
+                $select->joinLeft(array($alias => $db->ElementText), $joinCondition, array());
             }
+            $select->where("{$alias}.text {$predicate}");
+
+            $advancedIndex++;
         }
     }
 

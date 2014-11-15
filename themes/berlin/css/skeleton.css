@@ -1,0 +1,294 @@
+   
+/* #Tablet (Portrait)
+================================================== */    
+
+    /* Note: Design for a width of 768px */
+
+    @media only screen and (min-width: 768px) and (max-width: 959px) {
+      #wrap{
+         max-width:95%; 
+         margin:36px auto; 
+        
+         }
+        #admin-bar{
+          position:relative;
+          top:auto;
+        }
+        
+        #header {
+           width: 100%;
+        }
+
+        #home #primary{
+          clear:right;
+          width:45%;
+          
+        }
+        #items.show #primary{
+            width:95%;
+        }
+        #home #secondary{
+            width:45%;
+            clear:left;
+            
+        }
+      
+        #primary-nav ul.navigation{
+            list-style-type:none;
+        }
+              
+       #footer{
+        width:100%;
+        display:inline-block;
+       }
+       
+       #footer  .navigation {
+           float:none;
+            text-align:center;
+       }
+        
+       #featured-item .item-description{
+            font-size: 1.5em;
+            word-wrap:break-word;
+       }
+       #search-container a{
+         margin-left:-3%;
+       }
+       #advanced-search {
+        width: 4%;
+       }
+       
+       #search-container a{
+        font-size: 1.5em;
+       }
+       #advanced-form{
+        width: 70.5%;
+        margin-left: 17.5em;
+       }
+    }
+    
+/*    #Mobile (Portrait) 
+================================================== */
+    
+    
+    
+    @media only screen and (max-width: 767px) {
+    
+        #wrap{
+         max-width:95%; 
+         margin:36px auto; 
+         
+         }
+         #wrap p{
+            font-size: 1.5em;
+         }
+         .item-description {
+            font-size: 1.5em;
+         }
+        #admin-bar{
+          position:relative;
+          top:auto;
+        }
+        
+        #header {
+           width: 100%;
+        }
+
+	 #primary-nav .navigation{
+       
+       width:10%;
+    }
+
+        #site-title{
+            width:100%;
+            clear:left;
+            text-align:center;
+            margin-bottom:.75em;
+        }
+        #search-container{
+            width: 100%;
+            clear:both; 
+            /*text-align:center;*/
+            margin-bottom:10px;       
+        }
+
+        #home #primary{
+          clear:both;
+          width:100%;
+          
+        }
+        #content h1{
+            font-size:2.4em;
+        }
+         #items.show #primary{
+             font-size: 1.5em;
+            width:95%;
+        }
+        #home #secondary{
+            width:100%;
+            clear:both;
+            
+        }
+       
+       #footer{
+        width:100%;
+        display:inline-block;
+       }
+       
+       #footer  .navigation {
+           float:none;
+            text-align:center;
+            font-size:1.2em;
+       }
+
+ 
+      .exhibit-text{
+        clear: both;
+        width: 95%;
+      }
+      #search-container a{
+        margin-left:0px;
+      }
+      
+       #primary-nav{
+          display:none;
+       }
+       #mobile-nav {
+         display:block;
+        clear:both;
+        overflow:hidden;
+        zoom:1;
+        border:1px solid #ccc;
+        border-width:0 0 0 1px;
+        }
+        #mobile-nav a.menu{
+            width: 116px;
+            font-size:1.5em; 
+        }
+        #mobile-nav  ul{
+            position:absolute;
+            z-index:199;
+            background:#fafafa;
+            border-bottom:1px solid #ccc;
+        }
+        #mobile-nav li {
+            width: 144px;
+            text-align:left;
+            display:block;
+            overflow:hidden;
+            }
+        #mobile-nav a {
+            text-decoration:none;
+            display:block;
+            padding: 10px;
+            border:1px solid #ccc;
+            border-width: 1px 1px 0 0;
+            }
+            
+        #mobile-nav > a:first-child {
+            background:#fafafa;
+            cursor: pointer;
+        }
+        #mobile-nav a:hover {
+            background:#fff;
+            
+            }
+        #mobile-nav li.current a {
+            background:#fff;
+            color:#ff8000;
+            }
+            
+        #mobile-nav li ul a:before {
+            content: "-- ";
+        }
+        #mobile-nav li ul ul a:before {
+            content: "---- ";
+        }
+        #advanced-form{
+           width: 100%;
+        }
+        .element-text {
+            font-size: 1.5em;
+        }
+    }
+    
+/* #Mobile (Landscape)
+================================================== */
+
+    /* Note: Design for a width of 480px */
+    
+    @media only screen and (min-width: 480px) and (max-width: 767px) {
+        #wrap{
+         max-width:95%; 
+         margin:36px auto; 
+        
+         }
+        #admin-bar{
+          position:relative;
+          top:auto;
+        }
+        
+        #header {
+           width: 100%;
+        }
+        #site-title{
+            width:100%;
+            clear:left;
+            text-align:center;
+            margin-bottom:.75em;
+        }
+        #search-container{
+            width: 100%;
+            clear:right; 
+            /*text-align:center;*/
+            margin-bottom:10px;       
+        }
+        #home #primary{
+          clear:right;
+          width:100%;
+          
+        }
+        
+         
+        #items.show #primary{
+            font-size:1.5em;
+            width:95%;
+        }
+        #home #secondary{
+            width:100%;
+            clear:left;
+            
+        }
+
+        #primary-nav ul.navigation{
+            list-style-type:none;
+        }
+              
+       #footer{
+        width:100%;
+        display:inline-block;
+       }
+       
+       #footer  .navigation {
+           float:none;
+            text-align:center;
+       }
+        
+        #search-container a{
+        margin-left:0px;
+      }
+      
+ 
+    }
+    
+    
+         @media only screen and (max-width: 320px) {
+      #search-container input[type=submit].with-advanced{
+            width:25%;
+          
+       }
+       a#advanced-search.button{
+        width:10%;
+        left:87%;
+       }
+     }

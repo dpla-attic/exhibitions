@@ -24,6 +24,14 @@ Omeka.Elements = {};
             if (element.is('[type=checkbox]')) {
                 params[this.name] = element.is(':checked') ? '1' : '0';
             } else {
+                // Make sure TinyMCE saves to the textarea before we read
+                // from it
+                if (element.is('textarea')) {
+                    var mce = tinyMCE.get(this.id);
+                    if (mce) {
+                        mce.save();
+                    }
+                }
                 params[this.name] = element.val();
             }
         });
@@ -126,7 +134,7 @@ Omeka.Elements = {};
      * @param {Element} element The element to search at and below.
      */
     Omeka.Elements.enableWysiwyg = function (element) {
-        $(element).find('div.inputs input[type="checkbox"]').each(function () {
+        $(element).find('div.inputs .use-html-checkbox').each(function () {
             var textarea = $(this).parents('.input-block').find('textarea');
             if (textarea.length) {
                 var textareaId = textarea.attr('id');

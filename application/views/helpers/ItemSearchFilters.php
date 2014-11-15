@@ -38,18 +38,30 @@ class Omeka_View_Helper_ItemSearchFilters extends Zend_View_Helper_Abstract
                 switch ($key) {
                     case 'type':
                         $filter = 'Item Type';
-                        $itemtype = $db->getTable('ItemType')->find($value);
-                        $displayValue = $itemtype->name;
+                        $itemType = $db->getTable('ItemType')->find($value);
+                        if ($itemType) {
+                            $displayValue = $itemType->name;
+                        }
                         break;
                     
                     case 'collection':
                         $collection = $db->getTable('Collection')->find($value);
-                        $displayValue = strip_formatting(metadata($collection, array('Dublin Core', 'Title')));
+                        if ($collection) {
+                            $displayValue = strip_formatting(
+                                metadata(
+                                    $collection,
+                                    array('Dublin Core', 'Title'),
+                                    array('no_escape' => true)
+                                )
+                            );
+                        }
                         break;
 
                     case 'user':
                         $user = $db->getTable('User')->find($value);
-                        $displayValue = $user->name;
+                        if ($user) {
+                            $displayValue = $user->name;
+                        }
                         break;
 
                     case 'public':
@@ -98,11 +110,11 @@ class Omeka_View_Helper_ItemSearchFilters extends Zend_View_Helper_Abstract
             $html .= '<div id="item-filters">';
             $html .= '<ul>';
             foreach($displayArray as $name => $query) {
-                $html .= '<li class="' . $name . '">' . ucfirst($name) . ': ' . $query . '</li>';
+                $html .= '<li class="' . $name . '">' . html_escape(ucfirst($name)) . ': ' . html_escape($query) . '</li>';
             }
             if(!empty($advancedArray)) {
                 foreach($advancedArray as $j => $advanced) {
-                    $html .= '<li class="advanced">' . $advanced . '</li>';
+                    $html .= '<li class="advanced">' . html_escape($advanced) . '</li>';
                 }
             }
             $html .= '</ul>';
