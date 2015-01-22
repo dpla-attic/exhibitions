@@ -2,7 +2,7 @@ Exhibitions
 ===========
 
 DPLA Exhibitions by Omeka
-v18.0.2 (201-10-16)
+v18.0.3 (2015-01-22)
 
 Documentation
 -------------
@@ -19,7 +19,7 @@ Documentation
 
 License
 --------
-This application is released under an AGPLv3 license.
+This application is released under a GPLv3 license, following Omeka.
 
 Copyright President and Fellows of Harvard College, 2013
 Copyright Digital Public Library of America, 2014
@@ -35,4 +35,4 @@ release branch, which is then merged into `master`.  Merges of topic branches
 into `develop`, are done with git's `--squash` option.
 
 If you have any questions about contributing, please contact
-dev [at the domain] dp.la.
+tech [at the domain] dp.la.
