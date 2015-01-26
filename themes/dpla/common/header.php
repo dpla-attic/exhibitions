@@ -109,7 +109,7 @@
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/open-calls/">Open Calls</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest 2015</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/dplafest/april-2015/">DPLAfest 2015</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/follow/">Follow Us</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/shop/">Shop</a></li>
                             </ul>
