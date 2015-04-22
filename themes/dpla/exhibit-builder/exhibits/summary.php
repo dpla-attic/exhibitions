@@ -51,6 +51,12 @@
 				    <p><?php echo $exhibitCredits; ?></p>
 				</div>
 			<?php endif; ?>
+            <?php if (($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true)))): ?>
+                <div class="exhibit-description">
+                    <h5>Citation</h5>
+                    <p><?php echo $exhibitDescription; ?></p>
+                </div>
+            <?php endif; ?>
 		</div>
 
 		<div class="rightSide">
