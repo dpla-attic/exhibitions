@@ -634,7 +634,10 @@ line-height: 14px;
             .thumbs-list a {text-decoration: none;}
              .thumbs-list a img {border: 2px solid transparent;}
              .thumbs-list a:hover img { border-color: #808080; }
-            .exhibition-overview .leftSide {color: #818285;}
+            .exhibition-overview .leftSide {
+                color: #818285;
+                word-wrap: break-word;
+            }
             .exhibition-overview .leftSide section {
                 background-color: #ededed;
                 margin: 0 0 1em 0;
