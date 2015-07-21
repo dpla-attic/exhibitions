@@ -1,0 +1,319 @@
+# Translation for the Dublin Core Extended plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# rijekateam <digitalizacija@gkri.hr>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-17 21:49-0500\n"
+"PO-Revision-Date: 2013-04-05 10:53+0000\n"
+"Last-Translator: rijekateam <digitalizacija@gkri.hr>\n"
+"Language-Team: Croatian (http://www.transifex.com/projects/p/omeka/language/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgid "Alternative Title"
+msgstr "Alternativni naslov"
+
+msgid ""
+"An alternative name for the resource. The distinction between titles and "
+"alternative titles is application-specific."
+msgstr "Alternativno ime za resurs. Razlika između naslova i alternativnih naslova ovisi o njihovoj primjeni u konkretnim slučajevima. "
+
+msgid "Abstract"
+msgstr "Sažetak"
+
+msgid "A summary of the resource."
+msgstr "Sažeti prikaz resursa. "
+
+msgid "Table Of Contents"
+msgstr "Sadržaj"
+
+msgid "A list of subunits of the resource."
+msgstr "Popis podjedinica resursa. "
+
+msgid "Date Available"
+msgstr "Datum dostupnosti"
+
+msgid ""
+"Date (often a range) that the resource became or will become available."
+msgstr "Datum (često vremenski period) kada je resurs postao ili će postati dostupan. "
+
+msgid "Date Created"
+msgstr "Datum stvaranja"
+
+msgid "Date of creation of the resource."
+msgstr "Datum stvaranja resursa. "
+
+msgid "Date Accepted"
+msgstr "Datum prihvaćanja"
+
+msgid ""
+"Date of acceptance of the resource. Examples of resources to which a Date "
+"Accepted may be relevant are a thesis (accepted by a university department) "
+"or an article (accepted by a journal)."
+msgstr "Datum prihvaćanja resursa. Primjeri resursa kojima datum prihvaćanja može biti od važnosti su disertacije (prihvaćene od strane sveučilišnog odsjeka) ili članak (prihvaćen u časopisu). "
+
+msgid "Date Copyrighted"
+msgstr "Datum dodjeljivanja autorskih prava"
+
+msgid "Date of copyright."
+msgstr "Datum dodjeljivanja autorskih prava. "
+
+msgid "Date Submitted"
+msgstr "Datum predaje"
+
+msgid ""
+"Date of submission of the resource. Examples of resources to which a Date "
+"Submitted may be relevant are a thesis (submitted to a university "
+"department) or an article (submitted to a journal)."
+msgstr "Datum kada je resurs predan. Primjeri resursa kojima datum predaje može biti od važnosti su disertacije (predane sveučilišnom odsjeku) ili članak (predan časopisu). "
+
+msgid "Date Issued"
+msgstr "Datum izdavanja"
+
+msgid "Date of formal issuance (e.g., publication) of the resource."
+msgstr "Datum službenog izdavanja (publikacije) resursa."
+
+msgid "Date on which the resource was changed."
+msgstr "Datum kada je resurs promijenjen. "
+
+msgid "Date Valid"
+msgstr "Datum valjanosti"
+
+msgid "Date (often a range) of validity of a resource."
+msgstr "Datum (često raspon) valjanosti resursa."
+
+msgid "Access Rights"
+msgstr "Prava pristupa"
+
+msgid ""
+"Information about who can access the resource or an indication of its "
+"security status. Access Rights may include information regarding access or "
+"restrictions based on privacy, security, or other policies."
+msgstr "Informacija o tome tko smije pristupiti resursu ili indikacija o njegovom sigurnosnom statusu. Prava pristupa mogu uključivati informacije o pristupu ili ograničenjima pristupa temeljenim na privatnosti, sigurnosti ili drugim politikama. "
+
+msgid "License"
+msgstr "Licenca"
+
+msgid ""
+"A legal document giving official permission to do something with the "
+"resource."
+msgstr "Pravi dokument koji daje službeno dopuštenje da se nešto učini s resursom. "
+
+msgid "Conforms To"
+msgstr ""
+
+msgid "An established standard to which the described resource conforms."
+msgstr ""
+
+msgid "Has Format"
+msgstr "Ima format"
+
+msgid ""
+"A related resource that is substantially the same as the pre-existing "
+"described resource, but in another format."
+msgstr "Srodni resurs koji je uglavnom isti kao i postojeći opisani resurs, no u drugome formatu."
+
+msgid "Has Part"
+msgstr "Ima Dijelove"
+
+msgid ""
+"A related resource that is included either physically or logically in the "
+"described resource."
+msgstr "Srodni resurs koji je ili fizički ili logički uključen u opisani resurs. "
+
+msgid "Has Version"
+msgstr "Ima Verzije"
+
+msgid ""
+"A related resource that is a version, edition, or adaptation of the "
+"described resource."
+msgstr "Srodni resurs koji ja verzija, izdanje ili adaptacija opisanog resursa. "
+
+msgid "Is Format Of"
+msgstr "Format Od"
+
+msgid ""
+"A related resource that is substantially the same as the described resource,"
+" but in another format."
+msgstr "Srodni resurs koji je uglavnm isti kao i postojeći opisani resurs, no u drugome formatu."
+
+msgid "Is Part Of"
+msgstr "Dio Od"
+
+msgid ""
+"A related resource in which the described resource is physically or "
+"logically included."
+msgstr "Srodni resurs u koji je opisani resurs uključen fizički ili logički. "
+
+msgid "Is Referenced By"
+msgstr "Citira ga "
+
+msgid ""
+"A related resource that references, cites, or otherwise points to the "
+"described resource."
+msgstr ""
+
+msgid "Is Replaced By"
+msgstr ""
+
+msgid ""
+"A related resource that supplants, displaces, or supersedes the described "
+"resource."
+msgstr ""
+
+msgid "Is Required By"
+msgstr ""
+
+msgid ""
+"A related resource that requires the described resource to support its "
+"function, delivery, or coherence."
+msgstr ""
+
+msgid "Is Version Of"
+msgstr ""
+
+msgid ""
+"A related resource of which the described resource is a version, edition, or"
+" adaptation. Changes in version imply substantive changes in content rather "
+"than differences in format."
+msgstr ""
+
+msgid "References"
+msgstr ""
+
+msgid ""
+"A related resource that is referenced, cited, or otherwise pointed to by the"
+" described resource."
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
+msgid ""
+"A related resource that is supplanted, displaced, or superseded by the "
+"described resource."
+msgstr ""
+
+msgid "Requires"
+msgstr ""
+
+msgid ""
+"A related resource that is required by the described resource to support its"
+" function, delivery, or coherence."
+msgstr ""
+
+msgid "Extent"
+msgstr ""
+
+msgid "The size or duration of the resource."
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "The material or physical carrier of the resource."
+msgstr ""
+
+msgid ""
+"A bibliographic reference for the resource. Recommended practice is to "
+"include sufficient bibliographic detail to identify the resource as "
+"unambiguously as possible."
+msgstr ""
+
+msgid "Spatial Coverage"
+msgstr ""
+
+msgid "Spatial characteristics of the resource."
+msgstr ""
+
+msgid "Temporal Coverage"
+msgstr ""
+
+msgid "Temporal characteristics of the resource."
+msgstr ""
+
+msgid "Accrual Method"
+msgstr ""
+
+msgid "The method by which items are added to a collection."
+msgstr ""
+
+msgid "Accrual Periodicity"
+msgstr ""
+
+msgid "The frequency with which items are added to a collection."
+msgstr ""
+
+msgid "Accrual Policy"
+msgstr ""
+
+msgid "The policy governing the addition of items to a collection."
+msgstr ""
+
+msgid "Audience"
+msgstr ""
+
+msgid "A class of entity for whom the resource is intended or useful."
+msgstr ""
+
+msgid "Audience Education Level"
+msgstr ""
+
+msgid ""
+"A class of entity, defined in terms of progression through an educational or"
+" training context, for which the described resource is intended."
+msgstr ""
+
+msgid "Mediator"
+msgstr ""
+
+msgid ""
+"An entity that mediates access to the resource and for whom the resource is "
+"intended or useful. In an educational context, a mediator might be a parent,"
+" teacher, teaching assistant, or care-giver."
+msgstr ""
+
+msgid "Instructional Method"
+msgstr ""
+
+msgid ""
+"A process, used to engender knowledge, attitudes and skills, that the "
+"described resource is designed to support. Instructional Method will "
+"typically include ways of presenting instructional materials or conducting "
+"instructional activities, patterns of learner-to-learner and learner-to-"
+"instructor interactions, and mechanisms by which group and individual levels"
+" of learning are measured. Instructional methods include all aspects of the "
+"instruction and learning processes from planning and implementation through "
+"evaluation and feedback."
+msgstr ""
+
+msgid "Provenance"
+msgstr ""
+
+msgid ""
+"A statement of any changes in ownership and custody of the resource since "
+"its creation that are significant for its authenticity, integrity, and "
+"interpretation. The statement may include a description of any changes "
+"successive custodians made to the resource."
+msgstr ""
+
+msgid "Rights Holder"
+msgstr "Nositelj autorskog prava"
+
+msgid "A person or organization owning or managing rights over the resource."
+msgstr "Osoba ili organizacija koja posjeduje ili upravlja vlasničkim pravima nad resursom. "
+
+#: DublinCoreExtendedPlugin.php:82
+#, php-format
+msgid ""
+"%sWarning%s: This will remove all the Dublin Core elements added by this "
+"plugin and permanently delete all element texts entered in those fields.%s"
+msgstr ""

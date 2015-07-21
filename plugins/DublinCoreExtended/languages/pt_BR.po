@@ -1,0 +1,319 @@
+# Translation for the Dublin Core Extended plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Carlos Eduardo Maciel <carlosmaciel1@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-17 21:49-0500\n"
+"PO-Revision-Date: 2013-04-15 13:49+0000\n"
+"Last-Translator: Carlos Eduardo Maciel <carlosmaciel1@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/omeka/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Alternative Title"
+msgstr ""
+
+msgid ""
+"An alternative name for the resource. The distinction between titles and "
+"alternative titles is application-specific."
+msgstr ""
+
+msgid "Abstract"
+msgstr "Abstract"
+
+msgid "A summary of the resource."
+msgstr "Um resumo dorecurso."
+
+msgid "Table Of Contents"
+msgstr "Conteúdo da Página"
+
+msgid "A list of subunits of the resource."
+msgstr ""
+
+msgid "Date Available"
+msgstr ""
+
+msgid ""
+"Date (often a range) that the resource became or will become available."
+msgstr ""
+
+msgid "Date Created"
+msgstr "Data da criação"
+
+msgid "Date of creation of the resource."
+msgstr ""
+
+msgid "Date Accepted"
+msgstr "Data da aceitação"
+
+msgid ""
+"Date of acceptance of the resource. Examples of resources to which a Date "
+"Accepted may be relevant are a thesis (accepted by a university department) "
+"or an article (accepted by a journal)."
+msgstr ""
+
+msgid "Date Copyrighted"
+msgstr "Data do Copyright"
+
+msgid "Date of copyright."
+msgstr ""
+
+msgid "Date Submitted"
+msgstr ""
+
+msgid ""
+"Date of submission of the resource. Examples of resources to which a Date "
+"Submitted may be relevant are a thesis (submitted to a university "
+"department) or an article (submitted to a journal)."
+msgstr ""
+
+msgid "Date Issued"
+msgstr ""
+
+msgid "Date of formal issuance (e.g., publication) of the resource."
+msgstr ""
+
+msgid "Date on which the resource was changed."
+msgstr ""
+
+msgid "Date Valid"
+msgstr "Data da validação"
+
+msgid "Date (often a range) of validity of a resource."
+msgstr ""
+
+msgid "Access Rights"
+msgstr ""
+
+msgid ""
+"Information about who can access the resource or an indication of its "
+"security status. Access Rights may include information regarding access or "
+"restrictions based on privacy, security, or other policies."
+msgstr ""
+
+msgid "License"
+msgstr "Licença"
+
+msgid ""
+"A legal document giving official permission to do something with the "
+"resource."
+msgstr ""
+
+msgid "Conforms To"
+msgstr ""
+
+msgid "An established standard to which the described resource conforms."
+msgstr ""
+
+msgid "Has Format"
+msgstr ""
+
+msgid ""
+"A related resource that is substantially the same as the pre-existing "
+"described resource, but in another format."
+msgstr ""
+
+msgid "Has Part"
+msgstr ""
+
+msgid ""
+"A related resource that is included either physically or logically in the "
+"described resource."
+msgstr ""
+
+msgid "Has Version"
+msgstr ""
+
+msgid ""
+"A related resource that is a version, edition, or adaptation of the "
+"described resource."
+msgstr ""
+
+msgid "Is Format Of"
+msgstr ""
+
+msgid ""
+"A related resource that is substantially the same as the described resource,"
+" but in another format."
+msgstr ""
+
+msgid "Is Part Of"
+msgstr ""
+
+msgid ""
+"A related resource in which the described resource is physically or "
+"logically included."
+msgstr ""
+
+msgid "Is Referenced By"
+msgstr ""
+
+msgid ""
+"A related resource that references, cites, or otherwise points to the "
+"described resource."
+msgstr ""
+
+msgid "Is Replaced By"
+msgstr ""
+
+msgid ""
+"A related resource that supplants, displaces, or supersedes the described "
+"resource."
+msgstr ""
+
+msgid "Is Required By"
+msgstr ""
+
+msgid ""
+"A related resource that requires the described resource to support its "
+"function, delivery, or coherence."
+msgstr ""
+
+msgid "Is Version Of"
+msgstr ""
+
+msgid ""
+"A related resource of which the described resource is a version, edition, or"
+" adaptation. Changes in version imply substantive changes in content rather "
+"than differences in format."
+msgstr ""
+
+msgid "References"
+msgstr ""
+
+msgid ""
+"A related resource that is referenced, cited, or otherwise pointed to by the"
+" described resource."
+msgstr ""
+
+msgid "Replaces"
+msgstr ""
+
+msgid ""
+"A related resource that is supplanted, displaced, or superseded by the "
+"described resource."
+msgstr ""
+
+msgid "Requires"
+msgstr ""
+
+msgid ""
+"A related resource that is required by the described resource to support its"
+" function, delivery, or coherence."
+msgstr ""
+
+msgid "Extent"
+msgstr ""
+
+msgid "The size or duration of the resource."
+msgstr ""
+
+msgid "Medium"
+msgstr ""
+
+msgid "The material or physical carrier of the resource."
+msgstr ""
+
+msgid ""
+"A bibliographic reference for the resource. Recommended practice is to "
+"include sufficient bibliographic detail to identify the resource as "
+"unambiguously as possible."
+msgstr ""
+
+msgid "Spatial Coverage"
+msgstr ""
+
+msgid "Spatial characteristics of the resource."
+msgstr ""
+
+msgid "Temporal Coverage"
+msgstr ""
+
+msgid "Temporal characteristics of the resource."
+msgstr ""
+
+msgid "Accrual Method"
+msgstr ""
+
+msgid "The method by which items are added to a collection."
+msgstr ""
+
+msgid "Accrual Periodicity"
+msgstr ""
+
+msgid "The frequency with which items are added to a collection."
+msgstr ""
+
+msgid "Accrual Policy"
+msgstr ""
+
+msgid "The policy governing the addition of items to a collection."
+msgstr ""
+
+msgid "Audience"
+msgstr ""
+
+msgid "A class of entity for whom the resource is intended or useful."
+msgstr ""
+
+msgid "Audience Education Level"
+msgstr ""
+
+msgid ""
+"A class of entity, defined in terms of progression through an educational or"
+" training context, for which the described resource is intended."
+msgstr ""
+
+msgid "Mediator"
+msgstr ""
+
+msgid ""
+"An entity that mediates access to the resource and for whom the resource is "
+"intended or useful. In an educational context, a mediator might be a parent,"
+" teacher, teaching assistant, or care-giver."
+msgstr ""
+
+msgid "Instructional Method"
+msgstr ""
+
+msgid ""
+"A process, used to engender knowledge, attitudes and skills, that the "
+"described resource is designed to support. Instructional Method will "
+"typically include ways of presenting instructional materials or conducting "
+"instructional activities, patterns of learner-to-learner and learner-to-"
+"instructor interactions, and mechanisms by which group and individual levels"
+" of learning are measured. Instructional methods include all aspects of the "
+"instruction and learning processes from planning and implementation through "
+"evaluation and feedback."
+msgstr ""
+
+msgid "Provenance"
+msgstr ""
+
+msgid ""
+"A statement of any changes in ownership and custody of the resource since "
+"its creation that are significant for its authenticity, integrity, and "
+"interpretation. The statement may include a description of any changes "
+"successive custodians made to the resource."
+msgstr ""
+
+msgid "Rights Holder"
+msgstr ""
+
+msgid "A person or organization owning or managing rights over the resource."
+msgstr ""
+
+#: DublinCoreExtendedPlugin.php:82
+#, php-format
+msgid ""
+"%sWarning%s: This will remove all the Dublin Core elements added by this "
+"plugin and permanently delete all element texts entered in those fields.%s"
+msgstr ""

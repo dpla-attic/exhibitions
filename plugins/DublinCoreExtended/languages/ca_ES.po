@@ -1,0 +1,319 @@
+# Translation for the Dublin Core Extended plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# rubenalcaraz <rubenalcarazmartinez@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-17 21:49-0500\n"
+"PO-Revision-Date: 2013-03-28 10:56+0000\n"
+"Last-Translator: rubenalcaraz <rubenalcarazmartinez@gmail.com>\n"
+"Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/omeka/language/ca_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Alternative Title"
+msgstr "Títol alternatiu"
+
+msgid ""
+"An alternative name for the resource. The distinction between titles and "
+"alternative titles is application-specific."
+msgstr "Qualsevol forma del títol utilitzada com a substitut o alternatiu del títol formal del recurs."
+
+msgid "Abstract"
+msgstr "Resum"
+
+msgid "A summary of the resource."
+msgstr "Extracte del contingut d'un recurs."
+
+msgid "Table Of Contents"
+msgstr "Taula de continguts"
+
+msgid "A list of subunits of the resource."
+msgstr "Llista de les subunitats del contingut d'un recurs."
+
+msgid "Date Available"
+msgstr "Data Disponible"
+
+msgid ""
+"Date (often a range) that the resource became or will become available."
+msgstr "Data (sovint un interval) en què el recurs estarà disponible o va estar disponible."
+
+msgid "Date Created"
+msgstr "Data de creació"
+
+msgid "Date of creation of the resource."
+msgstr "Data de creació del recurs."
+
+msgid "Date Accepted"
+msgstr "Data d'acceptació"
+
+msgid ""
+"Date of acceptance of the resource. Examples of resources to which a Date "
+"Accepted may be relevant are a thesis (accepted by a university department) "
+"or an article (accepted by a journal)."
+msgstr "Data d'acceptació del recurs. Exemples de recursos amb dates d'acceptació són les tesis doctorals (acceptades per un departament d'una universitat) o un artícle (acceptat per una revista científica)."
+
+msgid "Date Copyrighted"
+msgstr "Data del copyright"
+
+msgid "Date of copyright."
+msgstr "Data del copyright."
+
+msgid "Date Submitted"
+msgstr "Data d'enviament"
+
+msgid ""
+"Date of submission of the resource. Examples of resources to which a Date "
+"Submitted may be relevant are a thesis (submitted to a university "
+"department) or an article (submitted to a journal)."
+msgstr "Data d'enviament del recurs. Exemples de recursos amb dates d'enviament són les tesis doctorals (enviades a un departament universitari) o un artícle (enviat a una revista científica)."
+
+msgid "Date Issued"
+msgstr "Data de publicació"
+
+msgid "Date of formal issuance (e.g., publication) of the resource."
+msgstr "Data de publicació (és a dir, edició) del recurs."
+
+msgid "Date on which the resource was changed."
+msgstr "Data en què el recurs s'ha modificat."
+
+msgid "Date Valid"
+msgstr "Data de validació"
+
+msgid "Date (often a range) of validity of a resource."
+msgstr "Data (sovint un interval) de la validació d'un recurs."
+
+msgid "Access Rights"
+msgstr "Drets d'accés"
+
+msgid ""
+"Information about who can access the resource or an indication of its "
+"security status. Access Rights may include information regarding access or "
+"restrictions based on privacy, security, or other policies."
+msgstr "Informació sobre qui pot tenir accés al recurs o una indicació de les seves limitacions d'accés. Els drets d'accés poden incloure l'accés o informació o les restriccions basades en la privacitat, la seguretat, o d'altres polítiques."
+
+msgid "License"
+msgstr "Llicència"
+
+msgid ""
+"A legal document giving official permission to do something with the "
+"resource."
+msgstr "Un document legal que dóna permís oficial per fer alguna cosa amb el recurs."
+
+msgid "Conforms To"
+msgstr "en Compliment De"
+
+msgid "An established standard to which the described resource conforms."
+msgstr "Estàndard establert al qual el recurs descrit s'ajusta."
+
+msgid "Has Format"
+msgstr "Té un format"
+
+msgid ""
+"A related resource that is substantially the same as the pre-existing "
+"described resource, but in another format."
+msgstr "El recurs descrit existia amb anterioritat  al recurs referenciat, el qual té essencialment el mateix contingut intel·lectual presentat en un altre format."
+
+msgid "Has Part"
+msgstr "Té Part"
+
+msgid ""
+"A related resource that is included either physically or logically in the "
+"described resource."
+msgstr "El recurs descrit inclou el recurs referenciat tant físicament com lògicament."
+
+msgid "Has Version"
+msgstr "Té Una Versió"
+
+msgid ""
+"A related resource that is a version, edition, or adaptation of the "
+"described resource."
+msgstr "El recurs descrit té una versió, edició o adaptació, és a dir, el recurs referenciat."
+
+msgid "Is Format Of"
+msgstr "és Un Format De"
+
+msgid ""
+"A related resource that is substantially the same as the described resource,"
+" but in another format."
+msgstr "El recurs descrit té el mateix contingut intel·lectual que el recurs referenciat, però es presenta en un altre format."
+
+msgid "Is Part Of"
+msgstr "Part De"
+
+msgid ""
+"A related resource in which the described resource is physically or "
+"logically included."
+msgstr "El recurs descrit és una part física o lògica del recurs referenciat."
+
+msgid "Is Referenced By"
+msgstr "Referenciat Per"
+
+msgid ""
+"A related resource that references, cites, or otherwise points to the "
+"described resource."
+msgstr "El recurs descrit és referenciat, citat o assenyalat en alguna forma pel recurs referenciat."
+
+msgid "Is Replaced By"
+msgstr "Substituït Per"
+
+msgid ""
+"A related resource that supplants, displaces, or supersedes the described "
+"resource."
+msgstr "El recurs descrit és suplantat, reemplaçat o invalidat pel recurs referenciat."
+
+msgid "Is Required By"
+msgstr "Requerit Per"
+
+msgid ""
+"A related resource that requires the described resource to support its "
+"function, delivery, or coherence."
+msgstr "El recurs descrit és requerit pel recurs referenciat, tant físicament com lògicament."
+
+msgid "Is Version Of"
+msgstr "Versió De"
+
+msgid ""
+"A related resource of which the described resource is a version, edition, or"
+" adaptation. Changes in version imply substantive changes in content rather "
+"than differences in format."
+msgstr "El recurs descrit és una versió, edició o adaptació del recurs referenciat. Els canvis en una versió impliquen canvis substancials en el contingut més que diferències en el format."
+
+msgid "References"
+msgstr "Referències"
+
+msgid ""
+"A related resource that is referenced, cited, or otherwise pointed to by the"
+" described resource."
+msgstr "El recurs descrit referencia, cita o altrament assenyala el recurs referenciat."
+
+msgid "Replaces"
+msgstr "Substitueix"
+
+msgid ""
+"A related resource that is supplanted, displaced, or superseded by the "
+"described resource."
+msgstr "El recurs descrit suplanta, reemplaça o invalida el recurs referenciat."
+
+msgid "Requires"
+msgstr "Requereix"
+
+msgid ""
+"A related resource that is required by the described resource to support its"
+" function, delivery, or coherence."
+msgstr "Un recurs relacionat que és requerit pel recurs descrit per recolzar la seva funció, lliurament o coherència."
+
+msgid "Extent"
+msgstr "Extensió"
+
+msgid "The size or duration of the resource."
+msgstr "Dimensions o duració del recurs."
+
+msgid "Medium"
+msgstr "Mitjà"
+
+msgid "The material or physical carrier of the resource."
+msgstr "Suport material o físic del recurs."
+
+msgid ""
+"A bibliographic reference for the resource. Recommended practice is to "
+"include sufficient bibliographic detail to identify the resource as "
+"unambiguously as possible."
+msgstr "Una referència bibliogràfica pel recurs. La pràctica recomanada és incloure suficient detall bibliogràfic per poder identificar el recurs tan clarament com sigui possible."
+
+msgid "Spatial Coverage"
+msgstr "Cobertura espacial"
+
+msgid "Spatial characteristics of the resource."
+msgstr "Característiques espacials del recurs."
+
+msgid "Temporal Coverage"
+msgstr "Cobertura temporal"
+
+msgid "Temporal characteristics of the resource."
+msgstr "Característiques temporals del recurs."
+
+msgid "Accrual Method"
+msgstr "Mètode d'ingrés"
+
+msgid "The method by which items are added to a collection."
+msgstr "El mètode pel qual els objectes digitals han estat afegits a la col·lecció."
+
+msgid "Accrual Periodicity"
+msgstr "Periodicitat de l'ingrés"
+
+msgid "The frequency with which items are added to a collection."
+msgstr "La freqüència amb la qual els elements s'han afegit a la col·lecció."
+
+msgid "Accrual Policy"
+msgstr "Política d'ingrés"
+
+msgid "The policy governing the addition of items to a collection."
+msgstr "La política que regeix l'ingrés d'elements a la col·lecció."
+
+msgid "Audience"
+msgstr "Audiència"
+
+msgid "A class of entity for whom the resource is intended or useful."
+msgstr "Tipus d'entitat per la qual el recurs està destinat o resulta d'utilitat."
+
+msgid "Audience Education Level"
+msgstr "Nivell d'estudis de l'audiència"
+
+msgid ""
+"A class of entity, defined in terms of progression through an educational or"
+" training context, for which the described resource is intended."
+msgstr "Un tipus d'entitat educativa per la qual s'ha pensat el recurs."
+
+msgid "Mediator"
+msgstr "Mediador"
+
+msgid ""
+"An entity that mediates access to the resource and for whom the resource is "
+"intended or useful. In an educational context, a mediator might be a parent,"
+" teacher, teaching assistant, or care-giver."
+msgstr "Una entitat que dóna accés al recurs i per la qual el recurs té un valor útil. En un context educatiu, un mediador pot ser un pare, mestre, etc."
+
+msgid "Instructional Method"
+msgstr "Mètode d'instrucció"
+
+msgid ""
+"A process, used to engender knowledge, attitudes and skills, that the "
+"described resource is designed to support. Instructional Method will "
+"typically include ways of presenting instructional materials or conducting "
+"instructional activities, patterns of learner-to-learner and learner-to-"
+"instructor interactions, and mechanisms by which group and individual levels"
+" of learning are measured. Instructional methods include all aspects of the "
+"instruction and learning processes from planning and implementation through "
+"evaluation and feedback."
+msgstr "Un procés que s'utilitza per generar coneixements, actituds i habilitats, pel qual el recurs descrit ha estat dissenyat. Els mètodes d'instrucció solen incloure formes de presentar els materials d'instrucció, la realització d'activitats d'ensenyament, la comunicació entre alumnes, la interacció amb els instructors i els mecanismes mitjançant els quals els diferents nivells d'aprenentatge es mesuren. Els mètodes d'instrucció inclouen tots els aspectes de l'ensenyament i els processos d'aprenentatge, des de la planificació i posada en pràctica a través de l'avaluació i la retroalimentació."
+
+msgid "Provenance"
+msgstr "Procedència"
+
+msgid ""
+"A statement of any changes in ownership and custody of the resource since "
+"its creation that are significant for its authenticity, integrity, and "
+"interpretation. The statement may include a description of any changes "
+"successive custodians made to the resource."
+msgstr "Una declaració de qualsevol canvi en la propietat i custòdia dels recursos des de la seva creació, que són importants per a la seva autenticitat, integritat i interpretació. La declaració pot incloure una descripció dels diferents canvis realitzats en el recurs pels diferents custodis."
+
+msgid "Rights Holder"
+msgstr "Propietari dels drets"
+
+msgid "A person or organization owning or managing rights over the resource."
+msgstr "Persona o organització propietària o gestora dels drets sobre el recurs."
+
+#: DublinCoreExtendedPlugin.php:82
+#, php-format
+msgid ""
+"%sWarning%s: This will remove all the Dublin Core elements added by this "
+"plugin and permanently delete all element texts entered in those fields.%s"
+msgstr "%sAlerta%s: Això esborrarà tots els elements Dublin Core afegits per aquest plugin i esborrrà permanentment tots els valors afegits en aquests camps. %s"

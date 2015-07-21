@@ -1,0 +1,319 @@
+# Translation for the Dublin Core Extended plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Jan Černý <cernyhonza@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-17 21:49-0500\n"
+"PO-Revision-Date: 2013-02-20 13:20+0000\n"
+"Last-Translator: Jan Černý <cernyhonza@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/omeka/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+msgid "Alternative Title"
+msgstr "Alternativní název"
+
+msgid ""
+"An alternative name for the resource. The distinction between titles and "
+"alternative titles is application-specific."
+msgstr "Alternativní jméno zdroje. Rozdíl mezi názvem a alternativním názvem záleží na aplikaci."
+
+msgid "Abstract"
+msgstr "Abstrakt"
+
+msgid "A summary of the resource."
+msgstr "Přehled zdroje."
+
+msgid "Table Of Contents"
+msgstr "Obsah"
+
+msgid "A list of subunits of the resource."
+msgstr "Seznam dílčích jednotek zdroje."
+
+msgid "Date Available"
+msgstr "Datum dostupnosti."
+
+msgid ""
+"Date (often a range) that the resource became or will become available."
+msgstr "Datum (často období) kdy zdroj byl nebo bude dostupný."
+
+msgid "Date Created"
+msgstr "Datum vzniku"
+
+msgid "Date of creation of the resource."
+msgstr "Datum vzniku zdroje."
+
+msgid "Date Accepted"
+msgstr "Datum přijetí"
+
+msgid ""
+"Date of acceptance of the resource. Examples of resources to which a Date "
+"Accepted may be relevant are a thesis (accepted by a university department) "
+"or an article (accepted by a journal)."
+msgstr "Datum přijetí zdroje. Příkladem zdroje pro který může být datum přijetí relevantní je these (přijatá oddělením university) nebo článek (přijatý časopisem)."
+
+msgid "Date Copyrighted"
+msgstr "Datum autorských práv"
+
+msgid "Date of copyright."
+msgstr "Datum vzniku autorských práv."
+
+msgid "Date Submitted"
+msgstr "Datum zaslání"
+
+msgid ""
+"Date of submission of the resource. Examples of resources to which a Date "
+"Submitted may be relevant are a thesis (submitted to a university "
+"department) or an article (submitted to a journal)."
+msgstr "Datum zaslání zdroje.  Příkladem zdroje pro který může být datum přijetí relevantní je these (přijatá oddělením university) nebo článek (přijatý časopisem)."
+
+msgid "Date Issued"
+msgstr "Datum vydání"
+
+msgid "Date of formal issuance (e.g., publication) of the resource."
+msgstr "Datum vydání (např. publikování) zdroje."
+
+msgid "Date on which the resource was changed."
+msgstr "Datum kdy byl zdroj změněn."
+
+msgid "Date Valid"
+msgstr "Datum platnosti"
+
+msgid "Date (often a range) of validity of a resource."
+msgstr "Datum (často období) platnosti zdroje."
+
+msgid "Access Rights"
+msgstr "Přístupová práva"
+
+msgid ""
+"Information about who can access the resource or an indication of its "
+"security status. Access Rights may include information regarding access or "
+"restrictions based on privacy, security, or other policies."
+msgstr "Informace o to kdo má přístup ke zdroji nebo informace o jeho bezpečnostním statusu. Přístupová práva mohou obsahovat informace o přístupu nebo omezení založená na ochraně soukromí, bezpečnosti, nebo jiných zásadách.  "
+
+msgid "License"
+msgstr "Licence"
+
+msgid ""
+"A legal document giving official permission to do something with the "
+"resource."
+msgstr "Právní dokument dávající oficiální povolení k nakládání se zdrojem."
+
+msgid "Conforms To"
+msgstr "Vyhovuje"
+
+msgid "An established standard to which the described resource conforms."
+msgstr "Zavedený standard kterému popisovaný zdroj vyhovuje."
+
+msgid "Has Format"
+msgstr "Má formát"
+
+msgid ""
+"A related resource that is substantially the same as the pre-existing "
+"described resource, but in another format."
+msgstr "Příbuzný zdroj, který je v podstatě stejný jako jiný existující zdroj, ale v jiném formátu."
+
+msgid "Has Part"
+msgstr "Má část"
+
+msgid ""
+"A related resource that is included either physically or logically in the "
+"described resource."
+msgstr "Příbuzný zdroj, je fyzicky nebo logicky součástí popisovaného zdroje."
+
+msgid "Has Version"
+msgstr "Má verzi"
+
+msgid ""
+"A related resource that is a version, edition, or adaptation of the "
+"described resource."
+msgstr "Příbuzný zdroj, který je jinou verzí, edicí nebo adaptací popisovaného zdroje."
+
+msgid "Is Format Of"
+msgstr "Je formátem"
+
+msgid ""
+"A related resource that is substantially the same as the described resource,"
+" but in another format."
+msgstr "Příbuzný zdroj, který je v podstatě stejný jako popisovaný zdroj, ale v jiném formátu."
+
+msgid "Is Part Of"
+msgstr "Je částí"
+
+msgid ""
+"A related resource in which the described resource is physically or "
+"logically included."
+msgstr "Příbuzný zdroj, jehož je popisovaný zdroj fyzicky nebo logicky součástí."
+
+msgid "Is Referenced By"
+msgstr "Je odkazován"
+
+msgid ""
+"A related resource that references, cites, or otherwise points to the "
+"described resource."
+msgstr "Příbuzný zdroj, který se odkazuje, cituje nebo jinak ukazuje na popisovaný zdroj."
+
+msgid "Is Replaced By"
+msgstr "Je nahrazen"
+
+msgid ""
+"A related resource that supplants, displaces, or supersedes the described "
+"resource."
+msgstr "Příbuzný zdroj, který  nahrazuje popisovaný zdroj."
+
+msgid "Is Required By"
+msgstr "Je vyžadován"
+
+msgid ""
+"A related resource that requires the described resource to support its "
+"function, delivery, or coherence."
+msgstr "Příbuzný zdroj, který vyžaduje popisovaný zdroj pro podporu svojí funkčnosti, dostupnosti nebo ucelenosti."
+
+msgid "Is Version Of"
+msgstr "Je verzí"
+
+msgid ""
+"A related resource of which the described resource is a version, edition, or"
+" adaptation. Changes in version imply substantive changes in content rather "
+"than differences in format."
+msgstr "Příbuzný zdroj, jehož je popisovaný zdroj verze, edice nebo adaptace. Změny ve verzi znamenají výrazné změny v obsahu, spíše než změny formátu."
+
+msgid "References"
+msgstr "Odkazy"
+
+msgid ""
+"A related resource that is referenced, cited, or otherwise pointed to by the"
+" described resource."
+msgstr "Příbuzný zdroj, který je odkazován, citován nebo jinak označen popisovaným zdrojem."
+
+msgid "Replaces"
+msgstr "Nahrazuje"
+
+msgid ""
+"A related resource that is supplanted, displaced, or superseded by the "
+"described resource."
+msgstr "Příbuzný zdroj, který je nahrazen popisovaným zdrojem."
+
+msgid "Requires"
+msgstr "Vyžaduje"
+
+msgid ""
+"A related resource that is required by the described resource to support its"
+" function, delivery, or coherence."
+msgstr "Příbuzný zdroj, který je vyžadován popisovaným zdroje pro podpoření jeho funkčnosti, dostupnosti, nebo ucelenosti."
+
+msgid "Extent"
+msgstr "Rozsah"
+
+msgid "The size or duration of the resource."
+msgstr "Velikost, nebo délka trvání zdroje. "
+
+msgid "Medium"
+msgstr "Médium"
+
+msgid "The material or physical carrier of the resource."
+msgstr "Fyzické médium, nebo nosič zdroje."
+
+msgid ""
+"A bibliographic reference for the resource. Recommended practice is to "
+"include sufficient bibliographic detail to identify the resource as "
+"unambiguously as possible."
+msgstr "Bibliografický odkaz na zdroj. Doporučený postup je vložit dostatečně podrobný bibliografický popis k jednoznačně identifikaci zdroje."
+
+msgid "Spatial Coverage"
+msgstr "Prostorové pokrytí"
+
+msgid "Spatial characteristics of the resource."
+msgstr "Prostorové charakteristiky zdroje."
+
+msgid "Temporal Coverage"
+msgstr "Časové pokrytí"
+
+msgid "Temporal characteristics of the resource."
+msgstr "Časové charakteristiky zdroje."
+
+msgid "Accrual Method"
+msgstr "Metoda přidávání"
+
+msgid "The method by which items are added to a collection."
+msgstr "Metoda kterou jsou do kolekce přidávány prvky."
+
+msgid "Accrual Periodicity"
+msgstr "Frekvence přidávání"
+
+msgid "The frequency with which items are added to a collection."
+msgstr "Frekvence s jakou jsou do kolekce přidávány prvky. "
+
+msgid "Accrual Policy"
+msgstr "Zásady přidávání"
+
+msgid "The policy governing the addition of items to a collection."
+msgstr "Pravidla přidávání prvků do kolekce."
+
+msgid "Audience"
+msgstr "Publikum"
+
+msgid "A class of entity for whom the resource is intended or useful."
+msgstr "Třída jedinců kterým je zdroj určen, nebo je jim užitečný."
+
+msgid "Audience Education Level"
+msgstr "Úroveň vzdělanosti publika"
+
+msgid ""
+"A class of entity, defined in terms of progression through an educational or"
+" training context, for which the described resource is intended."
+msgstr "Třída jedinců, definovaná úrovní vzdělání nebo proškolení, pro kterou je popisovaný zdroj určen."
+
+msgid "Mediator"
+msgstr "Zprostředkovatel"
+
+msgid ""
+"An entity that mediates access to the resource and for whom the resource is "
+"intended or useful. In an educational context, a mediator might be a parent,"
+" teacher, teaching assistant, or care-giver."
+msgstr "Entita která zprostředkovává přístup ke zdroji a pro kterou je zdroj určený nebo užitečný. V kontextu vzdělávání může být zprostředkovatelem rodič, učitel nebo pečovatel. "
+
+msgid "Instructional Method"
+msgstr "Vzdělávací metoda"
+
+msgid ""
+"A process, used to engender knowledge, attitudes and skills, that the "
+"described resource is designed to support. Instructional Method will "
+"typically include ways of presenting instructional materials or conducting "
+"instructional activities, patterns of learner-to-learner and learner-to-"
+"instructor interactions, and mechanisms by which group and individual levels"
+" of learning are measured. Instructional methods include all aspects of the "
+"instruction and learning processes from planning and implementation through "
+"evaluation and feedback."
+msgstr "Proces vzniku vědění, názorů a schopností, pro jehož podporu je zdroj navržen. Vzdělávací metoda běžně  obsahuje způsoby prezentace výukových materiálů nebo pořádání výukových aktivit, vzorů interakcí mezi žáky a mezi žákem a učitelem a mechanizmů hodnocení úrovně vzdělání skupin a jednotlivců. Vzdělávací metody obsahují všechny aspekty výukových procesů od plánování a implementaci po vyhodnocení a zpětnou vazbu."
+
+msgid "Provenance"
+msgstr "Původ"
+
+msgid ""
+"A statement of any changes in ownership and custody of the resource since "
+"its creation that are significant for its authenticity, integrity, and "
+"interpretation. The statement may include a description of any changes "
+"successive custodians made to the resource."
+msgstr "Informace o všech změnách vlastnictví, nebo držení zdroje od jeho vzniku, které jsou významné pro jeho autentičnost, celistvost a interpretaci. Tato informace může obsahovat popis změn které držitelé ve zdroji udělali."
+
+msgid "Rights Holder"
+msgstr "Vlastník práv"
+
+msgid "A person or organization owning or managing rights over the resource."
+msgstr "Osoba nebo organizace vlastnící nebo spravující práva ke zdroji."
+
+#: DublinCoreExtendedPlugin.php:82
+#, php-format
+msgid ""
+"%sWarning%s: This will remove all the Dublin Core elements added by this "
+"plugin and permanently delete all element texts entered in those fields.%s"
+msgstr "%sVarování%s: Tímto odstraníte všechny prvky Dublin Core přidané tímto zásuvným modulem a trvale smažete všechny texty zadané do těchto polí. %s"
