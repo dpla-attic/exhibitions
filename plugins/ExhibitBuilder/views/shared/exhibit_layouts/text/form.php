@@ -1,5 +1,4 @@
-<fieldset>
-    <?php
-        echo exhibit_builder_layout_form_text(1);
-    ?>
-</fieldset>
+<div class="block-text">
+    <h4><?php echo __('Text'); ?></h4>
+    <?php echo $this->exhibitFormText($block); ?>
+</div>

@@ -25,29 +25,23 @@
 </div><!-- end primary -->
 
 <div id="secondary">
-    <!-- Recent Items -->		
+    <?php
+    $recentItems = get_theme_option('Homepage Recent Items');
+    if ($recentItems === null || $recentItems === ''):
+        $recentItems = 3;
+    else:
+        $recentItems = (int) $recentItems;
+    endif;
+    if ($recentItems):
+    ?>
     <div id="recent-items">
         <h2><?php echo __('Recently Added Items'); ?></h2>
-        <?php 
-        $homepageRecentItems = (int)get_theme_option('Homepage Recent Items') ? get_theme_option('Homepage Recent Items') : '3';
-        set_loop_records('items', get_recent_items($homepageRecentItems));
-        if (has_loop_records('items')): 
-        ?>
-        <ul class="items-list">
-        <?php foreach (loop('items') as $item): ?>
-        <li class="item">
-            <h3><?php echo link_to_item(); ?></h3>
-            <?php if($itemDescription = metadata('item', array('Dublin Core', 'Description'), array('snippet'=>150))): ?>
-                <p class="item-description"><?php echo $itemDescription; ?></p>
-            <?php endif; ?>						
-        </li>
-        <?php endforeach; ?>
-        </ul>
-        <?php else: ?>
-        <p><?php echo __('No recent items available.'); ?></p>
-        <?php endif; ?>
-        <p class="view-items-link"><?php echo link_to_items_browse(__('View All Items')); ?></p>
-    </div><!-- end recent-items -->
-    
+        <?php echo recent_items($recentItems); ?>
+        <p class="view-items-link"><a href="<?php echo html_escape(url('items')); ?>"><?php echo __('View All Items'); ?></a></p>
+    </div><!--end recent-items -->
+    <?php endif; ?>
+
+    <?php fire_plugin_hook('public_home', array('view' => $this)); ?>
+
 </div><!-- end secondary -->
 <?php echo foot(); ?>

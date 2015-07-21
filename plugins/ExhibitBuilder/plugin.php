@@ -7,9 +7,6 @@
 
 if (!defined('EXHIBIT_PLUGIN_DIR')) {
     define('EXHIBIT_PLUGIN_DIR', dirname(__FILE__));
-    define('EXHIBIT_LAYOUTS_DIR_NAME', 'exhibit_layouts');
-    define('EXHIBIT_LAYOUTS_DIR', EXHIBIT_PLUGIN_DIR
-        . '/views/shared/exhibit_layouts');
 }
 
 add_plugin_hook('install', 'exhibit_builder_install');
@@ -29,10 +26,13 @@ add_plugin_hook('html_purifier_form_submission', 'exhibit_builder_purify_html');
 
 add_filter('public_navigation_main', 'exhibit_builder_public_main_nav');
 add_filter('admin_navigation_main', 'exhibit_builder_admin_nav');
-add_filter('theme_options', 'exhibit_builder_theme_options');
 add_filter('public_theme_name', 'exhibit_builder_public_theme_name');
 add_filter('admin_dashboard_stats', 'exhibit_builder_dashboard_stats');
 add_filter('search_record_types', 'exhibit_builder_search_record_types');
+add_filter('api_resources', 'exhibit_builder_api_resources');
+add_filter('api_extend_items', 'exhibit_builder_api_extend_items');
+add_filter('item_search_filters', 'exhibit_builder_item_search_filters');
+add_filter('api_import_omeka_adapters', 'exhibit_builder_api_import_omeka_adapters');
 
 // Helper functions for exhibits and exhibit pages
 require_once EXHIBIT_PLUGIN_DIR . '/helpers/ExhibitFunctions.php';

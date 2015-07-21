@@ -1,11 +1,8 @@
 <?php
 $collectionTitle = strip_formatting(metadata('collection', array('Dublin Core', 'Title')));
-if ($collectionTitle == '') {
-    $collectionTitle = __('[Untitled]');
-}
 ?>
 
-<?php echo head(array('title'=> $collectionTitle, 'bodyid'=>'collections', 'bodyclass' => 'show')); ?>
+<?php echo head(array('title'=> $collectionTitle, 'bodyclass' => 'collections show')); ?>
 
 <h1><?php echo $collectionTitle; ?></h1>
 

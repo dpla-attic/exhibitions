@@ -32,24 +32,36 @@ class Omeka_View_Helper_ItemSearchFilters extends Zend_View_Helper_Abstract
         $db = get_db();
         $displayArray = array();
         foreach ($requestArray as $key => $value) {
-            $filter = $key;
             if($value != null) {
+                $filter = ucfirst($key);
                 $displayValue = null;
                 switch ($key) {
                     case 'type':
                         $filter = 'Item Type';
-                        $itemtype = $db->getTable('ItemType')->find($value);
-                        $displayValue = $itemtype->name;
+                        $itemType = $db->getTable('ItemType')->find($value);
+                        if ($itemType) {
+                            $displayValue = $itemType->name;
+                        }
                         break;
                     
                     case 'collection':
                         $collection = $db->getTable('Collection')->find($value);
-                        $displayValue = strip_formatting(metadata($collection, array('Dublin Core', 'Title')));
+                        if ($collection) {
+                            $displayValue = strip_formatting(
+                                metadata(
+                                    $collection,
+                                    array('Dublin Core', 'Title'),
+                                    array('no_escape' => true)
+                                )
+                            );
+                        }
                         break;
 
                     case 'user':
                         $user = $db->getTable('User')->find($value);
-                        $displayValue = $user->name;
+                        if ($user) {
+                            $displayValue = $user->name;
+                        }
                         break;
 
                     case 'public':
@@ -82,12 +94,11 @@ class Omeka_View_Helper_ItemSearchFilters extends Zend_View_Helper_Abstract
                 }
                 $elementID = $row['element_id'];
                 $elementDb = $db->getTable('Element')->find($elementID);
-                $element = $elementDb->name;
-                $type = $row['type'];
-                $terms = $row['terms'];
+                $element = __($elementDb->name);
+                $type = __($row['type']);
                 $advancedValue = $element . ' ' . $type;
-                if ($terms) {
-                    $advancedValue .= ' "' . $terms . '"';
+                if (isset($row['terms'])) {
+                    $advancedValue .= ' "' . $row['terms'] . '"';
                 }
                 $advancedArray[$i] = $advancedValue;
             }
@@ -98,11 +109,12 @@ class Omeka_View_Helper_ItemSearchFilters extends Zend_View_Helper_Abstract
             $html .= '<div id="item-filters">';
             $html .= '<ul>';
             foreach($displayArray as $name => $query) {
-                $html .= '<li class="' . $name . '">' . ucfirst($name) . ': ' . $query . '</li>';
+                $class = html_escape(strtolower(str_replace(' ', '-', $name)));
+                $html .= '<li class="' . $class . '">' . html_escape(__($name)) . ': ' . html_escape($query) . '</li>';
             }
             if(!empty($advancedArray)) {
                 foreach($advancedArray as $j => $advanced) {
-                    $html .= '<li class="advanced">' . $advanced . '</li>';
+                    $html .= '<li class="advanced">' . html_escape($advanced) . '</li>';
                 }
             }
             $html .= '</ul>';

@@ -13,6 +13,89 @@ class Table_File extends Omeka_Db_Table
 {
     protected $_target = 'File';
 
+    public function applySearchFilters($select, $params)
+    {
+        $boolean = new Omeka_Filter_Boolean;
+        
+        foreach ($params as $paramName => $paramValue) {
+            if ($paramValue === null || (is_string($paramValue) && trim($paramValue) == '')) {
+                continue;
+            }
+
+            switch($paramName) {
+                case 'item':
+                case 'item_id':
+                    $select->where('files.item_id = ?', $paramValue);
+                    break;
+                    
+                case 'order':
+                    if($paramValue == 'null') {
+                        $select->where('files.order IS NULL');
+                    } else {
+                        $select->where('files.order = ?', $paramValue);
+                    }
+                    break;
+                    
+                case 'original_filename':
+                    $select->where('files.original_filename = ?', $paramValue);
+                    break;
+
+                case 'size_greater_then':
+                    $select->where('files.size > ?', $paramValue);
+                    break;
+                    
+                case 'has_derivative_image':
+                    $this->filterByHasDerivativeImage($select, $boolean->filter($paramValue));
+                    break;
+                    
+                case 'mime_type':
+                    $select->where('files.mime_type = ?', $paramValue);
+                    break;
+                    
+                case 'added_since':
+                    $this->filterBySince($select, $paramValue, 'added');
+                    break;
+                    
+                case 'modified_since':
+                    $this->filterBySince($select, $paramValue, 'modified');
+                    break;
+            }
+        }
+    }
+    
+    /**
+     * Filter select object by date since.
+     *
+     * @param Zend_Db_Select $select
+     * @param string $dateSince ISO 8601 formatted date
+     * @param string $dateField "added" or "modified"
+     */
+    public function filterBySince($select, $dateSince, $dateField)
+    {
+        // Reject invalid date fields.
+        if (!in_array($dateField, array('added', 'modified'))) {
+            return;
+        }
+    
+        // Accept an ISO 8601 date, set the tiemzone to the server's default
+        // timezone, and format the date to be MySQL timestamp compatible.
+        $date = new Zend_Date($dateSince, Zend_Date::ISO_8601);
+        $date->setTimezone(date_default_timezone_get());
+        $date = $date->get('yyyy-MM-dd HH:mm:ss');
+    
+        // Select all dates that are greater than the passed date.
+        $select->where("files.$dateField > ?", $date);
+    }    
+    
+    public function filterByHasDerivativeImage($select, $hasDerivative)
+    {
+        if ($hasDerivative) {
+            $select->where('files.has_derivative_image = 1');
+        } else {
+            $select->where('files.has_derivative_image = 0');
+        }        
+    }
+    
     /**
      * All files should only be retrieved if they join properly on the items
      * table.
@@ -70,6 +153,26 @@ class Table_File extends Omeka_Db_Table
         $this->_orderFilesBy($select, $sort);
 
         return $this->fetchObjects($select, array($itemId));
+    }
+
+    /**
+     * Get a single file associated with an item, by index.
+     *
+     * @param integer $itemId
+     * @param integer $index
+     * @param string $sort The manner by which to order the files. For example:
+     *  'id': file id, 'filename' = alphabetical by filename. The default is
+     *  'order', following the user's specified order.
+     * @return File|null
+     */
+    public function findOneByItem($itemId, $index = 0, $sort = 'order')
+    {
+        $select = $this->getSelect();
+        $select->where('files.item_id = ?');
+        $this->_orderFilesBy($select, $sort);
+        $select->limit(1, $index);
+
+        return $this->fetchObject($select, array($itemId));
     }
 
     /**

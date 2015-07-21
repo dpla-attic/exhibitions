@@ -1,42 +1,54 @@
-<?php if ($this->pageCount > 1): ?>
-<nav class="pagination">
-    <ul class="pagination_list">
-        <?php if ($this->first != $this->current): ?>
-        <!-- First page link --> 
-        <li class="pagination_first">
-        <a href="<?php echo html_escape($this->url(array('page' => $this->first), null, $_GET)); ?>"><?php echo __('First'); ?></a>
-        </li>
-        <?php endif; ?>
-        
+<?php
+if ($this->pageCount > 1):
+    $getParams = $_GET;
+?>
+<nav class="pagination-nav" aria-label="<?php echo __('Pagination'); ?>">
+    <ul class="pagination">
         <?php if (isset($this->previous)): ?>
-        <!-- Previous page link --> 
+        <!-- Previous page link -->
         <li class="pagination_previous">
-        <a href="<?php echo html_escape($this->url(array('page' => $this->previous), null, $_GET)); ?>"><?php echo __('Previous'); ?></a>
+            <?php $getParams['page'] = $previous; ?>
+            <a rel="prev" href="<?php echo html_escape($this->url(array(), null, $getParams)); ?>"><?php echo __('Previous Page'); ?></a>
         </li>
         <?php endif; ?>
-        
-        <!-- Numbered page links -->
-        <?php foreach ($this->pagesInRange as $page): ?> 
-        <?php if ($page != $this->current): ?>
-        <li class="pagination_range"><a href="<?php echo html_escape($this->url(array('page' => $page), null, $_GET)); ?>"><?php echo $page; ?></a></li>
-        <?php else: ?>
-        <li class="pagination_current"><?php echo $page; ?></li>
-        <?php endif; ?>
-        <?php endforeach; ?>
-        
-        <?php if (isset($this->next)): ?> 
+
+        <li class="page-input">
+        <form action="<?php echo html_escape($this->url()); ?>" method="get" accept-charset="utf-8">
+        <?php
+        $hiddenParams = array();
+        $entries = explode('&', http_build_query($getParams));
+        foreach ($entries as $entry) {
+            if(!$entry) {
+                continue;
+            }
+            list($key, $value) = explode('=', $entry);
+            $hiddenParams[urldecode($key)] = urldecode($value);
+        }
+
+        foreach($hiddenParams as $key => $value) {
+            if($key != 'page') {
+                echo $this->formHidden($key,$value);
+            }
+        }
+
+        // Manually create this input to allow an omitted ID
+        $pageInput = '<input type="text" name="page" title="'
+                    . html_escape(__('Current Page'))
+                    . '" value="'
+                    . html_escape($this->current) . '">';
+        echo __('%s of %s', $pageInput, $this->last);
+        ?>
+        </form>
+        </li>
+
+        <?php if (isset($this->next)): ?>
         <!-- Next page link -->
         <li class="pagination_next">
-        <a href="<?php echo html_escape($this->url(array('page' => $this->next), null, $_GET)); ?>"><?php echo __('Next'); ?></a>
-        </li>
-        <?php endif; ?>
-        
-        <?php if ($this->last != $this->current): ?>
-        <!-- Last page link --> 
-        <li class="pagination_last">
-        <a href="<?php echo html_escape($this->url(array('page' => $this->last), null, $_GET)); ?>"><?php echo __('Last'); ?></a>
+            <?php $getParams['page'] = $next; ?>
+            <a rel="next" href="<?php echo html_escape($this->url(array(), null, $getParams)); ?>"><?php echo __('Next Page'); ?></a>
         </li>
         <?php endif; ?>
     </ul>
 </nav>
+
 <?php endif; ?>

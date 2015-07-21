@@ -1,4 +1,4 @@
-<?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyid'=>'exhibit', 'bodyclass'=>'summary')); ?>
+<?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyclass'=>'exhibits summary')); ?>
 
 <h1><?php echo metadata('exhibit', 'title'); ?></h1>
 <?php echo exhibit_builder_page_nav(); ?>
@@ -18,13 +18,13 @@
 <?php endif; ?>
 </div>
 
+<?php
+$pageTree = exhibit_builder_page_tree();
+if ($pageTree):
+?>
 <nav id="exhibit-pages">
-    <ul>
-        <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
-        <?php foreach (loop('exhibit_page') as $exhibitPage): ?>
-        <?php echo exhibit_builder_page_summary($exhibitPage); ?>
-        <?php endforeach; ?>
-    </ul>
+    <?php echo $pageTree; ?>
 </nav>
+<?php endif; ?>
 
 <?php echo foot(); ?>

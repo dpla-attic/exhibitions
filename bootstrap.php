@@ -8,12 +8,17 @@
  */
 
 // Define the current version of Omeka.
-define('OMEKA_VERSION', '2.0');
+define('OMEKA_VERSION', '2.3');
 
 // Define the application environment.
-defined('APPLICATION_ENV') || define('APPLICATION_ENV', (
-    getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'
-));
+if (!defined('APPLICATION_ENV')) {
+    if (!($app_env = getenv('APPLICATION_ENV'))) {
+        if (!($app_env = getenv('REDIRECT_APPLICATION_ENV'))) {
+            $app_env = 'production';
+        }
+    }
+    define('APPLICATION_ENV', $app_env);
+}
 
 // Define directory path constants.
 

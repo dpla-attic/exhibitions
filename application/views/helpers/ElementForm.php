@@ -72,7 +72,8 @@ class Omeka_View_Helper_ElementForm extends Zend_View_Helper_Abstract
             'add_input' => $addInputComponent,
             'html' => null 
         );
-        $elementSetName = $element->getElementSet()->name;
+
+        $elementSetName = $element->set_name;
         $recordType = get_class($record);
         $filterName = array('ElementForm', $recordType, $elementSetName, $element->name);
         $components = apply_filters(
@@ -129,8 +130,9 @@ class Omeka_View_Helper_ElementForm extends Zend_View_Helper_Abstract
 
     protected function _getPostArray()
     {
-        if (array_key_exists('Elements', $_POST)) {
-            return $_POST['Elements'][$this->_element['id']];
+        $elementId = $this->_element['id'];
+        if (isset($_POST['Elements'][$elementId])) {
+            return $_POST['Elements'][$elementId];
         } else {
             return array();
         }

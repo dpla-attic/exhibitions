@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -40,9 +40,9 @@ require_once 'Zend/Form/Decorator/Abstract.php';
  * @category   Zend
  * @package    Zend_Form
  * @subpackage Decorator
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Label.php 24846 2012-05-31 19:12:45Z rob $
+ * @version    $Id$
  */
 class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 {
@@ -126,7 +126,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Get HTML tag, if any, with which to surround label
      *
-     * @return void
+     * @return string
      */
     public function getTag()
     {
@@ -306,10 +306,6 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
 
         if (empty($label)) {
             return '';
-        }
-
-        if (null !== ($translator = $element->getTranslator())) {
-            $label = $translator->translate($label);
         }
 
         $optPrefix = $this->getOptPrefix();

@@ -11,6 +11,8 @@
  */
 class FilesController extends Omeka_Controller_AbstractActionController
 {
+    protected $_autoCsrfProtection = true;
+
     public $contexts = array(
         'show' => array('omeka-xml', 'omeka-json')
     );
@@ -67,7 +69,7 @@ class FilesController extends Omeka_Controller_AbstractActionController
     protected function _redirectAfterDelete($record)
     {
         // Redirect back to the item show page for this file
-        $this->_helper->flashMessenger('The file was successfully deleted.', 'success');
+        $this->_helper->flashMessenger(__('The file was successfully deleted.'), 'success');
         $this->_helper->redirector('show', 'items', null, array('id'=>$record->item_id));
     }
 }

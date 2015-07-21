@@ -11,25 +11,114 @@
  * 
  * @package Omeka\Record
  */
-class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface 
-{ 
+class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
+{
+    /**
+     * Option name for whether the file validation is disabled.
+     */
     const DISABLE_DEFAULT_VALIDATION_OPTION = 'disable_default_file_validation';
+
+    /**
+     * File extension for all image derivatives.
+     */
     const DERIVATIVE_EXT = 'jpg';
-    
+
+    /**
+     * ID of the Item this File belongs to.
+     *
+     * @var int
+     */
     public $item_id;
+
+    /**
+     * Relative order of this File within the parent Item.
+     *
+     * @var int
+     */
     public $order;
+
+    /**
+     * Current filename, as stored.
+     *
+     * @var string
+     */
     public $filename;
+
+    /**
+     * Original filename, as uploaded.
+     *
+     * @var string
+     */
     public $original_filename;
-    public $size = '0';
+
+    /**
+     * Size of the file, in bytes.
+     *
+     * @var int
+     */
+    public $size = 0;
+
+    /**
+     * MD5 hash of the file.
+     *
+     * @var string
+     */
     public $authentication;
+
+    /**
+     * MIME type of the file.
+     *
+     * @var string
+     */
     public $mime_type;
+
+    /**
+     * Longer description of the file's type.
+     *
+     * @var string
+     */
     public $type_os;
-    public $has_derivative_image = '0';
+
+    /**
+     * Whether the file has derivative images.
+     *
+     * @var int
+     */
+    public $has_derivative_image = 0;
+
+    /**
+     * Date the file was added.
+     *
+     * @var string
+     */
     public $added;
+
+    /**
+     * Date the file was last modified.
+     *
+     * @var string
+     */
     public $modified;
-    public $stored = '0';
+
+    /**
+     * Whether the file has been moved to storage.
+     *
+     * @var int
+     */
+    public $stored = 0;
+
+    /**
+     * Embedded metadata from the file.
+     *
+     * @var array
+     */
     public $metadata;
-    
+
+    /**
+     * Folder paths for each type of files/derivatives.
+     *
+     * @var array
+     */
     static private $_pathsByType = array(
         'original' => 'original',
         'fullsize' => 'fullsize',
@@ -39,7 +128,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     
     /**
      * Get a property or special value of this record.
-     * 
+     *
      * @param string $property
      * @return mixed
      */
@@ -57,20 +146,14 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
             case 'permalink':
                 return absolute_url(array('controller' => 'files', 'action' => 'show', 'id' => $this->id));
             case 'display_title':
-                $titles = $this->getElementTexts('Dublin Core', 'Title');
-                if ($titles) {
-                    $title = $titles[0]->text;
-                } else {
-                    $title = $this->original_filename;
-                }
-                return $title;
+                return $this->getDisplayTitle();
             default:
                 return parent::getProperty($property);
         }
     }
     
     /**
-     * Initialize mixins.
+     * Initialize the mixins.
      */
     protected function _initializeMixins()
     {
@@ -96,7 +179,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Do something before saving this record.
+     * Before-save hook.
      * 
      * @param array $args
      */
@@ -108,7 +191,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Do something after saving this record.
+     * After-save hook.
      * 
      * @param array $args
      */
@@ -128,7 +211,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Retrieve the parent item of this record.
+     * Get the Item this file belongs to.
      * 
      * @return Item
      */
@@ -138,7 +221,9 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Retrieve a system path for this file.
+     * Get a system path for this file.
+     *
+     * Local paths are only available before the file is stored.
      *
      * @param string $type
      * @return string
@@ -158,7 +243,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Retrieve a web path for this file.
+     * Get a web path for this file.
      *
      * @param string $type
      * @return string
@@ -169,24 +254,18 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Retrieve the derivative filename.
+     * Get the filename for this file's derivative images.
      * 
      * @return string
      */
     public function getDerivativeFilename()
     {
-        $filename = basename($this->filename);
-        $parts = explode('.', $filename);
-        // One or more . in the filename, pop the last section to be replaced.
-        if (count($parts) > 1) {
-            $ext = array_pop($parts);
-        }
-        array_push($parts, self::DERIVATIVE_EXT);
-        return join('.', $parts);
+        $base = pathinfo($this->filename, PATHINFO_EXTENSION) ? substr($this->filename, 0, strrpos($this->filename, '.')) : $this->filename;
+        return $base . '.' . self::DERIVATIVE_EXT;
     }
     
     /**
-     * Determine whether this record has a thumbnail image.
+     * Determine whether this file has a thumbnail image.
      * 
      * @return bool
      */
@@ -197,6 +276,8 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     
     /**
      * Determine whether this record has a fullsize image.
+     *
+     * This is an alias for hasThumbnail().
      * 
      * @return bool
      */
@@ -220,7 +301,6 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
      * table.
      * 
      * @param string
-     * @return void
      */
     public function setDefaults($filepath, array $options = array())
     {
@@ -264,13 +344,13 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
      */
     public function createDerivatives()
     {        
-        if (!($convertDir = get_option('path_to_convert'))) {
+        if (!Zend_Registry::isRegistered('file_derivative_creator')) {
             return;
         }
-        $creator = new Omeka_File_Derivative_Image_Creator($convertDir);
+        $creator = Zend_Registry::get('file_derivative_creator');
         $creator->addDerivative('fullsize', get_option('fullsize_constraint'));
         $creator->addDerivative('thumbnail', get_option('thumbnail_constraint'));
-        $creator->addDerivative('square_thumbnail', get_option('square_thumbnail_constraint'), true);
+        $creator->addDerivative('square_thumbnail', get_option('square_thumbnail_constraint'));
         if ($creator->create($this->getPath('original'), 
                              $this->getDerivativeFilename(),
                              $this->mime_type)) {
@@ -282,12 +362,12 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     /**
      * Extract ID3 metadata associated with the file.
      * 
-     * @return boolean
+     * @return bool Whether getID3 was able to read the file.
      */
     public function extractMetadata()
     {
         if (!is_readable($this->getPath('original'))) {
-            throw new Exception('Could not extract metadata: unable to read file at the following path: "' . $this->_filePath . '"');
+            throw new Exception('Could not extract metadata: unable to read file at the following path: "' . $this->getPath('original') . '"');
         }
         // Skip if getid3 did not return a valid object.
         if (!$id3 = $this->_getId3()) {
@@ -304,15 +384,16 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
                 $metadata[$key] = $id3->info[$key];
             }
         }
+        
         $this->metadata = json_encode($metadata);      
         return true;
     }
     
     /**
-     * Pull down the file's extra metadata via getID3 library.
+     * Read the file's embedded metadata with the getID3 library.
      *
-     * @param string $path Path to file.
-     * @return getID3
+     * @return getID3|bool Returns getID3 object, or false if there was an
+     *  exception.
      */
     private function _getId3()
     {
@@ -333,7 +414,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Store files belonging to this record.
+     * Store the files belonging to this record.
      */
     public function storeFiles()
     {
@@ -354,12 +435,12 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
     }
     
     /**
-     * Get the storage path.
+     * Get a storage path for the file.
      * 
      * @param string $type
      * @return string
      */
-    public function getStoragePath($type = 'fullsize')
+    public function getStoragePath($type = 'original')
     {
         $storage = $this->getStorage();
         if ($type == 'original') {
@@ -395,7 +476,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
         }
         return $this->_storage;
     }
-
+    
     /**
      * Get the ACL resource ID for the record.
      *
@@ -415,7 +496,7 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
      *
      * @uses Ownable::isOwnedBy
      * @param User $user
-     * @return boolean
+     * @return bool
      */
     public function isOwnedBy($user)
     {
@@ -424,5 +505,34 @@ class File extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Inte
         } else {
             return false;
         }
+    }
+
+    /**
+     * Return the representative File for the record (this File itself).
+     *
+     * @return File
+     */
+    public function getFile()
+    {
+        return $this;
+    }
+
+    /**
+     * Get a title suitable for display through metadata()
+     *
+     * @return string
+     */
+    public function getDisplayTitle()
+    {
+        $titles = $this->getElementTexts('Dublin Core', 'Title');
+        if ($titles) {
+            $title = $titles[0]->text;
+            if ($titles[0]->html) {
+                $title = html_entity_decode(strip_formatting($title), ENT_QUOTES, 'UTF-8');
+            }
+        } else {
+            $title = $this->original_filename;
+        }
+        return $title;
     }
 }

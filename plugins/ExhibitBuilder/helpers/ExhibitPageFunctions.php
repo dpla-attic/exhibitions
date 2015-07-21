@@ -6,6 +6,36 @@
  */
 
 /**
+ * Render the markup for an exhibit page.
+ *
+ * @param ExhibitPage|null $exhibitPage
+ */
+function exhibit_builder_render_exhibit_page($exhibitPage = null)
+{
+    if ($exhibitPage === null) {
+        $exhibitPage = get_current_record('exhibit_page');
+    }
+    
+    $blocks = $exhibitPage->ExhibitPageBlocks;
+    $rawAttachments = $exhibitPage->getAllAttachments();
+    $attachments = array();
+    foreach ($rawAttachments as $attachment) {
+        $attachments[$attachment->block_id][] = $attachment;
+    }
+    foreach ($blocks as $index => $block) {
+        $layout = $block->getLayout();
+        echo '<div class="exhibit-block layout-' . html_escape($layout->id) . '">';
+        echo get_view()->partial($layout->getViewPartial(), array(
+            'index' => $index,
+            'options' => $block->getOptions(),
+            'text' => $block->text,
+            'attachments' => array_key_exists($block->id, $attachments) ? $attachments[$block->id] : array()
+        ));
+        echo '</div>';
+    }
+}
+
+/**
  * Return whether an exhibit page is the current exhibit page.
  *
  * @param ExhibitPage|null $exhibitPage
@@ -18,87 +48,22 @@ function exhibit_builder_is_current_page($exhibitPage)
         || ($exhibitPage && $currentExhibitPage && $exhibitPage->id == $currentExhibitPage->id));
 }
 
+
 /**
- * Return the text of the given exhibit page entry.
+ * Return a nested-list tree navigation of exhibit pages.
  *
- * @param int $entryIndex Page entry index, defaults to 1
- * @param ExhibitPage|null $exhibitPage If null, uses the current exhibit page
+ * @param Exhibit|null Exhibit to print the tree of.
+ * @param ExhibitPage|null If given, indicates the "current" page which will
+ *  be marked by a CSS class in the output
  * @return string
  */
-function exhibit_builder_page_text($entryIndex = 1, $exhibitPage = null)
+function exhibit_builder_page_tree($exhibit = null, $exhibitPage = null)
 {
-    if (!$exhibitPage) {
-        $exhibitPage = get_current_record('exhibit_page');
+    if (!$exhibit) {
+        $exhibit = get_current_record('exhibit');
     }
 
-    if (count($exhibitPage->ExhibitPageEntry) < $entryIndex) {
-        $text = '';
-    } else {
-        $text = $exhibitPage->ExhibitPageEntry[(int) $entryIndex]->text;
-    }
-
-    return $text;
-}
-
-/**
- * Return the data for an attached item/file.
- *
- * @param int $entryIndex Page entry index, defaults to 1
- * @param int $fallbackFileIndex File index to choose if no file was picked
- *  specifically. Defaults to 0, the first file for the item
- * @param ExhibitPage|null Page to use, if null, the current page is used
- * @return array|null Null if no such entry exists. If one does, returns an
- *  array, with the following keys:
- *   * item: the attached Item object
- *   * file: the File to be displayed (null if no file exists)
- *   * file_specified: boolean, whether the file was user-selected or auto-picked
- *   * caption: a string, the attachment's caption
- */
-function exhibit_builder_page_attachment($entryIndex = 1, $fallbackFileIndex = 0, $exhibitPage = null)
-{
-    if (!$exhibitPage) {
-        $exhibitPage = get_current_record('exhibit_page');
-    }
-
-    $entries = $exhibitPage->ExhibitPageEntry;
-
-    if (!isset($entries[$entryIndex])) {
-        return null;
-    }
-    
-    $entry = $entries[$entryIndex];
-
-    $item = null;
-    $file = null;
-    $file_specified = false;
-    $caption = null;
-
-    if (($item = $entry->Item)) { 
-        if (($file = $entry->File)) {
-            $file_specified = true;
-        } else if (isset($item->Files[$fallbackFileIndex])) {
-            $file = $item->Files[$fallbackFileIndex];
-        }
-    } else {
-        // If there's no item, nothing is attached.
-        return null;
-    }
-
-    $caption = $entry->caption;
-
-    return compact(array('item', 'file', 'file_specified', 'caption'));
-}
-
-/**
- * Register the item/file from an attachment as the current records to work on.
- *
- * @see exhibit_builder_page_attachment
- * @param array $attachment
- */
-function exhibit_builder_use_attachment($attachment)
-{
-    set_current_record('item', $attachment['item']);
-    set_current_record('file', $attachment['file']);
+    return get_view()->exhibitPageTree($exhibit, $exhibitPage);
 }
 
 /**
@@ -116,19 +81,24 @@ function exhibit_builder_page_nav($exhibitPage = null)
     }
 
     $exhibit = $exhibitPage->getExhibit();
-    $html = '<ul class="exhibit-page-nav navigation">' . "\n";
+    $html = '<ul class="exhibit-page-nav navigation" id="secondary-nav">' . "\n";
     $pagesTrail = $exhibitPage->getAncestors();
     $pagesTrail[] = $exhibitPage;
     $html .= '<li>';
     $html .= '<a class="exhibit-title" href="'. html_escape(exhibit_builder_exhibit_uri($exhibit)) . '">';
     $html .= html_escape($exhibit->title) .'</a></li>' . "\n";
+    
+    $levelNumber = 1;
+    
     foreach ($pagesTrail as $page) {
         $linkText = $page->title;
         $pageExhibit = $page->getExhibit();
         $pageParent = $page->getParent();
         $pageSiblings = ($pageParent ? exhibit_builder_child_pages($pageParent) : $pageExhibit->getTopPages()); 
 
-        $html .= "<li>\n<ul>\n";
+        $html .= "<li>\n<ul class=\"exhibit-nav-level-$levelNumber\">\n";
+        $levelNumber +=1;
+        
         foreach ($pageSiblings as $pageSibling) {
             $html .= '<li' . ($pageSibling->id == $page->id ? ' class="current"' : '') . '>';
             $html .= '<a class="exhibit-page-title" href="' . html_escape(exhibit_builder_exhibit_uri($exhibit, $pageSibling)) . '">';
@@ -147,7 +117,6 @@ function exhibit_builder_page_nav($exhibitPage = null)
  * @param ExhibitPage|null $exhibitPage If null, uses the current exhibit page
  * @return string
  */
-
 function exhibit_builder_child_page_nav($exhibitPage = null)
 {
     if (!$exhibitPage) {
@@ -184,17 +153,7 @@ function exhibit_builder_link_to_next_page($text = null, $props = array(), $exhi
 
     // if page object exists, grab link to the first child page if exists. If it doesn't, grab
     // a link to the next page
-    if ($nextPage = $exhibitPage->firstChildOrNext()) {
-        $targetPage = $nextPage;
-    } elseif ($exhibitPage->parent_id) {
-        $parentPage = $exhibitPage->getParent();
-        $nextParentPage = $parentPage->next();
-        if ($nextParentPage) {
-            $targetPage = $nextPage;
-        }
-    }
-
-    if ($targetPage) {
+    if ($targetPage = $exhibitPage->firstChildOrNext()) {
         if (!isset($props['class'])) {
             $props['class'] = 'next-page';
         }
@@ -365,22 +324,4 @@ function exhibit_builder_page_summary($exhibitPage = null)
     }
     $html .= '</li>';
     return $html;
-}
-
-
-/**
- * Generate a URL slug from a piece of text.
- *
- * Trims whitespace, replaces disallowed characters with hyphens,
- * converts the resulting string to lowercase, and trims at 30 characters.
- *
- * @param string $text
- * @return string
- */
-function exhibit_builder_generate_slug($text)
-{
-    // Remove characters other than alphanumeric, hyphen, underscore.
-    $slug = preg_replace('/[^a-z0-9\-_]/', '-', strtolower(trim($text)));
-    // Trim down to 30 characters.
-    return substr($slug, 0, 30);
 }

@@ -311,6 +311,13 @@ class Omeka_Db_Table
         if ($sortParams) {
             list($sortField, $sortDir) = $sortParams;
             $this->applySorting($select, $sortField, $sortDir);
+
+            if ($select->getPart(Zend_Db_Select::ORDER)
+                && $sortField != 'id'
+            ) {
+                $alias = $this->getTableAlias();
+                $select->order("$alias.id $sortDir");
+            }
         }
         
         $this->applySearchFilters($select, $params);
@@ -335,9 +342,10 @@ class Omeka_Db_Table
         
         $select = $this->getSelect();
         $select->where( $this->getTableAlias().'.id = ?', $recordId);
-        $select->limit(1);     
+        $select->limit(1);
+        $select->reset(Zend_Db_Select::ORDER);
         
-        return $select;   
+        return $select;
     }
     
     /**
@@ -353,10 +361,15 @@ class Omeka_Db_Table
      */
     public function applySearchFilters($select, $params)
     {
+        $alias = $this->getTableAlias();
         $columns = $this->getColumns();
         foreach($columns as $column) {
             if(array_key_exists($column, $params)) {
-                $select->where("$column = ?", $params[$column]);
+                if (is_array($params[$column])) {
+                    $select->where("`$alias`.`$column` IN (?)", $params[$column]);
+                } else {
+                    $select->where("`$alias`.`$column` = ?", $params[$column]);
+                }
             }
         }
     }
@@ -376,6 +389,8 @@ class Omeka_Db_Table
         if (in_array($sortField, $this->getColumns())) {
             $alias = $this->getTableAlias();
             $select->order("$alias.$sortField $sortDir");
+        } else if ($sortField == 'random') {
+            $select->order('RAND()');
         }
     }
     
@@ -426,6 +441,156 @@ class Omeka_Db_Table
     {
         $select = $this->getSelectForCount($params);
         return $this->getDb()->fetchOne($select);
+    }
+    
+    /**
+     * Check whether a row exists in the table.
+     * 
+     * @param int $id
+     * @return bool
+     */
+    public function exists($id)
+    {
+        $alias = $this->getTableAlias();
+        $select = $this->getSelect()
+            ->reset(Zend_Db_Select::COLUMNS)
+            ->columns('id')
+            ->where("`$alias`.`id` = ?", (int) $id)
+            ->limit(1);
+        return (bool) $this->getDb()->fetchOne($select);
+    }
+    
+    /**
+     * Apply a public/not public filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param bool $isPublic
+     */
+    public function filterByPublic(Omeka_Db_Select $select, $isPublic)
+    {
+        $alias = $this->getTableAlias();
+        if ($isPublic) {
+            $select->where("`$alias`.`public` = 1");
+        } else {
+            $select->where("`$alias`.`public` = 0");
+        }
+    }
+    
+    /**
+     * Apply a featured/not featured filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param bool $isFeatured
+     */
+    public function filterByFeatured(Omeka_Db_Select $select, $isFeatured)
+    {
+        $alias = $this->getTableAlias();
+        if ($isFeatured) {
+            $select->where("`$alias`.`featured` = 1");
+        } else {
+            $select->where("`$alias`.`featured` = 0");
+        }
+    }
+    
+    /**
+     * Apply a date since filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param string $dateSince ISO 8601 formatted date
+     * @param string $dateField "added" or "modified"
+     */
+    public function filterBySince(Omeka_Db_Select $select, $dateSince, $dateField)
+    {
+        // Reject invalid date fields.
+        if (!in_array($dateField, array('added', 'modified'))) {
+            return;
+        }
+        
+        // Accept an ISO 8601 date, set the tiemzone to the server's default 
+        // timezone, and format the date to be MySQL timestamp compatible.
+        $date = new Zend_Date($dateSince, Zend_Date::ISO_8601);
+        $date->setTimezone(date_default_timezone_get());
+        $date = $date->get('yyyy-MM-dd HH:mm:ss');
+        
+        // Select all dates that are greater than the passed date.
+        $alias = $this->getTableAlias();
+        $select->where("`$alias`.`$dateField` > ?", $date);
+    }
+    
+    /**
+     * Apply a user filter to the select object.
+     * 
+     * A convenience function than derivative table classes may use while 
+     * applying search filters.
+     * 
+     * @see self::applySearchFilters()
+     * @param Omeka_Db_Select $select
+     * @param int $userId
+     */
+    public function filterByUser(Omeka_Db_Select $select, $userId, $userField)
+    {
+        // Reject invalid user ID fields.
+        if (!in_array($userField, array('owner_id', 'user_id'))) {
+            return;
+        }
+        $alias = $this->getTableAlias();
+        $select->where("`$alias`.`$userField` = ?", $userId);
+    }
+
+    /**
+     * Filter returned records by ID.
+     *
+     * Can specify a range of valid record IDs or an individual ID
+     *
+     * @version 2.2.2
+     * @param Omeka_Db_Select $select
+     * @param string $range Example: 1-4, 75, 89
+     * @return void
+     */
+    public function filterByRange($select, $range)
+    {
+        // Comma-separated expressions should be treated individually
+        $exprs = explode(',', $range);
+
+        // Construct a SQL clause where every entry in this array is linked by 'OR'
+        $wheres = array();
+
+        $alias = $this->getTableAlias();
+
+        foreach ($exprs as $expr) {
+            // If it has a '-' in it, it is a range of item IDs.  Otherwise it is
+            // a single item ID
+            if (strpos($expr, '-') !== false) {
+                list($start, $finish) = explode('-', $expr);
+
+                // Naughty naughty koolaid, no SQL injection for you
+                $start  = (int) trim($start);
+                $finish = (int) trim($finish);
+
+                $wheres[] = "($alias.id BETWEEN $start AND $finish)";
+
+                //It is a single item ID
+            } else {
+                $id = (int) trim($expr);
+                $wheres[] = "($alias.id = $id)";
+            }
+        }
+
+        $where = join(' OR ', $wheres);
+
+        $select->where('('.$where.')');
     }
     
     /**

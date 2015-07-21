@@ -1,4 +1,4 @@
-<?php echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bodyid'=>'item','bodyclass' => 'exhibit-item-show')); ?>
+<?php echo head(array('title' => metadata('item', array('Dublin Core', 'Title')), 'bodyclass' => 'item exhibit-item-show')); ?>
 
 <h1><?php echo metadata('item', array('Dublin Core', 'Title')); ?></h1>
 

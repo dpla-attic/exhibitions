@@ -53,7 +53,7 @@ class Mixin_Slug extends Omeka_Record_Mixin_AbstractMixin
         }
     }
 
-    public function beforeSave($args)
+    public function validateSlug()
     {
         $seedValue = '';
 
@@ -63,7 +63,7 @@ class Mixin_Slug extends Omeka_Record_Mixin_AbstractMixin
         } else {
             $seedValue = $this->_record->slug;
         }
-        $this->_record->slug = exhibit_builder_generate_slug($seedValue);
+        $this->_record->slug = self::generateSlug($seedValue);
 
         if(trim($this->_record->slug) == '') {
             $this->_record->addError('slug', $this->options['slugEmptyErrorMessage']);
@@ -78,24 +78,47 @@ class Mixin_Slug extends Omeka_Record_Mixin_AbstractMixin
         }
     }
 
+    public function beforeSave($args)
+    {
+        $this->validateSlug();
+    }
+
     public function slugIsUnique($slug)
     {
         $db = $this->_record->getDb();
 
-        $select = $this->_record->getTable()->getSelect();
-        $select->reset(Zend_Db_Select::COLUMNS)->from(array(), 'COUNT(DISTINCT(id))');
-        $select->where('slug = ?', $slug);
+        $table = $this->_record->getTable();
+        $tableAlias = $table->getTableAlias();
+        $select = $table->getSelect();
+        $select->reset(Zend_Db_Select::COLUMNS)->from(array(), "COUNT(DISTINCT($tableAlias.id))");
+        $select->where("$tableAlias.slug = ?", $slug);
 
         $this->_filterByParents($select);
 
         //If the record is persistent, get the count of pages
         //with that slug that aren't this particular record
         if($this->_record->exists()) {
-            $select->where('id != ?', $this->_record->id);
+            $select->where("$tableAlias.id != ?", $this->_record->id);
         }
-
         //If there are no other pages with that particular slug, then it is unique
         $count = (int) $db->fetchOne($select);
         return ($count == 0);
+    }
+
+    /**
+     * Generate a URL slug from a piece of text.
+     *
+     * Trims whitespace, replaces disallowed characters with hyphens,
+     * converts the resulting string to lowercase, and trims at 30 characters.
+     *
+     * @param string $text
+     * @return string
+     */
+    public static function generateSlug($text)
+    {
+        // Remove characters other than alphanumeric, hyphen, underscore.
+        $slug = preg_replace('/[^a-z0-9\-_]/', '-', strtolower(trim($text)));
+        // Trim down to 30 characters.
+        return substr($slug, 0, 30);
     }
 }
