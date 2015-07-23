@@ -1,0 +1,139 @@
+# Translation for the Library of Congress Suggest plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# rubenalcaraz <rubenalcarazmartinez@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-11 21:49-0500\n"
+"PO-Revision-Date: 2013-04-04 09:14+0000\n"
+"Last-Translator: rubenalcaraz <rubenalcarazmartinez@gmail.com>\n"
+"Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/omeka/language/ca_ES/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ca_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Suggest endpoint name
+msgid "All Authorities and Vocabularies"
+msgstr "Totes les autoritats i vocabularis"
+
+#: Suggest endpoint name
+msgid "All Authorities"
+msgstr "Totes les autoritats"
+
+#: Suggest endpoint name
+msgid "All Vocabularies"
+msgstr "Tots els vocabularis"
+
+#: Suggest endpoint name
+msgid "Library of Congress Subject Headings"
+msgstr "Encapçalaments de matèria de la Library of Congress"
+
+#: Suggest endpoint name
+msgid "Library of Congress Names"
+msgstr "Noms de la Library of Congress"
+
+#: Suggest endpoint name
+msgid "Library of Congress Children's Subject Headings"
+msgstr "Encapçalaments de matèria de la Library of Congress per a nens i joves"
+
+#: Suggest endpoint name
+msgid "Library of Congress Genre Form Headings"
+msgstr "Encapçalaments de gènere/forma de la Library of Congress"
+
+#: Suggest endpoint name
+msgid "Thesaurus for Graphic Materials"
+msgstr "Tesaurus per a materials gràfics"
+
+#: Suggest endpoint name
+msgid "MARC Code List for Relators"
+msgstr "Llista de codis de relació MARC"
+
+#: Suggest endpoint name
+msgid "MARC List for Countries"
+msgstr "Llista de codis de països MARC"
+
+#: Suggest endpoint name
+msgid "MARC List for Geographic Areas"
+msgstr "Llista de codis d'àrea geogràfica MARC"
+
+#: Suggest endpoint name
+msgid "MARC List for Languages"
+msgstr "Llista de codis d'idioma MARC"
+
+#: Suggest endpoint name
+msgid "ISO 639-5 Language Families and Groups"
+msgstr "ISO 639-5 Language Families and Groups"
+
+#: LcSuggestPlugin.php:79
+msgid "LC Suggest"
+msgstr "LC Suggest"
+
+#: controllers/IndexController.php:41
+msgid "Successfully disabled the element's suggest feature."
+msgstr "S'ha desactivat la funció de sugeriment d'elements correctament."
+
+#: controllers/IndexController.php:47 controllers/IndexController.php:59
+msgid "Invalid suggest endpoint. No changes have been made."
+msgstr "Endpoint invàlid pel suggeriment. No s'ha fet cap canvi."
+
+#: controllers/IndexController.php:52
+msgid "Successfully edited the element's suggest feature."
+msgstr "S'ha editat la funció de sugeriment d'elements correctament."
+
+#: controllers/IndexController.php:66
+msgid "Successfully enabled the element's suggest feature."
+msgstr "S'ha activat la funció de sugeriment d'elements correctament."
+
+#: controllers/IndexController.php:165
+msgid "Vocabularies"
+msgstr "Vocabularis"
+
+#: controllers/IndexController.php:165
+msgid "Authorities"
+msgstr "Autoritats"
+
+#: views/admin/index/index.php:22 views/admin/index/index.php:58
+msgid "Element"
+msgstr "Element"
+
+#: views/admin/index/index.php:25
+msgid ""
+"Select an element to assign it a Library of Congress authority/vocabulary. "
+"Elements already assigned an authority/vocabulary are marked with an "
+"asterisk (*)."
+msgstr "Seleccioneu un element per assignar-li una autoritat/vocabulari de la Library of Congress. Els elements assignats a una autoritat/vocabulari tenen un asterisc (*)."
+
+#: views/admin/index/index.php:33 views/admin/index/index.php:59
+msgid "Authority/Vocabulary"
+msgstr "Autoritat/Vocabulari"
+
+#: views/admin/index/index.php:36
+#, php-format
+msgid ""
+"Enter a Library of Congress authority/vocabulary to enable the autosuggest "
+"feature for the above element. To disable the feature just deselect the "
+"option. For more information about the authorities and vocabularies "
+"available at the Library of Congress see %shttp://id.loc.gov%s"
+msgstr "Entreu una autoritat/vocabulari de la Library of Congress per activar la funció de suggeriment automàtic per l'element anterior. Per desactivar la funció només cal desseleccionar l'opció. Per saber-ne més quan a les autoritats i vocabularis disponibles a la Library of Congress vegeu %shttp://id.loc.gov%s"
+
+#: views/admin/index/index.php:47
+msgid "Edit Suggest"
+msgstr "Editeu el suggeriment"
+
+#: views/admin/index/index.php:52
+msgid "Current Assignments"
+msgstr "Assignacions actuals"
+
+#: views/admin/index/index.php:57
+msgid "Element Set"
+msgstr "Conjunt d'elements"
+
+#: views/admin/index/index.php:73
+msgid "There are no suggest assignments."
+msgstr "No hi ha suggeriments assignats."

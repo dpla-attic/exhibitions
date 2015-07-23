@@ -1,0 +1,139 @@
+# Translation for the Library of Congress Suggest plugin for Omeka.
+# Copyright (C) 2012 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# dewulfevy <evy.dewulf@libis.kuleuven.be>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Omeka\n"
+"Report-Msgid-Bugs-To: https://github.com/omeka/Omeka/issues\n"
+"POT-Creation-Date: 2012-12-11 21:49-0500\n"
+"PO-Revision-Date: 2013-05-01 12:03+0000\n"
+"Last-Translator: Sam Alloing <sam.alloing@gmail.com>\n"
+"Language-Team: Dutch (Belgium) (http://www.transifex.com/projects/p/omeka/language/nl_BE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl_BE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: Suggest endpoint name
+msgid "All Authorities and Vocabularies"
+msgstr "Alle autoriteiten en woordenlijsten"
+
+#: Suggest endpoint name
+msgid "All Authorities"
+msgstr "Alle autoriteiten"
+
+#: Suggest endpoint name
+msgid "All Vocabularies"
+msgstr "Alle woordenlijsten"
+
+#: Suggest endpoint name
+msgid "Library of Congress Subject Headings"
+msgstr "Library of Congress onderwerpen"
+
+#: Suggest endpoint name
+msgid "Library of Congress Names"
+msgstr "Library of Congress namen"
+
+#: Suggest endpoint name
+msgid "Library of Congress Children's Subject Headings"
+msgstr "Lijst met MARC-codes voor relators"
+
+#: Suggest endpoint name
+msgid "Library of Congress Genre Form Headings"
+msgstr "Library of Congress genres"
+
+#: Suggest endpoint name
+msgid "Thesaurus for Graphic Materials"
+msgstr "Thesaurus voor grafische materialen"
+
+#: Suggest endpoint name
+msgid "MARC Code List for Relators"
+msgstr "Lijst met MARC-codes voor relators"
+
+#: Suggest endpoint name
+msgid "MARC List for Countries"
+msgstr "MARC lijst voor landen"
+
+#: Suggest endpoint name
+msgid "MARC List for Geographic Areas"
+msgstr "MARC lijst voor geografische gebieden"
+
+#: Suggest endpoint name
+msgid "MARC List for Languages"
+msgstr "MARC lijst voor talen"
+
+#: Suggest endpoint name
+msgid "ISO 639-5 Language Families and Groups"
+msgstr "ISO 639-5 Taalfamilies en groepen"
+
+#: LcSuggestPlugin.php:79
+msgid "LC Suggest"
+msgstr "LC voorstel"
+
+#: controllers/IndexController.php:41
+msgid "Successfully disabled the element's suggest feature."
+msgstr "De functie om voor te stellen is succesvol uitgeschakeld bij het element."
+
+#: controllers/IndexController.php:47 controllers/IndexController.php:59
+msgid "Invalid suggest endpoint. No changes have been made."
+msgstr "Ongeldig voorgesteld eindpunt. Er werden geen aanpassingen gedaan. "
+
+#: controllers/IndexController.php:52
+msgid "Successfully edited the element's suggest feature."
+msgstr "De functie om voor te stellen is succesvol aangepast bij het element."
+
+#: controllers/IndexController.php:66
+msgid "Successfully enabled the element's suggest feature."
+msgstr "De functie om voor te stellen is succesvol ingeschakeld bij het element."
+
+#: controllers/IndexController.php:165
+msgid "Vocabularies"
+msgstr "Woordenlijsten"
+
+#: controllers/IndexController.php:165
+msgid "Authorities"
+msgstr "Autoriteiten"
+
+#: views/admin/index/index.php:22 views/admin/index/index.php:58
+msgid "Element"
+msgstr "Element"
+
+#: views/admin/index/index.php:25
+msgid ""
+"Select an element to assign it a Library of Congress authority/vocabulary. "
+"Elements already assigned an authority/vocabulary are marked with an "
+"asterisk (*)."
+msgstr "Selecteer een element om het een Library of Congress autoriteit / woordenlijst toe te wijzen. Elementen met een reeds toegewezen autoriteit / woordenlijst zijn gemarkeerd met een sterretje (*)."
+
+#: views/admin/index/index.php:33 views/admin/index/index.php:59
+msgid "Authority/Vocabulary"
+msgstr "Autoriteit/woordenlijst"
+
+#: views/admin/index/index.php:36
+#, php-format
+msgid ""
+"Enter a Library of Congress authority/vocabulary to enable the autosuggest "
+"feature for the above element. To disable the feature just deselect the "
+"option. For more information about the authorities and vocabularies "
+"available at the Library of Congress see %shttp://id.loc.gov%s"
+msgstr "Typ een Library of Congress autoriteit/woordenlijst om de autosuggest functie voor het bovenstaande element in te schakelen. Om de functie uit te schakelen, deselecteer je de optie. Voor meer informatie over autoriteiten en woordenlijsten verkrijgbaar bij Library of Congress, zie %shttp://id.loc.gov%s"
+
+#: views/admin/index/index.php:47
+msgid "Edit Suggest"
+msgstr "Bewerk Voorstellen"
+
+#: views/admin/index/index.php:52
+msgid "Current Assignments"
+msgstr "Huidige toewijzingen"
+
+#: views/admin/index/index.php:57
+msgid "Element Set"
+msgstr "Element set"
+
+#: views/admin/index/index.php:73
+msgid "There are no suggest assignments."
+msgstr "Er zijn geen voorgestelde toewijzingen."
