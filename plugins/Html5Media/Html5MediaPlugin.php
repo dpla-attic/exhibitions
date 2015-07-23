@@ -16,7 +16,8 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
             'video' => array(
                 'options' => array(
                     'width' => 480,
-                    'height' => 270
+                    'height' => 270,
+                    'responsive' => false
                 ),
                 'types' => array(
                     'video/flv', 'video/x-flv', 'video/mp4', 'video/m4v',
@@ -25,11 +26,14 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
                 'extensions' => array('mp4', 'm4v', 'flv', 'webm', 'wmv'),
             ),
             'audio' => array(
+                'options' => array(
+                    'width' => 400
+                ),
                 'types' => array(
                     'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/m4a',
                     'audio/wma'
                 ),
-                'extensions' => array('mp4', 'm4v', 'flv', 'webm', 'wmv'),
+                'extensions' => array('mp3', 'm4a', 'wav', 'wma'),
             ),
             'text' => array(
                 'types' => array('text/vtt'),
@@ -56,18 +60,28 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
         $oldVersion = $args['old_version'];
         if (version_compare($oldVersion, '1.1', '<')) {
             $this->hookInstall();
-        } 
+        }
+        $settings = unserialize(get_option('html5_media_settings'));
+        if (version_compare($oldVersion, '2.1', '<')) {
+            $settings['audio']['options']['width'] = 400;
+        }
+        if (version_compare($oldVersion, '2.2', '<')) {
+            $settings['video']['options']['responsive'] = false;
+        }
+        set_option('html5_media_settings', serialize($settings));
     }
 
     public function hookInitialize()
     {
+        add_translation_source(dirname(__FILE__) . '/languages');
+
         $settings = unserialize(get_option('html5_media_settings'));
         $commonOptions = $settings['common']['options'];
         add_file_display_callback(array(
             'mimeTypes' => $settings['audio']['types'],
             'fileExtensions' => $settings['audio']['extensions']
             ), 'Html5MediaPlugin::audio',
-            $commonOptions);
+            $commonOptions + $settings['audio']['options']);
         add_file_display_callback(array(
             'mimeTypes' => $settings['video']['types'],
             'fileExtensions' => $settings['video']['extensions']
@@ -103,12 +117,14 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
         $settings = unserialize(get_option('html5_media_settings'));
         
         $audio = $_POST['audio'];
+        $settings['audio']['options']['width'] = (int) $audio['options']['width'];
         $settings['audio']['types'] = explode(',', $audio['types']);
         $settings['audio']['extensions'] = explode(',', $audio['extensions']);
 
         $video = $_POST['video'];
         $settings['video']['options']['width'] = (int) $video['options']['width'];
         $settings['video']['options']['height'] = (int) $video['options']['height'];
+        $settings['video']['options']['responsive'] = (bool) $video['options']['responsive'];
         $settings['video']['types'] = explode(',', $video['types']);
         $settings['video']['extensions'] = explode(',', $video['extensions']);
 
@@ -146,8 +162,34 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
 
     private function _head()
     {
+        if (Zend_Registry::isRegistered('Zend_Translate')) {
+            $l10n = array(
+                'language' => get_html_lang(),
+                'strings' => array(
+                    'Download File' => __('Download File'),
+                    'Play' => __('Play'),
+                    'Pause' => __('Pause'),
+                    'Mute Toggle' => __('Mute Toggle'),
+                    'Fullscreen' => __('Fullscreen'),
+                    'Captions/Subtitles' => __('Captions/Subtitles'),
+                    'None' => __('None'),
+                    'Turn off Fullscreen' => __('Turn off Fullscreen'),
+                    'Go Fullscreen' => __('Go Fullscreen'),
+                    'Unmute' => __('Unmute'),
+                    'Mute' => __('Mute'),
+                    'Download Video' => __('Download Video'),
+                    'Close' => __('Close')
+                )
+            );
+            $l10nScript = 'mejsL10n = ' . js_escape($l10n) . ';';
+            queue_js_string($l10nScript);
+        }
+
         queue_js_file('mediaelement-and-player.min', 'mediaelement');
-        queue_css_file('mediaelementplayer', 'screen', false, 'mediaelement');
+        queue_css_file('mediaelementplayer', 'all', false, 'mediaelement');
+        if (is_admin_theme()) {
+            queue_css_file('html5media-mejs-overrides', 'all');
+        }
     }
 
     private static function _media($type, $file, $options)
@@ -158,17 +200,17 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
         $mediaOptions = '';
 
         if (isset($options['width']))
-            //$mediaOptions .= ' width="' . $options['width'] . '"';
-            $mediaOptions .= ' width="100%"';
+            $mediaOptions .= ' width="' . $options['width'] . '"';
         if (isset($options['height']))
-            //$mediaOptions .= ' height="' . $options['height'] . '"';
-            $mediaOptions .= ' height="420"';
-        if ($options['autoplay'])
+            $mediaOptions .= ' height="' . $options['height'] . '"';
+        if (isset($options['autoplay']) && $options['autoplay'])
             $mediaOptions .= ' autoplay';
-        if ($options['controls'])
+        if (isset($options['controls']) && $options['controls'])
             $mediaOptions .= ' controls';
-        if ($options['loop'])
+        if (isset($options['loop']) && $options['loop'])
             $mediaOptions .= ' loop';
+        if (isset($options['responsive']) && $options['responsive'])
+            $mediaOptions .= ' style="width:100%;height:100%"';
 
         $filename = html_escape($file->getWebPath('original'));
 
@@ -197,21 +239,13 @@ class Html5MediaPlugin extends Omeka_Plugin_AbstractPlugin
             $tracks .= '<track kind="' . $kind . '" src="' . $trackSrc . '" srclang="' . $language . '"' . $labelPart . '>';
         }
 
-/*        return <<<HTML
-<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
+        return <<<HTML
+<$type id="html5-media-$i" src="$filename"$mediaOptions>
 $tracks
 </$type>
 <script type="text/javascript">
-jQuery('#html5-media-$i').mediaelementplayer({
-    audioWidth: '100%'
-});
+jQuery('#html5-media-$i').mediaelementplayer();
 </script>
-HTML;*/
-
-        return <<<HTML
-<$type id="html5-media-$i" class="media-player" src="$filename"$mediaOptions>
-$tracks
-</$type>
 HTML;
     }
 
