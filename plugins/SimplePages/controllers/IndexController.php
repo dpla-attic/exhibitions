@@ -35,19 +35,17 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
         // Set the created by user ID.
         $page->created_by_user_id = current_user()->id;
         $page->template = '';
-        $page->order = 0;
-        $form = $this->_getForm($page);
-        $this->view->form = $form;
-        $this->_processPageForm($page, $form, 'add');
+        $page->order = 0;        
+        $this->view->form = $this->_getForm($page);        
+        $this->_processPageForm($page, 'add');
     }
     
     public function editAction()
     {
         // Get the requested page.
         $page = $this->_helper->db->findById();
-        $form = $this->_getForm($page);
-        $this->view->form = $form;
-        $this->_processPageForm($page, $form, 'edit');
+        $this->view->form = $this->_getForm($page);
+        $this->_processPageForm($page, 'edit');
     }
     
     protected function _getForm($page = null)
@@ -92,7 +90,9 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
                 'values' => array(1, 0),
                 'label' => __('Use HTML editor?'),
                 'description' => __(
-                    'Check this to add an HTML editor bar for easily creating HTML.'
+                    'Check this to add an HTML editor bar for easily creating '
+                    . 'HTML. <strong>PHP code will not be read in pages if '
+                    . 'this option is checked.</strong>'
                 )
             )
         );
@@ -105,7 +105,8 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
                 'value' => $page->text,
                 'label' => __('Text'),
                 'description' => __(
-                    'Add content for page. This field supports shortcodes. For a list of available shortcodes, refer to the <a target=_blank href="http://omeka.org/codex/Shortcodes">Omeka Codex</a>.'
+                    'Add content for page, including HTML markup and PHP code '
+                    . '(if the HTML editor is not checked above).'
                 )
             )
         );
@@ -143,10 +144,6 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
                 'description' => __('Checking this box will make the page public')
             )
         );
-
-        if (class_exists('Omeka_Form_Element_SessionCsrfToken')) {
-            $form->addElement('sessionCsrfToken', 'csrf_token');
-        }
         
         return $form;
     }
@@ -154,16 +151,12 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
     /**
      * Process the page edit and edit forms.
      */
-    private function _processPageForm($page, $form, $action)
+    private function _processPageForm($page, $action)
     {
-        // Set the page object to the view.
-        $this->view->simple_pages_page = $page;
-
         if ($this->getRequest()->isPost()) {
-            if (!$form->isValid($_POST)) {
-                $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
-                return;
-            }
+            // Attempt to save the form if there is a valid POST. If the form 
+            // is successfully saved, set the flash message, unset the POST, 
+            // and redirect to the browse action.
             try {
                 $page->setPostData($_POST);
                 if ($page->save()) {
@@ -181,6 +174,9 @@ class SimplePages_IndexController extends Omeka_Controller_AbstractActionControl
                 $this->_helper->flashMessenger($e);
             }
         }
+
+        // Set the page object to the view.
+        $this->view->simple_pages_page = $page;
     }
 
     protected function _getDeleteSuccessMessage($record)

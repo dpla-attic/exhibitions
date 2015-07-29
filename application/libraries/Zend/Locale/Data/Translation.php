@@ -14,14 +14,13 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @version   $Id$
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
+ * @version   $Id: Translation.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
  * Definition class for all Windows locales
- *
  * Based on this two lists:
  * @link http://msdn.microsoft.com/en-us/library/39cwe7zf.aspx
  * @link http://msdn.microsoft.com/en-us/library/cdax410z.aspx
@@ -30,8 +29,8 @@
  *
  * @category  Zend
  * @package   Zend_Locale
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Locale_Data_Translation
 {
@@ -74,6 +73,7 @@ class Zend_Locale_Data_Translation
         'Finnish'           => 'fi',
         'French'            => 'fr',
         'Frisian'           => 'fy',
+        'Macedonian'        => 'mk',
         'Gaelic'            => 'gd',
         'Galician'          => 'gl',
         'Georgian'          => 'ka',

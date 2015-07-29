@@ -24,12 +24,8 @@ class SimplePages_PageController extends Omeka_Controller_AbstractActionControll
             && !$this->_helper->acl->isAllowed('show-unpublished')) {
             throw new Omeka_Controller_Exception_403;
         }
-
-        $route = $this->getFrontController()->getRouter()->getCurrentRouteName();
-        $isHomePage = ($route == Omeka_Application_Resource_Router::HOMEPAGE_ROUTE_NAME);
-
+        
         // Set the page object to the view.
         $this->view->simple_pages_page = $page;
-        $this->view->is_home_page = $isHomePage;
     }
 }

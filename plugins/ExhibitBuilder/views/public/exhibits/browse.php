@@ -1,11 +1,11 @@
 <?php
 $title = __('Browse Exhibits');
-echo head(array('title' => $title, 'bodyclass' => 'exhibits browse'));
+echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse'));
 ?>
 <h1><?php echo $title; ?> <?php echo __('(%s total)', $total_results); ?></h1>
 <?php if (count($exhibits) > 0): ?>
 
-<nav class="navigation secondary-nav">
+<nav class="navigation" id="secondary-nav">
     <?php echo nav(array(
         array(
             'label' => __('Browse All'),
@@ -18,16 +18,13 @@ echo head(array('title' => $title, 'bodyclass' => 'exhibits browse'));
     )); ?>
 </nav>
 
-<?php echo pagination_links(); ?>
+<div class="pagination"><?php echo pagination_links(); ?></div>
 
 <?php $exhibitCount = 0; ?>
 <?php foreach (loop('exhibit') as $exhibit): ?>
     <?php $exhibitCount++; ?>
     <div class="exhibit <?php if ($exhibitCount%2==1) echo ' even'; else echo ' odd'; ?>">
         <h2><?php echo link_to_exhibit(); ?></h2>
-        <?php if ($exhibitImage = record_image($exhibit, 'square_thumbnail')): ?>
-            <?php echo exhibit_builder_link_to_exhibit($exhibit, $exhibitImage, array('class' => 'image')); ?>
-        <?php endif; ?>
         <?php if ($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true))): ?>
         <div class="description"><?php echo $exhibitDescription; ?></div>
         <?php endif; ?>
@@ -37,7 +34,7 @@ echo head(array('title' => $title, 'bodyclass' => 'exhibits browse'));
     </div>
 <?php endforeach; ?>
 
-<?php echo pagination_links(); ?>
+<div class="pagination"><?php echo pagination_links(); ?></div>
 
 <?php else: ?>
 <p><?php echo __('There are no exhibits available yet.'); ?></p>

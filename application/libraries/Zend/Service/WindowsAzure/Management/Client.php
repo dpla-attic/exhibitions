@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Management
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -75,14 +75,11 @@ require_once 'Zend/Service/WindowsAzure/Management/OperatingSystemInstance.php';
  */
 require_once 'Zend/Service/WindowsAzure/Management/OperatingSystemFamilyInstance.php';
 
-/** @see Zend_Xml_Security */
-require_once 'Zend/Xml/Security.php';
-
 /**
  * @category   Zend
  * @package    Zend_Service_WindowsAzure
  * @subpackage Management
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Management_Client
@@ -321,7 +318,7 @@ class Zend_Service_WindowsAzure_Management_Client
 			throw new Zend_Service_WindowsAzure_Exception('Response should not be null.');
 		}
 		
-        $xml = Zend_Xml_Security::scan($response->getBody());
+        $xml = @simplexml_load_string($response->getBody());
         
         if ($xml !== false) {
             // Fetch all namespaces 
@@ -1431,7 +1428,7 @@ class Zend_Service_WindowsAzure_Management_Client
 		$configuration = preg_replace('/(<\?xml[^?]+?)utf-16/i', '$1utf-8', $configuration);
 		//$configuration = '<?xml version="1.0">' . substr($configuration, strpos($configuration, '>') + 2);
 
-		$xml = Zend_Xml_Security::scan($configuration); 
+		$xml = simplexml_load_string($configuration); 
 		
 		// http://www.php.net/manual/en/simplexmlelement.xpath.php#97818
 		$namespaces = $xml->getDocNamespaces();

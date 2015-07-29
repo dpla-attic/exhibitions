@@ -1,6 +1,6 @@
 <?php
-    $collectionTitle = strip_formatting(metadata('collection', array('Dublin Core', 'Title'), array('no_filter' => true)));
-    if ($collectionTitle != '') {
+    $collectionTitle = strip_formatting(metadata('collection', array('Dublin Core', 'Title')));
+    if ($collectionTitle != '' && $collectionTitle != __('[Untitled]')) {
         $collectionTitle = ': &quot;' . $collectionTitle . '&quot; ';
     } else {
         $collectionTitle = '';
@@ -23,7 +23,7 @@ echo flash();
             <a href="<?php echo html_escape(public_url('collections/show/'.metadata('collection', 'id'))); ?>" class="big blue button" target="_blank"><?php echo __('View Public Page'); ?></a>
             <?php echo link_to_collection(__('Delete'), array('class' => 'big red button delete-confirm'), 'delete-confirm'); ?>
             
-            <?php fire_plugin_hook("admin_collections_panel_buttons", array('view' => $this, 'record' => $collection, 'collection' => $collection)); ?>
+            <?php fire_plugin_hook("admin_collections_panel_buttons", array('view' => $this, 'collection' => $collection)); ?>
 
             <div id="public-featured">
                 <div class="public">

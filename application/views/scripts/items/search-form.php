@@ -46,24 +46,16 @@ $formAttributes['method'] = 'GET';
                 echo $this->formSelect(
                     "advanced[$i][element_id]",
                     @$rows['element_id'],
-                    array(
-                        'title' => __("Search Field"),
-                        'id' => null,
-                        'class' => 'advanced-search-element'
-                    ),
+                    array(),
                     get_table_options('Element', null, array(
                         'record_types' => array('Item', 'All'),
-                        'sort' => 'orderBySet')
+                        'sort' => 'alphaBySet')
                     )
                 );
                 echo $this->formSelect(
                     "advanced[$i][type]",
                     @$rows['type'],
-                    array(
-                        'title' => __("Search Type"),
-                        'id' => null,
-                        'class' => 'advanced-search-type'
-                    ),
+                    array(),
                     label_table_options(array(
                         'contains' => __('contains'),
                         'does not contain' => __('does not contain'),
@@ -75,15 +67,10 @@ $formAttributes['method'] = 'GET';
                 echo $this->formText(
                     "advanced[$i][terms]",
                     @$rows['terms'],
-                    array(
-                        'size' => '20',
-                        'title' => __("Search Terms"),
-                        'id' => null,
-                        'class' => 'advanced-search-terms'
-                    )
+                    array('size' => '20')
                 );
                 ?>
-                <button type="button" class="remove_search" disabled="disabled" style="display: none;"><?php echo __('Remove field'); ?></button>
+                <button type="button" class="remove_search" disabled="disabled" style="display: none;">-</button>
             </div>
         <?php endforeach; ?>
         </div>
@@ -121,7 +108,7 @@ $formAttributes['method'] = 'GET';
         <?php
             echo $this->formSelect(
                 'type',
-                @$_REQUEST['type'],
+                @$_REQUEST['item-type-search'],
                 array('id' => 'item-type-search'),
                 get_table_options('ItemType')
             );
@@ -196,8 +183,7 @@ $formAttributes['method'] = 'GET';
 
     <?php fire_plugin_hook('public_items_search', array('view' => $this)); ?>
     <div>
-        <?php if (!isset($buttonText)) $buttonText = __('Search for items'); ?>
-        <input type="submit" class="submit" name="submit_search" id="submit_search_advanced" value="<?php echo $buttonText ?>">
+        <input type="submit" class="submit" name="submit_search" id="submit_search_advanced" value="<?php echo __('Search'); ?>" />
     </div>
 </form>
 

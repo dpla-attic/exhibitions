@@ -18,7 +18,7 @@ getid3_lib::IncludeDependency(GETID3_INCLUDEPATH.'module.audio-video.riff.php', 
 class getid3_optimfrog extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		$info['fileformat']            = 'ofr';
@@ -44,7 +44,7 @@ class getid3_optimfrog extends getid3_handler
 	}
 
 
-	public function ParseOptimFROGheader42() {
+	function ParseOptimFROGheader42() {
 		// for fileformat of v4.21 and older
 
 		$info = &$this->getid3->info;
@@ -91,7 +91,7 @@ class getid3_optimfrog extends getid3_handler
 	}
 
 
-	public function ParseOptimFROGheader45() {
+	function ParseOptimFROGheader45() {
 		// for fileformat of v4.50a and higher
 
 		$info = &$this->getid3->info;
@@ -313,7 +313,7 @@ class getid3_optimfrog extends getid3_handler
 	}
 
 
-	public static function OptimFROGsampleTypeLookup($SampleType) {
+	static function OptimFROGsampleTypeLookup($SampleType) {
 		static $OptimFROGsampleTypeLookup = array(
 			0  => 'unsigned int (8-bit)',
 			1  => 'signed int (8-bit)',
@@ -330,7 +330,7 @@ class getid3_optimfrog extends getid3_handler
 		return (isset($OptimFROGsampleTypeLookup[$SampleType]) ? $OptimFROGsampleTypeLookup[$SampleType] : false);
 	}
 
-	public static function OptimFROGbitsPerSampleTypeLookup($SampleType) {
+	static function OptimFROGbitsPerSampleTypeLookup($SampleType) {
 		static $OptimFROGbitsPerSampleTypeLookup = array(
 			0  => 8,
 			1  => 8,
@@ -347,7 +347,7 @@ class getid3_optimfrog extends getid3_handler
 		return (isset($OptimFROGbitsPerSampleTypeLookup[$SampleType]) ? $OptimFROGbitsPerSampleTypeLookup[$SampleType] : false);
 	}
 
-	public static function OptimFROGchannelConfigurationLookup($ChannelConfiguration) {
+	static function OptimFROGchannelConfigurationLookup($ChannelConfiguration) {
 		static $OptimFROGchannelConfigurationLookup = array(
 			0 => 'mono',
 			1 => 'stereo'
@@ -355,7 +355,7 @@ class getid3_optimfrog extends getid3_handler
 		return (isset($OptimFROGchannelConfigurationLookup[$ChannelConfiguration]) ? $OptimFROGchannelConfigurationLookup[$ChannelConfiguration] : false);
 	}
 
-	public static function OptimFROGchannelConfigNumChannelsLookup($ChannelConfiguration) {
+	static function OptimFROGchannelConfigNumChannelsLookup($ChannelConfiguration) {
 		static $OptimFROGchannelConfigNumChannelsLookup = array(
 			0 => 1,
 			1 => 2
@@ -371,7 +371,7 @@ class getid3_optimfrog extends getid3_handler
 	// }
 
 
-	public static function OptimFROGencoderNameLookup($EncoderID) {
+	static function OptimFROGencoderNameLookup($EncoderID) {
 		// version = (encoderID >> 4) + 4500
 		// system  =  encoderID & 0xF
 
@@ -386,7 +386,7 @@ class getid3_optimfrog extends getid3_handler
 		return $EncoderVersion.' ('.(isset($OptimFROGencoderSystemLookup[$EncoderSystemID]) ? $OptimFROGencoderSystemLookup[$EncoderSystemID] : 'undefined encoder type (0x'.dechex($EncoderSystemID).')').')';
 	}
 
-	public static function OptimFROGcompressionLookup($CompressionID) {
+	static function OptimFROGcompressionLookup($CompressionID) {
 		// mode    = compression >> 3
 		// speedup = compression & 0x07
 
@@ -408,7 +408,7 @@ class getid3_optimfrog extends getid3_handler
 		return (isset($OptimFROGencoderModeLookup[$CompressionModeID]) ? $OptimFROGencoderModeLookup[$CompressionModeID] : 'undefined mode (0x'.str_pad(dechex($CompressionModeID), 2, '0', STR_PAD_LEFT).')');
 	}
 
-	public static function OptimFROGspeedupLookup($CompressionID) {
+	static function OptimFROGspeedupLookup($CompressionID) {
 		// mode    = compression >> 3
 		// speedup = compression & 0x07
 
@@ -424,3 +424,6 @@ class getid3_optimfrog extends getid3_handler
 	}
 
 }
+
+
+?>

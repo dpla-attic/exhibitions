@@ -86,8 +86,7 @@ class Inflector
         'man' => 'men',
         'child' => 'children',
         'sex' => 'sexes',
-        'move' => 'moves',
-        'human' => 'humans');
+        'move' => 'moves');
 
         $lowercased_word = strtolower($word);
 
@@ -159,8 +158,7 @@ class Inflector
         'man' => 'men',
         'child' => 'children',
         'sex' => 'sexes',
-        'move' => 'moves',
-        'human' => 'humans');
+        'move' => 'moves');
 
         $lowercased_word = strtolower($word);
         foreach ($uncountable as $_uncountable){

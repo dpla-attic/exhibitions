@@ -17,9 +17,9 @@ class Omeka_Form_User extends Omeka_Form
     
     private $_hasActiveElement;
     
-    private $_user;
+    private $_submitButtonText;
     
-    private $_usersActivations;
+    private $_user;
     
     public function init()
     {
@@ -27,7 +27,7 @@ class Omeka_Form_User extends Omeka_Form
         
         $this->addElement('text', 'username', array(
             'label'         => __('Username'),
-            'description'   => __('Username must be 30 characters or fewer. Whitespace is not allowed.'),
+            'description'   => __('Username must contain only letters and numbers, and be 30 characters or fewer.'),
             'required'      => true,
             'size'          => '30',
             'validators' => array(
@@ -38,12 +38,11 @@ class Omeka_Form_User extends Omeka_Form
                         )
                     )
                 ),
-                array('validator' => 'Regex', 'breakChainOnFailure' => true, 'options' =>
+                array('validator' => 'Alnum', 'breakChainOnFailure' => true, 'options' =>
                     array(
-                        'pattern' => '#^[a-zA-Z0-9.*@+!\-_%\#\^&$]*$#u',
                         'messages' => array(
-                            Zend_Validate_Regex::NOT_MATCH =>
-                                __('Whitespace is not allowed. Only these special characters may be used: %s', ' + ! @ # $ % ^ & * . - _' )
+                            Zend_Validate_Alnum::NOT_ALNUM =>
+                                __('Username must contain only letters and numbers.')
                         )
                     )
                 ),
@@ -132,20 +131,16 @@ class Omeka_Form_User extends Omeka_Form
                 'required' => true
             ));
         }
-
+        
         if ($this->_hasActiveElement) {
-            $description = __('Inactive users cannot log in to the site.');
-            if( ($this->_user->active == 0) && ($this->_usersActivations)) {
-                $description .= '<br>' . __('Activation has been pending since %s.', format_date($this->_usersActivations->added));
-            }
             $this->addElement('checkbox', 'active', array(
                 'label' => __('Active?'),
-                'description' => $description 
+                'description' => __('Inactive users cannot log in to the site.')
             ));
         }
-
-        $this->addElement('hash', 'user_csrf', array(
-            'timeout' => 3600
+        
+        $this->addElement('submit', 'submit', array(
+            'label' => $this->_submitButtonText
         ));
     }
     
@@ -158,14 +153,18 @@ class Omeka_Form_User extends Omeka_Form
     {
         $this->_hasActiveElement = (boolean)$flag;
     }
-
+    
+    public function setSubmitButtonText($text)
+    {
+        if (!$this->getElement('submit')) {
+            $this->_submitButtonText = $text;
+        } else {
+            $this->submit->setLabel($text);
+        }
+    }   
+    
     public function setUser(User $user)
     {
         $this->_user = $user;
-    }
-    
-    public function setUsersActivations($ua)
-    {
-        $this->_usersActivations = $ua;
     }
 }

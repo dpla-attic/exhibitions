@@ -240,18 +240,11 @@ class Builder_Item extends Omeka_Record_Builder_AbstractBuilder
     
     protected function _beforeBuild(Omeka_Record_AbstractRecord $record)
     {
-        $metadata = $this->getRecordMetadata();
-
         if ($this->_record->exists() 
-            && array_key_exists(self::OVERWRITE_ELEMENT_TEXTS, $metadata)) {
+        and array_key_exists(self::OVERWRITE_ELEMENT_TEXTS, $this->getRecordMetadata())) {
             $this->_replaceElementTexts();
         } else {
             $this->_addElementTexts();
-        }
-
-        // Must take place after save().
-        if (array_key_exists(self::TAGS, $metadata) && !empty($metadata[self::TAGS])) {
-            $this->_addTags();
         }
         
         // Files are ingested before the item is saved.  That way, ingest 
@@ -268,4 +261,17 @@ class Builder_Item extends Omeka_Record_Builder_AbstractBuilder
                 (array)$this->_fileMetadata[self::FILE_INGEST_OPTIONS]);
         }
     }
+    
+    /**
+     * Add tags to the item.
+     */
+    protected function _afterBuild(Omeka_Record_AbstractRecord $record)
+    {
+        $metadata = $this->getRecordMetadata();
+        // Must take place after save().
+        if (array_key_exists(self::TAGS, $metadata) 
+        and !empty($metadata[self::TAGS])) {
+            $this->_addTags();
+        }
+    }    
 }

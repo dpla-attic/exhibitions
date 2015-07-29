@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id$
+ * @version   $Id: Yaml.php 24807 2012-05-15 12:10:42Z adamlundrigan $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Config.php';
  *
  * @category  Zend
  * @package   Zend_Config
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Config_Yaml extends Zend_Config
@@ -375,8 +375,6 @@ class Zend_Config_Yaml extends Zend_Config
             $value = true;
         } elseif (preg_match('/^(f(alse)?|off|n(o)?)$/i', $value)) {
             $value = false;
-        } elseif (strcasecmp($value, 'null') === 0) {
-            $value = null;
         } elseif (!self::$_ignoreConstants) {
             // test for constants
             $value = self::_replaceConstants($value);

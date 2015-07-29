@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: YouTube.php 24796 2012-05-12 03:34:26Z adamlundrigan $
  */
 
 /**
@@ -71,8 +71,6 @@ require_once 'Zend/Gdata/YouTube/ActivityFeed.php';
  */
 require_once 'Zend/Gdata/YouTube/InboxFeed.php';
 
-/** @see Zend_Xml_Security */
-require_once 'Zend/Xml/Security.php';
 
 /**
  * Service class for interacting with the YouTube Data API.
@@ -81,7 +79,7 @@ require_once 'Zend/Xml/Security.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage YouTube
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_YouTube extends Zend_Gdata_Media
@@ -654,10 +652,10 @@ class Zend_Gdata_YouTube extends Zend_Gdata_Media
         // Load the feed as an XML DOMDocument object
         @ini_set('track_errors', 1);
         $doc = new DOMDocument();
-        $doc = @Zend_Xml_Security::scan($response, $doc);
+        $success = @$doc->loadXML($response);
         @ini_restore('track_errors');
 
-        if (!$doc) {
+        if (!$success) {
             require_once 'Zend/Gdata/App/Exception.php';
             throw new Zend_Gdata_App_Exception(
                 "Zend_Gdata_YouTube::parseFormUploadTokenResponse - " .

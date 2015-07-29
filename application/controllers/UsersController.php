@@ -18,7 +18,7 @@ class UsersController extends Omeka_Controller_AbstractActionController
      */
     protected $_publicActions = array('login', 'activate', 'forgot-password');
 
-    protected $_browseRecordsPerPage = self::RECORDS_PER_PAGE_SETTING;
+    protected $_browseRecordsPerPage = 10;
         
     public function init() {
         $this->_helper->db->setDefaultModelName('User');
@@ -95,7 +95,7 @@ class UsersController extends Omeka_Controller_AbstractActionController
     {
         $siteTitle = get_option('site_title');
         
-        $mail = new Zend_Mail('UTF-8');
+        $mail = new Zend_Mail();
         $mail->addTo($toEmail);                
         $mail->addHeader('X-Mailer', 'PHP/' . phpversion());
         
@@ -123,7 +123,7 @@ class UsersController extends Omeka_Controller_AbstractActionController
         $ua = $this->_helper->db->getTable('UsersActivations')->findBySql("url = ?", array($hash), true);
             
         if (!$ua) {
-            $this->_helper->flashMessenger(__('Invalid activation code given.'), 'error');
+            $this->_helper->flashMessenger('Invalid activation code given.', 'error');
             return $this->_helper->redirector('forgot-password', 'users');
         }
 
@@ -157,15 +157,10 @@ class UsersController extends Omeka_Controller_AbstractActionController
         $user = new User();
         
         $form = $this->_getUserForm($user);
+        $form->setSubmitButtonText(__('Add User'));
         $this->view->form = $form;
-        $this->view->user = $user;
         
-        if (!$this->getRequest()->isPost()) {
-            return;
-        }
-
-        if (!$form->isValid($_POST)) {
-            $this->_helper->flashMessenger(__('There was an invalid entry on the form. Please try again.'), 'error');
+        if (!$this->getRequest()->isPost() || !$form->isValid($_POST)) {
             return;
         }
         
@@ -196,10 +191,23 @@ class UsersController extends Omeka_Controller_AbstractActionController
      */
     public function editAction()
     {
-        $user = $this->_helper->db->findById();
-        $ua = $this->_helper->db->getTable('UsersActivations')->findByUser($user);
+        $success = false;
+        $user = $this->_helper->db->findById();        
+        $changePasswordForm = new Omeka_Form_ChangePassword;
+        $changePasswordForm->setUser($user);
 
-        $form = $this->_getUserForm($user, $ua);
+        $currentUser = $this->getCurrentUser();
+
+        // Super users don't need to know the current password.
+        if ($currentUser && $currentUser->role == 'super') {
+            $changePasswordForm->removeElement('current_password');
+        }
+        
+        $this->view->passwordForm = $changePasswordForm;
+        $this->view->user = $user;        
+
+        $form = $this->_getUserForm($user);
+        $form->setSubmitButtonText(__('Save Changes'));
         $form->setDefaults(array(
             'username' => $user->username,
             'name' => $user->name,
@@ -207,141 +215,48 @@ class UsersController extends Omeka_Controller_AbstractActionController
             'role' => $user->role,
             'active' => $user->active
         ));
-
-        $this->view->user = $user;
         $this->view->form = $form;
+        
+        if (!$this->getRequest()->isPost()) {
+            return;
+        }
 
-        if ($this->getRequest()->isPost()) {
-            //handle resending activation email
-            if(isset($_POST['resend_activation_email'])) {
-                if($this->sendActivationEmail($user)) {
-                    $this->_helper->flashMessenger(__('User activation email has been sent.'), 'success');
-                } else {
-                    $this->_helper->flashMessenger(__('User activation email could not be sent.'), 'error');
-                }
-                //rebuild the form with new ua
-                $ua = $this->_helper->db->getTable('UsersActivations')->findByUser($user);
-                $form = $this->_getUserForm($user, $ua);
-                $form->setDefaults(array(
-                    'username' => $user->username,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'role' => $user->role,
-                    'active' => $user->active
-                ));
-                $this->view->form = $form;
+        if (isset($_POST['new_password'])) {
+            if (!$changePasswordForm->isValid($_POST)) {
+                $this->_helper->flashMessenger(__('There was an invalid entry on the form. Please try again.'), 'error');
                 return;
             }
+            
+            $values = $changePasswordForm->getValues();
+            $user->setPassword($values['new_password']);
+            $user->save();
+            $this->_helper->flashMessenger(__('Password changed!'), 'success');
+            $success = true;
+        } else {
             if (!$form->isValid($_POST)) {
                 $this->_helper->flashMessenger(__('There was an invalid entry on the form. Please try again.'), 'error');
                 return;
             }
-            //check to see if user has been manually deactivated. if so, delete ua (if exists)
-            if($user->active == 1 && ($form->getValue('active') == 0)) {
-                //couldn't really do a migration to remove useless ua's, so just to be safe double-check
-                //that the ua exists
-                if($ua) {
-                    $ua->delete();
-                }
-            }
-            //reverse situation from above. If manually activating, also delete the ua
-            if($user->active == 0 && ($form->getValue('active') == 1)) {
-                if($ua) {
-                    $ua->delete();
-                }
-            }
-
+            
             $user->setPostData($form->getValues());
-
             if ($user->save(false)) {
                 $this->_helper->flashMessenger(
                     __('The user %s was successfully changed!', $user->username),
                     'success'
                 );
-                $this->_helper->redirector->gotoRoute();
+                $success = true;
             } else {
                 $this->_helper->flashMessenger($user->getErrors());
             }
         }
-    }
 
-    public function changePasswordAction()
-    {
-        $user = $this->_helper->db->findById();
-        $currentUser = $this->getCurrentUser();
-
-        $form = new Omeka_Form_ChangePassword;
-        $form->setUser($user);
-        $form->removeDecorator('Form');
-
-        // Super users don't need to know the current password.
-        if ($currentUser && $currentUser->role == 'super') {
-            $form->removeElement('current_password');
-        }
-
-        $this->view->user = $user;
-        $this->view->form = $form;
-
-        if ($this->getRequest()->isPost()) {
-            if (!$form->isValid($_POST)) {
-                $this->_helper->flashMessenger(__('There was an invalid entry on the form. Please try again.'), 'error');
-                return;
+        if ($success) {
+            if ($user->id == $currentUser->id) {
+                $this->_helper->redirector->gotoUrl('/');
+            } else {
+                $this->_helper->redirector('browse');
             }
-
-            $values = $form->getValues();
-            $user->setPassword($values['new_password']);
-            $user->save();
-            $this->_helper->flashMessenger(__('Password changed!'), 'success');
-            $this->_helper->redirector->gotoRoute(array('action' => 'edit'));
         }
-    }
-
-    public function apiKeysAction()
-    {
-        $user = $this->_helper->db->findById();
-        $keyTable = $this->_helper->db->getTable('Key');
-
-        $this->view->user = $user;
-        $this->view->currentUser = $this->getCurrentUser();
-        $this->view->keys = $keyTable->findBy(array('user_id' => $user->id));
-
-        if ($this->getRequest()->isPost()) {
-            // Create a new API key.
-            if ($this->getParam('api_key_label')) {
-                $key = new Key;
-                $key->user_id = $user->id;
-                $key->label = $this->getParam('api_key_label');
-                $key->key = sha1($user->username . microtime() . rand());
-                $key->save();
-                $this->_helper->flashMessenger(__('A new API key was successfully created.'), 'success');
-            }
-            // Rescend API keys.
-            if ($this->getParam('api_key_rescind')) {
-                foreach ($this->getParam('api_key_rescind') as $keyId) {
-                    $keyTable->find($keyId)->delete();
-                }
-                $this->_helper->flashMessenger(__('An existing API key was successfully rescinded.'), 'success');
-            }
-            $this->_helper->redirector->gotoRoute();
-        }
-    }
-    
-    public function browseAction()
-    {
-        if(isset($_GET['search'])) {
-            $this->setParam($_GET['search-type'], $_GET['search']);
-        }
-        parent::browseAction();
-    }
-    
-    public function deleteAction()
-    {
-        $user = $this->_helper->db->findById();
-        $ua = $this->_helper->db->getTable('UsersActivations')->findByUser($user);
-        if($ua) {
-            $ua->delete();
-        }
-        parent::deleteAction();
     }
     
     protected function _getDeleteSuccessMessage($record)
@@ -367,14 +282,10 @@ class UsersController extends Omeka_Controller_AbstractActionController
      */
     protected function sendActivationEmail($user)
     {
-        
-        $ua = $this->_helper->db->getTable('UsersActivations')->findByUser($user);
-        if($ua) {
-            $ua->delete();
-        }
         $ua = new UsersActivations;
         $ua->user_id = $user->id;
         $ua->save();
+        
         // send the user an email telling them about their new user account
         $siteTitle  = get_option('site_title');
         $from       = get_option('administrator_email');
@@ -385,7 +296,7 @@ class UsersController extends Omeka_Controller_AbstractActionController
                     . __('%s Administrator', $siteTitle);
         $subject    = __('Activate your account with the %s repository', $siteTitle);
         
-        $mail = new Zend_Mail('UTF-8');
+        $mail = new Zend_Mail();
         $mail->setBodyText($body);
         $mail->setFrom($from, "$siteTitle Administrator");
         $mail->addTo($user->email, $user->name);
@@ -502,7 +413,7 @@ class UsersController extends Omeka_Controller_AbstractActionController
         $this->_helper->redirector->gotoUrl('');
     }
     
-    protected function _getUserForm(User $user, $ua = null)
+    protected function _getUserForm(User $user)
     {
         $hasActiveElement = $user->exists()
             && $this->_helper->acl->isAllowed('change-status', $user);
@@ -510,10 +421,8 @@ class UsersController extends Omeka_Controller_AbstractActionController
         $form = new Omeka_Form_User(array(
             'hasRoleElement'    => $this->_helper->acl->isAllowed('change-role', $user),
             'hasActiveElement'  => $hasActiveElement,
-            'user'              => $user,
-            'usersActivations'  => $ua
+            'user'              => $user
         ));
-        $form->removeDecorator('Form');
         fire_plugin_hook('users_form', array('form' => $form, 'user' => $user));
         return $form;
     }

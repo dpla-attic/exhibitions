@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -35,9 +35,9 @@ require_once 'Zend/Service/ReCaptcha.php';
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: ReCaptcha.php 24593 2012-01-05 20:35:02Z matthew $
  */
 class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
 {
@@ -135,7 +135,8 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
     /**
      * Constructor
      *
-     * @param array|Zend_Config $options
+     * @param  array|Zend_Config $options
+     * @return void
      */
     public function __construct($options = null)
     {
@@ -214,8 +215,7 @@ class Zend_Captcha_ReCaptcha extends Zend_Captcha_Base
      * Validate captcha
      *
      * @see    Zend_Validate_Interface::isValid()
-     * @param  mixed      $value
-     * @param  array|null $context
+     * @param  mixed $value
      * @return boolean
      */
     public function isValid($value, $context = null)

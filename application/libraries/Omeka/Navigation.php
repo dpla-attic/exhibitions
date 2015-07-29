@@ -211,7 +211,7 @@ class Omeka_Navigation extends Zend_Navigation
     {
         if (!$page->uid) {
             // we assume that every page has already been normalized
-            throw new RuntimeException(__('The page must be normalized and have a valid uid.'));
+            throw RuntimeException(__('The page must be normalized and have a valid uid.'));
         }
         if ($parentContainer === null) {
             $parentContainer = $this;
@@ -294,33 +294,50 @@ class Omeka_Navigation extends Zend_Navigation
         $filterNav = self::createNavigationFromFilter($filterName);
         // prune the expired navigation pages
         $expiredPages = $this->getExpiredPagesFromNav($filterNav);
-        foreach ($expiredPages as $page) {
-            $this->prunePage($page);
-        }
+        $this->prunePages($expiredPages);
         // merge filter nav into navigation
         $this->mergeNavigation($filterNav);
     }
     
     /**
      * Returns an array of expired pages from this navigation, 
-     * where all pages in the $feshNav are considered non-expired.
+     * where all pages in the $excludeNav are considered non-expired.
      * 
      * @param  Omeka_Navigation $excludeNav  Pages from this navigation should not be pruned
      * @return array The array of expired pages 
      */
-    public function getExpiredPagesFromNav(Omeka_Navigation $freshNav)
-    {
-        $expiredPages = array();
-        $iterator = new RecursiveIteratorIterator($this, RecursiveIteratorIterator::SELF_FIRST);
+    public function getExpiredPagesFromNav(Omeka_Navigation $excludeNav)
+    {           
+        // get non-expired page uids from $excludeNav
+        $nonExpiredPageUids = array();
+        $iterator = new RecursiveIteratorIterator($excludeNav, RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $page) {
-            $freshPage = $freshNav->getPageByUid($page->uid);
-            if (($page->can_delete && $freshPage)
-                || !($page->can_delete || $freshPage)
-            ) {
+            if (!in_array($page->uid, $nonExpiredPageUids)) {
+                $nonExpiredPageUids[] = $page->uid;
+            }
+        }
+        // prune expired pages
+        // only pages provided by a filter (non-deleteable) should be expired
+        $otherPages = $this->getOtherPages($nonExpiredPageUids);
+        $expiredPages = array();
+        foreach($otherPages as $page) {
+            if (!$page->can_delete) {
                 $expiredPages[] = $page;
             }
         }
         return $expiredPages;
+    }
+    
+    /**
+     * Prunes pages from this navigation.
+     * When a page is pruned its children pages are reattached to the first non-pruneable ancestor page.
+     * @param Omeka_Navigation_Page_Mvc|Omeka_Navigation_Page_Uri $page  The page to prune
+     */ 
+    public function prunePages($pages)
+    {
+        foreach($pages as $page) {
+            $this->prunePage($page);
+        }
     }
     
     /**
@@ -420,14 +437,19 @@ class Omeka_Navigation extends Zend_Navigation
     /**
      * Returns the option value associated with the default navigation during installation 
      *
+     * @param String $optionName The option name for a stored navigation object.
      * @return String The option value associated with the default navigation during installation.
      * If no option is found for the option name, then it returns an empty string.
      */
-    public static function getNavigationOptionValueForInstall() 
+    public static function getNavigationOptionValueForInstall($optionName) 
     {        
         $value = '';
         $nav = new Omeka_Navigation();
-        $nav->addPagesFromFilter(self::PUBLIC_NAVIGATION_MAIN_FILTER_NAME);
+        switch($optionName) {
+            case self::PUBLIC_NAVIGATION_MAIN_OPTION_NAME:
+                $nav->addPagesFromFilter(self::PUBLIC_NAVIGATION_MAIN_FILTER_NAME);
+            break;
+        }
         if ($nav->count()) {
             $value = json_encode($nav->toArray());
         }

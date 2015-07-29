@@ -7,46 +7,18 @@
  */
 
 /**
- * An activation code for a User.
+ * A user activation and its metadata.
  * 
  * @package Omeka\Record
  */
 class UsersActivations extends Omeka_Record_AbstractRecord
 {
-    /**
-     * The ID of the User this activation code is for.
-     *
-     * @var int
-     */
     public $user_id;
-
-    /**
-     * Random activation key.
-     *
-     * @var string
-     */
     public $url;
-
-    /**
-     * Date this activation key was created.
-     *
-     * @var string
-     */
     public $added;
 
-    /**
-     * Related records.
-     *
-     * @var array
-     */
     protected $_related = array('User' => 'getUser');
 
-    /**
-     * Get a new UsersActivations for a User.
-     *
-     * @param User $user
-     * @return UsersActivations
-     */
     public static function factory(User $user)
     {
         $ua = new self;
@@ -57,11 +29,6 @@ class UsersActivations extends Omeka_Record_AbstractRecord
         return $ua;
     }
 
-    /**
-     * Before-save hook.
-     *
-     * Set the timestamp and create a random key.
-     */
     protected function beforeSave($args)
     {
         $timestamp = microtime(true);
@@ -69,11 +36,6 @@ class UsersActivations extends Omeka_Record_AbstractRecord
         $this->url = sha1($timestamp);
     }
 
-    /**
-     * Get the User for this Activation.
-     *
-     * @return User
-     */
     public function getUser()
     {
         return $this->getDb()->getTable('User')->find($this->user_id);

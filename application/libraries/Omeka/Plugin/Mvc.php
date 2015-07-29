@@ -23,10 +23,7 @@ class Omeka_Plugin_Mvc
      * View script directories that have been added by plugins.
      * @var array
      */
-    protected $_pluginViewDirs = array(
-        'admin' => array(),
-        'public' => array(),
-    );
+    protected $_pluginViewDirs = array();
 
     /**
      * View helper directories from plugins.
@@ -56,19 +53,24 @@ class Omeka_Plugin_Mvc
      */
     protected function addThemeDir($pluginDirName, $path, $themeType, $moduleName)
     {
+        if (!in_array($themeType, array('public','admin','shared'))) {
+            return false;
+        }
+        
         //Path must begin from within the plugin's directory
+        
         $path = $pluginDirName . '/' . $path;
                 
         switch ($themeType) {
             case 'public':
-                $this->_pluginViewDirs['public'][$moduleName][] = $path;
+                $this->_pluginViewDirs[$moduleName]['public'][] = $path;
                 break;
             case 'admin':
-                $this->_pluginViewDirs['admin'][$moduleName][] = $path;
+                $this->_pluginViewDirs[$moduleName]['admin'][] = $path;
                 break;
             case 'shared':
-                $this->_pluginViewDirs['public'][$moduleName][] = $path;
-                $this->_pluginViewDirs['admin'][$moduleName][] = $path;
+                $this->_pluginViewDirs[$moduleName]['public'][] = $path;
+                $this->_pluginViewDirs[$moduleName]['admin'][] = $path;
                 break;
             default:
                 break;
@@ -78,12 +80,19 @@ class Omeka_Plugin_Mvc
     /**
      * Retrieve the list of plugin-added view script directories.
      *
-     * @param string $themeType Type of theme (public or admin)
-     * @return array Module-name-indexed directory names.
+     * @param string $moduleName (optional) MVC module name.
+     * @return array List of indexed directory names.
      */
-    public function getViewScriptDirs($themeType)
+    public function getModuleViewScriptDirs($moduleName=null)
     {
-        return $this->_pluginViewDirs[$themeType];
+        if ($moduleName) {
+            if (array_key_exists($moduleName, $this->_pluginViewDirs)) {
+                return $this->_pluginViewDirs[$moduleName];
+            } else {
+                return null;
+            }
+        }
+        return $this->_pluginViewDirs;
     }
 
     /**

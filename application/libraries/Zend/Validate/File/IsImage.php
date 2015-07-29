@@ -14,9 +14,9 @@
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
- * @version   $Id$
+ * @version   $Id: IsImage.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -29,7 +29,7 @@ require_once 'Zend/Validate/File/MimeType.php';
  *
  * @category  Zend
  * @package   Zend_Validate
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Validate_File_IsImage extends Zend_Validate_File_MimeType
@@ -53,7 +53,8 @@ class Zend_Validate_File_IsImage extends Zend_Validate_File_MimeType
     /**
      * Sets validator options
      *
-     * @param string|array|Zend_Config $mimetype
+     * @param  string|array|Zend_Config $mimetype
+     * @return void
      */
     public function __construct($mimetype = array())
     {

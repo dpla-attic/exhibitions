@@ -1,6 +1,6 @@
 .exhibit-item-caption {
+    text-align: center;
     font-size: 0.8em;
-    margin-bottom: 1.2em !important;
 }
 
 #exhibit-pages ul {
@@ -31,34 +31,4 @@
 #exhibit-nav-up {
     margin: 0 auto;
     text-align: center;
-}
-
-.exhibit-block {
-    clear: both;
-    margin-bottom: 1.5em;
-}
-
-.exhibit-block:last-child {
-    margin-bottom: 0;
-}
-
-.exhibit-items img {
-    vertical-align: top;
-    max-width: 100%;
-    height: auto;
-}
-
-.exhibit-item-link {
-    display: block;
-}
-
-.exhibit-item-link,
-.download-file {
-    vertical-align: top;
-    display: block;
-}
-
-.exhibit-item-link *,
-.download-file * {
-    vertical-align: top;
 }

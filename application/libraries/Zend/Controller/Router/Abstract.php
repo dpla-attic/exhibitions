@@ -15,10 +15,11 @@
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
+
 
 /** Zend_Controller_Router_Interface */
 require_once 'Zend/Controller/Router/Interface.php';
@@ -30,7 +31,7 @@ require_once 'Zend/Controller/Router/Interface.php';
  * @category   Zend
  * @package    Zend_Controller
  * @subpackage Router
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router_Interface
@@ -39,10 +40,9 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * URI delimiter
      */
     const URI_DELIMITER = '/';
-
+    
     /**
      * Front controller instance
-     *
      * @var Zend_Controller_Front
      */
     protected $_frontController;
@@ -50,7 +50,6 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
     /**
      * Array of invocation parameters to use when instantiating action
      * controllers
-     *
      * @var array
      */
     protected $_invokeParams = array();
@@ -59,6 +58,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * Constructor
      *
      * @param array $params
+     * @return void
      */
     public function __construct(array $params = array())
     {
@@ -69,14 +69,13 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * Add or modify a parameter to use when instantiating an action controller
      *
      * @param string $name
-     * @param mixed  $value
-     * @return Zend_Controller_Router_Abstract
+     * @param mixed $value
+     * @return Zend_Controller_Router
      */
     public function setParam($name, $value)
     {
-        $name                       = (string)$name;
+        $name = (string) $name;
         $this->_invokeParams[$name] = $value;
-
         return $this;
     }
 
@@ -84,12 +83,11 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * Set parameters to pass to action controller constructors
      *
      * @param array $params
-     * @return Zend_Controller_Router_Abstract
+     * @return Zend_Controller_Router
      */
     public function setParams(array $params)
     {
         $this->_invokeParams = array_merge($this->_invokeParams, $params);
-
         return $this;
     }
 
@@ -101,7 +99,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      */
     public function getParam($name)
     {
-        if (isset($this->_invokeParams[$name])) {
+        if(isset($this->_invokeParams[$name])) {
             return $this->_invokeParams[$name];
         }
 
@@ -126,7 +124,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
      * each.
      *
      * @param null|string|array single key or array of keys for params to clear
-     * @return Zend_Controller_Router_Abstract
+     * @return Zend_Controller_Router
      */
     public function clearParams($name = null)
     {
@@ -159,7 +157,6 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
 
         require_once 'Zend/Controller/Front.php';
         $this->_frontController = Zend_Controller_Front::getInstance();
-
         return $this->_frontController;
     }
 
@@ -172,7 +169,7 @@ abstract class Zend_Controller_Router_Abstract implements Zend_Controller_Router
     public function setFrontController(Zend_Controller_Front $controller)
     {
         $this->_frontController = $controller;
-
         return $this;
     }
+
 }

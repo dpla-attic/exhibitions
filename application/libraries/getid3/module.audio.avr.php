@@ -17,7 +17,7 @@
 class getid3_avr extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		// http://cui.unige.ch/OSG/info/AudioFormats/ap11.html
@@ -122,3 +122,6 @@ class getid3_avr extends getid3_handler
 	}
 
 }
+
+
+?>

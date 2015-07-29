@@ -16,9 +16,9 @@
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Gapps.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -76,7 +76,7 @@ require_once 'Zend/Gdata/Gapps/EmailListRecipientFeed.php';
  * @category   Zend
  * @package    Zend_Gdata
  * @subpackage Gapps
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Gdata_Gapps extends Zend_Gdata
@@ -195,10 +195,10 @@ class Zend_Gdata_Gapps extends Zend_Gdata
      * @throws Zend_Gdata_Gapps_ServiceException
      * @return Zend_Gdata_App_Feed
      */
-    public static function import($uri, $client = null, $className='Zend_Gdata_App_Feed', $useObjectMapping = true)
+    public static function import($uri, $client = null, $className='Zend_Gdata_App_Feed')
     {
         try {
-            return parent::import($uri, $client, $className, $useObjectMapping);
+            return parent::import($uri, $client, $className);
         } catch (Zend_Gdata_App_HttpException $e) {
             self::throwServiceExceptionIfDetected($e);
         }

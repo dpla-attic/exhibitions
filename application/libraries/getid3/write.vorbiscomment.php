@@ -17,16 +17,16 @@
 class getid3_write_vorbiscomment
 {
 
-	public $filename;
-	public $tag_data;
-	public $warnings = array(); // any non-critical errors will be stored here
-	public $errors   = array(); // any critical errors will be stored here
+	var $filename;
+	var $tag_data;
+	var $warnings = array(); // any non-critical errors will be stored here
+	var $errors   = array(); // any critical errors will be stored here
 
-	public function getid3_write_vorbiscomment() {
+	function getid3_write_vorbiscomment() {
 		return true;
 	}
 
-	public function WriteVorbisComment() {
+	function WriteVorbisComment() {
 
 		if (preg_match('#(1|ON)#i', ini_get('safe_mode'))) {
 			$this->errors[] = 'PHP running in Safe Mode (backtick operator not available) - cannot call vorbiscomment, tags not written';
@@ -99,21 +99,23 @@ class getid3_write_vorbiscomment
 		return true;
 	}
 
-	public function DeleteVorbisComment() {
+	function DeleteVorbisComment() {
 		$this->tag_data = array(array());
 		return $this->WriteVorbisComment();
 	}
 
-	public function CleanVorbisCommentName($originalcommentname) {
+	function CleanVorbisCommentName($originalcommentname) {
 		// A case-insensitive field name that may consist of ASCII 0x20 through 0x7D, 0x3D ('=') excluded.
 		// ASCII 0x41 through 0x5A inclusive (A-Z) is to be considered equivalent to ASCII 0x61 through
 		// 0x7A inclusive (a-z).
 
 		// replace invalid chars with a space, return uppercase text
-		// Thanks Chris Bolt <chris-getid3Ã˜bolt*cx> for improving this function
+		// Thanks Chris Bolt <chris-getid3Øbolt*cx> for improving this function
 		// note: *reg_replace() replaces nulls with empty string (not space)
 		return strtoupper(preg_replace('#[^ -<>-}]#', ' ', str_replace("\x00", ' ', $originalcommentname)));
 
 	}
 
 }
+
+?>

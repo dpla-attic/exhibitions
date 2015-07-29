@@ -13,8 +13,8 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
 {
     private $_tagTable;
     private $_joinTable;
+
     private $_type;
-    private $_tagsToSave = array();
     
     public function __construct(Omeka_Record_AbstractRecord $record) {
         parent::__construct($record);
@@ -37,27 +37,11 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
         $this->deleteTaggings();
     }
     
+    /**
+     * Add tags to this record's search text.
+     */
     public function afterSave($args)
     {
-        // Save tag/record relations.
-        $addedTags = array();
-        foreach ($this->_tagsToSave as $tag) {
-            $join = $this->_joinTable->findForRecordAndTag($this->_record, $tag);
-            if (!$join) {
-                $join = new RecordsTags;
-                $addedTags[] = $tag;
-            }
-            $join->tag_id = $tag->id;
-            $join->record_id = $this->_record->id;
-            $join->record_type = $this->_type;
-            $join->save();
-        }
-        if ($addedTags) {
-            $nameForHook = strtolower($this->_type);
-            fire_plugin_hook("add_{$nameForHook}_tag", array('record' => $this->_record, 'added' => $addedTags));
-        }
-        
-        // Add tags to this record's search text.
         foreach ($this->getTags() as $tag) {
             $this->_record->addSearchText($tag->name);
         }
@@ -91,20 +75,9 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
      * @see TagTable::applySearchFilters
      * @return array of Tag
      */
-    public function getTags($order = array())
+    public function getTags($order = array('alpha'))
     {
-        if(isset($order['sort_field'])) {
-            $sortField = $order['sort_field'];
-            if(isset($order['sort_dir'])) {
-                $sortDir = $order['sort_dir'];
-            } else {
-                $sortDir = 'a';
-            }
-        } else {
-            $sortField = 'name';
-            $sortDir = 'a';
-        }
-        return $this->_tagTable->findBy(array('record' => $this->_record, 'sort_field' => $sortField, 'sort_dir' => $sortDir));
+        return $this->_tagTable->findBy(array('record' => $this->_record, 'sort' => $order));
     }
     
     /**
@@ -135,14 +108,10 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
         $findWith['record'] = $this->_record;
         
         $taggings = $this->_joinTable->findBy($findWith);
-        $removed = array();
         foreach ($taggings as $tagging) {
-            $removed[] = $this->_tagTable->find($tagging->tag_id);
             $tagging->delete();
         }
         
-        $nameForHook = strtolower($this->_type);
-        fire_plugin_hook("remove_{$nameForHook}_tag", array('record' => $this->_record, 'removed' => $removed));        
         return !empty($taggings);
     }
             
@@ -173,76 +142,79 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
     }
     
     /**
-     * Set tags to be saved to the record.
+     * Add tags for the record
      *
      * @param array|string $tags Either an array of tags or a delimited string
      * @return void
      */    
     public function addTags($tags, $delimiter = null) {
-        
-        // If no delimiter was passed, set the delimiter.
+        // Set the tag_delimiter option if no delimiter was passed.
         if (is_null($delimiter)) {
             $delimiter = get_option('tag_delimiter');
         }
         
-        // If string was passed, build an array of tags.
+        if (!$this->_record->id) {
+            throw new Omeka_Record_Exception( __('A valid record ID # must be provided when tagging.') );
+        }
+        
         if (!is_array($tags)) {
             $tags = $this->_getTagsFromString($tags, $delimiter);
         }
         
-        foreach ($tags as $tagName) {
-            $this->_tagsToSave[] = $this->_tagTable->findOrNew(trim($tagName));
+        foreach ($tags as $key => $tagName) {
+            $tag = $this->_tagTable->findOrNew(trim($tagName));
+            
+            $join = new RecordsTags;
+                        
+            $join->tag_id = $tag->id;
+            $join->record_id = $this->_record->id;
+            $join->record_type = $this->_type;
+            $join->save();            
         }
     }
-    
-    /**
-     * Apply tags 
-     * 
-     * @param array $inputTags
-     */
-    public function applyTags(array $inputTags)
-    {
-        $diff = $this->diffTags($inputTags);
-        if (!empty($diff['added'])) {
-            $this->addTags($diff['added']);
-        }
-        if (!empty($diff['removed'])) {
-            $this->deleteTags($diff['removed']);
-        }
-    }
-    
+
     /**
      * Calculate the difference between a tag string and a set of tags
      * @return array Keys('removed','added')
      */
-    public function diffTags($inputTags, $tags = null)
+    public function diffTagString($string, $tags = null, $delimiter = null)
     {
+        // Set the tag_delimiter option if no delimiter was passed.
+        if (is_null($delimiter)) {
+            $delimiter = get_option('tag_delimiter');
+        }
+        
         if (!$tags) {
             $tags = $this->_record->Tags;
         }
+        
+        $inputTags = $this->_getTagsFromString($string, $delimiter);
+        
         $existingTags = array();
+        
         foreach ($tags as $key => $tag) {
             if ($tag instanceof Tag || is_array($tag)) {
                 $existingTags[$key] = trim($tag["name"]);
             } else {
                 $existingTags[$key] = trim($tag);
-            }
+            }   
         }
+        
         if (!empty($existingTags)) {
-            $removed = array_values(array_diff($existingTags, $inputTags));
+            $removed = array_values(array_diff($existingTags,$inputTags));
         }
+        
         if (!empty($inputTags)) {
-            $added = array_values(array_diff($inputTags, $existingTags));
+            $added = array_values(array_diff($inputTags,$existingTags));
         }
         return compact('removed','added');
-    }
+    }    
     
     /**
-     * This will add tags that are in the tag string and remove those that are 
-     * no longer in the tag string
+     * This will add tags that are in the tag string and remove those that are no longer in the tag string
      *
      * @param string $string A string of tags delimited by $delimiter
-     * @param string|null $delimiter
+     * @return void
      */
     public function applyTagString($string, $delimiter = null)
     {
@@ -250,7 +222,21 @@ class Mixin_Tag extends Omeka_Record_Mixin_AbstractMixin
         if (is_null($delimiter)) {
             $delimiter = get_option('tag_delimiter');
         }
-        $inputTags = $this->_getTagsFromString($string, $delimiter);
-        $this->applyTags($inputTags);
+
+        $tags = $this->_record->Tags;
+        $diff = $this->diffTagString($string, $tags, $delimiter);
+        $nameForHook = strtolower($this->_type);
+                
+        if (!empty($diff['added'])) {
+            $this->addTags($diff['added']);
+            fire_plugin_hook("add_{$nameForHook}_tag", 
+                             array('record' => $this->_record, 'added' => $diff['added']));
+        }
+
+        if (!empty($diff['removed'])) {
+            $this->deleteTags($diff['removed']);
+            fire_plugin_hook("remove_{$nameForHook}_tag", 
+                             array('record' => $this->_record, 'removed' => $diff['removed']));
+        } 
     }
 }

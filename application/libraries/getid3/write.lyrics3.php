@@ -16,21 +16,21 @@
 
 class getid3_write_lyrics3
 {
-	public $filename;
-	public $tag_data;
-	//public $lyrics3_version = 2;       // 1 or 2
-	public $warnings        = array(); // any non-critical errors will be stored here
-	public $errors          = array(); // any critical errors will be stored here
+	var $filename;
+	var $tag_data;
+	//var $lyrics3_version = 2;       // 1 or 2
+	var $warnings        = array(); // any non-critical errors will be stored here
+	var $errors          = array(); // any critical errors will be stored here
 
-	public function getid3_write_lyrics3() {
+	function getid3_write_lyrics3() {
 		return true;
 	}
 
-	public function WriteLyrics3() {
+	function WriteLyrics3() {
 		$this->errors[] = 'WriteLyrics3() not yet functional - cannot write Lyrics3';
 		return false;
 	}
-	public function DeleteLyrics3() {
+	function DeleteLyrics3() {
 		// Initialize getID3 engine
 		$getID3 = new getID3;
 		$ThisFileInfo = $getID3->analyze($this->filename);
@@ -69,3 +69,5 @@ class getid3_write_lyrics3
 	}
 
 }
+
+?>

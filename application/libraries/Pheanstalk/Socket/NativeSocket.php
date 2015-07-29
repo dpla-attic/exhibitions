@@ -9,107 +9,79 @@
  */
 class Pheanstalk_Socket_NativeSocket implements Pheanstalk_Socket
 {
-    /**
-     * The default timeout for a blocking read on the socket
-     */
-    const SOCKET_TIMEOUT = 1;
+	/**
+	 * The default timeout for a blocking read on the socket
+	 */
+	const SOCKET_TIMEOUT = 1;
 
-    /**
-     * Number of retries for attempted writes which return zero length.
-     */
-    const WRITE_RETRIES = 8;
+	private $_socket;
 
-    private $_socket;
+	/**
+	 * @param string $host
+	 * @param int $port
+	 * @param int $connectTimeout
+	 */
+	public function __construct($host, $port, $connectTimeout)
+	{
+		if (!$this->_socket = @fsockopen($host, $port, $errno, $errstr, $connectTimeout))
+		{
+			throw new Pheanstalk_Exception_ConnectionException($errno, $errstr);
+		}
 
-    /**
-     * @param string $host
-     * @param int $port
-     * @param int $connectTimeout
-     */
-    public function __construct($host, $port, $connectTimeout)
-    {
-        $this->_socket = $this->_wrapper()
-            ->fsockopen($host, $port, $errno, $errstr, $connectTimeout);
+		stream_set_timeout($this->_socket, self::SOCKET_TIMEOUT);
+	}
 
-        if (!$this->_socket) {
-            throw new Pheanstalk_Exception_ConnectionException($errno, $errstr . " (connecting to $host:$port)");
-        }
+	/* (non-phpdoc)
+	 * @see Pheanstalk_Socket::write()
+	 */
+	public function write($data)
+	{
+		for ($written = 0, $fwrite = 0; $written < strlen($data); $written += $fwrite)
+		{
+			$fwrite = fwrite($this->_socket, substr($data, $written));
 
-        $this->_wrapper()
-            ->stream_set_timeout($this->_socket, self::SOCKET_TIMEOUT);
-    }
+			if ($fwrite === false)
+			{
+				throw new Pheanstalk_Exception_SocketException('fwrite() returned false');
+			}
+		}
+	}
 
-    /* (non-phpdoc)
-     * @see Pheanstalk_Socket::write()
-     */
-    public function write($data)
-    {
-        $history = new Pheanstalk_Socket_WriteHistory(self::WRITE_RETRIES);
+	/* (non-phpdoc)
+	 * @see Pheanstalk_Socket::write()
+	 */
+	public function read($length)
+	{
+		$read = 0;
+		$parts = array();
 
-        for ($written = 0, $fwrite = 0; $written < strlen($data); $written += $fwrite) {
-            $fwrite = $this->_wrapper()
-                ->fwrite($this->_socket, substr($data, $written));
+		while ($read < $length && !feof($this->_socket))
+		{
+			$data = fread($this->_socket, $length - $read);
+			$read += strlen($data);
+			$parts []= $data;
+		}
 
-            $history->log($fwrite);
+		return implode($parts);
+	}
 
-            if ($history->isFullWithNoWrites()) {
-                throw new Pheanstalk_Exception_SocketException(sprintf(
-                    'fwrite() failed to write data after %u tries',
-                    self::WRITE_RETRIES
-                ));
-            }
-        }
-    }
+	/* (non-phpdoc)
+	 * @see Pheanstalk_Socket::write()
+	 */
+	public function getLine($length = null)
+	{
+		do
+		{
+			$data = isset($length) ?
+				fgets($this->_socket, $length) : fgets($this->_socket);
 
-    /* (non-phpdoc)
-     * @see Pheanstalk_Socket::write()
-     */
-    public function read($length)
-    {
-        $read = 0;
-        $parts = array();
+			if (feof($this->_socket))
+			{
+				throw new Pheanstalk_Exception_ConnectionException(666, "Socket closed by server!");
+			}
+		}
+		while ($data === false);
 
-        while ($read < $length && !$this->_wrapper()->feof($this->_socket)) {
-            $data = $this->_wrapper()
-                ->fread($this->_socket, $length - $read);
-
-            if ($data === false) {
-                throw new Pheanstalk_Exception_SocketException('fread() returned false');
-            }
-
-            $read += strlen($data);
-            $parts []= $data;
-        }
-
-        return implode($parts);
-    }
-
-    /* (non-phpdoc)
-     * @see Pheanstalk_Socket::write()
-     */
-    public function getLine($length = null)
-    {
-        do {
-            $data = isset($length) ?
-                $this->_wrapper()->fgets($this->_socket, $length) :
-                $this->_wrapper()->fgets($this->_socket);
-
-            if ($this->_wrapper()->feof($this->_socket)) {
-                throw new Pheanstalk_Exception_SocketException("Socket closed by server!");
-            }
-        } while ($data === false);
-
-        return rtrim($data);
-    }
-
-    // ----------------------------------------
-
-    /**
-     * Wrapper class for all stream functions.
-     * Facilitates mocking/stubbing stream operations in unit tests.
-     */
-    private function _wrapper()
-    {
-        return Pheanstalk_Socket_StreamFunctions::instance();
-    }
+		return rtrim($data);
+	}
 }

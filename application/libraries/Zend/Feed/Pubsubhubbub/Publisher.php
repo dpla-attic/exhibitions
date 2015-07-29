@@ -14,9 +14,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Publisher.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'Zend/Feed/Pubsubhubbub.php';
 /**
  * @category   Zend
  * @package    Zend_Feed_Pubsubhubbub
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Feed_Pubsubhubbub_Publisher
@@ -69,8 +69,8 @@ class Zend_Feed_Pubsubhubbub_Publisher
      * options for the Publisher without calling all supported setter
      * methods in turn.
      *
-     * @param  array|Zend_Config $config Options array or Zend_Config instance
-     * @throws Zend_Feed_Pubsubhubbub_Exception
+     * @param  array|Zend_Config $options Options array or Zend_Config instance
+     * @return void
      */
     public function __construct($config = null)
     {
@@ -82,8 +82,7 @@ class Zend_Feed_Pubsubhubbub_Publisher
     /**
      * Process any injected configuration options
      *
-     * @param  array|Zend_Config $config Options array or Zend_Config instance
-     * @throws Zend_Feed_Pubsubhubbub_Exception
+     * @param  array|Zend_Config $options Options array or Zend_Config instance
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function setConfig($config)
@@ -111,7 +110,6 @@ class Zend_Feed_Pubsubhubbub_Publisher
      * Add a Hub Server URL supported by Publisher
      *
      * @param  string $url
-     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addHubUrl($url)
@@ -171,7 +169,6 @@ class Zend_Feed_Pubsubhubbub_Publisher
      * Add a URL to a topic (Atom or RSS feed) which has been updated
      *
      * @param  string $url
-     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function addUpdatedTopicUrl($url)
@@ -290,9 +287,8 @@ class Zend_Feed_Pubsubhubbub_Publisher
     /**
      * Add an optional parameter to the update notification requests
      *
-     * @param  string      $name
+     * @param  string $name
      * @param  string|null $value
-     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function setParameter($name, $value = null)
@@ -337,7 +333,6 @@ class Zend_Feed_Pubsubhubbub_Publisher
      * Remove an optional parameter for the notification requests
      *
      * @param  string $name
-     * @throws Zend_Feed_Pubsubhubbub_Exception
      * @return Zend_Feed_Pubsubhubbub_Publisher
      */
     public function removeParameter($name)
@@ -392,8 +387,6 @@ class Zend_Feed_Pubsubhubbub_Publisher
     /**
      * Get a basic prepared HTTP client for use
      *
-     * @throws Zend_Feed_Pubsubhubbub_Exception
-     * @throws Zend_Http_Client_Exception
      * @return Zend_Http_Client
      */
     protected function _getHttpClient()

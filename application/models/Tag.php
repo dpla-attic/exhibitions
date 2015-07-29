@@ -11,28 +11,18 @@
  * 
  * @package Omeka\Record
  */
-class Tag extends Omeka_Record_AbstractRecord {
-
-    /**
-     * The tag text.
-     *
-     * @var string
-     */
+class Tag extends Omeka_Record_AbstractRecord { 
+    
     public $name;
-
-    /**
-     * Use the tag text when using this record as a string.
-     *
-     * @return string
-     */
+    
     public function __toString() {
         return $this->name;
     }
     
     /**
-     * Delete handling for a tag.
-     * 
-     * Delete the taggings associated with this tag.
+     * Must also delete the taggings associated with this tag
+     *
+     * @return void
      */
     protected function _delete()
     {
@@ -44,12 +34,7 @@ class Tag extends Omeka_Record_AbstractRecord {
             $tagging->delete();
         }
     }
-
-    /**
-     * Validate this tag.
-     *
-     * The tag "name" must be non-empty and unique.
-     */
+    
     protected function _validate()
     {
         if (trim($this->name) == '') {
@@ -60,7 +45,28 @@ class Tag extends Omeka_Record_AbstractRecord {
             $this->addError('name', __('That name is already taken for this tag.'));
         }
     }
-
+    
+    /**
+     * The check for unique tag names must take into account CASE SENSITIVITY, 
+     * which is accomplished via COLLATE utf8_bin sql
+     *
+     * @return bool
+     */
+    protected function fieldIsUnique($field, $value = null)
+    {
+        if ($field != 'name') {
+            return parent::fieldIsUnique($field, $value);
+        } else {
+            $db = $this->getDb();
+            $sql = "
+            SELECT id 
+            FROM $db->Tag 
+            WHERE name COLLATE utf8_bin LIKE ?";
+            $res = $db->query($sql, array($value ? $value : $this->name));
+            return (!is_array($id = $res->fetch())) || ($this->exists() and $id['id'] == $this->id);
+        }
+    }
+    
     /**
      * Rename a tag.
      *
@@ -70,6 +76,7 @@ class Tag extends Omeka_Record_AbstractRecord {
      *
      * @param array $new_names Names of the tags this one should be
      *  renamed to.
+     * @return void
      */
     public function rename($new_names) 
     {

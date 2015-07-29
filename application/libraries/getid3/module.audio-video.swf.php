@@ -16,9 +16,9 @@
 
 class getid3_swf extends getid3_handler
 {
-	public $ReturnAllTagData = false;
+	var $ReturnAllTagData = false;
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		$info['fileformat']          = 'swf';
@@ -137,3 +137,6 @@ class getid3_swf extends getid3_handler
 	}
 
 }
+
+
+?>

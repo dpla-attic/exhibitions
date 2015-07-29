@@ -36,12 +36,12 @@ class AppearanceController extends Omeka_Controller_AbstractActionController
         fire_plugin_hook('appearance_settings_form', array('form' => $form));
         $this->view->form = $form;
         
-        if ($this->getRequest()->isPost()) {
+        if (isset($_POST['appearance_submit'])) {
             if ($form->isValid($_POST)) {
                 $options = $form->getValues();
-                // Everything except the CSRF hash should correspond to a
+                // Everything except the submit button should correspond to a 
                 // valid option in the database.
-                unset($options['appearance_csrf']);
+                unset($options['settings_submit']);
                 foreach ($options as $key => $value) {
                     set_option($key, $value);
                 }
@@ -60,7 +60,7 @@ class AppearanceController extends Omeka_Controller_AbstractActionController
         fire_plugin_hook('navigation_form', array('form' => $form));
         $this->view->form = $form;
 
-        if ($this->getRequest()->isPost()) {
+        if (isset($_POST['submit'])) {
             if ($form->isValid($_POST)) {
                 $form->saveFromPost();
                 $this->_helper->flashMessenger(__('The navigation settings have been updated.'), 'success');
@@ -72,43 +72,6 @@ class AppearanceController extends Omeka_Controller_AbstractActionController
                 }
             }
         }
-    }
-
-    public function resetNavigationConfirmAction()
-    {
-        $isPartial = $this->getRequest()->isXmlHttpRequest();
-        $form = $this->_getResetForm();
-
-        $this->view->assign(compact('isPartial', 'form'));
-        $this->render('appearance/reset-navigation-confirm', null, true);
-    }
-
-    public function resetNavigationAction()
-    {
-        if (!$this->getRequest()->isPost()) {
-            $this->_forward('method-not-allowed', 'error', 'default');
-            return;
-        }
-        $form = $this->_getResetForm();
-        if ($form->isValid($_POST)) {
-            $nav = array_reverse(Omeka_Navigation::getNavigationOptionValueForInstall(), true);
-            set_option(Omeka_Navigation::PUBLIC_NAVIGATION_MAIN_OPTION_NAME, 
-                       $nav);
-            $this->_helper->flashMessenger(__('The navigation settings have been reset.'), 'success');
-            $this->_helper->redirector('edit-navigation');
-        } else {
-            throw new Omeka_Controller_Exception_404;
-        }
-    }
-
-    protected function _getResetForm()
-    {
-        $form = new Zend_Form();
-        $form->setElementDecorators(array('ViewHelper'));
-        $form->removeDecorator('HtmlTag');
-        $form->addElement('hash', 'confirm_reset_hash');
-        $form->addElement('submit', 'Reset', array('class' => 'delete red button'));
-        $form->setAction($this->view->url(array('action' => 'reset-navigation')));
-        return $form;
+        
     }
 }

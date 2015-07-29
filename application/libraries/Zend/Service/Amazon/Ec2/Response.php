@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Response.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -25,14 +25,11 @@
  */
 require_once 'Zend/Http/Response.php';
 
-/** @see Zend_Xml_Security */
-require_once 'Zend/Xml/Security.php';
-
 /**
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage Ec2
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_Ec2_Response {
@@ -128,7 +125,9 @@ class Zend_Service_Amazon_Ec2_Response {
                 $errors = libxml_use_internal_errors();
 
                 $this->_document = new DOMDocument();
-                $this->_document = Zend_Xml_Security::scan($body, $this->_document);
+                if (!$this->_document->loadXML($body)) {
+                    $this->_document = false;
+                }
 
                 // reset libxml error handling
                 libxml_clear_errors();

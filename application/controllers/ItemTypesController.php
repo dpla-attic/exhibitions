@@ -21,14 +21,13 @@ class ItemTypesController extends Omeka_Controller_AbstractActionController
         $itemType = new ItemType;
         $form = $this->_getForm($itemType);
         
-        if ($this->getRequest()->isPost()) {
+        if (isset($_POST[Omeka_Form_ItemTypes::SUBMIT_ADD_ELEMENT_ID])) {
             if ($form->isValid($_POST)) {
                 try{
                     $itemType = $form->saveFromPost();                    
                     $this->_helper->flashMessenger(__('The item type "%s" was successfully added.', $itemType->name), 'success');
                     $this->_helper->redirector('show', null, null, array('id'=>$itemType->id));
                 } catch (Omeka_Validate_Exception $e) {
-                    $itemType->delete();
                     $this->_helper->flashMessenger($e);
                 }                
             } else {
@@ -48,7 +47,7 @@ class ItemTypesController extends Omeka_Controller_AbstractActionController
         
         // edit the item type
         $form = $this->_getForm($itemType);
-        if ($this->getRequest()->isPost()) {
+        if (isset($_POST[Omeka_Form_ItemTypes::SUBMIT_EDIT_ELEMENT_ID])) {
             if ($form->isValid($_POST)) {
                 try{                    
                     $form->saveFromPost();                    

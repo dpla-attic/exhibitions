@@ -5,8 +5,7 @@ echo head(array('title' => $pageTitle), $header);
 <h1><?php echo $pageTitle; ?></h1>
 
 <?php echo flash(); ?>
-<h2><?php echo html_escape(__('Hello %s. Your username is %s', $user->name , $user->username)); ?></h2>
-
+<h2>Hello, <?php echo html_escape($user->first_name . ' ' . $user->last_name); ?>. Your username is: <?php echo html_escape($user->username); ?></h2>
 
 <form method="post">
     <fieldset>
@@ -17,7 +16,7 @@ echo head(array('title' => $pageTitle), $header);
         </div>
     </div>
     <div class="field">
-        <?php echo $this->formLabel('new_password2', __('Re-type the Password')); ?>
+        <?php echo $this->formLabel('new_password2', __('Re-type the Password')); ?>        
         <div class="inputs">
             <input type="password" name="new_password2" id="new_password2" class="textinput" />
         </div>

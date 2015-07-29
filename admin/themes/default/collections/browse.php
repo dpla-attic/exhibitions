@@ -12,7 +12,7 @@ echo flash();
         </a>
     <?php endif; ?>
     </div>
-    <?php echo pagination_links(); ?>
+    <div class="pagination"><?php echo pagination_links(); ?></div>
     <?php if (has_loop_records('collections')): ?>
         <table id="collections" cellspacing="0" cellpadding="0">
             <thead>
@@ -33,9 +33,6 @@ echo flash();
                 <?php foreach (loop('Collection') as $collection): ?>
                 <tr class="collection<?php if(++$key%2==1) echo ' odd'; else echo ' even'; ?>">
                     <td class="title<?php if ($collection->featured) { echo ' featured';} ?>">
-                        <?php if ($collectionImage = record_image('collection', 'square_thumbnail')): ?>
-                            <?php echo link_to_collection($collectionImage, array('class' => 'image')); ?>
-                        <?php endif; ?>
                         <?php echo link_to_collection(); ?>
                         <?php if (!$collection->public) echo __('(Private)'); ?>
                         <?php if (is_allowed($collection, 'edit')): ?>

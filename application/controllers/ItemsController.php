@@ -11,10 +11,6 @@
  */
 class ItemsController extends Omeka_Controller_AbstractActionController
 {
-    protected $_autoCsrfProtection = true;
-
-    protected $_browseRecordsPerPage = self::RECORDS_PER_PAGE_SETTING;
-
     public $contexts = array(
             'browse' => array('json', 'dcmes-xml', 'rss2', 'omeka-xml', 'omeka-json', 'atom'),
             'show'   => array('json', 'dcmes-xml', 'omeka-xml', 'omeka-json', 'atom')
@@ -85,8 +81,9 @@ class ItemsController extends Omeka_Controller_AbstractActionController
     {
         // Get all the element sets that apply to the item.
         $this->view->elementSets = $this->_getItemElementSets();
-        if (!Zend_Registry::isRegistered('file_derivative_creator') && is_allowed('Settings', 'edit')) {
-            $this->_helper->flashMessenger(__('The ImageMagick directory path has not been set. No derivative images will be created. If you would like Omeka to create derivative images, please set the path in Settings.'));
+        $pathToConvert = get_option('path_to_convert');
+        if (empty($pathToConvert) && is_allowed('Settings', 'edit')) {
+            $this->_helper->flashMessenger('The path to Image Magick has not been set. No derivative images will be created. If you would like Omeka to create derivative images, please add the path to your settings form.');
         }
         parent::editAction();
     }
@@ -145,8 +142,9 @@ class ItemsController extends Omeka_Controller_AbstractActionController
     {
         // Get all the element sets that apply to the item.
         $this->view->elementSets = $this->_getItemElementSets();
-        if (!Zend_Registry::isRegistered('file_derivative_creator') && is_allowed('Settings', 'edit')) {
-            $this->_helper->flashMessenger(__('The ImageMagick directory path has not been set. No derivative images will be created. If you would like Omeka to create derivative images, please set the path in Settings.'));
+        $pathToConvert = get_option('path_to_convert');
+        if (empty($pathToConvert) && is_allowed('Settings', 'edit')) {
+            $this->_helper->flashMessenger('The path to Image Magick has not been set. No derivative images will be created. If you would like Omeka to create derivative images, please add the path to your settings form.');
         }
         return parent::addAction();
     }
@@ -172,20 +170,50 @@ class ItemsController extends Omeka_Controller_AbstractActionController
      */
     public function browseAction()
     {
+        if (!$this->_getParam('sort_field')) {
+            $this->_setParam('sort_field', 'added');
+            $this->_setParam('sort_dir', 'd');
+        }
+
         //Must be logged in to view items specific to certain users
         if ($this->_getParam('user') && !$this->_helper->acl->isAllowed('browse', 'Users')) {
+            $this->_helper->flashMessenger('May not browse by specific users.');
             $this->_setParam('user', null);
-            // Zend re-reads from GET/POST on every getParams() so we need to
-            // also remove these.
-            unset($_GET['user'], $_POST['user']);
         }
         
         parent::browseAction();
     }
 
-    protected function _getBrowseDefaultSort()
+    /**
+     * Retrieve the number of items to display on any given browse page.
+     * This can be modified as a query parameter provided that a user is
+     * actually logged in.
+     *
+     * @return integer
+     */
+    public function _getBrowseRecordsPerPage()
     {
-        return array('added', 'd');
+        //Retrieve the number from the options table
+        $options = $this->getFrontController()->getParam('bootstrap')
+                          ->getResource('Options');
+
+        if (is_admin_theme()) {
+            $perPage = (int) $options['per_page_admin'];
+        } else {
+            $perPage = (int) $options['per_page_public'];
+        }
+        
+        // If users are allowed to modify the # of items displayed per page,
+        // then they can pass the 'per_page' query parameter to change that.
+        if ($this->_helper->acl->isAllowed('modifyPerPage', 'Items') && ($queryPerPage = $this->getRequest()->get('per_page'))) {
+            $perPage = $queryPerPage;
+        }
+
+        if ($perPage < 1) {
+            $perPage = null;
+        }
+
+        return $perPage;
     }
     
     ///// AJAX ACTIONS /////
@@ -333,5 +361,22 @@ class ItemsController extends Omeka_Controller_AbstractActionController
          }
 
          $this->_helper->redirector('browse', 'items');
+    }
+    
+    /**
+     * Goes to results page based off value in text input.
+     */
+     
+    public function paginationAction()
+    {
+        $pageNumber = (int)$_POST['page'];
+        $baseUrl = $this->getRequest()->getBaseUrl().'/items/browse/';
+    	$request = Zend_Controller_Front::getInstance()->getRequest(); 
+    	$requestArray = $request->getParams();        
+        if($currentPage = $this->current) {
+            $paginationUrl = $baseUrl.$currentPage;
+        } else {
+            $paginationUrl = $baseUrl;
+        }
     }
 }

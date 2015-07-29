@@ -17,7 +17,7 @@
 class getid3_png extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		// shortcut
@@ -438,7 +438,7 @@ class getid3_png extends getid3_handler
 		return true;
 	}
 
-	public function PNGsRGBintentLookup($sRGB) {
+	function PNGsRGBintentLookup($sRGB) {
 		static $PNGsRGBintentLookup = array(
 			0 => 'Perceptual',
 			1 => 'Relative colorimetric',
@@ -448,14 +448,14 @@ class getid3_png extends getid3_handler
 		return (isset($PNGsRGBintentLookup[$sRGB]) ? $PNGsRGBintentLookup[$sRGB] : 'invalid');
 	}
 
-	public function PNGcompressionMethodLookup($compressionmethod) {
+	function PNGcompressionMethodLookup($compressionmethod) {
 		static $PNGcompressionMethodLookup = array(
 			0 => 'deflate/inflate'
 		);
 		return (isset($PNGcompressionMethodLookup[$compressionmethod]) ? $PNGcompressionMethodLookup[$compressionmethod] : 'invalid');
 	}
 
-	public function PNGpHYsUnitLookup($unitid) {
+	function PNGpHYsUnitLookup($unitid) {
 		static $PNGpHYsUnitLookup = array(
 			0 => 'unknown',
 			1 => 'meter'
@@ -463,7 +463,7 @@ class getid3_png extends getid3_handler
 		return (isset($PNGpHYsUnitLookup[$unitid]) ? $PNGpHYsUnitLookup[$unitid] : 'invalid');
 	}
 
-	public function PNGoFFsUnitLookup($unitid) {
+	function PNGoFFsUnitLookup($unitid) {
 		static $PNGoFFsUnitLookup = array(
 			0 => 'pixel',
 			1 => 'micrometer'
@@ -471,7 +471,7 @@ class getid3_png extends getid3_handler
 		return (isset($PNGoFFsUnitLookup[$unitid]) ? $PNGoFFsUnitLookup[$unitid] : 'invalid');
 	}
 
-	public function PNGpCALequationTypeLookup($equationtype) {
+	function PNGpCALequationTypeLookup($equationtype) {
 		static $PNGpCALequationTypeLookup = array(
 			0 => 'Linear mapping',
 			1 => 'Base-e exponential mapping',
@@ -481,7 +481,7 @@ class getid3_png extends getid3_handler
 		return (isset($PNGpCALequationTypeLookup[$equationtype]) ? $PNGpCALequationTypeLookup[$equationtype] : 'invalid');
 	}
 
-	public function PNGsCALUnitLookup($unitid) {
+	function PNGsCALUnitLookup($unitid) {
 		static $PNGsCALUnitLookup = array(
 			0 => 'meter',
 			1 => 'radian'
@@ -489,7 +489,7 @@ class getid3_png extends getid3_handler
 		return (isset($PNGsCALUnitLookup[$unitid]) ? $PNGsCALUnitLookup[$unitid] : 'invalid');
 	}
 
-	public function IHDRcalculateBitsPerSample($color_type, $bit_depth) {
+	function IHDRcalculateBitsPerSample($color_type, $bit_depth) {
 		switch ($color_type) {
 			case 0: // Each pixel is a grayscale sample.
 				return $bit_depth;
@@ -515,3 +515,6 @@ class getid3_png extends getid3_handler
 	}
 
 }
+
+
+?>

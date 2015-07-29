@@ -21,6 +21,16 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
     const DELIMITER = 'delimiter';
 
     /**
+     * @var Omeka_Record_AbstractRecord
+     */
+    protected $_record;
+
+    /**
+     * @var string|array
+     */
+    protected $_metadata;
+
+    /**
      * Retrieve a specific piece of a record's metadata for display.
      *
      * @param Omeka_Record_AbstractRecord $record Database record representing 
@@ -56,6 +66,9 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
         if (!($record instanceof Omeka_Record_AbstractRecord)) {
             throw new InvalidArgumentException('Invalid record passed to recordMetadata.');
         }
+         
+        $this->_record = $record;
+        $this->_metadata = $metadata;
 
         // Convert the shortcuts for the options into a proper array.
         $options = $this->_getOptions($options);
@@ -74,8 +87,7 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
             // just one entry, otherwise we need to work on the whole thing
             if ($all || $delimiter) {
                 foreach ($text as $key => $value) {
-                    $text[$key] = $this->_process(
-                        $record, $metadata, $value, $snippet, $escape, $filter);
+                    $text[$key] = $this->_process($value, $snippet, $escape, $filter);
                 }
 
                 // Return the joined text if there was a delimiter
@@ -95,7 +107,7 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
         }
 
         // If we get here, we're working with a single value only.
-        return $this->_process($record, $metadata, $text, $snippet, $escape, $filter);
+        return $this->_process($text, $snippet, $escape, $filter);
     }
 
     /**
@@ -190,8 +202,6 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
      * If given an ElementText record, the actual text string will be
      * extracted automatically.
      *
-     * @param Omeka_Record_AbstractRecord $record
-     * @param string|array $metadata
      * @param string|ElementText $text Text to process.
      * @param int|bool $snippet Snippet length, or false if no snippet.
      * @param bool $escape Whether to HTML escape the text.
@@ -199,7 +209,7 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
      *  filters.
      * @return string
      */
-    protected function _process($record, $metadata, $text, $snippet, $escape, $filter)
+    protected function _process($text, $snippet, $escape, $filter)
     {
         if ($text instanceof ElementText) {
             $elementText = $text;
@@ -225,7 +235,7 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
 
         // Apply plugin filters.
         if ($filter) {
-            $text = $this->_filterText($record, $metadata, $text, $elementText);
+            $text = $this->_filterText($text, $elementText);
         }
 
         return $text;
@@ -234,14 +244,14 @@ class Omeka_View_Helper_Metadata extends Zend_View_Helper_Abstract
     /**
      * Apply filters to a text value.
      *
-     * @param Omeka_Record_AbstractRecord $record
-     * @param string|array $metadata
      * @param string $text
      * @param ElementText|bool $elementText
      * @return string
      */
-    protected function _filterText($record, $metadata, $text, $elementText)
+    protected function _filterText($text, $elementText)
     {
+        $record = $this->_record;
+        $metadata = $this->_metadata;
         // Build the name of the filter to use. This will end up looking like:
         // array('Display', 'Item', 'Dublin Core', 'Title') or something similar.
         $filterName = array('Display', get_class($record));

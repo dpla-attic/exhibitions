@@ -17,7 +17,7 @@
 class getid3_exe extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		fseek($this->getid3->fp, $info['avdataoffset'], SEEK_SET);
@@ -56,3 +56,6 @@ return false;
 	}
 
 }
+
+
+?>

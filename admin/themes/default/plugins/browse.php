@@ -61,9 +61,6 @@ echo flash();
             <?php if($pluginDescription = $plugin->getDescription()): ?>
                 <p class="plugin-description"><?php echo html_escape($pluginDescription); ?></p>
             <?php endif; ?>
-            <?php if($pluginSupportLink = $plugin->getSupportLinkUrl()):?>
-                <p class="plugin-support-link"><a href="<?php echo $pluginSupportLink; ?>"><?php echo __("Get support"); ?></a></p>
-            <?php endif;?>
             <?php if ($needsUpgrade): ?>
                 <ul class="details">
                     <li class="success"><?php echo __('You have a new version of %s. Please upgrade!', $displayName); ?></li>
@@ -90,7 +87,6 @@ echo flash();
                                     <button name="upgrade" type="submit" class="upgrade big green button"<?php if ($cannotLoad): ?> disabled="disabled"<?php endif; ?>><?php echo __('Upgrade'); ?></button>
                                     <input type="hidden" name="name" value="<?php echo html_escape($pluginDirName); ?>" />
                                 </li>
-                                <?php echo $csrf; ?>
                             </form>
                         <?php endif; ?>
                     <?php else: ?>
@@ -106,7 +102,6 @@ echo flash();
                             <form action="<?php echo html_escape(url('plugins/' . $activateOrDeactivate)); ?>" method="post" accept-charset="utf-8">
                             <button name="<?php echo $activateOrDeactivate; ?>" type="submit" class="big <?php echo ($plugin->isActive()) ? 'red' : 'green'; ?> button"><?php echo ($plugin->isActive()) ? __('Deactivate') : __('Activate'); ?></button>
                             <input type="hidden" name="name" value="<?php echo html_escape($plugin->name); ?>" />
-                            <?php echo $csrf; ?>
                             </form>
                         <?php endif; ?>
                         </li>
@@ -130,7 +125,6 @@ echo flash();
                             <form action="<?php echo html_escape(url('plugins/install')); ?>" method="post" accept-charset="utf-8">
                             <button name="install" type="submit" class="install big green button"<?php if ($cannotLoad): ?> disabled="disabled"<?php endif; ?>><?php echo __('Install'); ?></button>
                             <input type="hidden" name="name" value="<?php echo html_escape($plugin->name); ?>" />
-                            <?php echo $csrf; ?>
                             </form> 
                         </li>
                     <?php endif; ?>

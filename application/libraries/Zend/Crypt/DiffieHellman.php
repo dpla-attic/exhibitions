@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Crypt
  * @subpackage DiffieHellman
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: DiffieHellman.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /**
@@ -27,7 +27,7 @@
  *
  * @category   Zend
  * @package    Zend_Crypt
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Crypt_DiffieHellman
@@ -102,6 +102,7 @@ class Zend_Crypt_DiffieHellman
      * @param string $generator
      * @param string $privateKey
      * @param string $privateKeyType
+     * @return void
      */
     public function __construct($prime, $generator, $privateKey = null, $privateKeyType = self::NUMBER)
     {
@@ -145,7 +146,6 @@ class Zend_Crypt_DiffieHellman
      *
      * @param string $number
      * @param string $type
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return Zend_Crypt_DiffieHellman
      */
     public function setPublicKey($number, $type = self::NUMBER)
@@ -166,7 +166,6 @@ class Zend_Crypt_DiffieHellman
      * transaction.
      *
      * @param string $type
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return string
      */
     public function getPublicKey($type = self::NUMBER)
@@ -196,8 +195,6 @@ class Zend_Crypt_DiffieHellman
      *
      * @param string $publicKey
      * @param string $type
-     * @param string $output
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return mixed
      */
     public function computeSecretKey($publicKey, $type = self::NUMBER, $output = self::NUMBER)
@@ -221,7 +218,6 @@ class Zend_Crypt_DiffieHellman
      * Return the computed shared secret key from the DiffieHellman transaction
      *
      * @param string $type
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return string
      */
     public function getSharedSecretKey($type = self::NUMBER)
@@ -242,7 +238,6 @@ class Zend_Crypt_DiffieHellman
      * Setter for the value of the prime number
      *
      * @param string $number
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return Zend_Crypt_DiffieHellman
      */
     public function setPrime($number)
@@ -258,7 +253,6 @@ class Zend_Crypt_DiffieHellman
     /**
      * Getter for the value of the prime number
      *
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return string
      */
     public function getPrime()
@@ -270,11 +264,11 @@ class Zend_Crypt_DiffieHellman
         return $this->_prime;
     }
 
+
     /**
      * Setter for the value of the generator number
      *
      * @param string $number
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return Zend_Crypt_DiffieHellman
      */
     public function setGenerator($number)
@@ -290,7 +284,6 @@ class Zend_Crypt_DiffieHellman
     /**
      * Getter for the value of the generator number
      *
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return string
      */
     public function getGenerator()
@@ -307,7 +300,6 @@ class Zend_Crypt_DiffieHellman
      *
      * @param string $number
      * @param string $type
-     * @throws Zend_Crypt_DiffieHellman_Exception
      * @return Zend_Crypt_DiffieHellman
      */
     public function setPrivateKey($number, $type = self::NUMBER)

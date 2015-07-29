@@ -22,11 +22,9 @@ if (!Omeka) {
             theme_advanced_buttons1: "bold,italic,underline,|,justifyleft,justifycenter,justifyright,|,bullist,numlist,|,link,formatselect,code",
             theme_advanced_buttons2: "",
             theme_advanced_buttons3: "",
-            theme_advanced_blockformats: "p,address,pre,h1,h2,h3,h4,h5,h6,blockquote,address,div",
-            plugins: "paste,inlinepopups,media,autoresize",
+            plugins: "paste,inlinepopups,media",
             media_strict: false,
-            width: "100%",
-            autoresize_max_height: 500
+            width: "100%"
         };
 
         tinyMCE.init($.extend(initParams, params));
@@ -71,53 +69,29 @@ if (!Omeka) {
             });
         }
     };
-    
-    Omeka.stickyNav = function() {
-        var $nav    = $("#content-nav"),
-            $window = $(window);
-        if ($window.height() - 50 < $nav.height()) {
-            $nav.addClass("unfix");
-        }
-        $window.resize( function() {
-            if ($window.height() - 50 < $nav.height()) {
-                $nav.addClass("unfix");
-            } else {
-                $nav.removeClass("unfix");
-            }
-        });
-    };
-    
 
     Omeka.showAdvancedForm = function () {
         var advancedForm = $('#advanced-form');
-        $('#search-form').addClass("with-advanced");
-        $('#search-form button').addClass("blue button");
-        advancedForm.before('<a href="#" id="advanced-search" class="blue button">Advanced Search</a>');
-        advancedForm.click(function (event) {
-            event.stopPropagation();
-        });
-        $("#advanced-search").click(function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            advancedForm.fadeToggle();
-            $(document).click(function (event) {
-                if (event.target.id == 'query') {
-                    return;
-                }
-                advancedForm.fadeOut();
-                $(this).unbind(event);
+        if (advancedForm) {
+            $('#search-form input[type=submit]').addClass("blue button with-advanced").after('<a href="#" id="advanced-search" class="blue button">Advanced Search</a>');
+            advancedForm.click(function (event) {
+                event.stopPropagation();
             });
-        });
-    };
-
-    Omeka.skipNav = function () {
-        $("#skipnav").click(function() {
-            $("#content").attr("tabindex", -1).focus();
-        });
-
-        $("#content").on("blur focusout", function () {
-            $(this).removeAttr("tabindex");
-        });
+            $("#advanced-search").click(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                advancedForm.fadeToggle();
+                $(document).click(function (event) {
+                    if (event.target.id == 'query') {
+                        return;
+                    }
+                    advancedForm.fadeOut();
+                    $(this).unbind(event);
+                });
+            });
+        } else {
+            $('#search-form input[type=submit]').addClass("blue button");
+        }
     };
 
     Omeka.addReadyCallback = function (callback, params) {
@@ -134,8 +108,6 @@ if (!Omeka) {
     Omeka.readyCallbacks = [
         [Omeka.deleteConfirm, null],
         [Omeka.saveScroll, null],
-        [Omeka.stickyNav, null],
-        [Omeka.showAdvancedForm, null],
-        [Omeka.skipNav, null]
+        [Omeka.showAdvancedForm, null]
     ];
 })(jQuery);

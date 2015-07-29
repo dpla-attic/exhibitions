@@ -16,7 +16,7 @@
 
 class getid3_aac extends getid3_handler
 {
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 		fseek($this->getid3->fp, $info['avdataoffset'], SEEK_SET);
 		if (fread($this->getid3->fp, 4) == 'ADIF') {
@@ -29,7 +29,7 @@ class getid3_aac extends getid3_handler
 
 
 
-	public function getAACADIFheaderFilepointer() {
+	function getAACADIFheaderFilepointer() {
 		$info = &$this->getid3->info;
 		$info['fileformat']          = 'aac';
 		$info['audio']['dataformat'] = 'aac';
@@ -257,10 +257,10 @@ class getid3_aac extends getid3_handler
 	}
 
 
-	public function getAACADTSheaderFilepointer($MaxFramesToScan=1000000, $ReturnExtendedInfo=false) {
+	function getAACADTSheaderFilepointer($MaxFramesToScan=1000000, $ReturnExtendedInfo=false) {
 		$info = &$this->getid3->info;
 
-		// based loosely on code from AACfile by Jurgen Faul  <jfaulÃ˜gmx.de>
+		// based loosely on code from AACfile by Jurgen Faul  <jfaulØgmx.de>
 		// http://jfaul.de/atl  or  http://j-faul.virtualave.net/atl/atl.html
 
 
@@ -510,3 +510,6 @@ class getid3_aac extends getid3_handler
 	}
 
 }
+
+
+?>

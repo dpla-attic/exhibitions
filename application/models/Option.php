@@ -7,43 +7,18 @@
  */
 
 /**
- * A site option saved in the database.
- *
- * Options are stored and accessed by string keys.
+ * An option and its metadata.
  * 
  * @package Omeka\Record
  */
-class Option extends Omeka_Record_AbstractRecord
-{
-    /**
-     * Option name.
-     *
-     * @var string
-     */
+class Option extends Omeka_Record_AbstractRecord { 
     public $name;
-
-    /**
-     * Option value.
-     *
-     * @var string
-     */
     public $value;
-
-    /**
-     * Use the option's value when treating it as a string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
+    
+    public function __toString() {
         return $this->value;
     }
-
-    /**
-     * Validate the Option.
-     *
-     * An option must have a non-empty and unique name.
-     */
+    
     protected function _validate()
     {
         if (empty($this->name)) {

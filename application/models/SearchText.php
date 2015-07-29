@@ -7,44 +7,15 @@
  */
 
 /**
- * An entry in the site-wide fulltext search index for a record.
+ * A search text and its metadata.
  * 
  * @package Omeka\Record
  */
 class SearchText extends Omeka_Record_AbstractRecord
 {
-    /**
-     * Type of this text's associated record.
-     *
-     * @var int
-     */
     public $record_type;
-
-    /**
-     * ID of this text's associated record.
-     *
-     * @var int
-     */
     public $record_id;
-
-    /**
-     * Whether this text is publicly accessible.
-     *
-     * @var int
-     */
     public $public;
-
-    /**
-     * Display title for the record in search results.
-     *
-     * @var string
-     */
     public $title;
-
-    /**
-     * Searchable text for the record.
-     *
-     * @var string
-     */
     public $text;
 }

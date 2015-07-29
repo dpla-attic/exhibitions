@@ -28,19 +28,8 @@ class Omeka_Form_Install extends Omeka_Form
             
         $this->addElement('text', 'username', array(
             'label' => __('Username'),
-            'description' => __('must be 30 characters or fewer with no whitespace'), 
-            'validators' => array(
-                array('StringLength', false, array(User::USERNAME_MIN_LENGTH, User::USERNAME_MAX_LENGTH)), 
-                array('validator' => 'Regex', 'breakChainOnFailure' => true, 'options' =>
-                    array(
-                        'pattern' => '#^[a-zA-Z0-9.*@+!\-_%\#\^&$]*$#u',
-                        'messages' => array(
-                            Zend_Validate_Regex::NOT_MATCH =>
-                                __('Whitespace is not allowed. Only these special characters may be used: %s', ' + ! @ # $ % ^ & * . - _' )
-                        )
-                    )
-                )
-            ), 
+            'description' => __('only alphanumeric characters are allowed'), 
+            'validators' => array(array('StringLength', false, array(User::USERNAME_MIN_LENGTH, User::USERNAME_MAX_LENGTH)), 'Alnum'), 
             'required' => true
         ));
         

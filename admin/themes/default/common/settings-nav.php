@@ -1,5 +1,5 @@
 <?php if (is_allowed('Settings', 'edit')): ?>
-<div id="section-nav" role="navigation">
+<div id="section-nav">
 <?php
     $navArray = array(
         array(
@@ -27,10 +27,6 @@
             'uri' => url('settings/edit-item-type-elements'),
             'resource' => 'ElementSets',
             'privilege' => 'browse'
-        ),
-        array(
-            'label' => __('API'),
-            'uri' => url('settings/edit-api')
         ),
     );
     echo nav($navArray, 'admin_navigation_settings');

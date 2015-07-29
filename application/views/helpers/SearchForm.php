@@ -2,7 +2,7 @@
 /**
  * Omeka
  * 
- * @copyright Copyright 2007-2015 Roy Rosenzweig Center for History and New Media
+ * @copyright Copyright 2007-2012 Roy Rosenzweig Center for History and New Media
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
  */
 
@@ -11,7 +11,7 @@
  * 
  * @package Omeka\View\Helper
  */
-class Omeka_View_Helper_SearchForm extends Zend_View_Helper_Abstract
+class Omeka_View_Helper_SearchForm extends Omeka_View_Helper_AbstractSearch
 {
     /**
      * Return the site-wide search form.
@@ -24,28 +24,6 @@ class Omeka_View_Helper_SearchForm extends Zend_View_Helper_Abstract
      */
     public function searchForm(array $options = array())
     {
-        $validQueryTypes = get_search_query_types();
-        $validRecordTypes = get_custom_search_record_types();
-
-        $filters = array(
-            'query' => apply_filters('search_form_default_query', ''),
-            'query_type' => apply_filters('search_form_default_query_type', 'keyword'),
-            'record_types' => apply_filters('search_form_default_record_types',
-                array_keys($validRecordTypes))
-        );
-
-        if (isset($_GET['submit_search'])) {
-            if (isset($_GET['query'])) {
-                $filters['query'] = $_GET['query'];
-            }
-            if (isset($_GET['query_type'])) {
-                $filters['query_type'] = $_GET['query_type'];
-            }
-            if (isset($_GET['record_types'])) {
-                $filters['record_types'] = $_GET['record_types'];
-            }
-        }
-
         // Set the default flag indicating whether to show the advanced form.
         if (!isset($options['show_advanced'])) {
             $options['show_advanced'] = false;
@@ -68,16 +46,13 @@ class Omeka_View_Helper_SearchForm extends Zend_View_Helper_Abstract
             $options['form_attributes']['id'] = 'search-form';
         }
         $options['form_attributes']['method'] = 'get';
-
-        $formParams = array(
-            'options'      => $options,
-            'filters'      => $filters,
-            'query_types'  => $validQueryTypes,
-            'record_types' => $validRecordTypes
+        
+        return $this->view->partial(
+            'search/search-form.php', 
+            array('options'      => $options, 
+                  'filters'      => $this->_filters, 
+                  'query_types'  => $this->_validQueryTypes, 
+                  'record_types' => $this->_validRecordTypes)
         );
-
-        $form = $this->view->partial('search/search-form.php', $formParams);
-
-        return apply_filters('search_form', $form, $formParams);
     }
 }

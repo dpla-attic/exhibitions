@@ -7,42 +7,14 @@
  */
 
 /**
- * Linkage between a record and a tag.
+ * A records tags and its metadata.
  * 
  * @package Omeka\Record
  */
 class RecordsTags extends Omeka_Record_AbstractRecord
 {
-    /**
-     * ID of the record being linked.
-     *
-     * @var int
-     */
     public $record_id;
-
-    /**
-     * Type of the record being linked.
-     *
-     * @var int
-     */
     public $record_type;
-
-    /**
-     * ID of the tag being linked.
-     *
-     * @var int
-     */
     public $tag_id;
-
-    /**
-     * Timestamp when this linkage was created.
-     *
-     * @var string
-     */
     public $time;
-
-    protected function _initializeMixins()
-    {
-        $this->_mixins[] = new Mixin_Timestamp($this, 'time', null);
-    }
 }

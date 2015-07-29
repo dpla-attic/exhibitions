@@ -65,7 +65,7 @@ class Omeka_Form_SecuritySettings extends Omeka_Form
         
         $this->addElement('checkbox', 'html_purifier_is_enabled', array(
             'checked' => (boolean)get_option('html_purifier_is_enabled'),
-            'description' => __('Check this field if you would like to filter HTML elements or attributes from form input.'),
+            'description' => 'Check this field if you would like to filter HTML elements or attributes from form input.',
             'label' => __('Enable HTML Filtering')
         ));
         
@@ -83,10 +83,6 @@ class Omeka_Form_SecuritySettings extends Omeka_Form
             'description' => __('List of allowed HTML attributes in form input'),
             'cols' => 50, 
             'rows' => 5
-        ));
-
-        $this->addElement('hash', 'security_csrf', array(
-            'timeout' => 3600
         ));
 
         $this->addDisplayGroup(

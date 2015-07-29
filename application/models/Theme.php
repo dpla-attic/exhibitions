@@ -9,106 +9,29 @@
 /**
  * A theme and its metadata.
  * 
- * Unlike most other models, Themes are not stored in the database. This model
- * relies only on INI data, but acts like an Omeka_Record_AbstractRecord model.
+ * Dummy model to simulate the other ActiveRecord models.
  * 
  * @package Omeka\Record
  */
 class Theme 
 {
-    /**
-     * Filename for the theme screenshot.
-     */
     const THEME_IMAGE_FILE_NAME = 'theme.jpg';
-
-    /**
-     * Filename for the theme INI file.
-     */
     const THEME_INI_FILE_NAME = 'theme.ini';
-
-    /**
-     * Filename for the theme config form INI file.
-     */
     const THEME_CONFIG_FILE_NAME = 'config.ini';
-
-    /**
-     * Option name for the current public theme.
-     */
+    
     const PUBLIC_THEME_OPTION = 'public_theme';
-
-    /**
-     * Option name for the current admin theme.
-     */
     const ADMIN_THEME_OPTION = 'admin_theme';
-
-    /**
-     * Absolute path to the theme.
-     *
-     * @var string
-     */
+    
     public $path;
-
-    /**
-     * Directory name of the theme.
-     *
-     * @var string
-     */
     public $directory;
-
-    /**
-     * Web path to the theme screenshot.
-     *
-     * @var string
-     */
     public $image;
-
-    /**
-     * The theme's author.
-     *
-     * @var string
-     */
     public $author;
-
-    /**
-     * The theme's title.
-     *
-     * @var string
-     */
     public $title;
-
-    /**
-     * The theme's description.
-     *
-     * @var string
-     */
     public $description;
-
-    /**
-     * The software license for the theme.
-     *
-     * @var string
-     */
     public $license;
-
-    /**
-     * A link to the theme's website.
-     *
-     * @var string
-     */
     public $website;
-
-    /**
-     * The minimum Omeka version the theme will run on.
-     *
-     * @var string
-     */
     public $omeka_minimum_version;
-
-    /**
-     * Set the INI and file data for the theme, given its directory name.
-     *
-     * @param string $themeName Directory name.
-     */
+    
     public function __construct($themeName) 
     {
         $this->setDirectoryName($themeName);
@@ -116,12 +39,7 @@ class Theme
         $this->setIni(self::THEME_INI_FILE_NAME);
         $this->setConfig(self::THEME_CONFIG_FILE_NAME);
     }
-
-    /**
-     * Set the theme's directory name and path.
-     *
-     * @param string $dir Directory name.
-     */
+    
     public function setDirectoryName($dir)
     {
         // Define a hard theme path for the theme
@@ -170,12 +88,7 @@ class Theme
     {
         return $this->getAssetPath() . '/' . $pluginModuleName;
     }
-
-    /**
-     * Set the web path to the screenshot, if it exists.
-     *
-     * @param string $fileName Relative filename of the image to check.
-     */
+    
     public function setImage($fileName)
     {
         // Test to see if an image is available to present the user
@@ -186,12 +99,7 @@ class Theme
             $this->image = $img;
         }
     }
-
-    /**
-     * Load data from the INI file at the given path.
-     *
-     * @param string $fileName Relative filename of the INI file.
-     */
+    
     public function setIni($fileName)
     {
         $themeIni = $this->path . '/' . $fileName;
@@ -205,12 +113,7 @@ class Theme
             }
         }
     }
-
-    /**
-     * Check for a theme config file at the given location.
-     *
-     * @param string $fileName Relative filename of the theme config.ini.
-     */
+    
     public function setConfig($fileName)
     {
         // Get the theme's config file
@@ -274,8 +177,9 @@ class Theme
      * 
      * @param string $themeName  The name of the theme
      * @param array $themeConfigOptions An associative array of configuration options, 
-     *  where each key is a configuration form input name and 
-     *  each value is a string value of that configuration form input
+     *                                  where each key is a configuration form input name and 
+     *                                  each value is a string value of that configuration form input
+     * @return void 
      */    
     static public function setOptions($themeName, $themeConfigOptions)
     {
@@ -288,8 +192,8 @@ class Theme
      * 
      * @param string $themeName  The name of the theme
      * @return array An associative array of configuration options, 
-     *  where each key is a configuration form input name and 
-     *  each value is a string value of that configuration form input
+     *               where each key is a configuration form input name and 
+     *               each value is a string value of that configuration form input
      */
     static public function getOptions($themeName)
     {
@@ -333,6 +237,7 @@ class Theme
      * @param string $themeName  The name of the theme
      * @param string $themeOptionName The name of the theme option
      * @param string The value of the theme option
+     * @return void
      */
     static public function setOption($themeName, $themeOptionName, $themeOptionValue)
     {
@@ -344,9 +249,8 @@ class Theme
     }
     
     /** 
-     * Get the name of a specific theme's option.  Each theme has a single
-     * option in the option's table, which stores all of the configuration
-     * options for that theme
+     * Get the name of a specific theme's option.  Each theme has a single option in the option's table, 
+     * which stores all of the configuration options for that theme
      * 
      * @param string $themeName  The name of the theme
      * @return string The name of a specific theme's option.

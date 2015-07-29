@@ -25,17 +25,9 @@ class SettingsController extends Omeka_Controller_AbstractActionController
     
     public function editSettingsAction() 
     {
+        require_once APP_DIR . '/forms/GeneralSettings.php';
         $form = new Omeka_Form_GeneralSettings;
-        $bootstrap = $this->getInvokeArg('bootstrap');
-        $derivatives = $bootstrap->getResource('Filederivatives');
-
-        if (isset($derivatives)
-            && !($derivatives->getStrategy() instanceof Omeka_File_Derivative_Strategy_ExternalImageMagick)
-        ) {
-            $form->removeElement('path_to_convert');
-        }
-
-        $form->setDefaults($bootstrap->getResource('Options'));
+        $form->setDefaults($this->getInvokeArg('bootstrap')->getResource('Options'));
         fire_plugin_hook('general_settings_form', array('form' => $form));
         $form->removeDecorator('Form');
         $this->view->form = $form;
@@ -43,9 +35,9 @@ class SettingsController extends Omeka_Controller_AbstractActionController
         if ($this->getRequest()->isPost()) {
             if ($form->isValid($_POST)) {
                 $options = $form->getValues();
-                // Everything except the CSRF hash should correspond to a
+                // Everything except the submit button should correspond to a 
                 // valid option in the database.
-                unset($options['settings_csrf']);
+                unset($options['settings_submit']);
                 foreach ($options as $key => $value) {
                     set_option($key, $value);
                 }
@@ -57,8 +49,7 @@ class SettingsController extends Omeka_Controller_AbstractActionController
         }
     }
     
-    public function editSecurityAction()
-    {
+    public function editSecurityAction() {
         $form = new Omeka_Form_SecuritySettings;
         $form->removeDecorator('Form');
         $this->view->form = $form;
@@ -93,17 +84,7 @@ class SettingsController extends Omeka_Controller_AbstractActionController
     public function editSearchAction()
     {
         // Customize search record types.
-        $csrf = new Omeka_Form_SessionCsrf;
-
-        $this->view->searchRecordTypes = get_search_record_types();
-        $this->view->customSearchRecordTypes = get_custom_search_record_types();
-        $this->view->csrf = $csrf;
-
         if ($this->getRequest()->isPost()) {
-            if (!$csrf->isValid($_POST)) {
-                $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
-                return;
-            }
             if (isset($_POST['submit_save_changes'])) {
                 if (isset($_POST['search_record_types'])) {
                     $option = serialize($_POST['search_record_types']);
@@ -122,25 +103,19 @@ class SettingsController extends Omeka_Controller_AbstractActionController
             }
             $this->_helper->redirector('edit-search');
         }
+        
+        $this->view->assign('searchRecordTypes', get_search_record_types());
+        $this->view->assign('customSearchRecordTypes', get_custom_search_record_types());
     }
     
     public function editItemTypeElementsAction()
     {
         $elementSet = $this->_helper->db->getTable('ElementSet')->findByName(ElementSet::ITEM_TYPE_NAME);
         $db = $this->_helper->db;
-
-        $csrf = new Omeka_Form_SessionCsrf;
-
-        $this->view->element_set = $elementSet;
-        $this->view->csrf = $csrf;
-
+        
         // Handle a submitted edit form.
         if ($this->getRequest()->isPost()) {
-            if (!$csrf->isValid($_POST)) {
-                $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
-                return;
-            }
-
+            
             // Update the elements.
             try {
                 $elements = $this->getRequest()->getPost('elements');
@@ -159,29 +134,8 @@ class SettingsController extends Omeka_Controller_AbstractActionController
                 $this->_helper->flashMessenger($e);
             }
         }
-    }
-    
-    public function editApiAction()
-    {
-        $keyTable = $this->_helper->db->getTable('Key');
-
-        $csrf = new Omeka_Form_SessionCsrf;
-
-        $this->view->api_resources = Omeka_Controller_Plugin_Api::getApiResources();
-        $this->view->keys = $keyTable->findAll();
-        $this->view->csrf = $csrf;
         
-        // Handle a form submission
-        if ($this->getRequest()->isPost()) {
-            if (!$csrf->isValid($_POST)) {
-                $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
-                return;
-            }
-            set_option('api_enable', (bool) $_POST['api_enable']);
-            set_option('api_filter_element_texts', (bool) $_POST['api_filter_element_texts']);
-            set_option('api_per_page', (int) $_POST['api_per_page']);
-            $this->_helper->flashMessenger(__('The API configuration was successfully changed!'), 'success');
-        }
+        $this->view->element_set = $elementSet;
     }
     
     /**
@@ -201,7 +155,7 @@ class SettingsController extends Omeka_Controller_AbstractActionController
     {
         $this->_helper->viewRenderer->setNoRender(true);
         $imPath = $this->_getParam('path-to-convert');
-        $isValid = Omeka_File_Derivative_Strategy_ExternalImageMagick::isValidImageMagickPath($imPath);
+        $isValid = Omeka_File_Derivative_Image_Creator::isValidImageMagickPath($imPath);
         $this->getResponse()->setBody(
             $isValid ? '<div class="success">' . __('The ImageMagick directory path works.') . '</div>' 
                      : '<div class="error">' . __('The ImageMagick directory path does not work.') . '</div>');

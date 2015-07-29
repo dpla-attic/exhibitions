@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Mysqli.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 
@@ -46,7 +46,7 @@ require_once 'Zend/Db/Statement/Mysqli.php';
  * @category   Zend
  * @package    Zend_Db
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
@@ -297,12 +297,6 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $port = null;
         }
 
-        if (isset($this->_config['socket'])) {
-            $socket = $this->_config['socket'];
-        } else {
-            $socket = null;
-        }
-
         $this->_connection = mysqli_init();
 
         if(!empty($this->_config['driver_options'])) {
@@ -326,8 +320,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             $this->_config['username'],
             $this->_config['password'],
             $this->_config['dbname'],
-            $port,
-            $socket
+            $port
         );
 
         if ($_isConnected === false || mysqli_connect_errno()) {

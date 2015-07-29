@@ -15,9 +15,9 @@
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 
@@ -31,8 +31,6 @@ require_once 'Zend/Feed.php';
  */
 require_once 'Zend/Feed/Element.php';
 
-/** @see Zend_Xml_Security */
-require_once 'Zend/Xml/Security.php';
 
 /**
  * Zend_Feed_Entry_Abstract represents a single entry in an Atom or RSS
@@ -40,7 +38,7 @@ require_once 'Zend/Xml/Security.php';
  *
  * @category   Zend
  * @package    Zend_Feed
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
@@ -82,10 +80,10 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
                 // Load the feed as an XML DOMDocument object
                 @ini_set('track_errors', 1);
                 $doc = new DOMDocument();
-                $doc = @Zend_Xml_Security::scan($element, $doc);
+                $status = @$doc->loadXML($element);
                 @ini_restore('track_errors');
 
-                if (!$doc) {
+                if (!$status) {
                     // prevent the class to generate an undefined variable notice (ZF-2590)
                     if (!isset($php_errormsg)) {
                         if (function_exists('xdebug_is_enabled')) {

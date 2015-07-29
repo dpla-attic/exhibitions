@@ -1,73 +1,34 @@
 <?php
 /**
  * Omeka
- *
+ * 
  * @copyright Copyright 2007-2012 Roy Rosenzweig Center for History and New Media
  * @license http://www.gnu.org/licenses/gpl-3.0.txt GNU GPLv3
  */
 
 /**
  * An item type and its metadata.
- *
- * Item types are like specialized element sets that only apply to Items and
- * which can vary between items.
- *
+ * 
  * @package Omeka\Record
  */
-class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
+class ItemType extends Omeka_Record_AbstractRecord
 {
-    /**
-     * Minimum length of an ItemType name.
-     */
     const ITEM_TYPE_NAME_MIN_CHARACTERS = 1;
-
-    /**
-     * Maximum length of an ItemType name.
-     */
     const ITEM_TYPE_NAME_MAX_CHARACTERS = 255;
 
-    /**
-     * Name of this ItemType.
-     *
-     * @var string
-     */
     public $name;
-
-    /**
-     * Description for this ItemType.
-     *
-     * @var string
-     */
     public $description = '';
 
-    /**
-     * Records related to an ItemType.
-     *
-     * @var array
-     */
-    protected $_related = array(
-        'Elements' => 'getElements',
-        'Items' => 'getItems'
-    );
+    protected $_related = array('Elements' => 'getElements',
+                                'Items'=>'getItems');
 
-    /**
-     * New Elements to be added for this type.
-     *
-     * @var array
-     */
     private $_elementsToSave = array();
-
-    /**
-     * Elements to be removed from this type.
-     *
-     * @var array
-     */
     private $_elementsToRemove = array();
 
     /**
-     * Get an array of element objects associated with this item type.
+     * Returns an array of element objects associated with this item type.
      *
-     * @return array All the Element objects associated with this item type.
+     * @return array The array of element objects associated with this item type.
      */
     protected function getElements()
     {
@@ -75,11 +36,11 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Get an array of Items that have this item type.
+     * Returns an array of item objects that have this item type.
      *
      * @param int $count The maximum number of items to return.
-     * @param boolean $recent  Whether the most recent items should be chosen.
-     * @return array The Item objects associated with the item type.
+     * @param boolean $recent  Whether or not the items are recent.
+     * @return array The items associated with the item type.
      */
     protected function getItems($count = 10, $recent=true)
     {
@@ -92,12 +53,16 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Validate this ItemType.
+     * Current validation rules for Type
      *
-     * The name field must be between 1 and 255 characters and must be unique.
+     * 1) 'Name' field can't be blank
+     * 2) 'Name' field must be unique
+     *
+     * @return void
      */
     protected function _validate()
     {
+
         if (strlen($this->name) < self::ITEM_TYPE_NAME_MIN_CHARACTERS || strlen($this->name) > self::ITEM_TYPE_NAME_MAX_CHARACTERS) {
             $this->addError('name', __('The item type name must have between %1$s and %2$s characters.', self::ITEM_TYPE_NAME_MIN_CHARACTERS, self::ITEM_TYPE_NAME_MAX_CHARACTERS) );
         }
@@ -109,6 +74,8 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
 
     /**
      * Filter incoming POST data from ItemType form.
+     *
+     * @return void
      */
     protected function filterPostData($post)
     {
@@ -126,10 +93,9 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Clean up the associated records for this Item Type.
+     * Delete all the ItemTypesElements joins
      *
-     * Delete all the ItemTypesElements rows joined to this type, and remove the
-     * type ID from any associated items.
+     * @return void
      */
     protected function _delete()
     {
@@ -137,13 +103,15 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
         foreach ($tm_objs as $tm) {
             $tm->delete();
         }
-        $this->_dissociateItems();
     }
 
     /**
-     * After-save hook.
-     *
      * Save Element records that are associated with this Item Type.
+     *
+     * @internal Duplication with ElementSet::afterSave().  Could resolve in
+     * future by refactoring into a mixin that handles record dependencies.
+     *
+     * @return void
      */
     protected function afterSave($args)
     {
@@ -162,13 +130,12 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Reorder the elements for this type.
-     *
      * This extracts the ordering for the elements from the form's POST, then uses
      * the given ordering to reorder each join record from item_types_elements into
      * a new ordering, which is then saved.
      *
-     * @param array $elementOrderingArray An array of element_id => order pairs
+     * @param Array $elementOrderingArray An array of element_id => order pairs
+     * @return void
      */
     public function reorderElements($elementOrderingArray)
     {
@@ -184,7 +151,7 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
         } else if (count($elementOrderingArray) < count($joinRecordArray)) {
             throw new Omeka_Record_Exception(__('There are too few values in the element ordering array.'));
         }
-
+        
         foreach ($joinRecordArray as $key => $joinRecord) {
             $joinRecord->order = $elementOrderingArray[$joinRecord->element_id];
             $joinRecord->save();
@@ -194,13 +161,15 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     /**
      * Add a set of elements to the Item Type.
      *
-     * @param array $elements Either an array of elements or an array of
-     * metadata, where each entry corresponds to a new element to add to the
-     * item type.  If an element exists with the same id, it will replace the
-     * old element with the new element.
+     * @param array $elements Either an array of elements
+     * or an array of metadata, where each entry corresponds
+     * to a new element to add to the item type.  If an element exists with the same id,
+     * it will replace the old element with the new element.
      *
      * @uses Element::setArray() For details on the format for passing metadata
      * through $elementInfo.
+     *
+     * @return void
      */
     public function addElements($elements = array())
     {
@@ -239,9 +208,11 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Add a new element to the item type, giving the Element by its ID.
+     * Adds a new element to the item type by the id of the element
      *
-     * @param int ID of the Element.
+     * @param string Id of the element
+     * @return void
+     *
      */
     public function addElementById($elementId)
     {
@@ -260,11 +231,12 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Remove an array of Elements from this item type
+     * Removes an array of Elements from this item type
+     * The element will not be removed until the object is saved.
      *
-     * The elements will not be removed until the object is saved.
-     *
-     * @param array $elements An array of Element objects or element id strings
+     * @since 1.2
+     * @param Array $elements An array of Element objects or element id strings
+     * @return void
      */
     public function removeElements($elements)
     {
@@ -275,10 +247,10 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
 
     /**
      * Remove a single Element from this item type.
-     *
      * The element will not be removed until the object is saved.
      *
      * @param Element|string $element The element object or the element id.
+     * @return void
      */
     public function removeElement($element)
     {
@@ -317,13 +289,14 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
             if ($element) {
                 $this->_elementsToRemove[] = $element;
             }
-        }
+        }        
     }
 
-    /**
-     * Immediately remove a single Element from this item type.
+     /**
+     * Removes a single Element from this item type.  It removes it immediately.
      *
      * @param Element|string $element
+     * @return void
      */
     private function _removeElement($element)
     {
@@ -338,14 +311,13 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
         $iteJoin->delete();
     }
 
-    /**
-     * Determine whether this ItemType has a particular element.
-     *
-     * This method does not handle elements that were added or
+     /**
+     * Determines whether a saved version of the item type has an element.
+     * It does not correctly determine the presence of elements that were added or
      * removed without saving the item type object.
      *
      * @param Element|string $element  The element object or the element id.
-     * @return bool
+     * @return boolean
      */
     public function hasElement($element)
     {
@@ -364,7 +336,7 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     }
 
     /**
-     * Get the total number of items that have this item type.
+     * Determines the total number of items that have this item type.
      *
      * @return int The total number of items that have this item type.
      */
@@ -377,7 +349,7 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
 
 
     /**
-     * Get the 'Item Type' element set.
+     * Returns the 'Item Type' element set.
      *
      * @return ElementSet
      */
@@ -385,27 +357,5 @@ class ItemType extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
     {
         // Element should belong to the 'Item Type' element set.
         return get_db()->getTable('ElementSet')->findBySql('name = ?', array(ElementSet::ITEM_TYPE_NAME), true);
-    }
-
-    /**
-     * Identify ItemType records as relating to the ItemTypes ACL resource.
-     *
-     * Required by Zend_Acl_Resource_Interface.
-     *
-     * @return string
-     */
-    public function getResourceId()
-    {
-        return 'ItemTypes';
-    }
-
-    /**
-     * Set items attached to this item type back to null.
-     */
-    protected function _dissociateItems()
-    {
-        $db = $this->getDb();
-        $db->update($db->Item, array('item_type_id' => null),
-            array('item_type_id = ?' => $this->id));
     }
 }

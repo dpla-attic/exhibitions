@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -30,45 +30,28 @@ require_once 'Zend/Service/Amazon/Exception.php';
  * @category   Zend
  * @package    Zend_Service_Amazon
  * @subpackage SimpleDb
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_Amazon_SimpleDb_Page
 {
-    /**
-     * Page data
-     *
-     * @var string
-     */
+    /** @var string Page data */
     protected $_data;
 
-    /**
-     * Token identifying page
-     *
-     * @var string|null
-     */
+    /** @var string|null Token identifying page */
     protected $_token;
 
     /**
      * Constructor
      *
-     * @param string      $data
-     * @param string|null $token
+     * @param  string $data
+     * @param  string|null $token
+     * @return void
      */
     public function __construct($data, $token = null)
     {
-        $this->setData($data);
-        $this->setToken($token);
-    }
-
-    /**
-     * Set page data
-     *
-     * @param string $data
-     */
-    public function setData($data)
-    {
-        $this->_data = $data;
+        $this->_data  = $data;
+        $this->_token = $token;
     }
 
     /**
@@ -79,16 +62,6 @@ class Zend_Service_Amazon_SimpleDb_Page
     public function getData()
     {
         return $this->_data;
-    }
-
-    /**
-     * Set token
-     *
-     * @param string|null $token
-     */
-    public function setToken($token)
-    {
-        $this->_token = (trim($token) === '') ? null : $token;
     }
 
     /**
@@ -104,7 +77,7 @@ class Zend_Service_Amazon_SimpleDb_Page
     /**
      * Determine whether this is the last page of data
      *
-     * @return bool
+     * @return void
      */
     public function isLast()
     {

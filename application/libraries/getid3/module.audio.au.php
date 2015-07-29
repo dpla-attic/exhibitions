@@ -17,7 +17,7 @@
 class getid3_au extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		fseek($this->getid3->fp, $info['avdataoffset'], SEEK_SET);
@@ -69,7 +69,7 @@ class getid3_au extends getid3_handler
 		return true;
 	}
 
-	public function AUdataFormatNameLookup($id) {
+	function AUdataFormatNameLookup($id) {
 		static $AUdataFormatNameLookup = array(
 			0  => 'unspecified format',
 			1  => '8-bit mu-law',
@@ -103,7 +103,7 @@ class getid3_au extends getid3_handler
 		return (isset($AUdataFormatNameLookup[$id]) ? $AUdataFormatNameLookup[$id] : false);
 	}
 
-	public function AUdataFormatBitsPerSampleLookup($id) {
+	function AUdataFormatBitsPerSampleLookup($id) {
 		static $AUdataFormatBitsPerSampleLookup = array(
 			1  => 8,
 			2  => 8,
@@ -131,7 +131,7 @@ class getid3_au extends getid3_handler
 		return (isset($AUdataFormatBitsPerSampleLookup[$id]) ? $AUdataFormatBitsPerSampleLookup[$id] : false);
 	}
 
-	public function AUdataFormatUsedBitsPerSampleLookup($id) {
+	function AUdataFormatUsedBitsPerSampleLookup($id) {
 		static $AUdataFormatUsedBitsPerSampleLookup = array(
 			1  => 8,
 			2  => 8,
@@ -160,3 +160,6 @@ class getid3_au extends getid3_handler
 	}
 
 }
+
+
+?>

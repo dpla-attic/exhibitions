@@ -17,7 +17,7 @@
 class getid3_nsv extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		fseek($this->getid3->fp, $info['avdataoffset'], SEEK_SET);
@@ -58,7 +58,7 @@ class getid3_nsv extends getid3_handler
 		return true;
 	}
 
-	public function getNSVsHeaderFilepointer($fileoffset) {
+	function getNSVsHeaderFilepointer($fileoffset) {
 		$info = &$this->getid3->info;
 		fseek($this->getid3->fp, $fileoffset, SEEK_SET);
 		$NSVsheader = fread($this->getid3->fp, 28);
@@ -131,7 +131,7 @@ class getid3_nsv extends getid3_handler
 		return true;
 	}
 
-	public function getNSVfHeaderFilepointer($fileoffset, $getTOCoffsets=false) {
+	function getNSVfHeaderFilepointer($fileoffset, $getTOCoffsets=false) {
 		$info = &$this->getid3->info;
 		fseek($this->getid3->fp, $fileoffset, SEEK_SET);
 		$NSVfheader = fread($this->getid3->fp, 28);
@@ -205,7 +205,7 @@ class getid3_nsv extends getid3_handler
 	}
 
 
-	public static function NSVframerateLookup($framerateindex) {
+	static function NSVframerateLookup($framerateindex) {
 		if ($framerateindex <= 127) {
 			return (float) $framerateindex;
 		}
@@ -221,3 +221,6 @@ class getid3_nsv extends getid3_handler
 	}
 
 }
+
+
+?>

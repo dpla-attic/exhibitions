@@ -11,34 +11,12 @@
  * 
  * @package Omeka\Record
  */
-class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
+class ElementSet extends Omeka_Record_AbstractRecord
 {
-    /**
-     * Type of record this set applies to.
-     *
-     * @var string
-     */
     public $record_type;
-
-    /**
-     * Name for the element set.
-     *
-     * @var string
-     */
     public $name;
-
-    /**
-     * Description for the element set.
-     *
-     * @var string
-     */
     public $description;
-
-    /**
-     * Child Element records to save when saving this set.
-     *
-     * @var array
-     */
+    
     protected $_elementsToSave = array();
     
     /**
@@ -48,12 +26,7 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
      * element set from others.
      */
     const ITEM_TYPE_NAME = 'Item Type Metadata';
-
-    /**
-     * Get the Elements that are in this set.
-     *
-     * @return array
-     */
+    
     public function getElements()
     {
         return $this->getTable('Element')->findBySet($this->name);
@@ -71,25 +44,14 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
             $this->_elementsToSave[] = $record;
         }
     }
-
-    /**
-     * Create a new Element record with the given data.
-     *
-     * @param array $options Data to set on the Element.
-     * @return Element
-     */
+    
     private function _buildElementRecord($options)
     {
         $obj = new Element;
         $obj->setArray($options);
-        return $obj;
+        return $obj;        
     }
-
-    /**
-     * After-save hook.
-     *
-     * Save the $_elementsToSave and set their orders.
-     */
+    
     protected function afterSave($args)
     {
         $maxOrder = $this->_getNextElementOrder();
@@ -102,7 +64,7 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
     }
     
     /**
-     * Delete all the elements associated with an element set.
+     * Deletes all the elements associated with an element set.
      * 
      * @return void
      */
@@ -114,12 +76,7 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
             $element->delete();
         }
     }
-
-    /**
-     * Get an order value to place an Element at the end of this set.
-     *
-     * @return int
-     */
+    
     private function _getNextElementOrder()
     {
         $db = $this->getDb();
@@ -134,12 +91,7 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
         }
         return $nextElementOrder;
     }
-
-    /**
-     * Validate the element set.
-     *
-     * Tests that name is non-empty and unique.
-     */
+    
     protected function _validate()
     {
         if (!$this->fieldIsUnique('name')) {
@@ -149,17 +101,5 @@ class ElementSet extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
         if (empty($this->name)) {
             $this->addError('Name', __('Name of element set must not be empty.'));
         }
-    }
-    
-    /**
-     * Identify ElementSet records as relating to the ElementSets ACL resource.
-     *
-     * Required by Zend_Acl_Resource_Interface.
-     *
-     * @return string
-     */
-    public function getResourceId()
-    {
-        return 'ElementSets';
     }
 }

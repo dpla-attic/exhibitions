@@ -172,20 +172,9 @@ abstract class Omeka_Output_OmekaXml_AbstractOmekaXml
             
             // Get associated element and element set records.
             $element = get_db()->getTable('Element')->find($elementText->element_id);
-
-            // Skip texts where we can't find their Element.
-            if (!$element) {
-                continue;
-            }
-
             $elementSet = get_db()->getTable('ElementSet')->find($element->element_set_id);
-
-            // Also skip if we can find the Element but not the Set (less likely)
-            if (!$elementSet) {
-                continue;
-            }
             
-            // Differentiate between the element sets and the "Item Type 
+            // Differenciate between the element sets and the "Item Type 
             // Metadata" pseudo element set.
             if (ElementSet::ITEM_TYPE_NAME == $elementSet->name) {
                 $itemType['elements'][$element->id]['name'] = $element->name;
@@ -254,9 +243,7 @@ abstract class Omeka_Output_OmekaXml_AbstractOmekaXml
                 foreach ($element['elementTexts'] as $elementTextId => $elementText) {
                     // elementText
                     $elementTextElement = $this->_createElement('elementText', null, $elementTextId);
-                    // Replace invalid control characters
-                    $text = preg_replace('#[\x00-\x08\x0B\x0C\x0E-\x1F]#', "\xef\xbf\xbd", $elementText['text']);
-                    $textElement = $this->_createElement('text', $text, null, $elementTextElement);
+                    $textElement = $this->_createElement('text', $elementText['text'], null, $elementTextElement);
                     $elementTextContainerElement->appendChild($elementTextElement);
                 }
                 $elementElement->appendChild($elementTextContainerElement);

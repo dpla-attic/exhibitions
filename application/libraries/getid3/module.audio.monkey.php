@@ -17,10 +17,10 @@
 class getid3_monkey extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
-		// based loosely on code from TMonkey by Jurgen Faul <jfaulÃ˜gmx*de>
+		// based loosely on code from TMonkey by Jurgen Faul <jfaulØgmx*de>
 		// http://jfaul.de/atl  or  http://j-faul.virtualave.net/atl/atl.html
 
 		$info['fileformat']            = 'mac';
@@ -176,7 +176,7 @@ class getid3_monkey extends getid3_handler
 		return true;
 	}
 
-	public function MonkeyCompressionLevelNameLookup($compressionlevel) {
+	function MonkeyCompressionLevelNameLookup($compressionlevel) {
 		static $MonkeyCompressionLevelNameLookup = array(
 			0     => 'unknown',
 			1000  => 'fast',
@@ -188,7 +188,7 @@ class getid3_monkey extends getid3_handler
 		return (isset($MonkeyCompressionLevelNameLookup[$compressionlevel]) ? $MonkeyCompressionLevelNameLookup[$compressionlevel] : 'invalid');
 	}
 
-	public function MonkeySamplesPerFrame($versionid, $compressionlevel) {
+	function MonkeySamplesPerFrame($versionid, $compressionlevel) {
 		if ($versionid >= 3950) {
 			return 73728 * 4;
 		} elseif ($versionid >= 3900) {
@@ -201,3 +201,5 @@ class getid3_monkey extends getid3_handler
 	}
 
 }
+
+?>

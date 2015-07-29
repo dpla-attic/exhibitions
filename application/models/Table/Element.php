@@ -151,8 +151,6 @@ class Table_Element extends Omeka_Db_Table
                 $select->order('elements.name ASC');
             } else if ($params['sort'] == 'alphaBySet') {
                 $select->order('element_sets.name ASC')->order('elements.name ASC');
-            } else if ($params['sort'] == 'orderBySet') {
-                $this->orderElements($select);
             }
         }
         
@@ -172,19 +170,6 @@ class Table_Element extends Omeka_Db_Table
                 (int)$params['item_type_id']);
         } else if (array_key_exists('exclude_item_type', $params)) {
             $select->where('element_sets.name != ?', ElementSet::ITEM_TYPE_NAME);
-        } else if(array_key_exists('item_type', $params)) {
-            //for the API for item_types
-            $select->joinLeft(array('item_types_elements' => $db->ItemTypesElements),
-                    'item_types_elements.element_id = elements.id', array());
-            $select->where('item_types_elements.item_type_id = ? ', (int)$params['item_type']);            
-        }
-        
-        // REST API params.
-        if (array_key_exists('name', $params)) {
-            $select->where("elements.name = ?", $params['name']);
-        }
-        if (array_key_exists('element_set', $params)) {
-            $select->where("elements.element_set_id = ?", $params['element_set']);
         }
     }
     
@@ -204,26 +189,19 @@ class Table_Element extends Omeka_Db_Table
         if (!array_key_exists('record_types', $options)) {
             $options['record_types'] = array('Item', 'All');
         }
-        $optgroups = get_option('show_element_set_headings');
-
         $select = $this->getSelectForFindBy($options);
         $select->reset(Zend_Db_Select::COLUMNS);
         $select->from(array(), array(
-            'id' => 'elements.id',
+            'id' => 'elements.id', 
             'name' => 'elements.name',
             'set_name' => 'element_sets.name',
         ));
 
         $elements = $this->fetchAll($select);
-        $selectOptions = array();
+        $options = array();
         foreach ($elements as $element) {
-            if ($optgroups) {
-                $selectOptions[__($element['set_name'])][$element['id']] = __($element['name']);
-            } else {
-                $selectOptions[$element['id']] = __($element['name']);
-            }
+            $options[__($element['set_name'])][$element['id']] = __($element['name']);
         }
-
-        return $selectOptions;
+        return $options;
     }
 }

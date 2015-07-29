@@ -5,17 +5,16 @@ echo flash();
 ?>
 <form method="post">
     <section class="seven columns alpha">
-        <?php echo $pluginBroker->callHook('config_form', array('view' => $this), $plugin); ?>
+        <?php echo $pluginBroker->callHook('config_form', array(), $plugin); ?>
     </section>
     <section class="three columns omega">
         <div id="save" class="panel">
             <?php
             echo $this->formSubmit(
-                'install_plugin', __('Save Changes'),
+                'install_plugin', 'Save Changes',
                 array('class' => 'submit big green button'));
             ?>
         </div>
     </section>
-    <?php echo $csrf; ?>
 </form>
 <?php echo foot(); ?>

@@ -16,8 +16,8 @@ class CoinsPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_hooks = array(
         'public_items_show',
         'admin_items_show',
-        'public_items_browse_each',
-        'admin_items_browse_simple_each',
+        'public_items_browse',
+        'admin_items_browse',
     );
     
     /**
@@ -39,16 +39,16 @@ class CoinsPlugin extends Omeka_Plugin_AbstractPlugin
     /**
      * Print out the COinS span on the public items browse page.
      */
-    public function hookPublicItemsBrowseEach()
+    public function hookPublicItemsBrowse()
     {
-        echo get_view()->coins(get_current_record('item'));
+        echo get_view()->coins(get_loop_records('items'));
     }
     
     /**
      * Print out the COinS span on the admin items browse page.
      */
-    public function hookAdminItemsBrowseSimpleEach()
+    public function hookAdminItemsBrowse()
     {
-        echo get_view()->coins(get_current_record('item'));
+        echo get_view()->coins(get_loop_records('items'));
     }
 }

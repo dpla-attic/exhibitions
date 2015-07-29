@@ -7,30 +7,13 @@
  */
 
 /**
- * Record linking an Element with an ItemType.
+ * An item type element and its metadata.
  * 
  * @package Omeka\Record
  */
 class ItemTypesElements extends Omeka_Record_AbstractRecord
 {
-    /**
-     * ID for the ItemType being linked.
-     *
-     * @var int
-     */
     public $item_type_id;
-
-    /**
-     * ID for the Element being linked.
-     *
-     * @var int
-     */
     public $element_id;
-
-    /**
-     * Relative order of the Element within the ItemType.
-     *
-     * @var int
-     */
     public $order;
 }

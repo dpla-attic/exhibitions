@@ -25,14 +25,14 @@ echo flash();
 
 <section class="three columns omega">
     <ul class="pagination">
-        <?php if (($prevLink = link_to_previous_item_show(__('Prev Item')))): ?>
+        <?php if (link_to_previous_item_show()): ?>
         <li id="previous-item" class="previous">
-            <?php echo $prevLink; ?>
+            <?php echo link_to_previous_item_show(__('Prev Item')); ?>
         </li>
         <?php endif; ?>
-        <?php if (($nextLink = link_to_next_item_show(__('Next Item')))): ?>
+        <?php if (link_to_next_item_show()): ?>
         <li id="next-item" class="next">
-            <?php echo $nextLink; ?>
+            <?php echo link_to_next_item_show(__('Next Item')); ?>
         </li>
         <?php endif; ?>
     </ul>
@@ -43,9 +43,7 @@ echo flash();
         echo link_to_item(__('Edit'), array('class'=>'big green button'), 'edit'); ?>
         <?php endif; ?>
         <a href="<?php echo html_escape(public_url('items/show/'.metadata('item', 'id'))); ?>" class="big blue button" target="_blank"><?php echo __('View Public Page'); ?></a>
-        <?php if (is_allowed($item, 'delete')): ?>
         <?php echo link_to_item(__('Delete'), array('class' => 'delete-confirm big red button'), 'delete-confirm'); ?>
-        <?php endif; ?>
     </div>
     
     <div class="public-featured panel">

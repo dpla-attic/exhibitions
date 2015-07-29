@@ -15,10 +15,10 @@
 
 class getid3_apetag extends getid3_handler
 {
-	public $inline_attachments = true; // true: return full data for all attachments; false: return no data for all attachments; integer: return data for attachments <= than this; string: save as file to this directory
-	public $overrideendoffset  = 0;
+	var $inline_attachments = true; // true: return full data for all attachments; false: return no data for all attachments; integer: return data for attachments <= than this; string: save as file to this directory
+	var $overrideendoffset  = 0;
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		if (!getid3_lib::intValueSupported($info['filesize'])) {
@@ -289,7 +289,7 @@ class getid3_apetag extends getid3_handler
 		return true;
 	}
 
-	public function parseAPEheaderFooter($APEheaderFooterData) {
+	function parseAPEheaderFooter($APEheaderFooterData) {
 		// http://www.uni-jena.de/~pfk/mpp/sv8/apeheader.html
 
 		// shortcut
@@ -313,7 +313,7 @@ class getid3_apetag extends getid3_handler
 		return $headerfooterinfo;
 	}
 
-	public function parseAPEtagFlags($rawflagint) {
+	function parseAPEtagFlags($rawflagint) {
 		// "Note: APE Tags 1.0 do not use any of the APE Tag flags.
 		// All are set to zero on creation and ignored on reading."
 		// http://www.uni-jena.de/~pfk/mpp/sv8/apetagflags.html
@@ -328,7 +328,7 @@ class getid3_apetag extends getid3_handler
 		return $flags;
 	}
 
-	public function APEcontentTypeFlagLookup($contenttypeid) {
+	function APEcontentTypeFlagLookup($contenttypeid) {
 		static $APEcontentTypeFlagLookup = array(
 			0 => 'utf-8',
 			1 => 'binary',
@@ -338,7 +338,7 @@ class getid3_apetag extends getid3_handler
 		return (isset($APEcontentTypeFlagLookup[$contenttypeid]) ? $APEcontentTypeFlagLookup[$contenttypeid] : 'invalid');
 	}
 
-	public function APEtagItemIsUTF8Lookup($itemkey) {
+	function APEtagItemIsUTF8Lookup($itemkey) {
 		static $APEtagItemIsUTF8Lookup = array(
 			'title',
 			'subtitle',
@@ -368,3 +368,5 @@ class getid3_apetag extends getid3_handler
 	}
 
 }
+
+?>

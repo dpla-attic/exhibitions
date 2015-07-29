@@ -12,75 +12,38 @@
  * @package Omeka\Record
  */
 class Collection extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
-{
+{            
     /**
-     * Whether or not the collection is publicly accessible.
-     *
-     * @var bool
+     * @var boolean Whether or not the collection is publicly accessible.
      */
     public $public = 0;
     
     /**
-     * Whether or not the collection is featured.
-     *
-     * @var bool
+     * @var boolean Whether or not the collection is featured.
      */
     public $featured = 0;
     
     /**
-     * Date the collection was added.
-     *
      * @var string
      */
     public $added;
     
     /**
-     * Date the collection was last modified.
-     *
      * @var string
      */
     public $modified;
     
     /**
-     * ID for the User that created this collection.
-     *
-     * @var int
+     * @var integer
      */
     public $owner_id = 0;
-
-    /**
-     * Related records.
-     *
-     * @see Omeka_Record_AbstractRecord::__get
-     */
-    protected $_related = array(
-        'Elements' => 'getElements',
-        'ElementTexts'=>'getElementText'
-    );
-
-    /**
-     * Initialize the mixins.
-     */
-    protected function _initializeMixins()
-    {
-        $this->_mixins[] = new Mixin_PublicFeatured($this);
-        $this->_mixins[] = new Mixin_Owner($this);
-        $this->_mixins[] = new Mixin_ElementText($this);
-        $this->_mixins[] = new Mixin_Timestamp($this);
-        $this->_mixins[] = new Mixin_Search($this);
-    }
-
+    
+    protected $_related = array('Elements'=>'getElements',
+                                'ElementTexts'=>'getElementText');
+    
     /**
      * Get a property about this collection.
      *
-     * Valid properties for a Collection include:
-     * * (int) public
-     * * (int) featured
-     * * (string) added
-     * * (string) modified
-     * * (int) owner_id
-     * * (int) total_items
-     * 
      * @param string $property The property to get, always lowercase.
      * @return mixed The value of the property
      */
@@ -94,10 +57,11 @@ class Collection extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
         }
     }
     
+    
     /**
-     * Get the total number of items in this collection.
+     * Determine the total number of items associated with this collection.
      * 
-     * @return int
+     * @return integer
      */
     public function totalItems()
     {
@@ -132,14 +96,28 @@ class Collection extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
         return 'Collections';
     }
 
+
     /**
-     * Return whether the collection has at least 1 contributor element text.
+     * Returns whether or not the collection has at least 1 contributor element text
      *
-     * @return bool
+     * @return boolean
      */
     public function hasContributor()
     {
         return $this->hasElementText('Dublin Core', 'Contributor');
+    }
+
+    /**
+     * Initialize the mixins
+     *
+     */            
+    protected function _initializeMixins()
+    {
+        $this->_mixins[] = new Mixin_PublicFeatured($this);
+        $this->_mixins[] = new Mixin_Owner($this);
+        $this->_mixins[] = new Mixin_ElementText($this);
+        $this->_mixins[] = new Mixin_Timestamp($this);
+        $this->_mixins[] = new Mixin_Search($this);
     }
 
     /**
@@ -167,31 +145,13 @@ class Collection extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
     /**
      * All of the custom code for deleting an collection.
      *
-     * Delete the element texts for this record.
-     *
      * @return void
      */
     protected function _delete()
     {    
         $this->deleteElementTexts();
-        $this->_dissociateItems();
     }
-
-    /**
-     * Set items attached to this collection back to "no collection."
-     */
-    protected function _dissociateItems()
-    {
-        $db = $this->getDb();
-        $db->update($db->Item, array('collection_id' => null),
-            array('collection_id = ?' => $this->id));
-    }
-
-    /**
-     * Before-save hook.
-     *
-     * Fire the before-save element texts code.
-     */
+    
     protected function beforeSave($args)
     {
         if ($args['post']) {
@@ -199,37 +159,11 @@ class Collection extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
             $this->beforeSaveElements($post);
         }
     }
-
-    /**
-     * After-save hook.
-     *
-     * Handle public/private status for search.
-     */
+    
     protected function afterSave()
     {
         if (!$this->public) {
             $this->setSearchTextPrivate();
-        }
-    }
-
-    /**
-     * Get a representative file for this Collection.
-     *
-     * @return File|null
-     */
-    public function getFile()
-    {
-        $itemTable = $this->getDb()->getTable('Item');
-        $itemArray = $itemTable->findBy(array(
-            'collection' => $this->id,
-            'hasImage' => true,
-            'sort_field' => 'featured',
-            'sort_dir' => 'd'
-        ), 1);
-        if ($itemArray) {
-            return ($itemArray[0]->getFile());
-        } else {
-            return null;
         }
     }
 }

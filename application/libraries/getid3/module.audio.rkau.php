@@ -17,7 +17,7 @@
 class getid3_rkau extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		fseek($this->getid3->fp, $info['avdataoffset'], SEEK_SET);
@@ -76,7 +76,7 @@ class getid3_rkau extends getid3_handler
 	}
 
 
-	public function RKAUqualityLookup(&$RKAUdata) {
+	function RKAUqualityLookup(&$RKAUdata) {
 		$level   = ($RKAUdata['raw']['quality'] & 0xF0) >> 4;
 		$quality =  $RKAUdata['raw']['quality'] & 0x0F;
 
@@ -90,3 +90,5 @@ class getid3_rkau extends getid3_handler
 	}
 
 }
+
+?>

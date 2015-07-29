@@ -16,10 +16,10 @@
 
 class getid3_bmp extends getid3_handler
 {
-	public $ExtractPalette = false;
-	public $ExtractData    = false;
+	var $ExtractPalette = false;
+	var $ExtractData    = false;
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		// shortcuts
@@ -625,7 +625,7 @@ class getid3_bmp extends getid3_handler
 	}
 
 
-	public function PlotBMP(&$BMPinfo) {
+	function PlotBMP(&$BMPinfo) {
 		$starttime = time();
 		if (!isset($BMPinfo['bmp']['data']) || !is_array($BMPinfo['bmp']['data'])) {
 			echo 'ERROR: no pixel data<BR>';
@@ -661,7 +661,7 @@ class getid3_bmp extends getid3_handler
 		return false;
 	}
 
-	public function BMPcompressionWindowsLookup($compressionid) {
+	function BMPcompressionWindowsLookup($compressionid) {
 		static $BMPcompressionWindowsLookup = array(
 			0 => 'BI_RGB',
 			1 => 'BI_RLE8',
@@ -673,7 +673,7 @@ class getid3_bmp extends getid3_handler
 		return (isset($BMPcompressionWindowsLookup[$compressionid]) ? $BMPcompressionWindowsLookup[$compressionid] : 'invalid');
 	}
 
-	public function BMPcompressionOS2Lookup($compressionid) {
+	function BMPcompressionOS2Lookup($compressionid) {
 		static $BMPcompressionOS2Lookup = array(
 			0 => 'BI_RGB',
 			1 => 'BI_RLE8',
@@ -685,3 +685,6 @@ class getid3_bmp extends getid3_handler
 	}
 
 }
+
+
+?>

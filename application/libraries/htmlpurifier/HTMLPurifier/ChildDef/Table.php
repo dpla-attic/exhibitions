@@ -31,192 +31,195 @@
  */
 class HTMLPurifier_ChildDef_Table extends HTMLPurifier_ChildDef
 {
-    /**
-     * @type bool
-     */
     public $allow_empty = false;
-
-    /**
-     * @type string
-     */
     public $type = 'table';
+    public $elements = array('tr' => true, 'tbody' => true, 'thead' => true,
+        'tfoot' => true, 'caption' => true, 'colgroup' => true, 'col' => true);
+    public function __construct() {}
+    public function validateChildren($tokens_of_children, $config, $context) {
+        if (empty($tokens_of_children)) return false;
 
-    /**
-     * @type array
-     */
-    public $elements = array(
-        'tr' => true,
-        'tbody' => true,
-        'thead' => true,
-        'tfoot' => true,
-        'caption' => true,
-        'colgroup' => true,
-        'col' => true
-    );
-
-    public function __construct()
-    {
-    }
-
-    /**
-     * @param array $children
-     * @param HTMLPurifier_Config $config
-     * @param HTMLPurifier_Context $context
-     * @return array
-     */
-    public function validateChildren($children, $config, $context)
-    {
-        if (empty($children)) {
-            return false;
-        }
+        // this ensures that the loop gets run one last time before closing
+        // up. It's a little bit of a hack, but it works! Just make sure you
+        // get rid of the token later.
+        $tokens_of_children[] = false;
 
         // only one of these elements is allowed in a table
         $caption = false;
-        $thead = false;
-        $tfoot = false;
-
-        // whitespace
-        $initial_ws = array();
-        $after_caption_ws = array();
-        $after_thead_ws = array();
-        $after_tfoot_ws = array();
+        $thead   = false;
+        $tfoot   = false;
 
         // as many of these as you want
-        $cols = array();
+        $cols    = array();
         $content = array();
 
+        $nesting = 0; // current depth so we can determine nodes
+        $is_collecting = false; // are we globbing together tokens to package
+                                // into one of the collectors?
+        $collection = array(); // collected nodes
+        $tag_index = 0; // the first node might be whitespace,
+                            // so this tells us where the start tag is
         $tbody_mode = false; // if true, then we need to wrap any stray
                              // <tr>s with a <tbody>.
 
-        $ws_accum =& $initial_ws;
+        foreach ($tokens_of_children as $token) {
+            $is_child = ($nesting == 0);
 
-        foreach ($children as $node) {
-            if ($node instanceof HTMLPurifier_Node_Comment) {
-                $ws_accum[] = $node;
-                continue;
+            if ($token === false) {
+                // terminating sequence started
+            } elseif ($token instanceof HTMLPurifier_Token_Start) {
+                $nesting++;
+            } elseif ($token instanceof HTMLPurifier_Token_End) {
+                $nesting--;
             }
-            switch ($node->name) {
-            case 'tbody':
-                $tbody_mode = true;
-                // fall through
-            case 'tr':
-                $content[] = $node;
-                $ws_accum =& $content;
-                break;
-            case 'caption':
-                // there can only be one caption!
-                if ($caption !== false)  break;
-                $caption = $node;
-                $ws_accum =& $after_caption_ws;
-                break;
-            case 'thead':
-                $tbody_mode = true;
-                // XXX This breaks rendering properties with
-                // Firefox, which never floats a <thead> to
-                // the top. Ever. (Our scheme will float the
-                // first <thead> to the top.)  So maybe
-                // <thead>s that are not first should be
-                // turned into <tbody>? Very tricky, indeed.
-                if ($thead === false) {
-                    $thead = $node;
-                    $ws_accum =& $after_thead_ws;
+
+            // handle node collection
+            if ($is_collecting) {
+                if ($is_child) {
+                    // okay, let's stash the tokens away
+                    // first token tells us the type of the collection
+                    switch ($collection[$tag_index]->name) {
+                        case 'tbody':
+                            $tbody_mode = true;
+                        case 'tr':
+                            $content[] = $collection;
+                            break;
+                        case 'caption':
+                            if ($caption !== false) break;
+                            $caption = $collection;
+                            break;
+                        case 'thead':
+                        case 'tfoot':
+                            $tbody_mode = true;
+                            // XXX This breaks rendering properties with
+                            // Firefox, which never floats a <thead> to
+                            // the top. Ever. (Our scheme will float the
+                            // first <thead> to the top.)  So maybe
+                            // <thead>s that are not first should be
+                            // turned into <tbody>? Very tricky, indeed.
+
+                            // access the appropriate variable, $thead or $tfoot
+                            $var = $collection[$tag_index]->name;
+                            if ($$var === false) {
+                                $$var = $collection;
+                            } else {
+                                // Oops, there's a second one! What
+                                // should we do?  Current behavior is to
+                                // transmutate the first and last entries into
+                                // tbody tags, and then put into content.
+                                // Maybe a better idea is to *attach
+                                // it* to the existing thead or tfoot?
+                                // We don't do this, because Firefox
+                                // doesn't float an extra tfoot to the
+                                // bottom like it does for the first one.
+                                $collection[$tag_index]->name = 'tbody';
+                                $collection[count($collection)-1]->name = 'tbody';
+                                $content[] = $collection;
+                            }
+                            break;
+                         case 'colgroup':
+                            $cols[] = $collection;
+                            break;
+                    }
+                    $collection = array();
+                    $is_collecting = false;
+                    $tag_index = 0;
                 } else {
-                    // Oops, there's a second one! What
-                    // should we do?  Current behavior is to
-                    // transmutate the first and last entries into
-                    // tbody tags, and then put into content.
-                    // Maybe a better idea is to *attach
-                    // it* to the existing thead or tfoot?
-                    // We don't do this, because Firefox
-                    // doesn't float an extra tfoot to the
-                    // bottom like it does for the first one.
-                    $node->name = 'tbody';
-                    $content[] = $node;
-                    $ws_accum =& $content;
+                    // add the node to the collection
+                    $collection[] = $token;
                 }
-                break;
-            case 'tfoot':
-                // see above for some aveats
-                $tbody_mode = true;
-                if ($tfoot === false) {
-                    $tfoot = $node;
-                    $ws_accum =& $after_tfoot_ws;
-                } else {
-                    $node->name = 'tbody';
-                    $content[] = $node;
-                    $ws_accum =& $content;
+            }
+
+            // terminate
+            if ($token === false) break;
+
+            if ($is_child) {
+                // determine what we're dealing with
+                if ($token->name == 'col') {
+                    // the only empty tag in the possie, we can handle it
+                    // immediately
+                    $cols[] = array_merge($collection, array($token));
+                    $collection = array();
+                    $tag_index = 0;
+                    continue;
                 }
-                break;
-            case 'colgroup':
-            case 'col':
-                $cols[] = $node;
-                $ws_accum =& $cols;
-                break;
-            case '#PCDATA':
-                // How is whitespace handled? We treat is as sticky to
-                // the *end* of the previous element. So all of the
-                // nonsense we have worked on is to keep things
-                // together.
-                if (!empty($node->is_whitespace)) {
-                    $ws_accum[] = $node;
+                switch($token->name) {
+                    case 'caption':
+                    case 'colgroup':
+                    case 'thead':
+                    case 'tfoot':
+                    case 'tbody':
+                    case 'tr':
+                        $is_collecting = true;
+                        $collection[] = $token;
+                        continue;
+                    default:
+                        if (!empty($token->is_whitespace)) {
+                            $collection[] = $token;
+                            $tag_index++;
+                        }
+                        continue;
                 }
-                break;
             }
         }
 
-        if (empty($content)) {
-            return false;
-        }
+        if (empty($content)) return false;
 
-        $ret = $initial_ws;
-        if ($caption !== false) {
-            $ret[] = $caption;
-            $ret = array_merge($ret, $after_caption_ws);
-        }
-        if ($cols !== false) {
-            $ret = array_merge($ret, $cols);
-        }
-        if ($thead !== false) {
-            $ret[] = $thead;
-            $ret = array_merge($ret, $after_thead_ws);
-        }
-        if ($tfoot !== false) {
-            $ret[] = $tfoot;
-            $ret = array_merge($ret, $after_tfoot_ws);
-        }
+        $ret = array();
+        if ($caption !== false) $ret = array_merge($ret, $caption);
+        if ($cols !== false)    foreach ($cols as $token_array) $ret = array_merge($ret, $token_array);
+        if ($thead !== false)   $ret = array_merge($ret, $thead);
+        if ($tfoot !== false)   $ret = array_merge($ret, $tfoot);
 
         if ($tbody_mode) {
-            // we have to shuffle tr into tbody
-            $current_tr_tbody = null;
-
-            foreach($content as $node) {
-                switch ($node->name) {
-                case 'tbody':
-                    $current_tr_tbody = null;
-                    $ret[] = $node;
-                    break;
-                case 'tr':
-                    if ($current_tr_tbody === null) {
-                        $current_tr_tbody = new HTMLPurifier_Node_Element('tbody');
-                        $ret[] = $current_tr_tbody;
+            // a little tricky, since the start of the collection may be
+            // whitespace
+            $inside_tbody = false;
+            foreach ($content as $token_array) {
+                // find the starting token
+                foreach ($token_array as $t) {
+                    if ($t->name === 'tr' || $t->name === 'tbody') {
+                        break;
                     }
-                    $current_tr_tbody->children[] = $node;
-                    break;
-                case '#PCDATA':
-                    assert($node->is_whitespace);
-                    if ($current_tr_tbody === null) {
-                        $ret[] = $node;
+                } // iterator variable carries over
+                if ($t->name === 'tr') {
+                    if ($inside_tbody) {
+                        $ret = array_merge($ret, $token_array);
                     } else {
-                        $current_tr_tbody->children[] = $node;
+                        $ret[] = new HTMLPurifier_Token_Start('tbody');
+                        $ret = array_merge($ret, $token_array);
+                        $inside_tbody = true;
                     }
-                    break;
+                } elseif ($t->name === 'tbody') {
+                    if ($inside_tbody) {
+                        $ret[] = new HTMLPurifier_Token_End('tbody');
+                        $inside_tbody = false;
+                        $ret = array_merge($ret, $token_array);
+                    } else {
+                        $ret = array_merge($ret, $token_array);
+                    }
+                } else {
+                    trigger_error("tr/tbody in content invariant failed in Table ChildDef", E_USER_ERROR);
                 }
             }
+            if ($inside_tbody) {
+                $ret[] = new HTMLPurifier_Token_End('tbody');
+            }
         } else {
-            $ret = array_merge($ret, $content);
+            foreach ($content as $token_array) {
+                // invariant: everything in here is <tr>s
+                $ret = array_merge($ret, $token_array);
+            }
         }
 
-        return $ret;
+        if (!empty($collection) && $is_collecting == false){
+            // grab the trailing space
+            $ret = array_merge($ret, $collection);
+        }
+
+        array_pop($tokens_of_children); // remove phantom token
+
+        return ($ret === $tokens_of_children) ? true : $ret;
 
     }
 }

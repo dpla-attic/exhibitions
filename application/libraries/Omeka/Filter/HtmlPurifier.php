@@ -19,6 +19,7 @@ class Omeka_Filter_HtmlPurifier implements Zend_Filter_Interface
         'Core.Encoding' => 'UTF-8',
         'Cache.DefinitionImpl' => null, // Caching disabled
         'Attr.AllowedFrameTargets' => array('_blank'),
+        'Core.Encoding' => 'UTF-8',
         'HTML.TidyLevel' => 'none',
         'HTML.AllowedElements' => array(
             'p', 'br', 'strong', 'em', 'span', 'div', 'ul', 'ol', 'li', 'a', 
@@ -29,10 +30,7 @@ class Omeka_Filter_HtmlPurifier implements Zend_Filter_Interface
         ),
         'HTML.AllowedAttributes' => array(
             '*.style', '*.class', 'a.href', 'a.title', 'a.target'
-        ),
-        // Note: this allows "unsafe" elements/attributes, but only when they
-        // are also in the Allowed lists configured by the user.
-        'HTML.Trusted' => true
+        ),   
     );
 
     /**

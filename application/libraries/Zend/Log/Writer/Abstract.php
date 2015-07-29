@@ -15,9 +15,9 @@
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 
 /** Zend_Log_Filter_Priority */
@@ -27,9 +27,9 @@ require_once 'Zend/Log/Filter/Priority.php';
  * @category   Zend
  * @package    Zend_Log
  * @subpackage Writer
- * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Abstract.php 24593 2012-01-05 20:35:02Z matthew $
  */
 abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
 {
@@ -48,10 +48,8 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Add a filter specific to this writer.
      *
-     * @param  Zend_Log_Filter_Interface|int $filter Filter class or filter
-     *                                               priority
+     * @param  Zend_Log_Filter_Interface  $filter
      * @return Zend_Log_Writer_Abstract
-     * @throws Zend_Log_Exception
      */
     public function addFilter($filter)
     {
@@ -77,9 +75,8 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
      */
     public function write($event)
     {
-        /** @var Zend_Log_Filter_Interface $filter */
         foreach ($this->_filters as $filter) {
-            if (!$filter->accept($event)) {
+            if (! $filter->accept($event)) {
                 return;
             }
         }
@@ -111,7 +108,7 @@ abstract class Zend_Log_Writer_Abstract implements Zend_Log_FactoryInterface
     /**
      * Write a message to the log.
      *
-     * @param  array $event log data event
+     * @param  array  $event  log data event
      * @return void
      */
     abstract protected function _write($event);

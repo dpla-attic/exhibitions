@@ -5,9 +5,7 @@
  */
 class HTMLPurifier_HTMLModule_List extends HTMLPurifier_HTMLModule
 {
-    /**
-     * @type string
-     */
+
     public $name = 'List';
 
     // According to the abstract schema, the List content set is a fully formed
@@ -19,16 +17,9 @@ class HTMLPurifier_HTMLModule_List extends HTMLPurifier_HTMLModule
     // we don't have support for such nested expressions without using
     // the incredibly inefficient and draconic Custom ChildDef.
 
-    /**
-     * @type array
-     */
     public $content_sets = array('Flow' => 'List');
 
-    /**
-     * @param HTMLPurifier_Config $config
-     */
-    public function setup($config)
-    {
+    public function setup($config) {
         $ol = $this->addElement('ol', 'List', new HTMLPurifier_ChildDef_List(), 'Common');
         $ul = $this->addElement('ul', 'List', new HTMLPurifier_ChildDef_List(), 'Common');
         // XXX The wrap attribute is handled by MakeWellFormed.  This is all
@@ -46,6 +37,7 @@ class HTMLPurifier_HTMLModule_List extends HTMLPurifier_HTMLModule
         $this->addElement('dd', false, 'Flow', 'Common');
         $this->addElement('dt', false, 'Inline', 'Common');
     }
+
 }
 
 // vim: et sw=4 sts=4

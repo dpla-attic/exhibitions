@@ -17,7 +17,7 @@
 class getid3_bink extends getid3_handler
 {
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 $info['error'][] = 'Bink / Smacker files not properly processed by this version of getID3() ['.$this->getid3->version().']';
@@ -43,7 +43,7 @@ $info['error'][] = 'Bink / Smacker files not properly processed by this version 
 
 	}
 
-	public function ParseBink() {
+	function ParseBink() {
 		$info = &$this->getid3->info;
 		$info['fileformat']          = 'bink';
 		$info['video']['dataformat'] = 'bink';
@@ -60,7 +60,7 @@ $info['error'][] = 'Bink / Smacker files not properly processed by this version 
 		return true;
 	}
 
-	public function ParseSmacker() {
+	function ParseSmacker() {
 		$info = &$this->getid3->info;
 		$info['fileformat']          = 'smacker';
 		$info['video']['dataformat'] = 'smacker';
@@ -69,3 +69,5 @@ $info['error'][] = 'Bink / Smacker files not properly processed by this version 
 	}
 
 }
+
+?>

@@ -18,9 +18,9 @@ define('GETID3_MIDI_MAGIC_MTRK', 'MTrk'); // MIDI track header magic
 
 class getid3_midi extends getid3_handler
 {
-	public $scanwholefile = true;
+	var $scanwholefile = true;
 
-	public function Analyze() {
+	function Analyze() {
 		$info = &$this->getid3->info;
 
 		// shortcut
@@ -52,20 +52,14 @@ class getid3_midi extends getid3_handler
 
 		for ($i = 0; $i < $thisfile_midi_raw['tracks']; $i++) {
 			while ((strlen($MIDIdata) - $offset) < 8) {
-				if ($buffer = fread($this->getid3->fp, $this->getid3->fread_buffer_size())) {
-					$MIDIdata .= $buffer;
-				} else {
-					$info['warning'][] = 'only processed '.($i - 1).' of '.$thisfile_midi_raw['tracks'].' tracks';
-					$info['error'][] = 'Unabled to read more file data at '.ftell($this->getid3->fp).' (trying to seek to : '.$offset.'), was expecting at least 8 more bytes';
-					return false;
-				}
+				$MIDIdata .= fread($this->getid3->fp, $this->getid3->fread_buffer_size());
 			}
 			$trackID = substr($MIDIdata, $offset, 4);
 			$offset += 4;
 			if ($trackID == GETID3_MIDI_MAGIC_MTRK) {
 				$tracksize = getid3_lib::BigEndian2Int(substr($MIDIdata, $offset, 4));
 				$offset += 4;
-				//$thisfile_midi['tracks'][$i]['size'] = $tracksize;
+				// $thisfile_midi['tracks'][$i]['size'] = $tracksize;
 				$trackdataarray[$i] = substr($MIDIdata, $offset, $tracksize);
 				$offset += $tracksize;
 			} else {
@@ -328,7 +322,7 @@ class getid3_midi extends getid3_handler
 		return true;
 	}
 
-	public function GeneralMIDIinstrumentLookup($instrumentid) {
+	function GeneralMIDIinstrumentLookup($instrumentid) {
 
 		$begin = __LINE__;
 
@@ -468,7 +462,7 @@ class getid3_midi extends getid3_handler
 		return getid3_lib::EmbeddedLookup($instrumentid, $begin, __LINE__, __FILE__, 'GeneralMIDIinstrument');
 	}
 
-	public function GeneralMIDIpercussionLookup($instrumentid) {
+	function GeneralMIDIpercussionLookup($instrumentid) {
 
 		$begin = __LINE__;
 
@@ -527,3 +521,6 @@ class getid3_midi extends getid3_handler
 	}
 
 }
+
+
+?>

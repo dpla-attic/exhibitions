@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for exhibit_builder_page_nav function
+ * Tests for exhibit_builder_page_text function
  */
 class ExhibitBuilderPageNavTest extends Omeka_Test_AppTestCase
 {

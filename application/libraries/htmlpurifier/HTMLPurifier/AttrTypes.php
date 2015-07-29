@@ -6,8 +6,7 @@
 class HTMLPurifier_AttrTypes
 {
     /**
-     * Lookup array of attribute string identifiers to concrete implementations.
-     * @type HTMLPurifier_AttrDef[]
+     * Lookup array of attribute string identifiers to concrete implementations
      */
     protected $info = array();
 
@@ -15,8 +14,7 @@ class HTMLPurifier_AttrTypes
      * Constructs the info array, supplying default implementations for attribute
      * types.
      */
-    public function __construct()
-    {
+    public function __construct() {
         // XXX This is kind of poor, since we don't actually /clone/
         // instances; instead, we use the supplied make() attribute. So,
         // the underlying class must know how to deal with arguments.
@@ -56,39 +54,36 @@ class HTMLPurifier_AttrTypes
         $this->info['Number']   = new HTMLPurifier_AttrDef_Integer(false, false, true);
     }
 
-    private static function makeEnum($in)
-    {
+    private static function makeEnum($in) {
         return new HTMLPurifier_AttrDef_Clone(new HTMLPurifier_AttrDef_Enum(explode(',', $in)));
     }
 
     /**
      * Retrieves a type
-     * @param string $type String type name
-     * @return HTMLPurifier_AttrDef Object AttrDef for type
+     * @param $type String type name
+     * @return Object AttrDef for type
      */
-    public function get($type)
-    {
+    public function get($type) {
+
         // determine if there is any extra info tacked on
-        if (strpos($type, '#') !== false) {
-            list($type, $string) = explode('#', $type, 2);
-        } else {
-            $string = '';
-        }
+        if (strpos($type, '#') !== false) list($type, $string) = explode('#', $type, 2);
+        else $string = '';
 
         if (!isset($this->info[$type])) {
             trigger_error('Cannot retrieve undefined attribute type ' . $type, E_USER_ERROR);
             return;
         }
+
         return $this->info[$type]->make($string);
+
     }
 
     /**
      * Sets a new implementation for a type
-     * @param string $type String type name
-     * @param HTMLPurifier_AttrDef $impl Object AttrDef for type
+     * @param $type String type name
+     * @param $impl Object AttrDef for type
      */
-    public function set($type, $impl)
-    {
+    public function set($type, $impl) {
         $this->info[$type] = $impl;
     }
 }
