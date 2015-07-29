@@ -11,9 +11,11 @@
  */
 class CollectionsController extends Omeka_Controller_AbstractActionController
 {
+    protected $_autoCsrfProtection = true;
+
     public $contexts = array('show' => array('omeka-xml', 'omeka-json'));
     
-    protected $_browseRecordsPerPage = 10;
+    protected $_browseRecordsPerPage = self::RECORDS_PER_PAGE_SETTING;
         
     public function init()
     {
@@ -42,7 +44,7 @@ class CollectionsController extends Omeka_Controller_AbstractActionController
     {
         parent::showAction();
         $this->view->items = $this->_helper->db->getTable('Item')->findBy(
-            array('collection' => $this->view->collection->id), is_admin_theme() ? 10 : 5);
+            array('collection' => $this->view->collection->id), $this->_getBrowseRecordsPerPage());
     }
     
     /**

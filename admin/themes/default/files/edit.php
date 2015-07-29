@@ -7,29 +7,29 @@ if ($fileTitle != '') {
 }
 $fileTitle = __('Edit File #%s', metadata('file', 'id')) . $fileTitle;
 
-queue_js_file(array('vendor/tiny_mce/tiny_mce', 'elements'));
+queue_js_file(array('vendor/tiny_mce/tiny_mce', 'elements', 'tabs'));
 echo head(array('title' => $fileTitle, 'bodyclass' => 'files edit'));
+include 'form-tabs.php';
 echo flash();
 ?>
 <form method="post" action="">
     <section class="seven columns alpha" id="edit-form">
+        <?php echo file_markup($file); ?>
         <div id="file-metadata">
-            <?php if (file_markup($file)): ?>
-                <div id="item-images">
-                    <?php echo file_markup($file, array('imageSize' => 'square_thumbnail'), array('class' => 'admin-thumb panel')); ?>
+            <?php foreach ($tabs as $tabName => $tabContent): ?>
+            <?php if (!empty($tabContent)): ?>
+                <div id="<?php echo text_to_id(html_escape($tabName)); ?>-metadata">
+                    <fieldset class="set">
+                        <h2><?php echo html_escape(__($tabName)); ?></h2>
+                        <?php echo $tabContent; ?>
+                    </fieldset>
                 </div>
-            <?php endif; ?>    
-
-            <?php foreach ($elementSets as $elementSet): ?>
-            <fieldset>
-                <h2><?php echo __($elementSet->name); ?></h2>    
-                <?php echo element_set_form($file, $elementSet->name); ?>
-            </fieldset>
+            <?php endif; ?>
             <?php endforeach; ?>
         </div> <!-- end file-metadata div -->
         <?php fire_plugin_hook('admin_files_form', array('file' => $file, 'view' => $this)); ?>
     </section>
-
+    <?php echo $csrf; ?>
     <section class="three columns omega">
         <div id="save" class="panel">
             <input type="submit" name="submit" class="submit big green button" value="<?php echo __('Save Changes'); ?>" id="file_edit" /> 
@@ -41,6 +41,7 @@ echo flash();
 </form>
 <script type="text/javascript" charset="utf-8">
 jQuery(window).load(function () {
+    Omeka.Tabs.initialize();
     Omeka.wysiwyg({
         mode: "none",
         forced_root_block: ""

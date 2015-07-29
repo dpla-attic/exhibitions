@@ -9,6 +9,14 @@
 
 <?php echo flash(); ?>
 
-<?php echo common('exhibit-metadata-form', array('exhibit' => $exhibit, 'theme' => null), 'exhibits'); ?>
+<?php
+$formArgs = array('exhibit' => $exhibit, 'theme' => null);
+$formArgs['csrf'] = isset($csrf) ? $csrf : '';
+echo common('exhibit-metadata-form', $formArgs, 'exhibits');
+?>
+
+<script type="text/javascript">
+Omeka.addReadyCallback(Omeka.ExhibitBuilder.themeConfig);
+</script>
 
 <?php echo foot(); ?>

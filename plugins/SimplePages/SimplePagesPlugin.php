@@ -25,7 +25,8 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
      */
     protected $_filters = array('admin_navigation_main',
         'public_navigation_main', 'search_record_types', 'page_caching_whitelist',
-        'page_caching_blacklist_for_record');
+        'page_caching_blacklist_for_record',
+	'api_resources', 'api_import_omeka_adapters');
 
     /**
      * @var array Options and their default values.
@@ -49,7 +50,7 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
           `is_published` tinyint(1) NOT NULL,
           `title` tinytext COLLATE utf8_unicode_ci NOT NULL,
           `slug` tinytext COLLATE utf8_unicode_ci NOT NULL,
-          `text` text COLLATE utf8_unicode_ci,
+          `text` mediumtext COLLATE utf8_unicode_ci,
           `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
           `inserted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
           `order` int(10) unsigned NOT NULL,
@@ -148,6 +149,10 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         if ($oldVersion < '2.0') {
             $db->query("ALTER TABLE `$db->SimplePagesPage` DROP `add_to_public_nav`");
             delete_option('simple_pages_home_page_id');
+        }
+
+        if ($oldVersion < '3.0.2') {
+            $db->query("ALTER TABLE `$db->SimplePagesPage` MODIFY `text` MEDIUMTEXT COLLATE utf8_unicode_ci");
         }
     }
 
@@ -338,5 +343,22 @@ class SimplePagesPlugin extends Omeka_Plugin_AbstractPlugin
         }
             
         return $blacklist;
+    }
+    public function filterApiResources($apiResources)
+    {
+	$apiResources['simple_pages'] = array(
+		'record_type' => 'SimplePagesPage',
+		'actions'   => array('get','index'),
+	);	
+       return $apiResources;
+    }
+    
+    public function filterApiImportOmekaAdapters($adapters, $args)
+    {
+        $simplePagesAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'SimplePagesPage');
+        $simplePagesAdapter->setService($args['omeka_service']);
+        $simplePagesAdapter->setUserProperties(array('modified_by_user', 'created_by_user'));
+        $adapters['simple_pages'] = $simplePagesAdapter;
+        return $adapters;
     }
 }

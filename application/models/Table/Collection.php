@@ -10,40 +10,79 @@
  * @package Omeka\Db\Table
  */
 class Table_Collection extends Omeka_Db_Table
-{    
+{
     public function applySearchFilters($select, $params)
     {
-        if(array_key_exists('public', $params)) {
-            $this->filterByPublic($select, $params['public']);
+        $boolean = new Omeka_Filter_Boolean;
+        foreach ($params as $key => $value) {
+            switch ($key) {
+                case 'user':
+                case 'owner':
+                case 'user_id':
+                case 'owner_id':
+                    $this->filterByUser($select, $value, 'owner_id');
+                    break;
+                case 'public':
+                    $this->filterByPublic($select, $boolean->filter($value));
+                    break;
+                case 'featured':
+                    $this->filterByFeatured($select, $boolean->filter($value));
+                    break;
+                case 'added_since':
+                    $this->filterBySince($select, $value, 'added');
+                    break;
+                case 'modified_since':
+                    $this->filterBySince($select, $value, 'modified');
+                    break;
+                case 'range':
+                    $this->filterByRange($select, $value);
+                    break;
+            }
         }
-        
-        if(array_key_exists('featured', $params)) {
-            $this->filterByFeatured($select, $params['featured']);
-        }
-    }
-    
-    protected function _getColumnPairs()
-    {
-        // will replace the second value with the Dublin Core Title in findPairsForSelectForm()
-        return array('collections.id', 'collections.id');
     }
     
     public function findPairsForSelectForm(array $options = array())
     {
-        // replace the second value with the Dublin Core Title in findPairsForSelectForm()
-        $pairs = parent::findPairsForSelectForm($options);
-        $nPairs = array();
-        foreach($pairs as $collectionId => $v) {
-            $collection = $this->find($collectionId);
-            if ($collection) {
-                $collectionTitle = strip_formatting(metadata($collection, array('Dublin Core', 'Title')));
-                if ($collectionTitle == '') {
-                    $collectionTitle = __('[Untitled] #%s', strval($collectionId));
-                }
-                $nPairs[$collectionId] = $collectionTitle;
+        $db = $this->getDb();
+
+        $subquery = new Omeka_Db_Select;
+        $subquery->from(array('element_texts' => $db->ElementText), 'id');
+        $subquery->joinInner(
+            array('elements' => $db->Element),
+            'elements.id = element_texts.element_id',
+            array()
+        );
+        $subquery->joinInner(
+            array('element_sets' => $db->ElementSet),
+            'element_sets.id = elements.element_set_id',
+            array()
+        );
+        $subquery->where("element_sets.name = 'Dublin Core'");
+        $subquery->where("elements.name = 'Title'");
+        $subquery->where("element_texts.record_type = 'Collection'");
+        $subquery->where('element_texts.record_id = collections.id');
+        $subquery->limit(1);
+        
+        $select = $this->getSelectForFindBy($options);
+        $select->joinLeft(
+            array('element_texts' => $db->ElementText),
+            "element_texts.id = ($subquery)",
+            array()
+        );
+
+        $select->reset(Zend_Db_Select::COLUMNS);
+        $select->from(array(), array('collections.id', 'element_texts.text'));
+        $select->order('element_texts.text');
+        
+        $pairs = $db->fetchPairs($select);
+        foreach ($pairs as $collectionId => &$name) {
+            if ($name === null || $name == '') {
+                $name = __('[Untitled] #%s', $collectionId);
+            } else {
+                $name = strip_formatting($name);
             }
         }
-        return $nPairs;
+        return $pairs;
     }
     
     /**
@@ -65,44 +104,6 @@ class Table_Collection extends Omeka_Db_Table
     {
         $select = $this->getSelect()->where('collections.featured = 1')->order('RAND()')->limit(1);        
         return $this->fetchObject($select);
-    }    
-    
-    /**
-     * Apply a filter to the collections based on whether or not they are public
-     * 
-     * @param Zend_Db_Select
-     * @param boolean Whether or not to retrieve only public collections
-     * @return void
-     */
-    public function filterByPublic($select, $isPublic)
-    {         
-        $isPublic = (bool) $isPublic; // this makes sure that empty strings and unset parameters are false
-
-        //Force a preview of the public collections
-        if ($isPublic) {
-            $select->where('collections.public = 1');
-        } else {
-            $select->where('collections.public = 0');
-        }
-    }
-    
-    /**
-     * Apply a filter to the collections based on whether or not they are featured
-     * 
-     * @param Zend_Db_Select
-     * @param boolean Whether or not to retrieve only public collections
-     * @return void
-     */
-    public function filterByFeatured($select, $isFeatured)
-    {
-        $isFeatured = (bool) $isFeatured; // this make sure that empty strings and unset parameters are false
-        
-        //filter items based on featured (only value of 'true' will return featured collections)
-        if ($isFeatured) {
-            $select->where('collections.featured = 1');
-        } else {
-            $select->where('collections.featured = 0');
-        }     
     }
     
     /**
@@ -127,10 +128,6 @@ class Table_Collection extends Omeka_Db_Table
                        ->group('collections.id')
                        ->order(array("IF(ISNULL(et_sort.text), 1, 0) $sortDir",
                                      "et_sort.text $sortDir"));
-            }
-        } else {
-            if ($sortField == 'random') {
-                $select->order('RAND()');
             }
         }
     }

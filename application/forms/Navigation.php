@@ -74,6 +74,12 @@ class Omeka_Form_Navigation extends Omeka_Form
         $this->clearElements();
         $this->_addHiddenElement();
         $this->_addHomepageSelectElement();
+        $this->addElement('hash', 'navigation_csrf',
+            array(
+                'decorators' => array('ViewHelper'),
+                'timeout' => 3600
+            )
+        );
     }
     
     /**
@@ -253,9 +259,8 @@ class Omeka_Form_Navigation extends Omeka_Form
         $otherPages = $nav->getOtherPages($pageUids);                
         $expiredPages = array();
         foreach($otherPages as $otherPage) {
-            $expiredPages[] = $otherPage;
+            $nav->prunePage($otherPage);
         }
-        $nav->prunePages($expiredPages);
         return $nav;
     }
     

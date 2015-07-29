@@ -56,7 +56,7 @@ pcntl_signal(SIGINT, "handle_signal");
 $application->bootstrap(array('Autoloader', 'Logger'));
 $host = isset($options->host) ? $options->host : '127.0.0.1';
 $port = isset($options->port) ? $options->port : 11300;
-$pheanstalk = new Pheanstalk("$host:$port");
+$pheanstalk = new Pheanstalk_Pheanstalk("$host:$port");
 if (isset($options->queue) && $options->queue != 'default') {
     $pheanstalk->watch($options->queue)
                ->ignore('default');
@@ -71,8 +71,10 @@ if (!$pheanJob) {
     echo "Beanstalk worker timed out when reserving a job.";
     exit(0);
 }
-$application->bootstrap(array('Autoloader', 'Config', 'Db', 'Options', 
-                              'Pluginbroker', 'Plugins', 'Jobs', 'Storage', 'Mail'));
+$application->bootstrap(array(
+    'Autoloader', 'Config', 'Db', 'Filederivatives', 'Locale', 'Options',
+    'Pluginbroker', 'Plugins', 'Jobs', 'Storage', 'Mail', 'View'
+));
 
 // resend() must send jobs to the original queue by default.
 $jobDispatcher = Zend_Registry::get('job_dispatcher');

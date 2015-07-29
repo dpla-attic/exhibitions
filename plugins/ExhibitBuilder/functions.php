@@ -11,6 +11,8 @@
 function exhibit_builder_initialize()
 {
     add_translation_source(dirname(__FILE__) . '/languages');
+    add_shortcode ('exhibits', 'exhibit_builder_exhibits_shortcode');
+    add_shortcode ('featured_exhibits', 'exhibit_builder_featured_exhibits_shortcode');
 }
 
 /**
@@ -19,48 +21,71 @@ function exhibit_builder_initialize()
 function exhibit_builder_install()
 {
     $db = get_db();
-    $db->query("CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibits` (
-      `id` int(10) unsigned NOT NULL auto_increment,
-      `title` varchar(255) collate utf8_unicode_ci default NULL,
-      `description` text collate utf8_unicode_ci,
-      `credits` text collate utf8_unicode_ci,
-      `featured` tinyint(1) default '0',
-      `public` tinyint(1) default '0',
-      `theme` varchar(30) collate utf8_unicode_ci default NULL,
-      `theme_options` text collate utf8_unicode_ci default NULL,
-      `slug` varchar(30) collate utf8_unicode_ci default NULL,
-      `added` timestamp NOT NULL default '0000-00-00 00:00:00',
-      `modified` timestamp NOT NULL default '0000-00-00 00:00:00',
-      `owner_id` int unsigned default NULL,
-      PRIMARY KEY  (`id`),
-      UNIQUE KEY `slug` (`slug`),
-      KEY `public` (`public`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 
-    $db->query("CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_page_entries` (
-      `id` int(10) unsigned NOT NULL auto_increment,
-      `item_id` int(10) unsigned default NULL,
-      `file_id` int(10) unsigned default NULL,
-      `page_id` int(10) unsigned NOT NULL,
-      `text` text collate utf8_unicode_ci,
-      `caption` text collate utf8_unicode_ci,
-      `order` tinyint(3) unsigned NOT NULL,
-      PRIMARY KEY  (`id`),
-      KEY `page_id_order` (`page_id`, `order`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
+    $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibits` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `title` VARCHAR(255) DEFAULT NULL,
+    `description` TEXT,
+    `credits` TEXT,
+    `featured` TINYINT(1) DEFAULT 0,
+    `public` TINYINT(1) DEFAULT 0,
+    `theme` VARCHAR(30) DEFAULT NULL,
+    `theme_options` TEXT,
+    `slug` VARCHAR(30) NOT NULL,
+    `added` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `modified` TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `owner_id` INT UNSIGNED DEFAULT NULL,
+    `use_summary_page` TINYINT(1) DEFAULT 1,
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `slug` (`slug`),
+    KEY `public` (`public`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+    );
 
-    $db->query("CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_pages` (
-      `id` int(10) unsigned NOT NULL auto_increment,
-      `exhibit_id` int(10) unsigned NOT NULL,
-      `parent_id` int(10) unsigned,
-      `title` varchar(255) collate utf8_unicode_ci NOT NULL,
-      `slug` varchar(30) collate utf8_unicode_ci NOT NULL,
-      `layout` varchar(255) collate utf8_unicode_ci default NULL,
-      `order` tinyint(3) unsigned NOT NULL,
-      PRIMARY KEY  (`id`),
-      KEY `exhibit_id_order` (`exhibit_id`, `order`),
-      UNIQUE KEY `exhibit_id_parent_id_slug` (`exhibit_id`, `parent_id`, `slug`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
+    $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_pages` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `exhibit_id` INT UNSIGNED NOT NULL,
+    `parent_id` INT UNSIGNED DEFAULT NULL,
+    `title` VARCHAR(255) DEFAULT NULL,
+    `slug` VARCHAR(30) NOT NULL,
+    `order` SMALLINT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY  (`id`),
+    KEY `exhibit_id_order` (`exhibit_id`, `order`),
+    UNIQUE KEY `exhibit_id_parent_id_slug` (`exhibit_id`, `parent_id`, `slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+    );
+
+    $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_page_blocks` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `page_id` INT UNSIGNED NOT NULL,
+    `layout` VARCHAR(50) NOT NULL,
+    `options` TEXT,
+    `text` MEDIUMTEXT,
+    `order` SMALLINT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `page_id_order` (`page_id`, `order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+    );
+
+    $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_block_attachments` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `block_id` INT UNSIGNED NOT NULL,
+    `item_id` INT UNSIGNED NOT NULL,
+    `file_id` INT UNSIGNED DEFAULT NULL,
+    `caption` TEXT,
+    `order` SMALLINT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `block_id_order` (`block_id`, `order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+    );
 }
 
 /**
@@ -72,9 +97,11 @@ function exhibit_builder_uninstall()
     $db = get_db();
     $sql = "DROP TABLE IF EXISTS `{$db->prefix}exhibits`";
     $db->query($sql);
-    $sql = "DROP TABLE IF EXISTS `{$db->prefix}exhibit_page_entries`";
-    $db->query($sql);
     $sql = "DROP TABLE IF EXISTS `{$db->prefix}exhibit_pages`";
+    $db->query($sql);
+    $sql = "DROP TABLE IF EXISTS `{$db->prefix}exhibit_page_blocks`";
+    $db->query($sql);
+    $sql = "DROP TABLE IF EXISTS `{$db->prefix}exhibit_block_attachments`";
     $db->query($sql);
 
     // delete plugin options
@@ -94,7 +121,7 @@ function exhibit_builder_upgrade($args)
     $newVersion = $args['new_version'];
 
     $db = get_db();
-    
+
     // Transition to upgrade model for EB
     if (version_compare($oldVersion, '0.6', '<') )
     {
@@ -130,7 +157,7 @@ function exhibit_builder_upgrade($args)
         // Remove any broken pages or artifacts from a failed upgrade
         $sql = "DELETE FROM `{$db->prefix}exhibit_pages` WHERE section_id = 0";
         $db->query($sql);
-        
+
         // Get all the data about sections to turn them into ExhibitPages
         $sql = "SELECT * FROM `{$db->prefix}sections` ";
         $result = $db->query($sql);
@@ -150,7 +177,7 @@ function exhibit_builder_upgrade($args)
             );
             $db->getAdapter()->insert($db->ExhibitPage, $newPageData);
             $pageId = (int) $db->lastInsertId();
-            
+
             $sectionIdMap[$section['id']] = array('pageId' => $pageId, 'exhibitId' => $section['exhibit_id']);
 
             //slap the section's description into a text entry for the page
@@ -189,12 +216,61 @@ function exhibit_builder_upgrade($args)
 
         $sql = "ALTER TABLE `{$db->prefix}exhibit_pages` ADD INDEX `exhibit_id_order` (`exhibit_id`, `order`)";
         $db->query($sql);
-        
+
         delete_option('exhibit_builder_use_browse_exhibits_for_homepage');
     }
 
     if (version_compare($oldVersion, '2.0', '<=')) {
         $sql = "ALTER TABLE `{$db->prefix}exhibit_pages` ADD UNIQUE INDEX `exhibit_id_parent_id_slug` (`exhibit_id`, `parent_id`, `slug`)";
+        $db->query($sql);
+    }
+
+    if (version_compare($oldVersion, '3.0-dev', '<')) {
+        $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_page_blocks` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `page_id` INT UNSIGNED NOT NULL,
+    `layout` VARCHAR(50) NOT NULL,
+    `options` TEXT,
+    `text` MEDIUMTEXT,
+    `order` SMALLINT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `page_id_order` (`page_id`, `order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+        );
+
+        $db->query(<<<SQL
+CREATE TABLE IF NOT EXISTS `{$db->prefix}exhibit_block_attachments` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `block_id` INT UNSIGNED NOT NULL,
+    `item_id` INT UNSIGNED NOT NULL,
+    `file_id` INT UNSIGNED DEFAULT NULL,
+    `caption` TEXT,
+    `order` SMALLINT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `block_id_order` (`block_id`, `order`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+SQL
+        );
+
+        $sql = "SELECT id, layout FROM `{$db->prefix}exhibit_pages` ORDER BY id";
+        $pages = $db->query($sql)->fetchAll();
+
+        $upgrader = new ExhibitPageUpgrader($db);
+        foreach ($pages as $page) {
+            $upgrader->upgradePage($page['id'], $page['layout']);
+        }
+
+        $sql = "DROP TABLE `{$db->prefix}exhibit_page_entries`";
+        $db->query($sql);
+
+        $sql = "ALTER TABLE `{$db->prefix}exhibit_pages` DROP COLUMN `layout`";
+        $db->query($sql);
+    }
+
+    if (version_compare($oldVersion, '3.1.4', '<')) {
+        $sql = "ALTER TABLE `{$db->prefix}exhibits` ADD `use_summary_page` TINYINT(1) DEFAULT 1 AFTER `owner_id`";
         $db->query($sql);
     }
 }
@@ -237,13 +313,13 @@ function exhibit_builder_define_acl($args)
     $acl->addResource('ExhibitBuilder_Exhibits');
 
     $acl->allow(null, 'ExhibitBuilder_Exhibits',
-        array('show', 'summary', 'showitem', 'browse', 'tags'));
+        array('show', 'summary', 'show-item', 'browse', 'tags'));
 
     // Allow contributors everything but editAll and deleteAll.
-    $acl->allow('contributor', 'ExhibitBuilder_Exhibits',
-        array('add', 'add-page', 'delete-page', 'edit-page-content',
-            'edit-page-metadata', 'item-container', 'theme-config',
-            'editSelf', 'deleteSelf'));
+    $acl->allow('contributor', 'ExhibitBuilder_Exhibits', array(
+        'add', 'add-page', 'delete-confirm', 'edit-page',
+        'attachment', 'attachment-item-options', 'theme-config',
+        'editSelf', 'deleteSelf', 'showSelfNotPublic', 'block-form'));
 
     $acl->allow(null, 'ExhibitBuilder_Exhibits', array('edit', 'delete'),
         new Omeka_Acl_Assert_Ownership);
@@ -264,11 +340,33 @@ function exhibit_builder_define_routes($args)
 /**
  * Display the CSS layout for the exhibit in the public head
  */
-function exhibit_builder_public_head()
+function exhibit_builder_public_head($args)
 {
-    queue_css_file('exhibits');
-    if ($layoutCssHref = exhibit_builder_layout_css()) {
-        queue_css_url($layoutCssHref);
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+    $module = $request->getModuleName();
+
+    if ($module == 'exhibit-builder') {
+        queue_css_file('exhibits');
+        if (($exhibitPage = get_current_record('exhibit_page', false))) {
+            $blocks = $exhibitPage->ExhibitPageBlocks;
+
+            $layouts = array();
+            foreach ($blocks as $block) {
+                $layout = $block->getLayout();
+                if (!array_key_exists($layout->id, $layouts)) {
+                    $layouts[$layout->id] = true;
+                    try {
+                        queue_css_url($layout->getAssetUrl('layout.css'));
+                    } catch (InvalidArgumentException $e) {
+                        // no CSS for this layout
+                    }
+                }
+            }
+            fire_plugin_hook('exhibit_builder_page_head', array(
+                'view' => $args['view'],
+                'layouts' => $layouts)
+            );
+        }
     }
 }
 
@@ -290,7 +388,7 @@ function exhibit_builder_admin_head()
 
 /**
  * Append an Exhibits section to admin dashboard
- * 
+ *
  * @param array $stats Array of "statistics" displayed on dashboard
  * @return array
  */
@@ -343,17 +441,15 @@ function exhibit_builder_admin_nav($navArray)
  */
 function exhibit_builder_theme_options($themeOptions, $args)
 {
-    if (Zend_Controller_Front::getInstance()->getRequest()->getModuleName() == 'exhibit-builder') {
-        try {
-            if ($exhibit = get_current_record('exhibit', false)) {
-                $exhibitThemeOptions = $exhibit->getThemeOptions();
-                if (!empty($exhibitThemeOptions)) {
-                    return serialize($exhibitThemeOptions);
-                }
+    try {
+        if ($exhibit = get_current_record('exhibit', false)) {
+            $exhibitThemeOptions = $exhibit->getThemeOptions();
+            if (!empty($exhibitThemeOptions)) {
+                return serialize($exhibitThemeOptions);
             }
-        } catch (Zend_Exception $e) {
-            // no view available
         }
+    } catch (Zend_Exception $e) {
+        // no view available
     }
     return $themeOptions;
 }
@@ -377,11 +473,17 @@ function exhibit_builder_public_theme_name($themeName)
     if ($request->getModuleName() == 'exhibit-builder') {
         $slug = $request->getParam('slug');
         $exhibit = get_db()->getTable('Exhibit')->findBySlug($slug);
-        if ($exhibit && ($exhibitTheme = $exhibit->theme)) {
+        if ($exhibit && $exhibit->theme) {
+            // Save result in static for future calls
+            $exhibitTheme = $exhibit->theme;
+            add_filter('theme_options', 'exhibit_builder_theme_options');
             return $exhibitTheme;
         }
     }
-    return $themeName;
+
+    // Short-circuit any future calls to the hook if we didn't change the theme
+    $exhibitTheme = $themeName;
+    return $exhibitTheme;
 }
 
 /**
@@ -405,27 +507,28 @@ function exhibit_builder_purify_html($args)
         // exhibit-metadata-form
         case 'add':
         case 'edit':
-
+            if (!empty($post['description'])) {
+                $post['description'] = $purifier->purify($post['description']);
+            }
+            break;
         case 'add-page':
-        case 'edit-page-metadata':
-            // Skip the page-metadata-form.
-            break;
-
-        case 'edit-page-content':
+        case 'edit-page':
             // page-content-form
-            if (isset($post['Text']) && is_array($post['Text'])) {
-                // All of the 'Text' entries are HTML.
-                foreach ($post['Text'] as $key => $text) {
-                    $post['Text'][$key] = $purifier->purify($text);
-                }
-            }
-            if (isset($post['Caption']) && is_array($post['Caption'])) {
-                foreach ($post['Caption'] as $key => $text) {
-                    $post['Caption'][$key] = $purifier->purify($text);
+            if (!empty($post['blocks'])) {
+                foreach ($post['blocks'] as &$blockData) {
+                    if (!empty($blockData['text'])) {
+                        $blockData['text'] = $purifier->purify($blockData['text']);
+                    }
+                    if (!empty($blockData['attachments'])) {
+                        foreach ($blockData['attachments'] as &$attachmentData) {
+                            if (!empty($attachmentData['caption'])) {
+                                $attachmentData['caption'] = $purifier->purify($attachmentData['caption']);
+                            }
+                        }
+                    }
                 }
             }
             break;
-
         default:
             // Don't process anything by default.
             break;
@@ -449,22 +552,26 @@ function exhibit_builder_items_browse_sql($args)
     $exhibit = isset($params['exhibit']) ? $params['exhibit'] : null;
 
     if ($exhibit) {
-        $select->joinInner(
-            array('epe' => $db->ExhibitPageEntry),
-            'epe.item_id = items.id',
-            array()
-            );
-
-        $select->joinInner(
-            array('ep' => $db->ExhibitPage),
-            'ep.id = epe.page_id',
-            array()
-            );
-
-        $select->joinInner(
-            array('e' => $db->Exhibit),
-            'e.id = ep.exhibit_id',
-            array()
+        $select
+            ->joinInner(
+                array('eba' => $db->ExhibitBlockAttachment),
+                'eba.item_id = items.id',
+                array()
+            )
+            ->joinInner(
+                array('epb' => $db->ExhibitPageBlock),
+                'epb.id = eba.block_id',
+                array()
+            )
+            ->joinInner(
+                array('ep' => $db->ExhibitPage),
+                'ep.id = epb.page_id',
+                array()
+            )
+            ->joinInner(
+                array('e' => $db->Exhibit),
+                'e.id = ep.exhibit_id',
+                array()
             );
 
         if ($exhibit instanceof Exhibit) {
@@ -496,4 +603,69 @@ function exhibit_builder_search_record_types($recordTypes)
     $recordTypes['Exhibit'] = __('Exhibit');
     $recordTypes['ExhibitPage'] = __('Exhibit Page');
     return $recordTypes;
+}
+
+/**
+ * Add exhibit title to item search filters.
+ */
+function exhibit_builder_item_search_filters($displayArray, $args)
+{
+    $request = $args['request_array'];
+
+    if (isset($request['exhibit'])
+        && ($exhibit = get_record_by_id('Exhibit', $request['exhibit']))
+    ) {
+        $displayArray['exhibit'] =
+            metadata($exhibit, 'title', array('no_escape' => true));
+    }
+    return $displayArray;
+}
+
+function exhibit_builder_api_resources($apiResources)
+{
+    $apiResources['exhibits'] = array(
+        'record_type' => 'Exhibit',
+        'actions' => array('get', 'index'),
+        'index_params' => array('tag', 'tags', 'sort', 'public', 'featured')
+    );
+    $apiResources['exhibit_pages'] = array(
+        'record_type' => 'ExhibitPage',
+        'actions' => array('get', 'index'),
+        'index_params' => array('parent', 'exhibit', 'order', 'topOnly', 'item')
+    );
+
+
+    return $apiResources;
+}
+
+function exhibit_builder_api_extend_items($extend, $args)
+{
+    $item = $args['record'];
+    $pages = get_db()->getTable('ExhibitPage')->findBy(array('item' => $item->id));
+
+    if(count($pages) == 1) {
+        $page = $pages[0];
+        $extend['exhibit_pages'] = array(
+            'id' => $page->id,
+            'url' => Omeka_Record_Api_AbstractRecordAdapter::getResourceUrl("/exhibit_pages/{$page->id}"),
+            'resource' => 'exhibit_pages'
+        );
+    } else {
+        $extend['exhibit_pages'] = array(
+            'count' => count($pages),
+            'url' => Omeka_Record_Api_AbstractRecordAdapter::getResourceUrl("/exhibit_pages?item={$item->id}"),
+            'resource' => 'exhibit_pages'
+        );
+    }
+    return $extend;
+}
+
+function exhibit_builder_api_import_omeka_adapters($adapters, $args)
+{
+        $exhibitsAdapter = new ApiImport_ResponseAdapter_Omeka_GenericAdapter(null, $args['endpointUri'], 'Exhibit');
+        $exhibitsAdapter->setService($args['omeka_service']);
+        $exhibitsAdapter->setUserProperties(array('owner'));
+        $adapters['exhibits'] = $exhibitsAdapter;
+        $adapters['exhibit_pages'] = 'ExhibitBuilder_ApiImport_ExhibitPageAdapter';
+        return $adapters;
 }

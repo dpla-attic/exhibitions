@@ -184,4 +184,14 @@ class SimplePagesPageTable extends Omeka_Db_Table
         
         return $ancestorPages;
     }
+    public function getSelect()
+    {
+        $select = parent::getSelect();
+        $permissions = new Omeka_Db_Select_PublicPermissions('SimplePages_Page');
+        $permissions->apply($select, 'simple_pages_pages','created_by_user_id','is_published');
+        
+        
+        return $select;
+	
+    }
 }

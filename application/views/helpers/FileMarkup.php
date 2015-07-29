@@ -224,7 +224,25 @@ class Omeka_View_Helper_FileMarkup extends Zend_View_Helper_Abstract
             'filenameAttributes' => array()
             )
         );
-      
+
+    /**
+     * Images to show when a file has no derivative.
+     *
+     * @var array
+     */
+    static protected $_fallbackImages = array(
+        'audio' => 'fallback-audio.png',
+        'image' => 'fallback-image.png',
+        'video' => 'fallback-video.png',
+    );
+
+    /**
+     * Fallback image used when no other fallbacks are appropriate.
+     *
+     * @var string
+     */
+    const GENERIC_FALLBACK_IMAGE = 'fallback-file.png';
+
     /**
      * Add MIME types and/or file extensions and associated callbacks to the 
      * list.
@@ -307,6 +325,19 @@ class Omeka_View_Helper_FileMarkup extends Zend_View_Helper_Abstract
         // Add this callback's default options to the list.
         $key = self::_getCallbackKey($callback);
         self::$_callbackOptions[$key] = $defaultOptions;
+    }
+
+    /**
+     * Add a fallback image for the given mime type or type family.
+     *
+     * @param string $mimeType The mime type this fallback is for, or the mime
+     *  "prefix" it is for (video, audio, etc.)
+     * @param string $image The name of the image to use, as would be passed to
+     *  img()
+     */
+    public static function addFallbackImage($mimeType, $image)
+    {
+        self::$_fallbackImages[$mimeType] = $image;
     }
     
     /**
@@ -756,50 +787,41 @@ class Omeka_View_Helper_FileMarkup extends Zend_View_Helper_Abstract
     /**
      * Return a valid img tag for an image.
      *
-     * @param File|Item $record
-     * @param array $props
-     * @param string $format
+     * @param Omeka_Record_AbstractRecord $record
+     * @param array $props Image tag attributes
+     * @param string $format Derivative image type (thumbnail, etc.)
      * @return string
      */
     public function image_tag($record, $props, $format)
     {
-        if (!$record) {
+        if (!($record && $record instanceof Omeka_Record_AbstractRecord)) {
             return false;
         }
-        
-        if ($record instanceof File) {
-            $filename = $record->getDerivativeFilename();
-            $file = $record;
-        } else if ($record instanceof Item) {
-            $item = $record;
-            $file = get_db()->getTable('File')->getRandomFileWithImage($item->id);
-            if (!$file) {
-                return false;
-            }
-            $filename = $file->getDerivativeFilename();
-        } else {
-            // throw some exception?
-            return '';
+
+        // Use the default representative file.
+        $file = $record->getFile();
+        if (!$file) {
+            return false;
         }
-        
+
         if ($file->hasThumbnail()) {
-            $uri = html_escape($file->getWebPath($format));
+            $uri = $file->getWebPath($format);
         } else {
-            $uri = img('fallback-file.png');
+            $uri = img($this->_getFallbackImage($file));
         }
-        
+        $props['src'] = $uri;
+
         /** 
          * Determine alt attribute for images
          * Should use the following in this order:
-         * 1. alt option 
-         * 2. file description
-         * 3. file title 
-         * 4. item title
+         * 1. passed 'alt' prop
+         * 2. first Dublin Core Title for $file
+         * 3. original filename for $file
          */
         $alt = '';
         if (isset($props['alt'])) {
             $alt = $props['alt'];
-        } else if ($fileTitle = metadata($file, 'display title')) {
+        } else if ($fileTitle = metadata($file, 'display title', array('no_escape' => true))) {
             $alt = $fileTitle;
         }
         $props['alt'] = $alt;
@@ -813,9 +835,31 @@ class Omeka_View_Helper_FileMarkup extends Zend_View_Helper_Abstract
         $props['title'] = $title;
         
         // Build the img tag
-        $html = '<img src="' . $uri . '" '.tag_attributes($props) . '/>' . "\n";
-        
-        return $html;
+        return '<img ' . tag_attributes($props) . '>';
+    }
+
+    /**
+     * Get the name of a fallback image to use for this file.
+     *
+     * The fallback used depends on the file's mime type.
+     *
+     * @see self::addFallbackImage()
+     * @param File $file The file to get a fallback for.
+     * @return string Name of the image to use.
+     */
+    protected function _getFallbackImage($file)
+    {
+        $mimeType = $file->mime_type;
+        if (isset(self::$_fallbackImages[$mimeType])) {
+            return self::$_fallbackImages[$mimeType];
+        }
+
+        $mimePrefix = substr($mimeType, 0, strpos($mimeType, '/'));
+        if (isset(self::$_fallbackImages[$mimePrefix])) {
+            return self::$_fallbackImages[$mimePrefix];
+        }
+
+        return self::GENERIC_FALLBACK_IMAGE;
     }
 
     /**

@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Mobile
  * @subpackage Zend_Mobile_Push
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ require_once 'Zend/Mobile/Push/Message/Mpns.php';
  * @category   Zend
  * @package    Zend_Mobile
  * @subpackage Zend_Mobile_Push
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
@@ -324,7 +324,7 @@ class Zend_Mobile_Push_Message_Mpns_Tile extends Zend_Mobile_Push_Message_Mpns
     {
         $ret = '<?xml version="1.0" encoding="utf-8"?>'
             . '<wp:Notification xmlns:wp="WPNotification">'
-            . '<wp:Tile' . (($this->_tileId) ? 'Id="' . htmlspecialchars($this->_tileId) . '"' : '') . '>'
+            . '<wp:Tile' . (($this->_tileId) ? ' Id="' . htmlspecialchars($this->_tileId) . '"' : '') . '>'
             . '<wp:BackgroundImage>' . htmlspecialchars($this->_backgroundImage) . '</wp:BackgroundImage>'
             . '<wp:Count>' . (int) $this->_count . '</wp:Count>'
             . '<wp:Title>' . htmlspecialchars($this->_title) . '</wp:Title>';

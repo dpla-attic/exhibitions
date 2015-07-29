@@ -1,6 +1,6 @@
 </div><!-- end content -->
 
-<footer>
+<footer role="contentinfo">
 
         <div id="custom-footer-text">
             <?php if ( $footerText = get_theme_option('Footer Text') ): ?>
@@ -12,16 +12,18 @@
         </div>
 
         <p><?php echo __('Proudly powered by <a href="http://omeka.org">Omeka</a>.'); ?></p>
-        
-    <?php fire_plugin_hook('public_footer'); ?>
-    
+
+    <?php fire_plugin_hook('public_footer', array('view' => $this)); ?>
+
 </footer>
 
 </div><!--end wrap-->
 
 <script type="text/javascript">
 jQuery(document).ready(function () {
-    Seasons.showAdvancedForm();
+    Omeka.showAdvancedForm();
+    Omeka.skipNav();
+    Omeka.megaMenu("#top-nav");
     Seasons.mobileSelectNav();
 });
 </script>
