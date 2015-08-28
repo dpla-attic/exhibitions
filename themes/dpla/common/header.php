@@ -107,7 +107,7 @@
                             <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/dpla-collection-curation-corps/">Collection Curation Corps</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/dpla-collection-curation-corps/">Curation Corps</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/open-calls/">Open Calls</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest</a></li>
