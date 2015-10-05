@@ -108,20 +108,18 @@
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/dpla-collection-curation-corps/">Curation Corps</a></li>
+                                <li><a href="<?= $wpUrl ?>/gif-it-up/gif-it-up-2015">GIF IT UP</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/groups/">Groups</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/workshops/">Workshops</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/follow/">Follow Us</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/shop/">Shop</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
                           <a href="<?= $wpUrl ?>/help">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                           <ul>
-                            <li><a href="<?= $wpUrl ?>/help/tutorials/">Tutorials</a></li>
                             <li><a href="<?= $wpUrl ?>/help/faq/">FAQ</a></li>
-                            <li><a href="<?= $wpUrl ?>/help/accounts/">DPLA Accounts</a></li>
                           </ul>
                         </li>
                         <li class="aboutMenu">
