@@ -104,6 +104,16 @@
                             </ul>
                         </li>
                         <li class="aboutMenu">
+                            <a href="<?= $wpUrl ?>/education/">Education<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
+                            <ul>
+                                <li><a href="<?= $baseUrl ?>/primary-source-sets">Primary Source Sets</a></li>
+                                <li><a href="<?= $wpUrl ?>/education/education-advisory-committee/">Education Advisory Committee</a></li>
+                                <li><a href="<?= $wpUrl ?>/education/national-history-day/">National History Day</a></li>
+                                <li><a href="<?= $wpUrl ?>/education/education-collaborations/">Education Collaborations</a></li>
+                                <li><a href="<?= $wpUrl ?>/education/outreach-materials/">Outreach Materials</a></li>
+                            </ul>
+                        </li>
+                        <li class="aboutMenu">
                             <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
