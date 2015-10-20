@@ -110,7 +110,7 @@
                                 <li><a href="<?= $wpUrl ?>/education/education-advisory-committee/">Education Advisory Committee</a></li>
                                 <li><a href="<?= $wpUrl ?>/education/national-history-day/">National History Day</a></li>
                                 <li><a href="<?= $wpUrl ?>/education/education-collaborations/">Education Collaborations</a></li>
-                                <li><a href="<?= $wpUrl ?>/education/outreach-materials/">Outreach Materials</a></li>
+                                <li><a href="<?= $wpUrl ?>/education/education-promotion/">Outreach Materials</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
