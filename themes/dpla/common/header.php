@@ -122,7 +122,7 @@
                                 <li><a href="<?= $wpUrl ?>/get-involved/groups/">Groups</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/workshops/">Workshops</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/dplafest/april-2016/">DPLAfest</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/follow/">Follow Us</a></li>
                             </ul>
                         </li>
