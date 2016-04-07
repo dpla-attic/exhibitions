@@ -117,7 +117,7 @@
                             <a href="<?= $wpUrl ?>/get-involved">Get Involved<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/dpla-collection-curation-corps/">Curation Corps</a></li>
+                                <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/">Ebooks</a></li>
                                 <li><a href="<?= $wpUrl ?>/gif-it-up/gif-it-up-2015">GIF IT UP</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/groups/">Groups</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/workshops/">Workshops</a></li>
