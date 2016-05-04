@@ -41,7 +41,7 @@ define('SCRIPTS_DIR', APP_DIR . '/scripts');
 // Define the web address constants.
 
 // Set the scheme.
-$base_root = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https' : 'http';
+$base_root = request_is_ssl() ? 'https' : 'http';
 
 // Set the domain.
 if (!isset($_SERVER['HTTP_HOST'])) {
@@ -155,4 +155,18 @@ define('THEME_DIR', defined('ADMIN') ? ADMIN_THEME_DIR : PUBLIC_THEME_DIR);
 function stripslashes_deep($value)
 {
     return is_array($value) ? array_map('stripslashes_deep', $value) : stripslashes($value);
+}
+
+
+/**
+ * Determine whether the request is going over SSL, or is forwarded by a proxy
+ * that is doing SSL with the client.
+ */
+function request_is_ssl()
+{
+    $sh = isset($_SERVER['HTTPS']) ? $_SERVER['HTTPS'] : false;
+    $reqIsHttps = ($sh && $sh != 'off');
+    $xForwardedProto = (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])
+                        && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https');
+    return ($reqIsHttps || $xForwardedProto);
 }
