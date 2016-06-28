@@ -15,7 +15,6 @@
                 <li><a href="<?= $exhibitionsUrl ?>">Exhibitions</a></li> 
                 <li><a href="<?= $baseUrl ?>/map">Map</a></li> 
                 <li><a href="<?= $baseUrl ?>/timeline">Timeline</a></li>
-                <li><a href="<?= $baseUrl ?>/bookshelf">Bookshelf</a></li>
                 <li><a href="<?= $baseUrl ?>/partners">Partners</a></li>
                 <li><a href="<?= $baseUrl ?>/subjects">Subjects</a></li>
                 <li><a href="<?= $baseUrl ?>/apps">Apps</a></li>

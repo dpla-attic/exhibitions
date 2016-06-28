@@ -162,9 +162,6 @@
                             <a href="<?= $baseUrl ?>/timeline">Timeline</a>
                         </li>
                         <li>
-                            <a href="<?= $baseUrl ?>/bookshelf">Bookshelf</a>
-                        </li>
-                        <li>
                             <a href="<?= $baseUrl ?>/apps">Apps</a>
                         </li>
                     </ul>
