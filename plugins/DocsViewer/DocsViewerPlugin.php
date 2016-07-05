@@ -13,7 +13,7 @@
  */
 class DocsViewerPlugin extends Omeka_Plugin_AbstractPlugin
 {
-    const API_URL = 'http://docs.google.com/viewer';
+    const API_URL = '//docs.google.com/viewer';
     
     const DEFAULT_VIEWER_EMBED = 1;
     
