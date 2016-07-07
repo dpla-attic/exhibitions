@@ -101,6 +101,7 @@
                                 <li><a href="<?= $wpUrl ?>/developers/download/">Bulk Download</a></li>
                                 <li><a href="<?= $wpUrl ?>/developers/sample-code-and-libraries/">Sample Code &amp; Libraries</a></li>
                                 <li><a href="<?= $wpUrl ?>/developers/map/">Metadata Application Profile</a></li>
+                                <li><a href="//digitalpubliclibraryofamerica.atlassian.net/wiki/display/TECH/DPLA+Technology+Team">Technical Documentation</a></li>
                             </ul>
                         </li>
                         <li class="aboutMenu">
