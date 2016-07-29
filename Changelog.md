@@ -1,3 +1,7 @@
+18.2.3 (29 Jul 2016)
+---
+* Add link to Searching DPLA in main nav
+
 18.2.2 (7 Jul 2016)
 ---
 * Add link to tech wiki in main nav
