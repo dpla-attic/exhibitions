@@ -131,6 +131,7 @@
                           <a href="<?= $wpUrl ?>/help">Help<span aria-hidden="true" class="icon-arrow-thin-down"></span></a>
                           <ul>
                             <li><a href="<?= $wpUrl ?>/help/faq/">FAQ</a></li>
+                            <li><a href="<?= $wpUrl ?>/help/search/">Searching DPLA</a></li>
                           </ul>
                         </li>
                         <li class="aboutMenu">
