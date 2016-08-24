@@ -119,7 +119,7 @@
                             <ul>
                                 <li><a href="<?= $wpUrl ?>/get-involved/reps/">Community Reps</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/dpla-ebooks/">Ebooks</a></li>
-                                <li><a href="<?= $wpUrl ?>/gif-it-up/gif-it-up-2015">GIF IT UP</a></li>
+                                <li><a href="<?= $wpUrl ?>/gif-it-up/">GIF IT UP</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/groups/">Groups</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/workshops/">Workshops</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>

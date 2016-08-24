@@ -4,7 +4,8 @@ Track your Omeka site easily with [Google Analytics](http://www.google.com/analy
 
 ## Installation
 
-+ Upload and activate the GoogleAnalytics plugin (see [Installing a Plugin](http://omeka.org/codex/Installing_a_Plugin)). 
++ Unzip or clone the GoogleAnalytics plugin into Omeka's plugin directory. Rename the newly installed folder  `GoogleAnalytics`.
++ Log into Omeka as a [super user](http://omeka.org/codex/User_Roles) and activate the plugin. (see [Installing a Plugin](http://omeka.org/codex/Installing_a_Plugin)).
 + Configure the plugin with your Google Analytics key
 
 ## Usage
