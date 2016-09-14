@@ -1,3 +1,7 @@
+18.2.5 (14 Sep 2016)
+---
+* Change dplafest link in main menu
+
 18.2.4 (24 Aug 2016)
 ---
 * Upgrade Google Analytics plugin
