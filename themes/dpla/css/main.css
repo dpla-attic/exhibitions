@@ -623,7 +623,7 @@ line-height: 14px;
             list-style: none;
             margin: 0;
             overflow: hidden;
-            padding: 0 0 0 20px;
+            padding: 20px 0 0 20px;
         }
             .thumbs-list li {
                 display: inline-block;
@@ -2498,8 +2498,7 @@ aside h5 { margin: 5px 0 1em; }
 .slide-container {
     position: relative;
 }
-.moreInfo,
-.show-item-details {
+.moreInfo {
     background: #000;
     border: 1px solid #95928F;
     bottom: 17px;
@@ -2518,33 +2517,23 @@ aside h5 { margin: 5px 0 1em; }
     -ms-transition: 0.3s ease;
     transition: 0.3s ease;
 }
-.show-item-details {
-    font-size: 1.4em;
-    top: 15px;
-    left: 15px;
-}
-.video-mp4 + .show-item-details {
-    position: static;
-    border: none;
-    float: right;
-    margin: 1.5%;
-}
 .moreInfo.hover {
     border-color: #fff;
     background-color: transparent;
     text-decoration: none;
 }
-.show-item-details:hover {
-    text-decoration: none;
-    background: #000;
-}
-.moreInfo span,
-.show-item-details span {
+.moreInfo span {
     color: #fff;
     text-transform: none;
     text-align: center;
     padding: .15em .05em 0 0;
     display: block;
+}
+span.show-item-details {
+    cursor: pointer;
+    /* this overrides the background color for .show-item-details defined
+       in dpla-colors.css, which is in the frontend-assets app */
+    background-color: transparent;
 }
 .flex-direction-nav a {
     transition: .5s ease;
@@ -3038,7 +3027,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     position: relative;
     clear: both;
     width: 65.820106%;
-    float: right;
+    float: left;
 }
 .slidegallery {
     background: none repeat scroll 0 0 #EDEDED;
@@ -3051,12 +3040,15 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
     width: 100%;
 }
 .slide_bottom {
-    float: left;
+    float: right;
     width: 32%;
 }
 
 .caption {
     padding: 1% 2%;
+}
+.caption p {
+    display: inline;
 }
 .slide-Container .slides .caption {
     clear: none;
@@ -3535,7 +3527,6 @@ div.timeline-year {
 .no-js .next, 
 .no-js .prev, 
 .no-js .moreInfo, 
-.no-js .show-item-details,
 .no-js .cboxClose.pclose,
 .no-js .prevNext,
 .no-js .desc-toggle,
@@ -4210,8 +4201,7 @@ aside { height: 100%; }
 #toggle { display: inline-block; }
 
 /* HOME SLIDESHOW*/
-.moreInfo,
-.show-item-details {
+.moreInfo {
     background-position: center center;
     padding: 6px;
     right: 17px;
