@@ -1821,7 +1821,7 @@ input[type="checkbox"] {
 .lowerSection {
     clear: both;
 }
-.exhibit-credits, .exhibit-description {
+.exhibit-credits, .exhibit-citation {
     width: 50%;
     float: left;
     margin: 20px 0 0 0;
@@ -1830,7 +1830,7 @@ input[type="checkbox"] {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
-.exhibit-description {
+.exhibit-citation {
     padding-left: 20px;
 }
 .exhibit-credits {
@@ -3816,7 +3816,7 @@ article.home {
     margin-bottom: 5%;
 }
 
-.exhibit-credits, .exhibit-description {
+.exhibit-credits, .exhibit-citation {
     width: 100%;
     padding-left: 0;
     padding-right: 0;

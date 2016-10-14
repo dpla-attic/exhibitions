@@ -107,7 +107,7 @@
                 </div>
             <?php endif; ?>
             <?php if (($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true)))): ?>
-                <div class="exhibit-description">
+                <div class="exhibit-citation">
                     <h5>Citation</h5>
                     <?php echo $exhibitDescription; ?>
                 </div>
