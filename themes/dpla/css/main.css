@@ -1833,7 +1833,7 @@ input[type="checkbox"] {
 .exhibit-description {
     padding-left: 20px;
 }
-.exhibit-citation {
+.exhibit-credits {
     padding-right: 20px;
 }
 
@@ -3815,6 +3815,13 @@ article.home {
 .leftSide .itemList {
     margin-bottom: 5%;
 }
+
+.exhibit-credits, .exhibit-description {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .pop-columns ul li:first-child {
     border-top: 1px solid #CCCCCC;
 }
