@@ -44,19 +44,6 @@
                     <?=$thumbCaption ?>
                 </div>
 			</section>
-
-			<?php if (($exhibitCredits = metadata('exhibit', 'credits'))): ?>
-				<div class="exhibit-credits">
-				    <h5><?php echo __('Credits'); ?></h5>
-				    <p><?php echo $exhibitCredits; ?></p>
-				</div>
-			<?php endif; ?>
-            <?php if (($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true)))): ?>
-                <div class="exhibit-description">
-                    <h5>Citation</h5>
-                    <?php echo $exhibitDescription; ?>
-                </div>
-            <?php endif; ?>
 		</div>
 
 		<div class="rightSide">
@@ -74,6 +61,23 @@
                 ?>
             </div>
 
+            <?php
+            // we have to support legacy data model. Some exhibit pages in production contains 2 descriptions instead of 1
+            $external_uri = exhibit_builder_page_text(2, $homepage);
+            $external_uri = strip_tags($external_uri);
+            ?>
+
+            <?php if ($external_uri && strpos($external_uri, 'http') !== FALSE):
+                //    just to make sure it's actually a link
+            ?>
+                <ul class="prevNext">
+                    <li class="btn"><a href="<?=$external_uri?>">View Exhibition</a></li>
+                </ul>
+            <?php endif; ?>
+
+        </div>
+
+        <div>
             <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
             <?php
                 $pagesCount = 0; 
@@ -96,20 +100,18 @@
                 </div>
             <?php endif; ?>
 
-            <?php
-            // we have to support legacy data model. Some exhibit pages in production contains 2 descriptions instead of 1
-            $external_uri = exhibit_builder_page_text(2, $homepage);
-            $external_uri = strip_tags($external_uri);
-            ?>
-
-            <?php if ($external_uri && strpos($external_uri, 'http') !== FALSE):
-                //    just to make sure it's actually a link
-            ?>
-                <ul class="prevNext">
-                    <li class="btn"><a href="<?=$external_uri?>">View Exhibition</a></li>
-                </ul>
+            <?php if (($exhibitCredits = metadata('exhibit', 'credits'))): ?>
+                <div class="exhibit-credits">
+                    <h5><?php echo __('Credits'); ?></h5>
+                    <p><?php echo $exhibitCredits; ?></p>
+                </div>
             <?php endif; ?>
-
+            <?php if (($exhibitDescription = metadata('exhibit', 'description', array('no_escape' => true)))): ?>
+                <div class="exhibit-description">
+                    <h5>Citation</h5>
+                    <?php echo $exhibitDescription; ?>
+                </div>
+            <?php endif; ?>
         </div>
 
 	</div>
