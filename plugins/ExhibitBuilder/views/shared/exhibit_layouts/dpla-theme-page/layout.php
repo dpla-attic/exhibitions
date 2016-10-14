@@ -17,12 +17,18 @@
                                 echo files_for_item(array(), array('class'=>'item-file'), $item['item']);
                             }
                             ?>
-                            <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><span>i</span></span>
                         </div>
                    
                         <div class="caption">
                             <?=$item['caption']?>
+                            <span data-id="<?=$unique_id?>" class="show-item-details cboxElement"><a>More info</a></span>
                         </div>
+
+                        <?php if (count($items) > 1): ?>
+                            <div class="caption">
+                                <strong>Select an item:</strong>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="overlay">
                             <div id="<?=$unique_id?>">
