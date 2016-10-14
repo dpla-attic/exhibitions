@@ -77,7 +77,7 @@
 
         </div>
 
-        <div>
+        <div class="lowerSection">
             <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
             <?php
                 $pagesCount = 0; 

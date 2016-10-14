@@ -1818,6 +1818,10 @@ input[type="checkbox"] {
     padding: 0 90px 0 0;
 }
 
+.lowerSection {
+    clear: both;
+}
+
 
 
 /* App Detail settings */
