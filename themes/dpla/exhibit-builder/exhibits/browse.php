@@ -53,11 +53,7 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
             </div>
         <?php endif; ?>
 
-        <!-- Featured Item -->
-        <div id="featured-item">
-            <h2><?php echo __('Featured Item'); ?></h2>
-            <?php echo random_featured_items(3); ?>
-        </div><!--end featured-item-->
+        <?php echo exhibit_builder_display_random_featured_exhibit(); ?>
 
         <?php $exhibitCount = 0; ?>
         <div class='pop-columns' data-page='1'>
