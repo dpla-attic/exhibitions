@@ -1821,8 +1821,21 @@ input[type="checkbox"] {
 .lowerSection {
     clear: both;
 }
-
-
+.exhibit-credits, .exhibit-description {
+    width: 50%;
+    float: left;
+    margin: 20px 0 0 0;
+    /* force width to include padding and borders across browsers */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.exhibit-description {
+    padding-left: 20px;
+}
+.exhibit-citation {
+    padding-right: 20px;
+}
 
 /* App Detail settings */
 .app-detail .leftSide {width: 65.820106%;}
