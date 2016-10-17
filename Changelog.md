@@ -1,3 +1,7 @@
+18.2.6 (17 Oct 2017)
+---
+* Improve layout and helper text of content pages
+
 18.2.5 (14 Sep 2016)
 ---
 * Change dplafest link in main menu

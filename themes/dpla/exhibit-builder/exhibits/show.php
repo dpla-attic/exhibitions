@@ -40,7 +40,7 @@ echo head(array(
             <h2><?php echo metadata('exhibit_page', 'title'); ?></h2>
         </div>
         <div class="sideNav">
-            <span class="head">Themes <span class="icon-arrow-down" aria-hidden="true"></span></span>
+            <span class="head">Sections <span class="icon-arrow-down" aria-hidden="true"></span></span>
             <?php echo dpla_theme_nav(); ?>
         </div>  
     </div>

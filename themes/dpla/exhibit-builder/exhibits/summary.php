@@ -92,7 +92,6 @@
 
             <?php if ($pagesCount > 0): ?>
                 <div class="module overview overview-<?php echo $pagesCount; ?>">
-                    <h2>Choose a theme</h2>
                     <?php echo $thumbsList; ?>
                 </div>
             <?php endif; ?>
