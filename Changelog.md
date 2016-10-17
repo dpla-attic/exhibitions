@@ -1,3 +1,7 @@
+18.2.7 (17 Oct 2017)
+---
+* Add explanatory text to main exhibitions page
+
 18.2.6 (17 Oct 2017)
 ---
 * Improve layout and helper text of content pages
