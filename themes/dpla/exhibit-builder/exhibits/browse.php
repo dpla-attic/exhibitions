@@ -39,6 +39,22 @@ echo head(array('title' => $title, 'bodyid' => 'exhibit', 'bodyclass' => 'browse
     </ul>
     <h1 class="border"><?php echo $title; ?></h1>
     <h4><?php echo option('description'); ?></h4>
+    <?php
+        $config = Zend_Registry::get('bootstrap')->getResource('Config'); 
+        $wpUrl = $config->dpla->wordpressURL;
+    ?>
+    <p>Digital Public Library of America (DPLA) Exhibitions are designed to tell 
+        stories of national significance using source materials from libraries, 
+        archives, and museums across the United States, including letters, 
+        photographs, posters, oral histories, video clips, sheet music, and 
+        more. They were curated by a wide variety of curators and projects: the 
+        DPLA Curation team, DPLA Hubs staff, graduate students in library and 
+        information science and public history, and public librarians as part 
+        of the <a href="<?= $wpUrl ?>/about/projects/public-library-partnerships/">
+        Public Library Partnerships Project.</a> 
+        Please explore the credits for individual exhibitions to learn more 
+        about their curators. Contact us with feedback at 
+        <a href="mailto:education@dp.la">education@dp.la</a>.</p>
     <?php if (count($exhibits) > 0): ?>
 
         <?php $page_size = (int) Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibit_page_size;
