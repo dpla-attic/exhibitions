@@ -51,17 +51,21 @@
     </footer><!-- end footer -->
     </div>
         <!-- JavaScripts -->
-    <?php queue_js_file('vendor/jquery.mobile-1.2.0.min'); ?>
-    <?php queue_js_file('vendor/fastclick'); ?>
-    <?php queue_js_file('jquery.jcarousel.min'); ?>
-    <?php queue_js_file('vendor/jquery.opacityrollover'); ?>
-    <?php queue_js_file('vendor/jquery.colorbox-min'); ?>
-    <?php queue_js_file('vendor/selectivizr', 'javascripts', array('conditional' => '(gte IE 6)&(lte IE 8)')); ?>
-    <?php queue_js_file('vendor/respond'); ?>
-    <?php queue_js_file('plugins'); ?>
-    <?php queue_js_file('main'); ?>
-    <?php queue_js_file('globals'); ?>
-    <?php echo head_js(); ?>
+    <?php
+        # Load individual javascipt files. The JavaScript file queue is not 
+        # used here to avoid duplication of files from the header.
+        # @see themes/dpla/common/header.php
+    ?>
+    <?php echo js_tag('vendor/jquery.mobile-1.2.0.min'); ?>
+    <?php echo js_tag('vendor/fastclick'); ?>
+    <?php echo js_tag('jquery.jcarousel.min'); ?>
+    <?php echo js_tag('vendor/jquery.opacityrollover'); ?>
+    <?php echo js_tag('vendor/jquery.colorbox-min'); ?>
+    <?php echo js_tag('vendor/selectivizr', 'javascripts', array('conditional' => '(gte IE 6)&(lte IE 8)')); ?>
+    <?php echo js_tag('vendor/respond'); ?>
+    <?php echo js_tag('plugins'); ?>
+    <?php echo js_tag('main'); ?>
+    <?php echo js_tag('globals'); ?>
 
     <ul class="jump-links">
         <li><a href="#top-nav" accesskey="1">Return to top navigation</a></li>
