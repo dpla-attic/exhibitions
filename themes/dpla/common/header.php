@@ -45,6 +45,12 @@
     echo head_css();
     ?>
     <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
+    <?php 
+        # Load all JavaScripts in file queue, including those included in _head
+        # function in plugins.
+        # Note that some JavaScript files are loaded in the footer.
+        # @see themes/dpla/common/footer.php
+    ?>
     <?php echo head_js(); ?>
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
