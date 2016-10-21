@@ -1,3 +1,7 @@
+18.2.8 (21 Oct 2017)
+---
+* Load each JavaScript file only once per page
+
 18.2.7 (17 Oct 2017)
 ---
 * Add explanatory text to main exhibitions page
