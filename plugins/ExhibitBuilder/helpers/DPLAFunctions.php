@@ -592,12 +592,24 @@ class MetadataTable {
  */
 class ItemMetadata {
     
-    private $item = null;
-    private $json = null;
+    private $item;
+    private $json;
 
     function __construct($item) {
         $this->item = $item;
-        $this->json = get_dpla_api_object(dpla_get_field_value_by_name($item, 'Has Version'));
+    }
+
+    /* 
+     * Lazy load $json.
+     * If the inital call to the API does not return a valid record, the value
+     * of $json will be set to an empty string (@see get_dpla_api_object), and
+     * will subsequently evaluate FALSE for !isset().
+     */
+    private function get_json() {
+        if(!isset($this->json)) {
+            $this->json = get_dpla_api_object(dpla_get_field_value_by_name($this->item, 'Has Version'));
+        }
+        return $this->json;
     }
 
     function get_title($opts = array('api_preferred' => false)) {
@@ -632,8 +644,8 @@ class ItemMetadata {
     }
 
     function get_edm_rights() {
-        $edm_rights = $this->json ? 
-            dpla_get_field_value_by_arrayname($this->json, array('rights')) : null; 
+        $edm_rights = $this->get_json() ? 
+            dpla_get_field_value_by_arrayname($this->get_json(), array('rights')) : null; 
         return $edm_rights;  
     }
 
@@ -645,15 +657,15 @@ class ItemMetadata {
     }
 
     function get_data_provider() {
-        $data_provider = $this->json ? 
-            dpla_get_field_value_by_arrayname($this->json, array('dataProvider')) : null;
+        $data_provider = $this->get_json() ? 
+            dpla_get_field_value_by_arrayname($this->get_json(), array('dataProvider')) : null;
         return $data_provider;
     }
 
     function get_contributing_institution() {
         $data_provider = $this->get_data_provider();
-        $intermediate_provider = $this->json ? 
-            dpla_get_field_value_by_arrayname($this->json, array('intermediateProvider')) : null;
+        $intermediate_provider = $this->get_json() ? 
+            dpla_get_field_value_by_arrayname($this->get_json(), array('intermediateProvider')) : null;
         $contributing_institution = array_filter(array($data_provider, $intermediate_provider));
         return $contributing_institution;
     }
@@ -663,8 +675,8 @@ class ItemMetadata {
     }
 
     function get_id() {
-        $id = $this->json ? 
-            dpla_get_field_value_by_arrayname($this->json, array('id')) : null; 
+        $id = $this->get_json() ? 
+            dpla_get_field_value_by_arrayname($this->get_json(), array('id')) : null; 
         return $id;
     }
 
@@ -677,15 +689,24 @@ class ItemMetadata {
      */
     private function get_field_value($omeka_field_name, $api_field_name, $api_preferred = false) {
 
-        $omeka_field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
-        $api_field_value = $this->json ? 
-            dpla_get_field_value_by_arrayname($this->json, $api_field_name) : null;
         $field_value = null;
 
         if ($api_preferred == false) {
-            $field_value = $omeka_field_value ?: $api_field_value;
+            // get value from omeka
+            $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
+
+            // if omeka value unavailable, get value from api
+            if($field_value == null && $this->get_json() != false) {
+                $field_value = dpla_get_field_value_by_arrayname($this->get_json(), $api_field_name);
+            }
         } else {
-            $field_value = $api_field_value ?: $omeka_field_value;
+            // get value from api
+            if($this->get_json() != false) {
+                $field_value = dpla_get_field_value_by_arrayname($this->get_json(), $api_field_name);
+            // if api value is unavailable, get value from omeka
+            } else {
+                $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
+            }
         }
         
         return $field_value;
