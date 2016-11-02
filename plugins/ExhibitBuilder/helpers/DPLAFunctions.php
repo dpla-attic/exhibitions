@@ -599,19 +599,6 @@ class ItemMetadata {
         $this->item = $item;
     }
 
-    /* 
-     * Lazy load $json.
-     * If the inital call to the API does not return a valid record, the value
-     * of $json will be set to an empty string (@see get_dpla_api_object), and
-     * will subsequently evaluate FALSE for !isset().
-     */
-    private function get_json() {
-        if(!isset($this->json)) {
-            $this->json = get_dpla_api_object(dpla_get_field_value_by_name($this->item, 'Has Version'));
-        }
-        return $this->json;
-    }
-
     function get_title($opts = array('api_preferred' => false)) {
         $omeka_field_name = "Title";
         $api_field_name = array('sourceResource', 'title');
@@ -644,9 +631,7 @@ class ItemMetadata {
     }
 
     function get_edm_rights() {
-        $edm_rights = $this->get_json() ? 
-            dpla_get_field_value_by_arrayname($this->get_json(), array('rights')) : null; 
-        return $edm_rights;  
+        return lookup_api_field(array('rights'));
     }
 
     function get_provider($opts = array('api_preferred' => false)) {
@@ -657,15 +642,12 @@ class ItemMetadata {
     }
 
     function get_data_provider() {
-        $data_provider = $this->get_json() ? 
-            dpla_get_field_value_by_arrayname($this->get_json(), array('dataProvider')) : null;
-        return $data_provider;
+        return lookup_api_field(array('dataProvider'))
     }
 
     function get_contributing_institution() {
         $data_provider = $this->get_data_provider();
-        $intermediate_provider = $this->get_json() ? 
-            dpla_get_field_value_by_arrayname($this->get_json(), array('intermediateProvider')) : null;
+        $intermediate_provider = lookup_api_field(array('intermediateProvider'));
         $contributing_institution = array_filter(array($data_provider, $intermediate_provider));
         return $contributing_institution;
     }
@@ -675,9 +657,7 @@ class ItemMetadata {
     }
 
     function get_id() {
-        $id = $this->get_json() ? 
-            dpla_get_field_value_by_arrayname($this->get_json(), array('id')) : null; 
-        return $id;
+        return lookup_api_field(array('id'));
     }
 
     /**
@@ -688,27 +668,48 @@ class ItemMetadata {
      * @param array $apiFieldName 
      */
     private function get_field_value($omeka_field_name, $api_field_name, $api_preferred = false) {
+        // get field value from omeka
+        $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
 
-        $field_value = null;
+        if ($api_preferred == true) {
+            // get field value from api
+            $api_field_value = lookup_api_field($api_field_name);
 
-        if ($api_preferred == false) {
-            // get value from omeka
-            $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
-
-            // if omeka value unavailable, get value from api
-            if($field_value == null && $this->get_json() != false) {
-                $field_value = dpla_get_field_value_by_arrayname($this->get_json(), $api_field_name);
-            }
-        } else {
-            // get value from api
-            if($this->get_json() != false) {
-                $field_value = dpla_get_field_value_by_arrayname($this->get_json(), $api_field_name);
-            // if api value is unavailable, get value from omeka
-            } else {
-                $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
+            if($api_field_value == null) {
+                $field_value = $api_field_value;
             }
         }
         
         return $field_value;
+    }
+
+    /*
+     * Return the API field value.
+     *
+     * @return string|NULL
+     * @param array $apiFieldName 
+     */
+    private function lookup_api_field($api_field_name) {
+        $field_value = null;
+
+        if ($this->get_json() != false) {
+            $field_value = dpla_get_field_value_by_arrayname($this->get_json(), $api_field_name);
+        }
+
+        return $field_value;
+    }
+
+    /* 
+     * Lazy load $json.
+     * If the inital call to the API does not return a valid record, the value
+     * of $json will be set to an empty string (@see get_dpla_api_object), and
+     * will subsequently evaluate FALSE for !isset().
+     */
+    private function get_json() {
+        if(!isset($this->json)) {
+            $this->json = get_dpla_api_object(dpla_get_field_value_by_name($this->item, 'Has Version'));
+        }
+
+        return $this->json;
     }
 }
