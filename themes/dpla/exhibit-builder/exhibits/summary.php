@@ -38,8 +38,15 @@
                             $thumbItemUri = $att['item_uri'];
                         }
                     }
+                    $item_metadata = new ItemMetadata($att);
                 ?>
-                <img src="<?=$thumbUri?>" alt="slide">
+                <img src="<?=$thumbUri?>"
+                     alt="slide"
+                     data-item-id="<?=$item_metadata->get_id() ?>"
+                     data-provider="<?=$item_metadata->get_provider($metadata_opts) ?>"
+                     data-data-provider="<?=$item_metadata->get_data_provider() ?>"
+                     data-title="<?=$item_metadata->get_title($metadata_opts) ?>">
+
                 <div class="caption">
                     <?=$thumbCaption ?>
                 </div>
