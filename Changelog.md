@@ -1,12 +1,16 @@
-18.2.8 (21 Oct 2017)
+18.2.9 (2 Nov 2016)
+---
+* Add Google Analytics event tracking for item views
+
+18.2.8 (21 Oct 2016)
 ---
 * Load each JavaScript file only once per page
 
-18.2.7 (17 Oct 2017)
+18.2.7 (17 Oct 2016)
 ---
 * Add explanatory text to main exhibitions page
 
-18.2.6 (17 Oct 2017)
+18.2.6 (17 Oct 2016)
 ---
 * Improve layout and helper text of content pages
 

@@ -44,14 +44,17 @@
     queue_css_file('galleriffic');
     echo head_css();
     ?>
-    <?php queue_js_file('vendor/modernizr-2.6.2.min'); ?>
     <?php 
+        # Add files to the JavaScript file queue.
+        queue_js_file('vendor/modernizr-2.6.2.min');
+        queue_js_file('google-analytics-events');
+
         # Load all JavaScripts in file queue, including those included in _head
         # function in plugins.
         # Note that some JavaScript files are loaded in the footer.
         # @see themes/dpla/common/footer.php
+        echo head_js();
     ?>
-    <?php echo head_js(); ?>
 </head>
 <?php echo body_tag(array('id' => @$bodyid, 'class' => @$bodyclass)); ?>
     <?php # fire_plugin_hook('public_body', array('view'=>$this)); ?>

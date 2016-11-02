@@ -6,7 +6,18 @@
             <ul class="slides <?= count($items) == 1 ? "single-slide" : ""?>">
 
                 <?php foreach ($items as $item): ?>
-                    <li data-thumb="<?=$item['file_uri_square'] ?>" class="flexslider-slide">
+                    <?php
+                        //@see class ItemMetadata, DPLAFunctions.php
+                        $item_metadata = new ItemMetadata($item);
+                        $metadata_opts = array('api_preferred' => true)
+                    ?>
+                    <li data-thumb="<?=$item['file_uri_square'] ?>"
+                        data-item-id="<?=$item_metadata->get_id() ?>"
+                        data-provider="<?=$item_metadata->get_provider($metadata_opts) ?>"
+                        data-data-provider="<?=$item_metadata->get_data_provider() ?>"
+                        data-title="<?=$item_metadata->get_title($metadata_opts) ?>"
+                        class="flexslider-slide">
+
                         <div class="plugin-content">
                             <?php
                             $unique_id = "itemDetailsBox_".hash("md4", exhibit_builder_exhibit_item_uri($item['item']));
