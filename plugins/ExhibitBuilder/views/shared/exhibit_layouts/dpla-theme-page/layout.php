@@ -9,7 +9,7 @@
                     <?php
                         //@see class ItemMetadata, DPLAFunctions.php
                         $item_metadata = new ItemMetadata($item);
-                        $metadata_opts = array('api_preferred' => true)
+                        $metadata_opts = array('api_preferred' => true);
                     ?>
                     <li data-thumb="<?=$item['file_uri_square'] ?>"
                         data-item-id="<?=$item_metadata->get_id() ?>"

@@ -36,16 +36,21 @@
                             $thumbUri = $att['file_uri_notsquare'];
                             $thumbCaption = isset($att['caption']) ? $att['caption'] : metadata('exhibit', 'title');
                             $thumbItemUri = $att['item_uri'];
+                            $item_metadata = new ItemMetadata($att);
+                            $metadata_opts = array('api_preferred' => true);
+                            $item_id = $item_metadata->get_id();
+                            $provider = $item_metadata->get_provider($metadata_opts);
+                            $data_provider = $item_metadata->get_data_provider();
+                            $title = $item_metadata->get_title($metadata_opts);
                         }
                     }
-                    $item_metadata = new ItemMetadata($att);
                 ?>
                 <img src="<?=$thumbUri?>"
                      alt="slide"
-                     data-item-id="<?=$item_metadata->get_id() ?>"
-                     data-provider="<?=$item_metadata->get_provider($metadata_opts) ?>"
-                     data-data-provider="<?=$item_metadata->get_data_provider() ?>"
-                     data-title="<?=$item_metadata->get_title($metadata_opts) ?>">
+                     data-item-id="<?= isset($item_id) ? $item_id : NULL ?>"
+                     data-provider="<?= isset($provider) ? $provider : NULL ?>"
+                     data-data-provider="<?= isset($data_provider) ? $data_provider : NULL ?>"
+                     data-title="<?= isset($title) ? $title : NULL ?>">
 
                 <div class="caption">
                     <?=$thumbCaption ?>

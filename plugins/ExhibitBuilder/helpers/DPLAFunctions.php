@@ -631,7 +631,7 @@ class ItemMetadata {
     }
 
     function get_edm_rights() {
-        return lookup_api_field(array('rights'));
+        return $this->lookup_api_field(array('rights'));
     }
 
     function get_provider($opts = array('api_preferred' => false)) {
@@ -642,12 +642,12 @@ class ItemMetadata {
     }
 
     function get_data_provider() {
-        return lookup_api_field(array('dataProvider'))
+        return $this->lookup_api_field(array('dataProvider'));
     }
 
     function get_contributing_institution() {
         $data_provider = $this->get_data_provider();
-        $intermediate_provider = lookup_api_field(array('intermediateProvider'));
+        $intermediate_provider = $this->lookup_api_field(array('intermediateProvider'));
         $contributing_institution = array_filter(array($data_provider, $intermediate_provider));
         return $contributing_institution;
     }
@@ -657,7 +657,7 @@ class ItemMetadata {
     }
 
     function get_id() {
-        return lookup_api_field(array('id'));
+        return $this->lookup_api_field(array('id'));
     }
 
     /**
@@ -673,9 +673,9 @@ class ItemMetadata {
 
         if ($api_preferred == true) {
             // get field value from api
-            $api_field_value = lookup_api_field($api_field_name);
+            $api_field_value = $this->lookup_api_field($api_field_name);
 
-            if($api_field_value == null) {
+            if($api_field_value != null) {
                 $field_value = $api_field_value;
             }
         }
