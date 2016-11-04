@@ -1,3 +1,7 @@
+18.2.10 (4 Nov 2016)
+---
+* Fix syntax and logic errors
+
 18.2.9 (2 Nov 2016)
 ---
 * Add Google Analytics event tracking for item views
