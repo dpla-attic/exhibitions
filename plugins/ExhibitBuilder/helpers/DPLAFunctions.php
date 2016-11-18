@@ -159,15 +159,20 @@ function dpla_page_summary($exhibitPage = null, $homePage = false)
     }
 
     $href = '';
+    $title = metadata($exhibitPage, 'title');
+
     if ($homePage == false) {
         // Get the URL extension for an internal page.
         $href = exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage);
+    } else {
+        // Set title of home page to "Introduction" (default is "Home Page")
+        $title = 'Introduction';
     }
 
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
     $html = '<a href="' . $href . '">'
           . '<img src="'.$thum['file_uri_square'].'" alt="' . metadata($exhibitPage, 'title') .'" /><br />'
-          . metadata($exhibitPage, 'title') .'</a>';
+          . $title .'</a>';
 
     return $html;
 }
