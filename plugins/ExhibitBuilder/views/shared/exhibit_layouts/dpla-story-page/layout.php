@@ -78,36 +78,38 @@
 
 </div>
 
-<?php $currentExhibitPage = get_current_record('exhibit_page', false); ?>
-<?php set_exhibit_pages_for_loop_by_exhibit(); ?>
-<?php
-    $pagesCount = 0; 
-    $thumbsList = '<ul class="thumbs-list">';
-    
-    foreach (loop('exhibit_page') as $exhibitPage) {
-        if ($exhibitPage->id != $currentExhibitPage->id) {
+<div class='story-page-menu'>
+    <?php $currentExhibitPage = get_current_record('exhibit_page', false); ?>
+    <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
+    <?php
+        $pagesCount = 0; 
+        $thumbsList = '<ul class="thumbs-list">';
+        
+        foreach (loop('exhibit_page') as $exhibitPage) {
+            if ($exhibitPage->id != $currentExhibitPage->id) {
 
-            $pagesCount++;
-            $pageSummary = '';
+                $pagesCount++;
+                $pageSummary = '';
 
-            if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
-                //get html for page link
-                $pageSummary = dpla_page_summary($exhibitPage);
-            } else {
-                //get html for homepage link
-                $pageSummary = dpla_page_summary($exhibitPage, true);
+                if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
+                    //get html for page link
+                    $pageSummary = dpla_page_summary($exhibitPage);
+                } else {
+                    //get html for homepage link
+                    $pageSummary = dpla_page_summary($exhibitPage, true);
+                }
+
+                $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
+                              . $pageSummary
+                              .'</li>';
             }
-
-            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
-                          . $pageSummary
-                          .'</li>';
         }
-    }
-    $thumbsList .= '</ul>';
-?>
+        $thumbsList .= '</ul>';
+    ?>
 
-<?php if ($pagesCount > 0): ?>
-    <div class="module overview overview-<?php echo $pagesCount; ?>">
-        <?php echo $thumbsList; ?>
-    </div>
-<?php endif; ?>
+    <?php if ($pagesCount > 0): ?>
+        <div class="module overview overview-<?php echo $pagesCount; ?>">
+            <?php echo $thumbsList; ?>
+        </div>
+    <?php endif; ?>
+</div>
