@@ -22,7 +22,13 @@ echo head(array(
         </ul>
     </div> -->
 
-    <ul class="shareSave">
+    <div class="upper-section">
+        <div class="upper-left">
+            <h1><?php echo metadata('exhibit', 'title'); ?></h1>
+            <h2><?php echo metadata('exhibit_page', 'title'); ?></h2>
+        </div>
+
+        <ul class="shareSave">
         <li class="btn">
             <a href="">Share</a>
             <ul>
@@ -33,12 +39,6 @@ echo head(array(
             </ul>
         </li>
     </ul>
-
-    <div class="upper-section">
-        <div class="upper-left">
-            <h1><?php echo metadata('exhibit', 'title'); ?></h1>
-            <h2><?php echo metadata('exhibit_page', 'title'); ?></h2>
-        </div>
     </div>
     
 <article id="content" role="main">
