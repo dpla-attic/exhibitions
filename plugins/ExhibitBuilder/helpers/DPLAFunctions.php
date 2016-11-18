@@ -159,13 +159,13 @@ function dpla_page_summary($exhibitPage, $homePage = false)
     }
 
     $href = '';
-    $title = metadata($exhibitPage, 'title');
+    $title = '';
 
     if ($homePage == false) {
-        // Get the URL extension for an internal page.
         $href = exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage);
+        $title = metadata($exhibitPage, 'title');
     } else {
-        // Set title of home page to "Introduction" (default is "Home Page")
+        $href = exhibit_builder_exhibit_uri(get_current_record('exhibit'));
         $title = 'Introduction';
     }
 
