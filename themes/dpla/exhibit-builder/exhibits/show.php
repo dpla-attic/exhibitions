@@ -8,7 +8,7 @@ echo head(array(
     <?php fire_plugin_hook('public_content_top'); ?>
 
     <? $exhibitPage = get_current_record('exhibit_page'); ?>
-    <div class="breadCrumbs">
+<!--     <div class="breadCrumbs">
         <ul>
             <li><a href="<?=Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibitionsUrl?>">Exhibitions</a></li>
             <li><?php echo link_to_exhibit(); ?></li>
@@ -20,7 +20,7 @@ echo head(array(
                 <li>Introduction</li>
             <?php endif; ?>
         </ul>
-    </div>
+    </div> -->
 
     <ul class="shareSave">
         <li class="btn">
