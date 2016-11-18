@@ -71,6 +71,7 @@
     </ul>
 </div>
 
+<?php $currentExhibitPage = get_current_record('exhibit_page', false); ?>
 <?php set_exhibit_pages_for_loop_by_exhibit(); ?>
 <?php
     $pagesCount = 0; 
@@ -79,8 +80,7 @@
     foreach (loop('exhibit_page') as $exhibitPage) {
         //if (!exhibit_builder_is_current_page($exhibitPage)) {
             $pagesCount++;
-            $currentExhibitPage = get_current_record('exhibit_page', false);
-            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . ' id-'. $exhibitPage->id . 'current-exhibit-id-' . $currentExhibitPage->id . '">'
+            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . ' id-'. $exhibitPage->id . ' current-exhibit-id-' . $currentExhibitPage->id . '">'
                       . dpla_page_summary($exhibitPage)
                       .'</li>';
         //}
