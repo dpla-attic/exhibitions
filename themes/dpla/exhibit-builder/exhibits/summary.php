@@ -8,7 +8,9 @@
 </div> -->
 
 <div class="upper-section">
-	<h1><?php echo metadata('exhibit', 'title'); ?></h1>
+    <div class="upper-left">
+	   <h1><?php echo metadata('exhibit', 'title'); ?></h1>
+    </div>
     <ul class="shareSave">
         <li class="btn">
             <a href="">Share</a>
