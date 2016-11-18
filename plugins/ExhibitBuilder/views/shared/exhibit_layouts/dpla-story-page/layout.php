@@ -88,14 +88,14 @@
         if ($exhibitPage->id != $currentExhibitPage->id) {
 
             $pagesCount++;
-            $pageSummary = ''
+            $pageSummary = '';
 
             if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
                 //get html for page link
-                $pageSummary = dpla_page_summary($exhibitPage)
+                $pageSummary = dpla_page_summary($exhibitPage);
             } else {
                 //get html for homepage link
-                $pageSummary = dpla_page_summary($exhibitPage, true)
+                $pageSummary = dpla_page_summary($exhibitPage, true);
             }
 
             $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
