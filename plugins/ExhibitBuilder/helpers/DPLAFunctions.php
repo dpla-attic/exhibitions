@@ -161,8 +161,6 @@ function dpla_page_summary($exhibitPage = null, $homePage = false)
     $href = '';
     if ($homePage == false) {
         $href = exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage);
-    } else {
-        $href = 'homepage-example-href';
     }
 
     $thum = dpla_exhibit_page_thumbnail_att($exhibitPage);
