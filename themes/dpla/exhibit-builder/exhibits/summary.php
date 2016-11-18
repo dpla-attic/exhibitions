@@ -1,11 +1,11 @@
 <?php echo head(array('title' => metadata('exhibit', 'title'), 'bodyid'=>'exhibit', 'bodyclass'=>'summary', 'layout' => 'layout fullWidth')); ?>
 
-<div class="breadCrumbs">
+<!-- <div class="breadCrumbs">
     <ul>
         <li><a href="<?=Zend_Registry::get('bootstrap')->getResource('Config')->dpla->exhibitionsUrl?>">Exhibitions</a></li>
         <li><?php echo metadata('exhibit', 'title'); ?></li>
     </ul>
-</div>
+</div> -->
 
 <div class="upper-section">
 	<h1><?php echo metadata('exhibit', 'title'); ?></h1>
