@@ -71,6 +71,28 @@
     </ul>
 </div>
 
+<?php set_exhibit_pages_for_loop_by_exhibit(); ?>
+<?php
+    $pagesCount = 0; 
+    $thumbsList = '<ul class="thumbs-list">';
+    
+    foreach (loop('exhibit_page') as $exhibitPage) {
+        if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
+            $pagesCount++;
+            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
+                      . dpla_page_summary($exhibitPage)
+                      .'</li>';
+        }
+    }
+    $thumbsList .= '</ul>';
+?>
+
+<?php if ($pagesCount > 0): ?>
+    <div class="module overview overview-<?php echo $pagesCount; ?>">
+        <?php echo $thumbsList; ?>
+    </div>
+<?php endif; ?>
+
 <!--[if IE 8]>
 
 <style type="text/css">
