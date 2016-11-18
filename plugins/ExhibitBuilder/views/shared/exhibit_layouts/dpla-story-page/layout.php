@@ -85,12 +85,12 @@
     $thumbsList = '<ul class="thumbs-list">';
     
     foreach (loop('exhibit_page') as $exhibitPage) {
-        //if (!exhibit_builder_is_current_page($exhibitPage)) {
+        if (!($exhibitPage->id == $currentExhibitPage->id)) {
             $pagesCount++;
             $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . ' id-'. $exhibitPage->id . ' current-exhibit-id-' . $currentExhibitPage->id . '">'
                       . dpla_page_summary($exhibitPage)
                       .'</li>';
-        //}
+        }
     }
     $thumbsList .= '</ul>';
 ?>
