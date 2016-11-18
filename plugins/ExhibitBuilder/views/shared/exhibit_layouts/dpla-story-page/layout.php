@@ -84,7 +84,7 @@
     $thumbsList = '<ul class="thumbs-list">';
     
     foreach (loop('exhibit_page') as $exhibitPage) {
-        if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
+        if (!exhibit_builder_is_current_page($exhibitPage)) {
             $pagesCount++;
             $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
                       . dpla_page_summary($exhibitPage)
