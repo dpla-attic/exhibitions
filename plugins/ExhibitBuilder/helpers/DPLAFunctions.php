@@ -152,7 +152,7 @@ function dpla_theme_nav($exhibitPage = null)
 /**
  * Get a list item for a page.
  */
-function dpla_page_summary($exhibitPage = null, $homePage = false)
+function dpla_page_summary($exhibitPage, $homePage = false)
 {
     if (!$exhibitPage) {
         $exhibitPage = get_current_record('exhibit_page');
