@@ -47,9 +47,11 @@ echo head(array(
 
 </article>
 
-<p><strong><a href=''>Find more Exhibitions!</a></strong>
+<div class='more-exhibitions'>
+    <p><strong><a href=''>Find more Exhibitions.</a></strong>
     DPLA (Digital Public Libary of America) Exhibitions are designed to tell 
     stories of national significance using source materials from libraries, 
     archives, and museums across the United States.</p>
+</div>
 
 <?php echo foot(); ?>
