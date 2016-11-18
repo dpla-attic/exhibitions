@@ -160,6 +160,7 @@ function dpla_page_summary($exhibitPage = null, $homePage = false)
 
     $href = '';
     if ($homePage == false) {
+        // Get the URL extension for an internal page.
         $href = exhibit_builder_exhibit_uri(get_current_record('exhibit'), $exhibitPage);
     }
 
