@@ -85,11 +85,22 @@
     $thumbsList = '<ul class="thumbs-list">';
     
     foreach (loop('exhibit_page') as $exhibitPage) {
-        if (!($exhibitPage->id == $currentExhibitPage->id)) {
+        if ($exhibitPage->id != $currentExhibitPage->id) {
+
             $pagesCount++;
-            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . ' id-'. $exhibitPage->id . ' current-exhibit-id-' . $currentExhibitPage->id . '">'
-                      . dpla_page_summary($exhibitPage)
-                      .'</li>';
+            $pageSummary = ''
+
+            if ($exhibitPage->layout != dpla_exhibit_homepage_layout_name()) {
+                //get html for page link
+                $pageSummary = dpla_page_summary($exhibitPage)
+            } else {
+                //get html for homepage link
+                $pageSummary = dpla_page_summary($exhibitPage, true)
+            }
+
+            $thumbsList .= '<li class="thumbs-item thumbs-item-'. $pagesCount . '">'
+                          . $pageSummary
+                          .'</li>';
         }
     }
     $thumbsList .= '</ul>';
