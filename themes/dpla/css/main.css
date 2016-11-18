@@ -468,7 +468,7 @@ aside {
 }
 
 .theme-page-menu, .story-page-menu {
-    padding-top: 32px;
+    padding-top: 64px;
     clear: both;
 }
 
@@ -3180,7 +3180,7 @@ div.timeline-year {
 #timeline-navigation ul { margin: 0; padding: 0; }
 
 .more-exhibitions {
-    padding-top: 64px;
+    padding-top: 32px;
     clear: both;
 }
 
