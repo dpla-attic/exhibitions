@@ -467,8 +467,9 @@ aside {
     clear: both;
 }
 
-.theme-page-menu .overview, .story-page-menu .overview {
+.theme-page-menu, .story-page-menu {
     margin-top: 18px;
+    clear: both;
 }
 
 /* ==========================================================================
