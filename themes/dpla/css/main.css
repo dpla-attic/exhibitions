@@ -1231,34 +1231,6 @@ h6.open span {
 .desc-toggle:hover { cursor: pointer; }
 .desc-toggle span { font-size: .5em; }
 
-.sideNav { border-top: 8px solid #E5A426; background: #ededed; padding-bottom: 5%; }
-.sideNav ul { margin: 0; padding: 2% 0 0; }
-.sideNav li {
-    list-style: none;
-    margin: 0;
-}
-
-.sideNav li:first-child { border: none; }
-.sideNav a { 
-    display: block;
-    padding: 2% 5%;
-}
-.sideNav a:hover { color: inherit; }
-
-.sideNav ul ul {
-    padding: 0;
-}
-.sideNav li li a {
-    padding-left: 14%;
-}
-
-.sideNav .selected { border: none; }
-
-.sideNav .selected a { color: inherit; cursor: default; }
-.sideNav .selected a:hover { text-decoration: none; }
-
-
-
 .detailPage .module {
     float: right;
     margin: 0 0 10px 0;
@@ -3141,39 +3113,10 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 .upper-left h3 {
     font-family: 'source_sans_proregular',arial,sans-serif;
 }
-.upper-section .sideNav {
-    border-color: #808080;
-    margin: 0.7em 0 0;
-    padding: 0 0 1%;
-    position: absolute;
-    right: 0;
-    z-index: 1000;
-}
-.sideNav {
-    width: 31.640212%;
-    float: right;
-}
 
 .upper-left h1 {
     margin: 0 0 10px;
 }
-
-.sideNav .head {
-    color: #2795b6;
-    display: block;
-    margin: 4% 5% 0; 
-    cursor: pointer;
-}
-.sideNav .head:hover { color: inherit; }
-.sideNav .head span {
-    float: right;
-    font-size: 0.6em;
-}
-
-
-.upper-section .sideNav ul { display: none; }
-
-
 
 #content-scroll {
     border: 1px solid black;
@@ -3540,9 +3483,6 @@ div.timeline-year {
 .no-js .desc-long { display: block; }
 
 .no-js .timeline article { overflow: auto; margin: 0; }
-.no-js .upper-section .sideNav { position: static; float: left; }
-.no-js .upper-section .sideNav ul { display: block; }
-.no-js .sideNav .head { background: none; color: #222; }
 .no-js .slide-container { overflow: hidden; }
 .no-js .DecadesDates, .no-js .graph { right: auto; }
 
@@ -3833,15 +3773,11 @@ article.home {
 
 .right .social { top: 2.5%; }
 
-.upper-section .sideNav { position: static; }
-
 body .upper-left h3 { font-size: 1.3em; }
 .upper-left { padding: 0; }
 body .container .upper-left h1 { padding-left: 0; }
 body .container .upper-left h2 { font-size: 1.4em; }
-.sideNav .head { margin: 3% 5% 1%; }
 
-.upper-section .sideNav { margin-top: 15px; }
 .popBar .pagination {
     float: none;
     clear: both;
@@ -4175,7 +4111,6 @@ input[type="text"] { width: 80%; }
 
 /* ASIDE */
 .formRow select { width: 30%; margin-bottom: 10px; }
-.sideNav { width: 100%; }
 
 /* ROW MODULE */
 .row { margin-top: 20px; }
