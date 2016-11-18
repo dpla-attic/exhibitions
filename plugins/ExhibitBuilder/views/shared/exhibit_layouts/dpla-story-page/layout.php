@@ -100,30 +100,3 @@
         <?php echo $thumbsList; ?>
     </div>
 <?php endif; ?>
-
-<!--[if IE 8]>
-
-<style type="text/css">
-	#exhibit-item-thumbnails .exhibit-item {
-		float:none !important;
-	}
-	#exhibit-item-thumbnails{
-		white-space:nowrap;
-	}
-</style>
-
-<![endif]-->
-
-<!--[if lte IE 7]>
-<style type="text/css">
-	body{
-		/* disable responsive behaviour (limit size to stop layout breaking) */
-		min-width:	768px;
-	}
-
-	#story{
-		max-width:47%;
-	}
-
-</style>
-<![endif]-->
