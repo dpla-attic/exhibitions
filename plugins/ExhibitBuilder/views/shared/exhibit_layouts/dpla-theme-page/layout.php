@@ -70,7 +70,7 @@
             <li class="btn"><?= $nextLink ?></li>
         <? endif; ?>
     </ul>
-    <div class='clear'><?= dpla_page_position(); ?></div>
+    <div class='page_position'><?= dpla_page_position(); ?></div>
 </div>
 
 <div class='theme-page-menu'>
