@@ -69,8 +69,8 @@
         <? if ($nextLink = dpla_link_to_next_page()): ?>
             <li class="btn"><?= $nextLink ?></li>
         <? endif; ?>
-        <li><?= dpla_page_position(); ?></li>
     </ul>
+    <div><?= dpla_page_position(); ?></div>
 </div>
 
 <div class='theme-page-menu'>
