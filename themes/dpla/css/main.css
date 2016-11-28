@@ -3101,7 +3101,7 @@ footer .social li span { height: 31px; border-right: 1px solid #000000; border-b
 }
 .page-position {
     clear: both;
-    margin-top: 1em;
+    padding-top: 1em;
 }
 .upper-section {
     overflow: hidden;
