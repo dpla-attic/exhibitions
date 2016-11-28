@@ -211,6 +211,9 @@ function dpla_link_to_current_page() {
 function dpla_link_to_previous_page($title = null) {
     $current_page = get_current_record('exhibit_page');
     $previousPage = $current_page->previousOrParent();
+    if($title = null) {
+        $title = $nextPage->title;
+    }
     return exhibit_builder_link_to_exhibit(null, $title, array(), $previousPage);
 }
 
@@ -223,6 +226,9 @@ function dpla_link_to_next_page($title = null) {
         $nextPage = $current_page->getFirstChildPage();
     }
     if ($nextPage) {
+        if($title = null) {
+            $title = $nextPage->title;
+        }
         return exhibit_builder_link_to_exhibit(null, $title, array(), $nextPage);
     }
 }
