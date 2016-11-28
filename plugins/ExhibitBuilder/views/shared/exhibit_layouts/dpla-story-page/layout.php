@@ -65,11 +65,10 @@
 	<?php echo exhibit_builder_page_text(2); ?>
 
 	<ul class="prevNext">
-		<?php // TODO: Define first and last pages ?>
-        <? if ($prevLink = dpla_link_to_previous_page('« Prev')): ?>
+        <? if ($prevLink = dpla_link_to_previous_page()): ?>
 		    <li class="btn"><?= $prevLink ?></li>
         <? endif; ?>
-        <? if ($nextLink = dpla_link_to_next_page('Next »')): ?>
+        <? if ($nextLink = dpla_link_to_next_page()): ?>
 		    <li class="btn"><?= $nextLink ?></li>
         <? endif; ?>
 		<li><?= dpla_page_position(); ?></li>
