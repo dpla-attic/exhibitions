@@ -63,9 +63,6 @@
 <div class="slide_bottom">
     <?php echo exhibit_builder_page_text(2); ?>
     <ul class="prevNext">
-        <? if ($prevLink = dpla_link_to_previous_page()): ?>
-            <li class="btn"><?= $prevLink ?></li>
-        <? endif; ?>
         <? if ($nextLink = dpla_link_to_next_page()): ?>
             <li class="btn"><?= $nextLink ?></li>
         <? endif; ?>
