@@ -72,7 +72,7 @@
 		    <li class="btn"><?= $nextLink ?></li>
         <? endif; ?>
 	</ul>
-    <div><?= dpla_page_position(); ?></div>
+    <div class='clear'><?= dpla_page_position(); ?></div>
 </div>
 
 <div class='story-page-menu'>
