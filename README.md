@@ -21,7 +21,7 @@ License
 --------
 This application is released under a GPLv3 license, following Omeka.
 
-Copyright Digital Public Library of America, 2013-2015
+Copyright Digital Public Library of America, 2013-2017
 
 Branching
 ---------
