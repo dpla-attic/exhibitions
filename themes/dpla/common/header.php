@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="width=device-width" name="viewport">
+    <meta name="referrer" content="origin-when-cross-origin" />
     <?php if ( $description = option('description')): ?>
     <meta name="description" content="<?php echo $description; ?>" />
     <?php endif; ?>
@@ -131,7 +132,6 @@
                                 <li><a href="<?= $wpUrl ?>/gif-it-up/">GIF IT UP</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/groups/">Groups</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/workshops/">Workshops</a></li>
-                                <li><a href="<?= $wpUrl ?>/get-involved/events/">Events</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/dplafest/">DPLAfest</a></li>
                                 <li><a href="<?= $wpUrl ?>/get-involved/follow/">Follow Us</a></li>
                             </ul>

@@ -2,7 +2,7 @@ Exhibitions
 ===========
 
 DPLA Exhibitions by Omeka
-v18.2.10 (2016-11-04)
+v18.2.11 (2017-03-15)
 
 Documentation
 -------------
@@ -21,7 +21,7 @@ License
 --------
 This application is released under a GPLv3 license, following Omeka.
 
-Copyright Digital Public Library of America, 2013-2015
+Copyright Digital Public Library of America, 2013-2017
 
 Branching
 ---------

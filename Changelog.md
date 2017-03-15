@@ -1,3 +1,9 @@
+18.2.11 (15 Mar 2017)
+---
+* Update copyright year
+* Add meta referrer tag
+* Remove Events from Get Involved menu
+
 18.2.10 (4 Nov 2016)
 ---
 * Fix syntax and logic errors
