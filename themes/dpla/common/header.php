@@ -141,6 +141,7 @@
                           <ul>
                             <li><a href="<?= $wpUrl ?>/help/faq/">FAQ</a></li>
                             <li><a href="<?= $wpUrl ?>/help/search/">Searching DPLA</a></li>
+                            <li><a href="<?= $wpUrl ?>/help/family-research-at-dpla">Family Research</a></li>
                           </ul>
                         </li>
                         <li class="aboutMenu">
