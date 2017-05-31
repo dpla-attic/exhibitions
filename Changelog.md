@@ -1,3 +1,7 @@
+18.2.12 (31 Mar 2017)
+---
+* Add family reaserch link to main menu
+
 18.2.11 (15 Mar 2017)
 ---
 * Update copyright year
