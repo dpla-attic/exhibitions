@@ -671,7 +671,7 @@ class ItemMetadata {
         // get field value from omeka
         $field_value = dpla_get_field_value_by_name($this->item, $omeka_field_name);
 
-        if ($api_preferred == true) {
+        if ($api_preferred == true || $field_value == null) {
             // get field value from api
             $api_field_value = $this->lookup_api_field($api_field_name);
 
