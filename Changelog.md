@@ -1,3 +1,7 @@
+18.2.13 (2 Jun 2017)
+---
+* Fix logic that pulls metadata from API 
+
 18.2.12 (31 Mar 2017)
 ---
 * Add family reaserch link to main menu
