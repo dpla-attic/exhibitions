@@ -1,3 +1,7 @@
+18.2.14 (16 Jun 2017)
+---
+* Add OAI plugin
+
 18.2.13 (2 Jun 2017)
 ---
 * Fix logic that pulls metadata from API 
