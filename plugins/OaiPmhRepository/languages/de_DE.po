@@ -1,0 +1,72 @@
+# Translation for the OaiPmjRepository plugin for Omeka.
+# Copyright (C) 2015 BibLibre
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Roland Keck <roland.keck@web.de>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: omeka-plugin-OaiPmhRepository\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-16 14:08+0200\n"
+"PO-Revision-Date: 2015-12-14 13:28+0000\n"
+"Last-Translator: Roland Keck <roland.keck@web.de>\n"
+"Language-Team: German (Germany) (http://www.transifex.com/omeka/omeka-plugin-oaipmhrepository/language/de_DE/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: config_form.php:18
+msgid "Repository name"
+msgstr "Name des Repositoriums"
+
+#: config_form.php:21
+msgid "Name for this OAI-PMH repository."
+msgstr "Name für dieses OAI-PMH Repositorium"
+
+#: config_form.php:27
+msgid "Namespace identifier"
+msgstr "Namespace Identifier"
+
+#: config_form.php:31
+msgid ""
+"This will be used to form globally unique IDs for the exposed metadata "
+"items.  This value is required to be a domain name you have registered.  "
+"Using other values will generate invalid identifiers."
+msgstr "Wird benötigt, um eine weltweit eindeutige ID für die bereitgestellten Metadaten zu erzeugen. Dieser Wert muss eine von Ihnen registrierte Domäne sein. Wenn Sie einen anderen Wert verwenden, werden die IDs ungültig sein"
+
+#: config_form.php:42
+msgid "Expose files"
+msgstr "Daten bereitstellen"
+
+#: config_form.php:46
+msgid ""
+"Whether the plugin should include identifiers for the files associated with "
+"items.  This provides harvesters with direct access to files."
+msgstr "Gibt an, ob das Plugin Identifkatoren für die referenzierten Objekten in den Dateien enthält."
+
+#: config_form.php:58
+msgid "Expose empty collections"
+msgstr "Leere Kollektionen bereitstellen"
+
+#: config_form.php:62
+msgid "Whether the plugin should expose empty public collections."
+msgstr "Gibt an, ob das Plugin leere Kollektionen bereitstellen soll."
+
+#: config_form.php:71
+msgid "Expose item type"
+msgstr "Objettyp bereitstellen"
+
+#: config_form.php:75
+msgid "Whether the plugin should expose the item type as Dublin Core Type."
+msgstr "Gibt an, ob das Plugin den Objekttypen im Dublin Core Format bereitstellt."
+
+#: OaiPmhRepositoryPlugin.php:120
+msgid "OAI-PMH Repository"
+msgstr "OAI-PMH Repositorium"
+
+#: OaiPmhRepositoryPlugin.php:121
+msgid "Harvester can access metadata from this site"
+msgstr "Harvester kann auf Metadaten dieser Site zugreifen"

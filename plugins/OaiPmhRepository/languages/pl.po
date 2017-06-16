@@ -1,0 +1,72 @@
+# Translation for the OaiPmjRepository plugin for Omeka.
+# Copyright (C) 2015 BibLibre
+# This file is distributed under the same license as the Omeka package.
+# 
+# Translators:
+# Tomasz Sopylo <tomasz@sopylo.pl>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: omeka-plugin-OaiPmhRepository\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-09-16 14:08+0200\n"
+"PO-Revision-Date: 2016-01-21 21:49+0000\n"
+"Last-Translator: Tomasz Sopylo <tomasz@sopylo.pl>\n"
+"Language-Team: Polish (http://www.transifex.com/omeka/omeka-plugin-oaipmhrepository/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: config_form.php:18
+msgid "Repository name"
+msgstr "Nazwa repozytorium"
+
+#: config_form.php:21
+msgid "Name for this OAI-PMH repository."
+msgstr "Nazwa dla tego repozytorium OAI-PMH."
+
+#: config_form.php:27
+msgid "Namespace identifier"
+msgstr "Identyfikator przestrzeni nazw"
+
+#: config_form.php:31
+msgid ""
+"This will be used to form globally unique IDs for the exposed metadata "
+"items.  This value is required to be a domain name you have registered.  "
+"Using other values will generate invalid identifiers."
+msgstr "Zostanie użyty do zbudowania globalnie unikalnych identyfikatorów dla odkrytych metadanych publikacji. Wymagane jest by wartość ta była zgodna z nazwą zarejestrowanej przez Ciebie domeny. Wykorzystanie innych wartości spowoduje wygenerowanie nieprawidłowych identyfikatorów."
+
+#: config_form.php:42
+msgid "Expose files"
+msgstr "Uwidocznij pliki"
+
+#: config_form.php:46
+msgid ""
+"Whether the plugin should include identifiers for the files associated with "
+"items.  This provides harvesters with direct access to files."
+msgstr "Czy wtyczka powinna uwidocznić identyfikatory dla plików powiązanych z publikacjami. Zezwala to harvesterom na bezpośredni dostęp do plików."
+
+#: config_form.php:58
+msgid "Expose empty collections"
+msgstr "Uwidocznij puste kolekcje"
+
+#: config_form.php:62
+msgid "Whether the plugin should expose empty public collections."
+msgstr "Czy wtyczka powinna uwidocznić puste, publiczne kolekcje."
+
+#: config_form.php:71
+msgid "Expose item type"
+msgstr "Uwidocznij typ publikacji"
+
+#: config_form.php:75
+msgid "Whether the plugin should expose the item type as Dublin Core Type."
+msgstr "Czy wtyczka powinna uwidocznić typ publikacji jako typ Dublin Core."
+
+#: OaiPmhRepositoryPlugin.php:120
+msgid "OAI-PMH Repository"
+msgstr "Repozytorium OAI-PMH"
+
+#: OaiPmhRepositoryPlugin.php:121
+msgid "Harvester can access metadata from this site"
+msgstr "Harvester może uzyskać dostęp do metadanych z tej strony"
